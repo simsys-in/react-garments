@@ -53,6 +53,19 @@ import AddLedger from './pages/masters/ledger/add'
 import ListLedger from './pages/masters/ledger/list'
 // import Datatable from './pages/Datatable';
 
+/// Product Group
+import AddProductGroup from './pages/masters/productgroup/add'
+import ListProductGroup from './pages/masters/productgroup/list'
+
+/// unit
+import AddUnit from './pages/masters/unit/add'
+import ListUnit from './pages/masters/unit/list'
+
+/// product
+import AddProduct from './pages/masters/product/add'
+import ListProduct from './pages/masters/product/list'
+
+
 const { Content } = Layout;
 class App extends React.PureComponent
 {
@@ -91,8 +104,7 @@ class App extends React.PureComponent
             <Content >
                     { this.props.store.login.login ? 
                     <div className="main-content">
-                      <Animated animationIn="fadeInUp" animationOut="fadeInDown" animationInDuration={400} animationOutDuration={400} isVisible={true}>
-                        <div className="main-container" >
+                      {/* <Animated animationIn="fadeInUp" animationOut="fadeInDown" animationInDuration={400} animationOutDuration={400} isVisible={true}> */}
                             <Switch >
 
 
@@ -108,11 +120,26 @@ class App extends React.PureComponent
                               <Route exact path="/masters/edit_ledger/:id" component={AddLedger} />
                               <Route exact path="/masters/list_ledger" component={ListLedger} />
 
+                              {/* Product Group Mas */}
+                              <Route exact path="/masters/add_product_group" component={AddProductGroup} />
+                              <Route exact path="/masters/edit_product_group/:id" component={AddProductGroup} />
+                              <Route exact path="/masters/list_product_group" component={ListProductGroup} />
+
+
+                               {/* Unit Mas */}
+                               <Route exact path="/masters/add_unit" component={AddUnit} />
+                              <Route exact path="/masters/edit_unit/:id" component={AddUnit} />
+                              <Route exact path="/masters/list_unit" component={ListUnit} />
+
+                              {/* Product Mas */}
+                              <Route exact path="/masters/add_product" component={AddProduct} />
+                              <Route exact path="/masters/edit_product/:id" component={AddProduct} />
+                              <Route exact path="/masters/list_product" component={ListProduct} />
+
+
                               <Redirect to="/" />
                             </Switch>
                         </div>
-                        </Animated>
-                      </div>
                     :
                         <Switch>
                           <Route exact path="/signup" component={Signup} />
@@ -132,6 +159,7 @@ class App extends React.PureComponent
               <Footerbar /> : null } */}
           </Layout>
         </Layout>
+
     )
   }
 }

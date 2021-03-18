@@ -6,7 +6,7 @@
   <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#52c41a" />
-  <meta name="description" content="Automate Your Gym And Focus on Business" />
+  <meta name="description" content="" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <!--
@@ -35,7 +35,10 @@
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
+  <!-- <div id="google_translate_element"></div> -->
   <div id="root"></div>
+  
+
   <script>
      if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
@@ -51,6 +54,12 @@
         console.log('Service Worker is not supported by browser.');
       }
   </script>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'ta', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL}, 'google_translate_element');
+}
+</script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

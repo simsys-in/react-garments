@@ -4,8 +4,7 @@ import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-de
 import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
-import DataTable from '../../../components/Datatable';
-// import DataTable  from '../components/Datatable'
+// import DataTable from '../../../components/Datatable/Datatable';
 
 class ListLedger extends PureComponent {
   constructor(props) {
@@ -14,9 +13,7 @@ class ListLedger extends PureComponent {
       columns: [
         {
           title: 'S.No',
-          label: 'S.No',
           dataIndex: 'sno',
-          field: 'sno',
           width: "300px",
           key: 'sno',
           defaultSortOrder: 'ascend',
@@ -24,9 +21,7 @@ class ListLedger extends PureComponent {
         },
         {
           title: 'Ledger',
-          label: 'Ledger',
           dataIndex: 'ledger',
-          field: 'ledger',
           width: "300px",
           key: 'ledger',
           defaultSortOrder: 'ascend',
@@ -34,9 +29,7 @@ class ListLedger extends PureComponent {
         },
         {
           title: 'Address',
-          label: 'Address',
           dataIndex: 'Address',
-          field: 'Address',
           width: "300px",
           key: 'Address',
           defaultSortOrder: 'ascend',
@@ -46,9 +39,7 @@ class ListLedger extends PureComponent {
         },
         {
           title: 'Mobile',
-          label: 'Mobile',
           dataIndex: 'mobile',
-          field: 'mobile',
           width: "300px",
           key: 'mobile',
           defaultSortOrder: 'ascend',
@@ -57,38 +48,30 @@ class ListLedger extends PureComponent {
         },
         {
           title: 'GST',
-          label: 'GST',
           dataIndex: 'gstno',
-          field: 'gstno',
           width: "300px",
           key: 'gstno',
           defaultSortOrder: 'ascend',
         },
         {
           title: 'Ledger Group',
-          label: 'Ledger Group',
           dataIndex: 'ledger_group',
-          field: 'ledger_group',
           width: "300px",
           key: 'ledger_group',
           defaultSortOrder: 'ascend',
         },
         {
           title: 'Ledger Category',
-          label: 'Ledger Category',
           dataIndex: 'ledger_category',
-          field: 'ledger_category',
           width: "300px",
           key: 'ledger_category',
           defaultSortOrder: 'ascend',
         },
         {
           title: 'Status',
-          label: 'Status',
           key: 'status',
           width: "250px",
           dataIndex: 'status',
-          field: 'status',
           defaultSortOrder: 'ascend',
           // render: status => (
           //   <>
@@ -100,7 +83,6 @@ class ListLedger extends PureComponent {
         },
         {
           title: 'Action',
-          label: 'Action',
           key: 'action',
           width: "250px",
           defaultSortOrder: 'ascend',
@@ -112,7 +94,7 @@ class ListLedger extends PureComponent {
           ),
         },
       ],
-      rows: [],
+      data: [],
       dataArrived: false
     }
   }
@@ -136,7 +118,6 @@ class ListLedger extends PureComponent {
     const name = user.name;
     Modal.confirm({
       title: 'Confirm',
-      label: 'Confirm',
       icon: <ExclamationCircleOutlined />,
       content: 'Are you sure want to delete ' + name + " ?",
       okText: 'Yes',
@@ -148,22 +129,21 @@ class ListLedger extends PureComponent {
   componentDidMount = () => {
     seo({
       title: 'List Ledger',
-      label: 'List Ledger',
       metaDescription: 'List Ledger'
     });
     getRequest('masters/ledger').then(data => {
       if (data.status === "success") {
-        // var newData = [];
-        // data.data.map(dt => {
-        //   var newArr = [];
-        //   Object.entries(dt).map(item => {
-        //     newArr.push(item[1]);
-        //   })
-        //   newData.push(newArr);
-        // })
+        var newData = [];
+        data.data.map(dt => {
+          var newArr = [];
+          Object.entries(dt).map(item => {
+            newArr.push(item[1]);
+          })
+          newData.push(newArr);
+        })
         this.setState({
           ...this.state,
-          rows: data.data,
+          data: newData,
         })
       }
     })
@@ -181,8 +161,8 @@ class ListLedger extends PureComponent {
           <br />
           <br />
         </div>
-        {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
-        <DataTable data={this.state}></DataTable>
+        <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} />
+        {/* <DataTable columns={this.state.columns} dataSource={this.state.data}></DataTable> */}
       </Fragment>
     )
   }
