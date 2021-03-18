@@ -15,7 +15,7 @@ class ListProductCategory extends PureComponent {
         {
           title: 'Product Category',
           dataIndex: 'product_category',
-          width: "300px",
+          width: "70vw",
           key: 'product_category',
           defaultSortOrder: 'ascend',
           render: (text, record) => <p>{text}</p>,
@@ -24,7 +24,7 @@ class ListProductCategory extends PureComponent {
         {
           title: 'Action',
           key: 'action',
-          width: "250px",
+          width: "30vw",
           defaultSortOrder: 'ascend',
           render: (text, record) => (
             <Space size="middle">

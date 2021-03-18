@@ -15,7 +15,7 @@ class ListLedgerCategory extends PureComponent {
         {
           title: 'Ledger Category',
           dataIndex: 'ledger_category',
-          width: "300px",
+          width: "70vw",
           key: 'ledger_category',
           defaultSortOrder: 'ascend',
           render: (text, record) => <p>{text}</p>,
@@ -24,7 +24,7 @@ class ListLedgerCategory extends PureComponent {
         {
           title: 'Action',
           key: 'action',
-          width: "250px",
+          width: "30vw",
           defaultSortOrder: 'ascend',
           render: (text, record) => (
             <Space size="middle">
@@ -93,7 +93,7 @@ class ListLedgerCategory extends PureComponent {
           <br />
           <br />
         </div>
-        <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} />
+        <Table className="table-scroll" style={{ width : '100%' }} columns={this.state.columns}  dataSource={this.state.data} />
         {/* <DataTable columns={this.state.columns} dataSource={this.state.data}></DataTable> */}
       </Fragment>
     )

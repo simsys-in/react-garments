@@ -14,7 +14,7 @@ class ListProductGroup extends PureComponent {
         {
           title: 'Product Group',
           dataIndex: 'product_group',
-          width: "300px",
+          width: "40vw",
           key: 'product_group',
           defaultSortOrder: 'ascend',
           // render: (text, record) => <p>{ 1 }</p>,
@@ -22,7 +22,7 @@ class ListProductGroup extends PureComponent {
         {
           title: 'Narration',
           dataIndex: 'narration',
-          width: "300px",
+          width: "30vw",
           key: 'narration',
           defaultSortOrder: 'ascend',
           render: (text, record) => <p>{text}</p>,
@@ -31,7 +31,7 @@ class ListProductGroup extends PureComponent {
         {
           title: 'Action',
           key: 'action',
-          width: "250px",
+          width: "30vw",
           defaultSortOrder: 'ascend',
           render: (text, record) => (
             <Space size="middle">

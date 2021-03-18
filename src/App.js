@@ -47,6 +47,10 @@ import Dashboard from './pages/Dashboard'
 import AddAddLess from './pages/masters/addless/add'
 import ListAddLess from './pages/masters/addless/list'
 
+/// Ledger
+import AddLedger from './pages/masters/ledger/add'
+import ListLedger from './pages/masters/ledger/list'
+
 import AddProductCategory from './pages/masters/product_category/add'
 import ListProductCategory from './pages/masters/product_category/list'
 
@@ -152,6 +156,11 @@ class App extends React.PureComponent
                               <Route exact path="/masters/add_product" component={AddProduct} />
                               <Route exact path="/masters/edit_product/:id" component={AddProduct} />
                               <Route exact path="/masters/list_product" component={ListProduct} />
+
+                              {/* Ledger */}
+                              <Route exact path="/masters/add_ledger" component={AddLedger} />
+                              <Route exact path="/masters/edit_ledger/:id" component={AddLedger} />
+                              <Route exact path="/masters/list_ledger" component={ListLedger} />
 
 
                               <Redirect to="/" />

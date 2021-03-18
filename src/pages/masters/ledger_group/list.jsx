@@ -15,7 +15,7 @@ class ListLedgerGroup extends PureComponent {
         {
           title: 'Ledger Group',
           dataIndex: 'ledger_group',
-          width: "300px",
+          width: "40vw",
           key: 'ledger_group',
           defaultSortOrder: 'ascend',
           render: (text, record) => <p>{text}</p>,
@@ -23,7 +23,7 @@ class ListLedgerGroup extends PureComponent {
         {
           title: 'drcr',
           dataIndex: 'drcr',
-          width: "300px",
+          width: "30vw",
           key: 'drcr',
           defaultSortOrder: 'ascend',
           render: (text, record) => <p>{text}</p>,
@@ -32,7 +32,7 @@ class ListLedgerGroup extends PureComponent {
         {
           title: 'Action',
           key: 'action',
-          width: "250px",
+          width: "30vw",
           defaultSortOrder: 'ascend',
           render: (text, record) => (
             <Space size="middle">

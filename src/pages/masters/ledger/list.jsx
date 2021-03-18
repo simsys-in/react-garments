@@ -4,7 +4,7 @@ import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-de
 import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
-import DataTable from '../../../components/Datatable/Datatable';
+import DataTable from '../../../components/Datatable';
 
 class ListLedger extends PureComponent {
   constructor(props) {
@@ -12,24 +12,24 @@ class ListLedger extends PureComponent {
     this.state = {
       columns: [
         {
-          title: 'S.No',
-          dataIndex: 'sno',
+          label: 'S.No',
+          field: 'sno',
           width: "300px",
           key: 'sno',
           defaultSortOrder: 'ascend',
           // render: (text, record) => <p>{ 1 }</p>,
         },
         {
-          title: 'Ledger',
-          dataIndex: 'ledger',
+          label: 'Ledger',
+          field: 'ledger',
           width: "300px",
           key: 'ledger',
           defaultSortOrder: 'ascend',
           render: (text, record) => <p>{text}</p>,
         },
         {
-          title: 'Address',
-          dataIndex: 'Address',
+          label: 'Address',
+          field: 'Address',
           width: "300px",
           key: 'Address',
           defaultSortOrder: 'ascend',
@@ -38,8 +38,8 @@ class ListLedger extends PureComponent {
 
         },
         {
-          title: 'Mobile',
-          dataIndex: 'mobile',
+          label: 'Mobile',
+          field: 'mobile',
           width: "300px",
           key: 'mobile',
           defaultSortOrder: 'ascend',
@@ -47,31 +47,31 @@ class ListLedger extends PureComponent {
           //   <p>{ text.toUpperCase() }</p>
         },
         {
-          title: 'GST',
-          dataIndex: 'gstno',
+          label: 'GST',
+          field: 'gstno',
           width: "300px",
           key: 'gstno',
           defaultSortOrder: 'ascend',
         },
         {
-          title: 'Ledger Group',
-          dataIndex: 'ledger_group',
+          label: 'Ledger Group',
+          field: 'ledger_group',
           width: "300px",
           key: 'ledger_group',
           defaultSortOrder: 'ascend',
         },
         {
-          title: 'Ledger Category',
-          dataIndex: 'ledger_category',
+          label: 'Ledger Category',
+          field: 'ledger_category',
           width: "300px",
           key: 'ledger_category',
           defaultSortOrder: 'ascend',
         },
         {
-          title: 'Status',
+          label: 'Status',
           key: 'status',
           width: "250px",
-          dataIndex: 'status',
+          field: 'status',
           defaultSortOrder: 'ascend',
           // render: status => (
           //   <>
@@ -82,8 +82,9 @@ class ListLedger extends PureComponent {
           // ),
         },
         {
-          title: 'Action',
+          label: 'Action',
           key: 'action',
+          field : 'action',
           width: "250px",
           defaultSortOrder: 'ascend',
           render: (text, record) => (
@@ -94,7 +95,7 @@ class ListLedger extends PureComponent {
           ),
         },
       ],
-      data: [],
+      rows: [],
       dataArrived: false
     }
   }
@@ -115,7 +116,7 @@ class ListLedger extends PureComponent {
   deleteLedger = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.name;
+    const name = user.ledger;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
@@ -134,16 +135,21 @@ class ListLedger extends PureComponent {
     getRequest('masters/ledger').then(data => {
       if (data.status === "success") {
         var newData = [];
-        data.data.map(dt => {
-          var newArr = [];
-          Object.entries(dt).map(item => {
-            newArr.push(item[1]);
+
+          data.data.map(item => {
+            item.action =  <Space size="middle">
+              <Button type="primary" onClick={() => this.editLedger(item.id)} icon={<EditOutlined />} size="middle" />
+              <Button type="default" color="error" danger onClick={() => this.deleteLedger(item)} icon={<DeleteOutlined />} size="middle" />
+            </Space>
+            item.status =  <Tag color={ item.status === "inactive" ? "error" : "green" } key={item.status}>
+               { item.status ? item.status.toUpperCase() : "Active"}
+              </Tag>
+            newData.push(item);
           })
-          newData.push(newArr);
-        })
+
         this.setState({
           ...this.state,
-          data: newData,
+          rows: newData,
         })
       }
     })
@@ -162,7 +168,7 @@ class ListLedger extends PureComponent {
           <br />
         </div>
         {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
-        <DataTable columns={this.state.columns} dataSource={this.state.data}></DataTable>
+        <DataTable data={this.state}></DataTable>
       </Fragment>
     )
   }

@@ -14,7 +14,7 @@ class ListUnit extends PureComponent {
         {
           title: 'Unit',
           dataIndex: 'unit',
-          width: "300px",
+          width: "25vw",
           key: 'unit',
           defaultSortOrder: 'ascend',
           // render: (text, record) => <p>{ 1 }</p>,
@@ -22,7 +22,7 @@ class ListUnit extends PureComponent {
         {
             title: 'Decimal Digit',
             dataIndex: 'decimal_digit',
-            width: "300px",
+            width: "25vw",
             key: 'decimal_digit',
             defaultSortOrder: 'ascend',
             render: (text, record) => <p>{text}</p>,
@@ -30,7 +30,7 @@ class ListUnit extends PureComponent {
         {
           title: 'Narration',
           dataIndex: 'narration',
-          width: "300px",
+          width: "25vw",
           key: 'narration',
           defaultSortOrder: 'ascend',
           render: (text, record) => <p>{text}</p>,
@@ -39,7 +39,7 @@ class ListUnit extends PureComponent {
         {
           title: 'Action',
           key: 'action',
-          width: "250px",
+          width: "25vw",
           defaultSortOrder: 'ascend',
           render: (text, record) => (
             <Space size="middle">
