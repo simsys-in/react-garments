@@ -43,15 +43,20 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 
 
-/// Add Less
+/// Designation
 import AddAddLess from './pages/masters/addless/add'
 import ListAddLess from './pages/masters/addless/list'
 
+import AddProductCategory from './pages/masters/product_category/add'
+import ListProductCategory from './pages/masters/product_category/list'
 
-/// Ledger
-import AddLedger from './pages/masters/ledger/add'
-import ListLedger from './pages/masters/ledger/list'
-// import Datatable from './pages/Datatable';
+import AddLedgerGroup from './pages/masters/ledger_group/add'
+import ListLedgerGroup from './pages/masters/ledger_group/list'
+
+
+import AddLedgerCategory from './pages/masters/ledger_category/add'
+import ListLedgerCategory from './pages/masters/ledger_category/list'
+
 
 const { Content } = Layout;
 class App extends React.PureComponent
@@ -95,18 +100,30 @@ class App extends React.PureComponent
                         <div className="main-container" >
                             <Switch >
 
-
                               <Route exact path="/" component={Dashboard} />
+
 
                               {/* AddLess Mas */}
                               <Route exact path="/masters/add_addless" component={AddAddLess} />
                               <Route exact path="/masters/edit_addless/:id" component={AddAddLess} />
                               <Route exact path="/masters/list_addless" component={ListAddLess} />
 
-                              {/* Ledger Mas */}
-                              <Route exact path="/masters/add_ledger" component={AddLedger} />
-                              <Route exact path="/masters/edit_ledger/:id" component={AddLedger} />
-                              <Route exact path="/masters/list_ledger" component={ListLedger} />
+
+
+                              <Route exact path="/masters/add_product_category" component={AddProductCategory} />
+                              <Route exact path="/masters/edit_product_category/:id" component={AddProductCategory} />
+                              <Route exact path="/masters/list_product_category" component={ListProductCategory} />
+
+
+                              <Route exact path="/masters/add_ledger_group" component={AddLedgerGroup} />
+                              <Route exact path="/masters/edit_ledger_group/:id" component={AddLedgerGroup} />
+                              <Route exact path="/masters/list_ledger_group" component={ListLedgerGroup} />
+
+
+
+                              <Route exact path="/masters/add_ledger_category" component={AddLedgerCategory} />
+                              <Route exact path="/masters/edit_ledger_category/:id" component={AddLedgerCategory} />
+                              <Route exact path="/masters/list_ledger_category" component={ListLedgerCategory} />
 
                               <Redirect to="/" />
                             </Switch>
@@ -117,7 +134,6 @@ class App extends React.PureComponent
                         <Switch>
                           <Route exact path="/signup" component={Signup} />
                           <Route exact path="/" component={Login} />
-                          {/* <Route exact path="/table" component={Datatable} /> */}
 
                           <Redirect to="/" />
                         </Switch>
@@ -144,4 +160,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(withRouter(App));
+export default connect(mapStateToProps)(withRouter(App))
