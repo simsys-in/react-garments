@@ -2,62 +2,15 @@ import React, { PureComponent, Fragment } from 'react';
 import { Form, Button, Divider  } from 'antd';
 import { connect } from 'react-redux';
 import { seo } from '../../../helpers/default';
-import { getRequest, postRequest, putRequest } from '../../../helpers/apihelper';
+import { getRequest, putRequest } from '../../../helpers/apihelper';
 import { withRouter } from 'react-router';
 import moment from 'moment';
 import Textbox from '../../../components/Inputs/Textbox';
 import Selectbox from '../../../components/Inputs/Selectbox';
 import Numberbox from '../../../components/Inputs/Numberbox';
-import Address_Template from '../../../components/Templates/Address_Template';
 
 
 let interval;
-
-const calculateTypes = [
-    {
-        name : "Flat Amount",
-        value : 'flat'
-    },
-    {
-        name : "Percentage",
-        value : 'percent'
-    },
-]
-
-const types = [
-    {
-        name : "Add",
-        value : 'add'
-    },
-    {
-        name : "Less",
-        value : 'less'
-    },
-]
-
-const formulae = [
-    {
-        name : "IGST",
-        value : 'igst'
-    },
-    {
-        name : "SGST",
-        value : 'sgst'
-    },
-    {
-        name : "CGST",
-        value : 'cgst'
-    },
-    {
-        name : "Round Off",
-        value : 'roundoff'
-    },
-    {
-        name : "Discount",
-        value : 'discount'
-    }
-]
-
 class AddProduct extends PureComponent{
     formRef = React.createRef();
     constructor(props){
@@ -67,7 +20,15 @@ class AddProduct extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active'
+                status : 'active',
+                sales_price : [
+                    {
+                        price_group : '',
+                        sales_rate : '',
+                        percentage : '',
+                        mrp : ''
+                    }
+                ]
             },
             unit_data : [],
             product_group_data : [],
@@ -202,7 +163,41 @@ class AddProduct extends PureComponent{
         })
     };
 
-    
+    addSalesPrice = () => {
+        var newSalesPrice = {
+            price_group : '',
+            sales_rate : '',
+            percentage : '',
+            mrp : '',
+        }
+
+        var oldSalesPriceArray = this.state.formData.sales_price;
+
+        oldSalesPriceArray.push(newSalesPrice);
+
+        this.setState({
+            ...this.state,
+            formData : {
+                ...this.state.formData,
+                sales_price : oldSalesPriceArray
+            }
+        })
+    }
+
+
+    removeSalesPrice = (index) => {
+        var oldSalesPriceArray = this.state.formData.sales_price;
+
+        oldSalesPriceArray.splice(index, 1);
+        
+        this.setState({
+            ...this.state,
+            formData : {
+                ...this.state.formData,
+                sales_price : oldSalesPriceArray
+            }
+        })
+    }
 
 
     render(){
@@ -284,6 +279,39 @@ class AddProduct extends PureComponent{
                                  <Textbox label="Sales Amt incl Tex" modelName="sales_rate_incltex" required="false" className="col-md-6"></Textbox>
                             </div>
 
+                         </div>
+                         <div className="row">
+                             <div className="col-md-12">
+                                <Divider plain orientation="left">Sales Price</Divider>
+                                
+                                <Form.List name="sales_price">
+                                    { (fields, { add, remove } )=> (
+                                        fields.map((field, index) => (
+                                                <div className="row">
+                                                    <Selectbox className="col-md-3" field={field} fieldKey={[ field.fieldKey, 'price_group' ]} modelName={[field.name, 'price_group']} value={field.price_group} options={[]} label="Sales Price"></Selectbox>
+
+
+                                                    <Numberbox className="col-md-3" label="Sales Rate" min={0} field={field} fieldKey={[ field.fieldKey, 'sales_rate' ]} modelName={[field.name, 'sales_rate']} value={field.sales_rate} ></Numberbox>
+
+
+                                                    <Numberbox className="col-md-2" label="Percentage" min={0} max={100} field={field} fieldKey={[ field.fieldKey, 'percentage' ]} modelName={[field.name, 'percentage']} value={field.percentage} ></Numberbox>
+
+
+                                                    <Numberbox className="col-md-2" label="MRP" min={0} field={field} fieldKey={[ field.fieldKey, 'mrp' ]} modelName={[field.name, 'mrp']} value={field.mrp} ></Numberbox>
+
+
+                                                    <div className="col-md-2">
+                                                        { index === 0  && <Button onClick={this.addSalesPrice} style={{ marginLeft : 10 }}>+</Button> }
+                                                        { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeSalesPrice(index)} type="primary">-</Button>}
+                                                    </div>
+                                                </div>
+                                            )
+                                            
+                                        )
+                                    ) }
+                                </Form.List>
+                                </div>
+                             {/* <div className="col-md-6"></div> */}
                          </div>
 
 

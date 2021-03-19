@@ -114,6 +114,7 @@ class App extends React.PureComponent
                     { this.props.store.login.login ? 
                     <div className="main-content">
                       {/* <Animated animationIn="fadeInUp" animationOut="fadeInDown" animationInDuration={400} animationOutDuration={400} isVisible={true}> */}
+                    <div className="main-container">
                             <Switch >
 
                               <Route exact path="/" component={Dashboard} />
@@ -166,6 +167,7 @@ class App extends React.PureComponent
                               <Redirect to="/" />
                             </Switch>
                         </div>
+                    </div>
                     :
                         <Switch>
                           <Route exact path="/signup" component={Signup} />
