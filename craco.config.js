@@ -6,13 +6,13 @@ module.exports = {
         options: {
             lessLoaderOptions: {
                 lessOptions: {
-                    modifyVars: {
-                        // '@primary-color': '#1DA57A',
-                        // '@border-color-base' : '#1DA57A'
-                    },
                     javascriptEnabled: true,
                 },
             },
+            // cssLoaderOptions: {
+            //     modules: { localIdentName: "[local]_[hash:base64:5]" }
+            //   }
         },
+        modules : true
     }, ],
 };
