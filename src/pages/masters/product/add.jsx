@@ -60,7 +60,7 @@ class AddProduct extends PureComponent{
             {
                 this.setState({
                     ...this.state,
-                    unit_data : data.data
+                    product_group_data : data.data
                 })
             }
         })
@@ -72,7 +72,7 @@ class AddProduct extends PureComponent{
             {
                 this.setState({
                     ...this.state,
-                    unit_data : data.data
+                    product_category_data : data.data
                 })
             }
         })
