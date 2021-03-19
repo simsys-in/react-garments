@@ -4,7 +4,7 @@ import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-de
 import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
-// import DataTable from '../../../components/Datatable/Datatable';
+import DataTable from '../../../components/Datatable';
 
 class ListProduct extends PureComponent {
   constructor(props) {
@@ -12,24 +12,32 @@ class ListProduct extends PureComponent {
     this.state = {
       columns: [
         {
-          title: 'Product Group',
-          dataIndex: 'product_group_id',
+          label: 'S.No',
+          field: 'sno',
+          width: "300px",
+          key: 'sno',
+          defaultSortOrder: 'ascend',
+          // render: (text, record) => <p>{ 1 }</p>,
+        },
+        {
+          label: 'Product Group',
+          field: 'product_group_id',
           width: "300px",
           key: 'product_group_id',
           defaultSortOrder: 'ascend',
           // render: (text, record) => <p>{ 1 }</p>,
         },
         {
-          title: 'Product Category',
-          dataIndex: 'product_category_id',
+          label: 'Product Category',
+          field: 'product_category_id',
           width: "300px",
           key: 'product_category_id',
           defaultSortOrder: 'ascend',
           render: (text, record) => <p>{text}</p>,
         },
         {
-          title: 'Product',
-          dataIndex: 'product',
+          label: 'Product',
+          field: 'product',
           width: "300px",
           key: 'product',
           defaultSortOrder: 'ascend',
@@ -38,8 +46,8 @@ class ListProduct extends PureComponent {
 
         },
         {
-          title: 'Unit',
-          dataIndex: 'unit_id',
+          label: 'Unit',
+          field: 'unit_id',
           width: "300px",
           key: 'unit_id',
           defaultSortOrder: 'ascend',
@@ -47,31 +55,31 @@ class ListProduct extends PureComponent {
           //   <p>{ text.toUpperCase() }</p>
         },
         {
-          title: 'QR Code',
-          dataIndex: 'qrcode',
+          label: 'QR Code',
+          field: 'qrcode',
           width: "300px",
           key: 'qrcode',
           defaultSortOrder: 'ascend',
         },
         {
-          title: 'Narration',
-          dataIndex: 'narration',
+          label: 'Narration',
+          field: 'narration',
           width: "300px",
           key: 'narration',
           defaultSortOrder: 'ascend',
         },
         {
-          title: 'Pur Rate',
-          dataIndex: 'purchase_rate',
+          label: 'Pur Rate',
+          field: 'purchase_rate',
           width: "300px",
           key: 'purchase_rate',
           defaultSortOrder: 'ascend',
         },
         {
-          title: 'Sale Rate',
+          label: 'Sale Rate',
           key: 'sale_rate',
           width: "250px",
-          dataIndex: 'sale_rate',
+          field: 'sale_rate',
           defaultSortOrder: 'ascend',
           // render: status => (
           //   <>
@@ -82,127 +90,128 @@ class ListProduct extends PureComponent {
           // ),
         },
         {
-            title: 'Quantity',
-            dataIndex: 'qty',
+            label: 'Quantity',
+            field: 'qty',
             width: "300px",
             key: 'qty',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'Pur Rate Last',
-            dataIndex: 'purchase_rate_last',
+            label: 'Pur Rate Last',
+            field: 'purchase_rate_last',
             width: "300px",
             key: 'purchase_rate_last',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'Min Stock Qty',
-            dataIndex: 'purchase_rate',
+            label: 'Min Stock Qty',
+            field: 'purchase_rate',
             width: "300px",
             key: 'purchase_rate',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'HSN/SAC',
-            dataIndex: 'hsnsac',
+            label: 'HSN/SAC',
+            field: 'hsnsac',
             width: "300px",
             key: 'hsnsac',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'GST %',
-            dataIndex: 'gst',
+            label: 'GST %',
+            field: 'gst',
             width: "300px",
             key: 'gst',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'SGST %',
-            dataIndex: 'sgst',
+            label: 'SGST %',
+            field: 'sgst',
             width: "300px",
             key: 'sgst',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'CGST %',
-            dataIndex: 'cgst',
+            label: 'CGST %',
+            field: 'cgst',
             width: "300px",
             key: 'cgst',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'Sts',
-            dataIndex: 'sts',
+            label: 'Sts',
+            field: 'sts',
             width: "300px",
             key: 'sts',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'Unit2',
-            dataIndex: 'unit2_id',
+            label: 'Unit2',
+            field: 'unit2_id',
             width: "300px",
             key: 'unit2_id',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'Unit2 Convert',
-            dataIndex: 'unit2_convert',
+            label: 'Unit2 Convert',
+            field: 'unit2_convert',
             width: "300px",
             key: 'unit2_convert',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'Clo Qty',
-            dataIndex: 'clo_qty',
+            label: 'Clo Qty',
+            field: 'clo_qty',
             width: "300px",
             key: 'clo_qty',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'Status',
-            dataIndex: 'status_id',
+            label: 'Status',
+            field: 'status_id',
             width: "300px",
             key: 'status_id',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'Pur Amt incl Tex',
-            dataIndex: 'purchase_rate_incltax',
+            label: 'Pur Amt incl Tex',
+            field: 'purchase_rate_incltax',
             width: "300px",
             key: 'purchase_rate_incltax',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'Sales Amt incl Tex',
-            dataIndex: 'sales_rate_incltax',
+            label: 'Sales Amt incl Tex',
+            field: 'sales_rate_incltax',
             width: "300px",
             key: 'sales_rate_incltax',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'Pur Amount',
-            dataIndex: 'purchase_amount',
+            label: 'Pur Amount',
+            field: 'purchase_amount',
             width: "300px",
             key: 'purchase_amount',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'Sales Amount',
-            dataIndex: 'sales_amount',
+            label: 'Sales Amount',
+            field: 'sales_amount',
             width: "300px",
             key: 'sales_amount',
             defaultSortOrder: 'ascend',
           },
           {
-            title: 'Alias',
-            dataIndex: 'alias',
+            label: 'Alias',
+            field: 'alias',
             width: "300px",
             key: 'alias',
             defaultSortOrder: 'ascend',
           },
         
         {
-          title: 'Action',
+          label: 'Action',
+          field: 'action',
           key: 'action',
           width: "250px",
           defaultSortOrder: 'ascend',
@@ -214,7 +223,7 @@ class ListProduct extends PureComponent {
           ),
         },
       ],
-      data: [],
+      rows: [],
       dataArrived: false
     }
   }
@@ -254,16 +263,25 @@ class ListProduct extends PureComponent {
     getRequest('masters/product').then(data => {
       if (data.status === "success") {
         var newData = [];
-        data.data.map(dt => {
-          var newArr = [];
-          Object.entries(dt).map(item => {
-            newArr.push(item[1]);
-          })
-          newData.push(newArr);
+        // data.data.map(dt => {
+        //   var newArr = [];
+        //   Object.entries(dt).map(item => {
+        //     newArr.push(item[1]);
+        //   })
+        //   newData.push(newArr);
+        // })
+        data.data.map((item, index) =>{
+          item.sno = index +1;
+          item.action =   <Space size="middle">
+          <Button type="primary" onClick={() => this.editProduct(item.id)} icon={<EditOutlined />} size="middle" />
+          <Button type="default" color="error" danger onClick={() => this.deleteProduct(item)} icon={<DeleteOutlined />} size="middle" />
+        </Space>
+
+        newData.push(item)
         })
         this.setState({
           ...this.state,
-          data: newData,
+          rows: newData,
         })
       }
     })
@@ -281,8 +299,8 @@ class ListProduct extends PureComponent {
           <br />
           <br />
         </div>
-        <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} />
-        {/* <DataTable columns={this.state.columns} dataSource={this.state.data}></DataTable> */}
+        {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
+        <DataTable data={this.state} ></DataTable>
       </Fragment>
     )
   }

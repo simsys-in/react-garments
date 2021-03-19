@@ -4,7 +4,8 @@ import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-de
 import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
-// import DataTable from '../../../components/Datatable/Datatable';
+import DataTable from '../../../components/Datatable';
+import Item from 'antd/lib/list/Item';
 
 class ListUnit extends PureComponent {
   constructor(props) {
@@ -12,24 +13,32 @@ class ListUnit extends PureComponent {
     this.state = {
       columns: [
         {
-          title: 'Unit',
-          dataIndex: 'unit',
-          width: "25vw",
+          label: 'S.No',
+          field: 'sno',
+          width: "10vw",
+          key: 'sno',
+          defaultSortOrder: 'ascend',
+          // render: (text, record) => <p>{ 1 }</p>,
+        },
+        {
+          label: 'Unit',
+          field: 'unit',
+          width: "15vw",
           key: 'unit',
           defaultSortOrder: 'ascend',
           // render: (text, record) => <p>{ 1 }</p>,
         },
         {
-            title: 'Decimal Digit',
-            dataIndex: 'decimal_digit',
+            label: 'Decimal Digit',
+            field: 'decimal_digit',
             width: "25vw",
             key: 'decimal_digit',
             defaultSortOrder: 'ascend',
             render: (text, record) => <p>{text}</p>,
           },
         {
-          title: 'Narration',
-          dataIndex: 'narration',
+          label: 'Narration',
+          field: 'narration',
           width: "25vw",
           key: 'narration',
           defaultSortOrder: 'ascend',
@@ -37,7 +46,8 @@ class ListUnit extends PureComponent {
         },
        
         {
-          title: 'Action',
+          label: 'Action',
+          field: 'action',
           key: 'action',
           width: "25vw",
           defaultSortOrder: 'ascend',
@@ -49,7 +59,7 @@ class ListUnit extends PureComponent {
           ),
         },
       ],
-      data: [],
+      rows: [],
       dataArrived: false
     }
   }
@@ -96,9 +106,18 @@ class ListUnit extends PureComponent {
         //   })
         //   newData.push(newArr);
         // })
+        data.data.map((item,index)=>{
+        item.sno = index +1;
+        item.action =  <Space size="middle">
+        <Button type="primary" onClick={() => this.editUnit(item.id)} icon={<EditOutlined />} size="middle" />
+        <Button type="default" color="error" danger onClick={() => this.deleteUnit(item)} icon={<DeleteOutlined />} size="middle" />
+      </Space>
+      newData.push(item)
+
+       })
         this.setState({
           ...this.state,
-          data: data.data,
+          rows: newData,
         })
       }
     })
@@ -116,8 +135,8 @@ class ListUnit extends PureComponent {
           <br />
           <br />
         </div>
-        <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} />
-        {/* <DataTable columns={this.state.columns} dataSource={this.state.data}></DataTable> */}
+        {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
+        <DataTable data={this.state} ></DataTable>
       </Fragment>
     )
   }

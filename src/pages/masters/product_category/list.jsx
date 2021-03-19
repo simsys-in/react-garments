@@ -4,7 +4,7 @@ import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-de
 import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
-// import DataTable from '../../../components/Datatable/Datatable';
+import DataTable from '../../../components/Datatable';
 
 class ListProductCategory extends PureComponent {
   constructor(props) {
@@ -13,17 +13,26 @@ class ListProductCategory extends PureComponent {
       columns: [
       
         {
-          title: 'Product Category',
-          dataIndex: 'product_category',
-          width: "70vw",
+          label: 'S.No',
+          field: 'sno',
+          width: "10vw",
+          key: 'sno',
+          defaultSortOrder: 'ascend',
+          render: (text, record) => <p>{text}</p>,
+        },
+        {
+          label: 'Product Category',
+          field: 'product_category',
+          width: "60vw",
           key: 'product_category',
           defaultSortOrder: 'ascend',
           render: (text, record) => <p>{text}</p>,
         },
        
         {
-          title: 'Action',
+          label: 'Action',
           key: 'action',
+          field: 'action',
           width: "30vw",
           defaultSortOrder: 'ascend',
           render: (text, record) => (
@@ -34,7 +43,7 @@ class ListProductCategory extends PureComponent {
           ),
         },
       ],
-      data: [],
+      rows: [],
       dataArrived: false
     }
   }
@@ -73,9 +82,20 @@ class ListProductCategory extends PureComponent {
     });
     getRequest('masters/product_category').then(data => {
       if (data.status === "success") {
+        var newData = [];
+        data.data.map((item, index) =>{
+          item.sno = index +1;
+          item.action = <Space size="middle">
+          <Button type="primary" onClick={() => this.editProduct_Category(item.id)} icon={<EditOutlined />} size="middle" />
+          <Button type="default" color="error" danger onClick={() => this.deleteProduct_Category(item)} icon={<DeleteOutlined />} size="middle" />
+        </Space>
+
+        newData.push(item)
+        })
+        
         this.setState({
           ...this.state,
-          data: data.data,
+          rows: newData,
         })
       }
     })
@@ -93,8 +113,8 @@ class ListProductCategory extends PureComponent {
           <br />
           <br />
         </div>
-        <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} />
-        {/* <DataTable columns={this.state.columns} dataSource={this.state.data}></DataTable> */}
+        {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
+        <DataTable data={this.state} ></DataTable>
       </Fragment>
     )
   }

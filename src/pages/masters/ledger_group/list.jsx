@@ -4,7 +4,7 @@ import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-de
 import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
-// import DataTable from '../../../components/Datatable/Datatable';
+import DataTable from '../../../components/Datatable';
 
 class ListLedgerGroup extends PureComponent {
   constructor(props) {
@@ -13,16 +13,24 @@ class ListLedgerGroup extends PureComponent {
       columns: [
       
         {
-          title: 'Ledger Group',
-          dataIndex: 'ledger_group',
-          width: "40vw",
+          label: 'S.no',
+          field: 'sno',
+          width: "10vw",
+          key: 'sno',
+          defaultSortOrder: 'ascend',
+          render: (text, record) => <p>{text}</p>,
+        },
+        {
+          label: 'Ledger Group',
+          field: 'ledger_group',
+          width: "30vw",
           key: 'ledger_group',
           defaultSortOrder: 'ascend',
           render: (text, record) => <p>{text}</p>,
         },
         {
-          title: 'drcr',
-          dataIndex: 'drcr',
+          label: 'drcr',
+          field: 'drcr',
           width: "30vw",
           key: 'drcr',
           defaultSortOrder: 'ascend',
@@ -30,8 +38,9 @@ class ListLedgerGroup extends PureComponent {
         },
        
         {
-          title: 'Action',
+          label: 'Action',
           key: 'action',
+          field: 'action',
           width: "30vw",
           defaultSortOrder: 'ascend',
           render: (text, record) => (
@@ -42,7 +51,7 @@ class ListLedgerGroup extends PureComponent {
           ),
         },
       ],
-      data: [],
+      rows: [],
       dataArrived: false
     }
   }
@@ -81,9 +90,21 @@ class ListLedgerGroup extends PureComponent {
     });
     getRequest('masters/ledger_group').then(data => {
       if (data.status === "success") {
+        var newData = [];
+        data.data.map((item, index) =>{
+          item.sno = index +1;
+          item.action =  <Space size="middle">
+          <Button type="primary" onClick={() => this.editLedger_Group(item.id)} icon={<EditOutlined />} size="middle" />
+          <Button type="default" color="error" danger onClick={() => this.deleteLedger_Group(item)} icon={<DeleteOutlined />} size="middle" />
+        </Space>
+
+        newData.push(item)
+        })
+
+
         this.setState({
           ...this.state,
-          data: data.data,
+          rows: newData,
         })
       }
     })
@@ -101,8 +122,8 @@ class ListLedgerGroup extends PureComponent {
           <br />
           <br />
         </div>
-        <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} />
-        {/* <DataTable columns={this.state.columns} dataSource={this.state.data}></DataTable> */}
+        {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
+        <DataTable data={this.state} ></DataTable>
       </Fragment>
     )
   }

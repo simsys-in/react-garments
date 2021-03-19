@@ -4,7 +4,7 @@ import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-de
 import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
-// import DataTable from '../../../components/Datatable/Datatable';
+import DataTable from '../../../components/Datatable';
 
 class ListProductGroup extends PureComponent {
   constructor(props) {
@@ -12,16 +12,24 @@ class ListProductGroup extends PureComponent {
     this.state = {
       columns: [
         {
-          title: 'Product Group',
-          dataIndex: 'product_group',
-          width: "40vw",
+          label: 'S.No',
+          field: 'sno',
+          width: "10vw",
+          key: 'sno',
+          defaultSortOrder: 'ascend',
+          // render: (text, record) => <p>{ 1 }</p>,
+        },
+        {
+          label: 'Product Group',
+          field: 'product_group',
+          width: "30vw",
           key: 'product_group',
           defaultSortOrder: 'ascend',
           // render: (text, record) => <p>{ 1 }</p>,
         },
         {
-          title: 'Narration',
-          dataIndex: 'narration',
+          label: 'Narration',
+          field: 'narration',
           width: "30vw",
           key: 'narration',
           defaultSortOrder: 'ascend',
@@ -29,7 +37,8 @@ class ListProductGroup extends PureComponent {
         },
        
         {
-          title: 'Action',
+          label: 'Action',
+          field: 'action',
           key: 'action',
           width: "30vw",
           defaultSortOrder: 'ascend',
@@ -41,7 +50,7 @@ class ListProductGroup extends PureComponent {
           ),
         },
       ],
-      data: [],
+      rows: [],
       dataArrived: false
     }
   }
@@ -81,16 +90,19 @@ class ListProductGroup extends PureComponent {
     getRequest('masters/product_group').then(data => {
       if (data.status === "success") {
         var newData = [];
-        // data.data.map(dt => {
-        //   var newArr = [];
-        //   Object.entries(dt).map(item => {
-        //     newArr.push(item[1]);
-        //   })
-        //   newData.push(newArr);
-        // })
+        data.data.map((item, index) =>{
+          item.sno = index +1;
+          item.action =   <Space size="middle">
+          <Button type="primary" onClick={() => this.editProductGroup(item.id)} icon={<EditOutlined />} size="middle" />
+          <Button type="default" color="error" danger onClick={() => this.deleteProductGroup(item)} icon={<DeleteOutlined />} size="middle" />
+        </Space>
+
+        newData.push(item)
+        })
+      
         this.setState({
           ...this.state,
-          data: data.data,
+          rows: newData,
         })
       }
     })
@@ -108,8 +120,8 @@ class ListProductGroup extends PureComponent {
           <br />
           <br />
         </div>
-        <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} />
-        {/* <DataTable columns={this.state.columns} dataSource={this.state.data}></DataTable> */}
+        {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
+        <DataTable data={this.state} ></DataTable>
       </Fragment>
     )
   }
