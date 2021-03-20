@@ -26,7 +26,10 @@ class AddProduct extends PureComponent{
                         price_group : '',
                         sales_rate : '',
                         percentage : '',
-                        mrp : ''
+                        mrp : '',
+                        sgst : '',
+                        cgst : '',
+                        gst : 0,
                     }
                 ],
             
@@ -228,6 +231,22 @@ class AddProduct extends PureComponent{
         })
     }
 
+    setGST = (ev) => {
+        this.setState({
+            ...this.state,
+            formData : {
+                ...this.state.formData,
+                gst : Number(this.state.formData.cgst) + Number(this.state.formData.sgst)
+            }
+        }, () => {
+            var data = this.formRef.current.getFieldValue();
+            var gst = Number(data.cgst) + Number(data.sgst)
+            this.formRef.current.setFieldsValue({
+                gst : gst
+            });
+        })
+    }
+
 
     removeStockDetails = (index) => {
         var oldStockDetailsArray = this.state.formData.stock_details;
@@ -295,14 +314,14 @@ class AddProduct extends PureComponent{
                         <div className="col-md-6">
                             <Divider plain orientation="left" >Statury Info</Divider>
                             <div className="row">
-                            <Numberbox label="CGST %" className="col-md-6" max={ 100 } min={0} modelName="cgst"></Numberbox>
-                            <Numberbox label="SGST %" className="col-md-6" max={ 100} min={0} modelName="sgst"></Numberbox>
+                            <Numberbox label="CGST %" className="col-md-6" max={ 100 } min={0} onChange={ this.setGST } modelName="cgst"></Numberbox>
+                            <Numberbox label="SGST %" className="col-md-6" max={ 100} min={0} onChange={ this.setGST } modelName="sgst"></Numberbox>
                             
                             </div>
 
                             <div className="row">
-                                <Numberbox label="GST %" className="col-md-6" max={ 100} min={0} modelName="gst"></Numberbox>
-                                <Textbox required="false" className="col-md-6" label="HSN/SAC" modelName="rule" ></Textbox>
+                                <Numberbox label="GST %" className="col-md-6" max={100} disabled min={0} modelName="gst"></Numberbox>
+                                <Textbox required="false" className="col-md-6" label="HSN/SAC" modelName="hsnsac" ></Textbox>
                             </div>
 
                          </div>
@@ -310,7 +329,8 @@ class AddProduct extends PureComponent{
                     </div>
 
                     
-                    <div className="col-md-6">
+                    <div className="row">
+                        <div className="col-md-6">
                             <Divider plain orientation="left" >Price Details</Divider>
                             <div className="row">
                                 <Textbox label="Pur Amount" modelName="purchase_amount" required="false" className="col-md-6"></Textbox>
@@ -321,8 +341,8 @@ class AddProduct extends PureComponent{
                                 <Textbox label="Sales Amount" modelName="sales_amount" required="false" className="col-md-6"></Textbox>
                                  <Textbox label="Sales Amt incl Tex" modelName="sales_rate_incltex" required="false" className="col-md-6"></Textbox>
                             </div>
-
-                         </div>
+                        </div>
+                    </div>
                          <div className="row">
                              <div className="col-md-12">
                                 <Divider plain orientation="left">Sales Price</Divider>
@@ -331,7 +351,7 @@ class AddProduct extends PureComponent{
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
                                                 <div className="row">
-                                                    <Selectbox className="col-md-3" field={field} fieldKey={[ field.fieldKey, 'price_group' ]} modelName={[field.name, 'price_group']} value={field.price_group} options={[]} label="Sales Price"></Selectbox>
+                                                    <Selectbox className="col-md-3" field={field} fieldKey={[ field.fieldKey, 'price_group' ]} modelName={[field.name, 'price_group']} value={field.price_group} options={this.state.product_category_data} label="Sales Price"></Selectbox>
 
 
                                                     <Numberbox className="col-md-3" label="Sales Rate" min={0} field={field} fieldKey={[ field.fieldKey, 'sales_rate' ]} modelName={[field.name, 'sales_rate']} value={field.sales_rate} ></Numberbox>
@@ -363,9 +383,8 @@ class AddProduct extends PureComponent{
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
                                                 <div className="row">
-                                                    <Selectbox className="col-md-5" field={field} fieldKey={[ field.fieldKey, 'stock_details' ]} modelName={[field.name, 'stock_details']} value={field.stock_details} options={[]} label="Stock Details"></Selectbox>
-                                                    <Selectbox className="col-md-5" field={field} fieldKey={[ field.fieldKey, 'stock_details' ]} modelName={[field.name, 'stock_details']} value={field.stock_details} options={[]} label="Stock Details"></Selectbox>
-                                              
+                                                    <Selectbox className="col-md-5" field={field} fieldKey={[ field.fieldKey, 'godown' ]} modelName={[field.name, 'godown']} value={field.godown} options={this.state.product_category_data} label="Godown"></Selectbox>
+                                                    <Numberbox className="col-md-5" field={field} fieldKey={[ field.fieldKey, 'qty' ]} modelName={[field.name, 'qty']} value={field.qty} label="Qty"></Numberbox>
                                                         <div className="col-md-2">
                                                         { index === 0  && <Button onClick={this.addStockDetails} style={{ marginLeft : 10 }}>+</Button> }
                                                         { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeStockDetails(index)} type="primary">-</Button>}
