@@ -65,6 +65,9 @@ import ListProcess from './pages/masters/process/list'
 import AddSize from './pages/masters/size/add'
 import ListSize from './pages/masters/size/list'
 
+import AddMaster from './pages/masters/master/add'
+import ListMaster from './pages/masters/master/list'
+
 
 /// Product Group
 import AddProductGroup from './pages/masters/productgroup/add'
@@ -155,6 +158,10 @@ class App extends React.PureComponent
                               <Route exact path="/masters/add_size" component={AddSize} />
                               <Route exact path="/masters/edit_size/:id" component={AddSize} />
                               <Route exact path="/masters/list_size" component={ListSize} />
+
+                              <Route exact path="/masters/add_master" component={AddMaster} />
+                              <Route exact path="/masters/edit_master/:id" component={AddMaster} />
+                              <Route exact path="/masters/list_master" component={ListMaster} />
 
 
 

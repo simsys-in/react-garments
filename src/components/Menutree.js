@@ -81,6 +81,11 @@ export default  [
                 icon : 'chalkboard-teacher',
                 url : '/masters/list_size'
             },
+            {
+                name : "Master",
+                icon : 'chalkboard-teacher',
+                url : '/masters/list_master'
+            },
             // {
             //     name : "Staff",
             //     icon : 'chalkboard-teacher',
