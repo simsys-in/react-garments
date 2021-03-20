@@ -72,6 +72,17 @@ export default  [
                 url : '/masters/list_unit'
             },
             {
+                name : "Color",
+                icon : '',
+                url : '/masters/list_color'
+            },
+
+            {
+                name : "Master Group",
+                icon : '',
+                url : '/masters/list_masterGroup'
+                },
+            {
                 name : "Process",
                 icon : 'snowflake',
                 url : '/masters/list_process'
