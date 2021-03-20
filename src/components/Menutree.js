@@ -71,17 +71,6 @@ export default  [
                 icon : 'users',
                 url : '/masters/list_unit'
             },
-
-
-
-
-
-
-
-
-
-
-
             {
                 name : "Color",
                 icon : '',
@@ -92,6 +81,16 @@ export default  [
                 name : "Master Group",
                 icon : '',
                 url : '/masters/list_masterGroup'
+                },
+            {
+                name : "Process",
+                icon : 'snowflake',
+                url : '/masters/list_process'
+            },
+            {
+                name : "Size",
+                icon : 'chalkboard-teacher',
+                url : '/masters/list_size'
             },
             // {
             //     name : "Staff",
