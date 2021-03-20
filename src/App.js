@@ -71,6 +71,15 @@ import ListUnit from './pages/masters/unit/list'
 import AddProduct from './pages/masters/product/add'
 import ListProduct from './pages/masters/product/list'
 
+/// color
+import AddColor from './pages/masters/color/add'
+import ListColor from './pages/masters/color/list'
+
+
+/// Masterroup
+import AddMasterGroup from './pages/masters/master_group/add'
+import ListMasterGroup from './pages/masters/master_group/list'
+
 
 const { Content } = Layout;
 class App extends React.PureComponent
@@ -159,6 +168,17 @@ class App extends React.PureComponent
                               <Route exact path="/masters/add_ledger" component={AddLedger} />
                               <Route exact path="/masters/edit_ledger/:id" component={AddLedger} />
                               <Route exact path="/masters/list_ledger" component={ListLedger} />
+
+                              {/* color */}
+                              <Route exact path="/masters/add_color" component={AddColor} />
+                              <Route exact path="/masters/edit_color/:id" component={AddColor} />
+                              <Route exact path="/masters/list_color" component={ListColor} />
+
+
+                               {/* master Group */}
+                              <Route exact path="/masters/add_masterGroup" component={AddMasterGroup} />
+                              <Route exact path="/masters/edit_masterGroup/:id" component={AddMasterGroup} />
+                              <Route exact path="/masters/list_masterGroup" component={ListMasterGroup} />
 
 
                               <Redirect to="/" />

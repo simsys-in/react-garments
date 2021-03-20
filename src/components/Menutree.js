@@ -71,6 +71,28 @@ export default  [
                 icon : 'users',
                 url : '/masters/list_unit'
             },
+
+
+
+
+
+
+
+
+
+
+
+            {
+                name : "Color",
+                icon : '',
+                url : '/masters/list_color'
+            },
+
+            {
+                name : "Master Group",
+                icon : '',
+                url : '/masters/list_masterGroup'
+            },
             // {
             //     name : "Staff",
             //     icon : 'chalkboard-teacher',
