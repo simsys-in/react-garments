@@ -71,6 +71,16 @@ export default  [
                 icon : 'users',
                 url : '/masters/list_unit'
             },
+            {
+                name : "Process",
+                icon : 'snowflake',
+                url : '/masters/list_process'
+            },
+            {
+                name : "Size",
+                icon : 'chalkboard-teacher',
+                url : '/masters/list_size'
+            },
             // {
             //     name : "Staff",
             //     icon : 'chalkboard-teacher',

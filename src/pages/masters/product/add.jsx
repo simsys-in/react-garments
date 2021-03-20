@@ -28,6 +28,15 @@ class AddProduct extends PureComponent{
                         percentage : '',
                         mrp : ''
                     }
+                ],
+            
+           
+                stock_details : [
+                    {  
+                        godown : '',
+                        stock : '',
+                      
+                    }
                 ]
             },
             unit_data : [],
@@ -199,6 +208,40 @@ class AddProduct extends PureComponent{
         })
     }
 
+    addStockDetails = () => {
+        var newStockDetails = {
+            godown : '',
+            stock: '',
+           
+        }
+
+        var oldStockDetailsArray = this.state.formData.stock_details;
+
+        oldStockDetailsArray.push(newStockDetails);
+
+        this.setState({
+            ...this.state,
+            formData : {
+                ...this.state.formData,
+                stock_details : oldStockDetailsArray
+            }
+        })
+    }
+
+
+    removeStockDetails = (index) => {
+        var oldStockDetailsArray = this.state.formData.stock_details;
+
+        oldStockDetailsArray.splice(index, 1);
+        
+        this.setState({
+            ...this.state,
+            formData : {
+                ...this.state.formData,
+                stock_details : oldStockDetailsArray
+            }
+        })
+    }
 
     render(){
         return(
@@ -313,7 +356,28 @@ class AddProduct extends PureComponent{
                                 </div>
                              {/* <div className="col-md-6"></div> */}
                          </div>
-
+                         <div className="row">
+                             <div className="col-md-12">
+                                <Divider plain orientation="left">Stack Details</Divider>
+                                <Form.List name="stock_details">
+                                    { (fields, { add, remove } )=> (
+                                        fields.map((field, index) => (
+                                                <div className="row">
+                                                    <Selectbox className="col-md-5" field={field} fieldKey={[ field.fieldKey, 'stock_details' ]} modelName={[field.name, 'stock_details']} value={field.stock_details} options={[]} label="Stock Details"></Selectbox>
+                                                    <Selectbox className="col-md-5" field={field} fieldKey={[ field.fieldKey, 'stock_details' ]} modelName={[field.name, 'stock_details']} value={field.stock_details} options={[]} label="Stock Details"></Selectbox>
+                                              
+                                                        <div className="col-md-2">
+                                                        { index === 0  && <Button onClick={this.addStockDetails} style={{ marginLeft : 10 }}>+</Button> }
+                                                        { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeStockDetails(index)} type="primary">-</Button>}
+                                                    </div>
+                                                 </div>
+                                     )
+                                            
+                                     )
+                                 ) }
+                                </Form.List>        
+                           </div>
+                         </div>
 
                     <div className="row">
                         <div className="col-md-12">

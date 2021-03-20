@@ -58,6 +58,13 @@ import ListLedgerGroup from './pages/masters/ledger_group/list'
 import AddLedgerCategory from './pages/masters/ledger_category/add'
 import ListLedgerCategory from './pages/masters/ledger_category/list'
 
+import AddProcess from './pages/masters/process/add'
+import ListProcess from './pages/masters/process/list'
+
+
+import AddSize from './pages/masters/size/add'
+import ListSize from './pages/masters/size/list'
+
 
 /// Product Group
 import AddProductGroup from './pages/masters/productgroup/add'
@@ -138,6 +145,18 @@ class App extends React.PureComponent
                               <Route exact path="/masters/add_ledger_category" component={AddLedgerCategory} />
                               <Route exact path="/masters/edit_ledger_category/:id" component={AddLedgerCategory} />
                               <Route exact path="/masters/list_ledger_category" component={ListLedgerCategory} />
+
+
+                              <Route exact path="/masters/add_process" component={AddProcess} />
+                              <Route exact path="/masters/edit_process/:id" component={AddProcess} />
+                              <Route exact path="/masters/list_process" component={ListProcess} />
+
+
+                              <Route exact path="/masters/add_size" component={AddSize} />
+                              <Route exact path="/masters/edit_size/:id" component={AddSize} />
+                              <Route exact path="/masters/list_size" component={ListSize} />
+
+
 
                               {/* Product Group Mas */}
                               <Route exact path="/masters/add_product_group" component={AddProductGroup} />
