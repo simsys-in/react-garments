@@ -61,6 +61,16 @@ import ListLedgerGroup from './pages/masters/ledger_group/list'
 import AddLedgerCategory from './pages/masters/ledger_category/add'
 import ListLedgerCategory from './pages/masters/ledger_category/list'
 
+import AddProcess from './pages/masters/process/add'
+import ListProcess from './pages/masters/process/list'
+
+
+import AddSize from './pages/masters/size/add'
+import ListSize from './pages/masters/size/list'
+
+import AddMaster from './pages/masters/master/add'
+import ListMaster from './pages/masters/master/list'
+
 
 /// Product Group
 import AddProductGroup from './pages/masters/productgroup/add'
@@ -73,6 +83,15 @@ import ListUnit from './pages/masters/unit/list'
 /// product
 import AddProduct from './pages/masters/product/add'
 import ListProduct from './pages/masters/product/list'
+
+/// color
+import AddColor from './pages/masters/color/add'
+import ListColor from './pages/masters/color/list'
+
+
+/// Masterroup
+import AddMasterGroup from './pages/masters/master_group/add'
+import ListMasterGroup from './pages/masters/master_group/list'
 
 
 const { Content } = Layout;
@@ -142,6 +161,22 @@ class App extends React.PureComponent
                               <Route exact path="/masters/edit_ledger_category/:id" component={AddLedgerCategory} />
                               <Route exact path="/masters/list_ledger_category" component={ListLedgerCategory} />
 
+
+                              <Route exact path="/masters/add_process" component={AddProcess} />
+                              <Route exact path="/masters/edit_process/:id" component={AddProcess} />
+                              <Route exact path="/masters/list_process" component={ListProcess} />
+
+
+                              <Route exact path="/masters/add_size" component={AddSize} />
+                              <Route exact path="/masters/edit_size/:id" component={AddSize} />
+                              <Route exact path="/masters/list_size" component={ListSize} />
+
+                              <Route exact path="/masters/add_master" component={AddMaster} />
+                              <Route exact path="/masters/edit_master/:id" component={AddMaster} />
+                              <Route exact path="/masters/list_master" component={ListMaster} />
+
+
+
                               {/* Product Group Mas */}
                               <Route exact path="/masters/add_product_group" component={AddProductGroup} />
                               <Route exact path="/masters/edit_product_group/:id" component={AddProductGroup} />
@@ -162,6 +197,17 @@ class App extends React.PureComponent
                               <Route exact path="/masters/add_ledger" component={AddLedger} />
                               <Route exact path="/masters/edit_ledger/:id" component={AddLedger} />
                               <Route exact path="/masters/list_ledger" component={ListLedger} />
+
+                              {/* color */}
+                              <Route exact path="/masters/add_color" component={AddColor} />
+                              <Route exact path="/masters/edit_color/:id" component={AddColor} />
+                              <Route exact path="/masters/list_color" component={ListColor} />
+
+
+                               {/* master Group */}
+                              <Route exact path="/masters/add_masterGroup" component={AddMasterGroup} />
+                              <Route exact path="/masters/edit_masterGroup/:id" component={AddMasterGroup} />
+                              <Route exact path="/masters/list_masterGroup" component={ListMasterGroup} />
 
 
                               <Redirect to="/" />

@@ -11,7 +11,7 @@ class DataTable extends PureComponent{
     render(){
         return(
             // <MDBDataTableV5 striped hover scrollX scrollY maxHeight='500px' bordered small responsive data={this.props.data} />
-            <div style={{ backgroundColor : 'white', padding : 10 }}>
+            <div className="table-scroll" style={{ backgroundColor : 'white', padding : 10 }}>
                 
             <MDBDataTableV5
                 hover
