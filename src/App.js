@@ -4,6 +4,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import './App.less';
 import {Animated} from "react-animated-css";
+// import { connect } from 'react-redux'
+// import './style/custom-antd.css'
+import './style/theme.less'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
 import {
