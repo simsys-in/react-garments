@@ -90,6 +90,19 @@ import ListColor from './pages/masters/color/list'
 import AddMasterGroup from './pages/masters/master_group/add'
 import ListMasterGroup from './pages/masters/master_group/list'
 
+//yarn inward
+import AddYarnInward from './pages/masters/yarn_inward/add'
+import ListYarnInward from './pages/masters/yarn_inward/list'
+
+import AddMenuMaster from './pages/admin/menu_master/add'
+import ListMenuMaster from './pages/admin/menu_master/list'
+
+import AddUserGroup from './pages/admin/user_group/add'
+import ListUserGroup from './pages/admin/user_group/list'
+
+import AddUser from './pages/admin/users/add'
+import ListUser from './pages/admin/users/list'
+
 
 const { Content } = Layout;
 class App extends React.PureComponent
@@ -205,6 +218,23 @@ class App extends React.PureComponent
                               <Route exact path="/masters/add_masterGroup" component={AddMasterGroup} />
                               <Route exact path="/masters/edit_masterGroup/:id" component={AddMasterGroup} />
                               <Route exact path="/masters/list_masterGroup" component={ListMasterGroup} />
+                             
+                             
+                              <Route exact path="/masters/add_yarn_inward" component={AddYarnInward} />
+                              <Route exact path="/masters/edit_yarn_inward/:id" component={AddYarnInward} />
+                              <Route exact path="/masters/list_yarn_inward" component={ListYarnInward} />
+                             
+                              <Route exact path="/user/add_menu_master" component={AddMenuMaster} />
+                              <Route exact path="/user/edit_menu_master/:id" component={AddMenuMaster} />
+                              <Route exact path="/user/list_menu_master" component={ListMenuMaster} />
+                             
+                              <Route exact path="/user/add_user_group" component={AddUserGroup} />
+                              <Route exact path="/user/edit_user_group/:id" component={AddUserGroup} />
+                              <Route exact path="/user/list_user_group" component={ListUserGroup} />
+                             
+                              <Route exact path="/user/add_user" component={AddUser} />
+                              <Route exact path="/user/edit_user/:id" component={AddUser} />
+                              <Route exact path="/user/list_user" component={ListUser} />
 
 
                               <Redirect to="/" />

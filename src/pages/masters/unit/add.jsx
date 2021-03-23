@@ -184,8 +184,8 @@ class AddUnit extends PureComponent{
                         
                     <div className="row">
                         <Textbox label="Unit" autoFocus modelName="unit" className="col-md-4"></Textbox>
-                        <Numberbox label="Decimal Digit"  min={0} modelName="decimal_digit" className="col-md-4"></Numberbox>
-                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
+                        <Numberbox label="Decimal Digit" required="false"  min={0} modelName="decimal_digit" className="col-md-4"></Numberbox>
+                        <Textbox label="Narration" required="false" modelName="narration" required="false" className="col-md-4"></Textbox>
                        
                     </div>
 

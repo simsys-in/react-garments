@@ -7,14 +7,14 @@ import { withRouter } from 'react-router';
 import moment from 'moment';
 import Textbox from '../../../components/Inputs/Textbox';
 import Selectbox from '../../../components/Inputs/Selectbox';
-
-
+import Numberbox from '../../../components/Inputs/Numberbox';
+import Address_Template from '../../../components/Templates/Address_Template';
 
 
 let interval;
 
 
-class AddMaster extends PureComponent{
+class AddMenu_Master extends PureComponent{
     formRef = React.createRef();
     constructor(props){
         super(props);
@@ -25,8 +25,7 @@ class AddMaster extends PureComponent{
             formData : {
                 status : 'active'
             },
-            companiesList : [],
-            master_group_data : []
+            companiesList : []
         }
         this.id = this.props.match.params.id;
     }
@@ -34,18 +33,6 @@ class AddMaster extends PureComponent{
     onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
       };
-
-      getMasterGroupSB =() => {
-        getRequest('masters/getMasterGroupSB').then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    master_group_data : data.data
-                })
-            }
-        })
-    }
 
     validate = () => {
         if(this.formRef.current)
@@ -62,11 +49,11 @@ class AddMaster extends PureComponent{
         }
     }
 
-    getMaster = () => {
+    getMenu_Master = () => {
         console.log(this.id)
         if(this.id)
         {
-            getRequest("masters/master?id=" + this.id).then(data => {
+            getRequest("user/menu_master?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
@@ -80,8 +67,7 @@ class AddMaster extends PureComponent{
     }
 
     componentDidMount() {
-        this.getMaster();
-        this.getMasterGroupSB();
+        this.getMenu_Master();
         interval = setInterval(() => {
             this.validate()
         }, 100);
@@ -93,15 +79,15 @@ class AddMaster extends PureComponent{
 
     componentWillMount = () => {
         seo({
-            title: 'Add Master',
-            metaDescription: 'Add Master'
+            title: 'Add Menu master',
+            metaDescription: 'Add Menu master'
           });
 
           if(this.id)
           {
             seo({
-                title: 'Edit Master',
-                metaDescription: 'Edit Master'
+                title: 'Edit Menu master',
+                metaDescription: 'Edit Menu master'
               });
               console.log("Edit Page");
             }
@@ -112,10 +98,10 @@ class AddMaster extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('masters/master?id=' + this.id, values).then(data => {
+            putRequest('user/menu_master?id=' + this.id, values).then(data => {
                 if(data.status === "success")
                 {
-                    this.props.history.push('/masters/list_master')
+                    this.props.history.push('/user/list_menu_master')
                     console.log(data) 
                 }
             })
@@ -138,7 +124,7 @@ class AddMaster extends PureComponent{
             <Fragment>
                 <div className="row">
                     <div className="col-md-12" align="right">
-                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/masters/list_master') } }>
+                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/user/list_menu_master') } }>
                             { this.id ? "Back" : 'List'}
                         </Button>
                     </div>
@@ -153,16 +139,26 @@ class AddMaster extends PureComponent{
                     >
                         
                     <div className="row">
-
-                        <Textbox label="Master" autoFocus modelName="master" className="col-md-4"></Textbox>
                         
-                        <Selectbox modelName="master_group_id" label="Master Group" className="col-md-4" options={this.state.master_group_data} value={this.state.formData.master_group_id}  ></Selectbox>
-
-                       
-                        <Textbox label="Narration" required="false" modelName="narration" className="col-md-4"></Textbox>
+                    <Textbox label="Menu" autoFocus modelName="menu" className="col-md-4"></Textbox>
+                    <Textbox label="Sts"  modelName="sts" className="col-md-4"></Textbox>
+                    <Textbox label="Menu Route"  modelName="menu_route" className="col-md-4"></Textbox>
 
 
                     </div>
+                    <div className="row">
+                        
+                    <Numberbox label="Sort Order"  modelName="sort_order" className="col-md-4"></Numberbox>
+                    <Textbox label="Method"  modelName="method" className="col-md-4"></Textbox>
+                    <Textbox label="Icon"  modelName="icon" className="col-md-4"></Textbox>
+
+
+                    </div>
+
+                    <div className="row">
+                    <Textbox label="Addon"  modelName="addon" className="col-md-4"></Textbox>
+
+                        </div>
 
                     <div className="row">
                         <div className="col-md-12">
@@ -199,4 +195,4 @@ const mapDispatchToProps = {
     
   }
   
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddMaster));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddMenu_Master));

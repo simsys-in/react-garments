@@ -7,14 +7,14 @@ import { withRouter } from 'react-router';
 import moment from 'moment';
 import Textbox from '../../../components/Inputs/Textbox';
 import Selectbox from '../../../components/Inputs/Selectbox';
-
-
+import Numberbox from '../../../components/Inputs/Numberbox';
+import Address_Template from '../../../components/Templates/Address_Template';
 
 
 let interval;
 
 
-class AddMaster extends PureComponent{
+class AddUser_Group extends PureComponent{
     formRef = React.createRef();
     constructor(props){
         super(props);
@@ -25,8 +25,7 @@ class AddMaster extends PureComponent{
             formData : {
                 status : 'active'
             },
-            companiesList : [],
-            master_group_data : []
+            companiesList : []
         }
         this.id = this.props.match.params.id;
     }
@@ -34,18 +33,6 @@ class AddMaster extends PureComponent{
     onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
       };
-
-      getMasterGroupSB =() => {
-        getRequest('masters/getMasterGroupSB').then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    master_group_data : data.data
-                })
-            }
-        })
-    }
 
     validate = () => {
         if(this.formRef.current)
@@ -62,11 +49,11 @@ class AddMaster extends PureComponent{
         }
     }
 
-    getMaster = () => {
+    getUser_Group = () => {
         console.log(this.id)
         if(this.id)
         {
-            getRequest("masters/master?id=" + this.id).then(data => {
+            getRequest("user/user_group?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
@@ -80,8 +67,7 @@ class AddMaster extends PureComponent{
     }
 
     componentDidMount() {
-        this.getMaster();
-        this.getMasterGroupSB();
+        this.getUser_Group();
         interval = setInterval(() => {
             this.validate()
         }, 100);
@@ -93,15 +79,15 @@ class AddMaster extends PureComponent{
 
     componentWillMount = () => {
         seo({
-            title: 'Add Master',
-            metaDescription: 'Add Master'
+            title: 'Add User group',
+            metaDescription: 'Add User group'
           });
 
           if(this.id)
           {
             seo({
-                title: 'Edit Master',
-                metaDescription: 'Edit Master'
+                title: 'Edit User group',
+                metaDescription: 'Edit User group'
               });
               console.log("Edit Page");
             }
@@ -112,10 +98,10 @@ class AddMaster extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('masters/master?id=' + this.id, values).then(data => {
+            putRequest('user/user_group?id=' + this.id, values).then(data => {
                 if(data.status === "success")
                 {
-                    this.props.history.push('/masters/list_master')
+                    this.props.history.push('/user/list_user_group')
                     console.log(data) 
                 }
             })
@@ -138,7 +124,7 @@ class AddMaster extends PureComponent{
             <Fragment>
                 <div className="row">
                     <div className="col-md-12" align="right">
-                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/masters/list_master') } }>
+                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/user/list_user_group') } }>
                             { this.id ? "Back" : 'List'}
                         </Button>
                     </div>
@@ -153,16 +139,13 @@ class AddMaster extends PureComponent{
                     >
                         
                     <div className="row">
-
-                        <Textbox label="Master" autoFocus modelName="master" className="col-md-4"></Textbox>
                         
-                        <Selectbox modelName="master_group_id" label="Master Group" className="col-md-4" options={this.state.master_group_data} value={this.state.formData.master_group_id}  ></Selectbox>
-
-                       
-                        <Textbox label="Narration" required="false" modelName="narration" className="col-md-4"></Textbox>
+                    <Textbox label="User Group" autoFocus modelName="user_group" className="col-md-4"></Textbox>
+                    <Textbox label="State"  modelName="state_id" className="col-md-4"></Textbox>
 
 
                     </div>
+                   
 
                     <div className="row">
                         <div className="col-md-12">
@@ -199,4 +182,4 @@ const mapDispatchToProps = {
     
   }
   
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddMaster));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddUser_Group));

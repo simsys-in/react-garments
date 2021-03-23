@@ -97,6 +97,27 @@ export default  [
                 icon : 'chalkboard-teacher',
                 url : '/masters/list_master'
             },
+            {
+                name : "YarnInward",
+                icon : 'chalkboard-teacher',
+                url : '/masters/list_yarn_inward'
+            },
+            {
+                name : "MenuMaster",
+                icon : 'chalkboard-teacher',
+                url : '/user/list_menu_master'
+            },
+            {
+                name : "user",
+                icon : 'chalkboard-teacher',
+                url : '/user/list_user'
+            },
+            {
+                name : "user_group",
+                icon : 'chalkboard-teacher',
+                url : '/user/list_user_group'
+            },
+           
             // {
             //     name : "Staff",
             //     icon : 'chalkboard-teacher',
