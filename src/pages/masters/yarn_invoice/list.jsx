@@ -6,42 +6,56 @@ import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
 import DataTable from '../../../components/Datatable';
 
-class ListUsergroup extends PureComponent {
+class ListYarninvoice extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       columns: [
       
         {
-          label: 'S. No',
-          field: 'sno',
+          label: 'Ledger Name',
+          field: 'ledger',
           width: "10vw",
+        },
+        {
+          label: 'Narration',
+          field: 'narration',
+          width: "30vw",
+        },
+        {
+          label: 'Vou Date',
+          field: 'vou_date',
+          width: "30vw",
+        },
+       
+        {
+          label: 'Process',
+          field: 'process',
+          width: "30vw",
+        },
         
-        },
-      
         {
-          label: 'User Group ',
-          field: 'user_group',
-          width: "60vw",
-     
+          label: 'Ref No',
+          field: 'refno',
+          width: "30vw",
         },
         {
-          label: 'State ',
-          field: 'state_id',
-          width: "60vw",
-     
+          label: 'Order No',
+          field: 'order_no',
+          width: "30vw",
         },
-     
+       
+       
         {
           label: 'Action',
-          field:'action',
           key: 'action',
+          field: 'action',
           width: "30vw",
           defaultSortOrder: 'ascend',
           render: (text, record) => (
             <Space size="middle">
-              <Button type="primary" onClick={() => this.editUser_Group(record.id)} icon={<EditOutlined />} size="middle" />
-              <Button type="default" color="error" danger onClick={() => this.deleteUser_Group(record)} icon={<DeleteOutlined />} size="middle" />
+              <Button type="primary" onClick={() => this.editYarn_Invoice(record.id)} icon={<EditOutlined />} size="middle" />
+              <Button type="default" color="error" danger onClick={() => this.deleteYarn_Invoice(record)} icon={<DeleteOutlined />} size="middle" />
             </Space>
           ),
         },
@@ -51,23 +65,23 @@ class ListUsergroup extends PureComponent {
     }
   }
 
-  editUser_Group = (id) => {
+  editYarn_Invoice = (id) => {
     console.log(id);
-    this.props.history.push('/user/edit_user_group/' + id)
+    this.props.history.push('/masters/edit_yarn_invoice/' + id)
   }
 
   confirmDelete = (id) => {
-    deleteRequest('user/user_group?id=' + id).then(data => {
+    deleteRequest('masters/yarn_invoice?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
     })
   }
 
-  deleteUser_Group = (user) => {
+  deleteYarn_Invoice = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.user_group;
+    const name = user.yarn_invoice;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
@@ -80,21 +94,23 @@ class ListUsergroup extends PureComponent {
 
   componentDidMount = () => {
     seo({
-      title: 'List User Group',
-      metaDescription: 'List User Group'
+      title: 'List Yarn Invoice',
+      metaDescription: 'List Yarn Invoice'
     });
-    getRequest('user/user_group').then(data => {
+    getRequest('masters/yarn_invoice').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{
           item.sno = index +1;
-          item.action = <Space size="middle">
-          <Button type="primary" onClick={() => this.editUser_Group(item.id)} icon={<EditOutlined />} size="middle" />
-          <Button type="default" color="error" danger onClick={() => this.deleteUser_Group(item)} icon={<DeleteOutlined />} size="middle" />
+          item.action =  <Space size="middle">
+          <Button type="primary" onClick={() => this.editYarn_Invoice(item.id)} icon={<EditOutlined />} size="middle" />
+          <Button type="default" color="error" danger onClick={() => this.deleteYarn_Invoice(item)} icon={<DeleteOutlined />} size="middle" />
         </Space>
 
         newData.push(item)
         })
+
+
         this.setState({
           ...this.state,
           rows: newData,
@@ -110,17 +126,17 @@ class ListUsergroup extends PureComponent {
         <div className="row">
           <div className="col-md-10"></div>
           <div className="col-md-2" align="right">
-            <Button type="primary" onClick={() => { this.props.history.push("/user/add_user_group") }}> Add </Button>
+            <Button type="primary" onClick={() => { this.props.history.push("/masters/add_yarn_invoice") }}> Add </Button>
           </div>
           <br />
           <br />
         </div>
-        {/* <Table className="table-scroll" style={{ width : '100%' }} columns={this.state.columns}  dataSource={this.state.data} /> */}
-        <DataTable data={this.state}></DataTable>
+        {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
+        <DataTable data={this.state} ></DataTable>
       </Fragment>
     )
   }
 }
 
 
-export default withRouter(ListUsergroup);
+export default withRouter(ListYarninvoice);

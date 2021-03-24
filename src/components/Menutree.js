@@ -103,13 +103,28 @@ export default  [
                 url : '/masters/list_yarn_inward'
             },
             {
-                name : "MenuMaster",
+                name : "YarnOutward",
+                icon : 'shopping-cart',
+                url : '/masters/list_yarn_outward'
+            },
+            {
+                name : "YarnReturn ",
+                icon : 'object-group',
+                url : '/masters/list_yarn_return '
+            },
+            {
+                name : "YarnInvoice",
                 icon : 'chalkboard-teacher',
+                url : '/masters/list_yarn_invoice'
+            },
+            {
+                name : "MenuMaster",
+                icon : 'map-o',
                 url : '/user/list_menu_master'
             },
             {
                 name : "user",
-                icon : 'chalkboard-teacher',
+                icon : 'map',
                 url : '/user/list_user'
             },
             {

@@ -92,8 +92,8 @@ class ListYarnInward extends PureComponent {
 
   componentDidMount = () => {
     seo({
-      title: 'List Yarn inward',
-      metaDescription: 'List Yarn inward'
+      title: 'List Yarn Inward',
+      metaDescription: 'List Yarn Inward'
     });
     getRequest('masters/yarn_inward').then(data => {
       if (data.status === "success") {

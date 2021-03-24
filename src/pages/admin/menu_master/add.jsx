@@ -79,15 +79,15 @@ class AddMenu_Master extends PureComponent{
 
     componentWillMount = () => {
         seo({
-            title: 'Add Menu master',
-            metaDescription: 'Add Menu master'
+            title: 'Add Menu Master',
+            metaDescription: 'Add Menu Master'
           });
 
           if(this.id)
           {
             seo({
-                title: 'Edit Menu master',
-                metaDescription: 'Edit Menu master'
+                title: 'Edit Menu Master',
+                metaDescription: 'Edit Menu Master'
               });
               console.log("Edit Page");
             }

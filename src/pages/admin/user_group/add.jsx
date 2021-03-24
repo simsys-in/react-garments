@@ -79,15 +79,15 @@ class AddUser_Group extends PureComponent{
 
     componentWillMount = () => {
         seo({
-            title: 'Add User group',
-            metaDescription: 'Add User group'
+            title: 'Add User Group',
+            metaDescription: 'Add User Group'
           });
 
           if(this.id)
           {
             seo({
-                title: 'Edit User group',
-                metaDescription: 'Edit User group'
+                title: 'Edit User Group',
+                metaDescription: 'Edit User Group'
               });
               console.log("Edit Page");
             }
