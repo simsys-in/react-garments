@@ -89,9 +89,13 @@ import AddColor from './pages/masters/color/add'
 import ListColor from './pages/masters/color/list'
 
 
-/// Masterroup
+/// Mastergroup
 import AddMasterGroup from './pages/masters/master_group/add'
 import ListMasterGroup from './pages/masters/master_group/list'
+
+/// order
+import AddOrderProgram  from './pages/transactions/order/add'
+import ListOrderProgram from './pages/transactions/order/list'
 
 
 const { Content } = Layout;
@@ -209,6 +213,10 @@ class App extends React.PureComponent
                               <Route exact path="/masters/edit_masterGroup/:id" component={AddMasterGroup} />
                               <Route exact path="/masters/list_masterGroup" component={ListMasterGroup} />
 
+                               {/* order program */}
+                              <Route exact path="/transactions/add_orderprogram" component={AddOrderProgram} />
+                              <Route exact path="/transactions/edit_orderprogram/:id" component={AddOrderProgram} />
+                              <Route exact path="/transactions/list_orderprogram" component={ListOrderProgram} />
 
                               <Redirect to="/" />
                             </Switch>

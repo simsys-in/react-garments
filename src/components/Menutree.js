@@ -97,28 +97,23 @@ export default  [
                 icon : 'chalkboard-teacher',
                 url : '/masters/list_master'
             },
-            // {
-            //     name : "Staff",
-            //     icon : 'chalkboard-teacher',
-            //     url : '/masters/list_staffs'
-            // },
-            // {
-            //     name : "Exercise",
-            //     icon : 'dumbbell',
-            //     url : '/masters/list_exercises'
-            // },
-            // {
-            //     name : "Workouts",
-            //     icon : 'bezier-curve',
-            //     url : '/masters/list_workouts'
-            // },
-            // {
-            //     name : "Add Less",
-            //     icon : 'percentage',
-            //     url : '/masters/list_addless'
-            // },
+           
         ]
     },
+
+
+    {
+        name : 'Transactions',
+        role : 'admin',
+        icon : 'user-shield',
+        children : [
+            {
+                name : "Order Program",
+                icon : 'swatchbook',
+                url : '/transactions/list_orderProgram'
+            },
+        ]
+    }
     // {
     //     name : 'Member Tools',
     //     role : 'admin',
