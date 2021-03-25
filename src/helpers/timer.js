@@ -56,7 +56,7 @@ export function getCurrentDate()
 {
     // console.log(moment(new Date()).format(getDateFormat()), "Harish");
     // var date = moment(new Date()).format(getDateFormat());
-    var date = moment(new Date()).format(getDateFormat());
+    var date = moment().format(getDateFormat());
     return date;
 }
 
