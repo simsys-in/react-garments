@@ -8,7 +8,7 @@ import {
     onLogOut
 } from "../actions/login";
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 let state = store.getState();
 var auth = state.login.userData.token;
@@ -82,7 +82,7 @@ export function postRequestWithoutAuth(url, data) {
 
 
 export function postRequest(url, data) {
-    axios.defaults.withCredentials = true;
+    // axios.defaults.withCredentials = true;
     var postPromise = new Promise(async (resolve, reject) => {
         let state1 = store.getState();
         var auth1 = state1.login.userData.token;
@@ -158,7 +158,7 @@ export function getRequest(url) {
 
 
 export function postRequestWithProvidedHeader(url, data, headers) {
-    axios.defaults.withCredentials = true;
+    // axios.defaults.withCredentials = true;
     var postPromise = new Promise(async (resolve, reject) => {
         await axios.post(Api + url, data, {
                 headers: headers
@@ -192,7 +192,7 @@ export function postRequestWithProvidedHeader(url, data, headers) {
 
 
 export function getRequestWithProvidedHeader(url, headers) {
-    axios.defaults.withCredentials = true;
+    // axios.defaults.withCredentials = true;
     var getPromise = new Promise(async (resolve, reject) => {
         await axios.get(Api + url, {
                 headers: headers
@@ -254,7 +254,7 @@ export function putRequestWithoutAuth(url, data) {
 
 
 export function putRequest(url, data) {
-    axios.defaults.withCredentials = true;
+    // axios.defaults.withCredentials = true;
     var putPromise = new Promise(async (resolve, reject) => {
         let state1 = store.getState();
         var auth1 = state1.login.userData.token;
@@ -321,7 +321,7 @@ export function deleteRequestWithoutAuth(url) {
 
 
 export function deleteRequest(url) {
-    axios.defaults.withCredentials = true;
+    // axios.defaults.withCredentials = true;
     var deletePromise = new Promise(async (resolve, reject) => {
         let state1 = store.getState();
         var auth1 = state1.login.userData.token;
@@ -361,7 +361,7 @@ export function deleteRequest(url) {
 
 
 export function deleteRequestWithProvidedHeader(url, headers) {
-    axios.defaults.withCredentials = true;
+    // axios.defaults.withCredentials = true;
     var deletePromise = new Promise(async (resolve, reject) => {
         await axios.delete(Api + url, {
                 headers: headers

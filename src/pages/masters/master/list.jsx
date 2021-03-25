@@ -23,7 +23,7 @@ class ListMaster extends PureComponent {
         {
           label: 'Master',
           field: 'master',
-          width: "60vw",
+          width: "20vw",
           key: 'master',
           defaultSortOrder: 'ascend',
           render: (text, record) => <p>{text}</p>,
@@ -31,7 +31,7 @@ class ListMaster extends PureComponent {
         {
           label: 'Master Group',
           field: 'master_group',
-          width: "60vw",
+          width: "20vw",
           key: 'master_group',
           defaultSortOrder: 'ascend',
           render: (text, record) => <p>{text}</p>,
@@ -39,7 +39,7 @@ class ListMaster extends PureComponent {
         {
           label: 'Narration',
           field: 'narration',
-          width: "60vw",
+          width: "40vw",
           key: 'narration',
           defaultSortOrder: 'ascend',
           render: (text, record) => <p>{text}</p>,
@@ -49,7 +49,7 @@ class ListMaster extends PureComponent {
           label: 'Action',
           key: 'action',
           field: 'action',
-          width: "30vw",
+          width: "10vw",
           defaultSortOrder: 'ascend',
           render: (text, record) => (
             <Space size="middle">

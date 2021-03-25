@@ -1,4 +1,4 @@
-const { SUCCESS_LOGIN, ON_LOGOUT } = require("../actionTypes");
+const { SUCCESS_LOGIN, ON_LOGOUT, TOGGLE_SIDER } = require("../actionTypes");
 
 export const successLogin = (loginData) => ({
     type : SUCCESS_LOGIN,
@@ -7,4 +7,8 @@ export const successLogin = (loginData) => ({
 
 export const onLogOut = () => ({
     type : ON_LOGOUT
+})
+
+export const toggleSiderCollapse = () => ({
+    type : TOGGLE_SIDER
 })

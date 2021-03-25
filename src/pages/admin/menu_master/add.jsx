@@ -149,14 +149,14 @@ class AddMenu_Master extends PureComponent{
                     <div className="row">
                         
                     <Numberbox label="Sort Order"  modelName="sort_order" className="col-md-4"></Numberbox>
-                    <Textbox label="Method"  modelName="method" className="col-md-4"></Textbox>
+                    <Textbox label="Method" required="false" modelName="method" className="col-md-4"></Textbox>
                     <Textbox label="Icon"  modelName="icon" className="col-md-4"></Textbox>
 
 
                     </div>
 
                     <div className="row">
-                    <Textbox label="Addon"  modelName="addon" className="col-md-4"></Textbox>
+                    <Textbox label="Addon" required="false" modelName="addon" className="col-md-4"></Textbox>
 
                         </div>
 

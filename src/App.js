@@ -148,7 +148,7 @@ class App extends React.PureComponent
                   <Viewer/>
                 </Route>
                 </Switch>
-            <Content >
+            <Content style={{ marginLeft : this.props.store.login.sider_collapsed ? '80px' : '200px' }}>
                     { this.props.store.login.login ? 
                     <div className="main-content">
                       {/* <Animated animationIn="fadeInUp" animationOut="fadeInDown" animationInDuration={400} animationOutDuration={400} isVisible={true}> */}
