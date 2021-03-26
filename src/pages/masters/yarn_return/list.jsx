@@ -18,36 +18,43 @@ class ListYarnreturn  extends PureComponent {
         
         },
         {
-          label: 'Ledger Name',
-          field: 'ledger',
-          width: "10vw",
-        },
-        {
-          label: 'Narration',
-          field: 'narration',
-          width: "30vw",
-        },
-        {
           label: 'Vou Date',
           field: 'vou_date',
           width: "30vw",
         },
+        // {
+        //   label: 'Vou No',
+        //   field: 'vouno',
+        //   width: "30vw",
+        // },
+        // {
+        //   label: 'Vou No',
+        //   field: 'order_no',
+        //   width: "30vw",
+        // },
+        {
+          label: 'Ledger Name',
+          field: 'ledger',
+          width: "10vw",
+        },
+        // {
+        //   label: 'Narration',
+        //   field: 'narration',
+        //   width: "30vw",
+        // },
+        
        
-        {
-          label: 'Process',
-          field: 'process',
-          width: "30vw",
-        },
-        {
-          label: 'Ref No',
-          field: 'refno',
-          width: "30vw",
-        },
-        {
-          label: 'Order No',
-          field: 'order_no',
-          width: "30vw",
-        },
+        // {
+        //   label: 'Process',
+        //   field: 'process',
+        //   width: "30vw",
+        // },
+        // {
+        //   label: 'Ref No',
+        //   field: 'refno',
+        //   width: "30vw",
+        // },
+        
         
        
        
@@ -72,11 +79,11 @@ class ListYarnreturn  extends PureComponent {
 
   editYarn_Return  = (id) => {
     console.log(id);
-    this.props.history.push('/masters/edit_yarn_return /' + id)
+    this.props.history.push('/masters/edit_yarn_return/' + id)
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/yarn_return ?id=' + id).then(data => {
+    deleteRequest('masters/yarn_return?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -102,7 +109,7 @@ class ListYarnreturn  extends PureComponent {
       title: 'List Yarn Return ',
       metaDescription: 'List Yarn Return '
     });
-    getRequest('masters/yarn_return ').then(data => {
+    getRequest('masters/yarn_return').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{
@@ -131,7 +138,7 @@ class ListYarnreturn  extends PureComponent {
         <div className="row">
           <div className="col-md-10"></div>
           <div className="col-md-2" align="right">
-            <Button type="primary" onClick={() => { this.props.history.push("/masters/add_yarn_return ") }}> Add </Button>
+            <Button type="primary" onClick={() => { this.props.history.push("/masters/add_yarn_return") }}> Add </Button>
           </div>
           <br />
           <br />

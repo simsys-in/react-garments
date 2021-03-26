@@ -240,9 +240,9 @@ class App extends React.PureComponent
                               <Route exact path="/masters/list_yarn_outward" component={ListYarnOutward} />
                              
                               {/* yarn return */}
-                              <Route exact path="/masters/add_yarn_return " component={AddYarnReturn } />
-                              <Route exact path="/masters/edit_yarn_return /:id" component={AddYarnReturn } />
-                              <Route exact path="/masters/list_yarn_return " component={ListYarnReturn } />
+                              <Route exact path="/masters/add_yarn_return" component={AddYarnReturn } />
+                              <Route exact path="/masters/edit_yarn_return/:id" component={AddYarnReturn } />
+                              <Route exact path="/masters/list_yarn_return" component={ListYarnReturn } />
 
                               {/* Yarn_invoice */}
                               <Route exact path="/masters/add_yarn_invoice" component={AddYarnInvoice} />

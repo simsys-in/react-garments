@@ -11,11 +11,11 @@ class ListYarnInward extends PureComponent {
     super(props);
     this.state = {
       columns: [
-      
         {
-          label: 'Ledger Name',
-          field: 'ledger',
+          label: 'S.No',
+          field: 'sno',
           width: "10vw",
+         
         },
         {
           label: 'Vou Date',
@@ -23,25 +23,32 @@ class ListYarnInward extends PureComponent {
           width: "30vw",
         },
         {
-          label: 'Narration',
-          field: 'narration',
-          width: "30vw",
-        },
-        {
-          label: 'Process',
-          field: 'process',
-          width: "30vw",
-        },
-        {
-          label: 'Order No',
+          label: 'Vou No',
           field: 'order_no',
           width: "30vw",
         },
         {
-          label: 'Ref No',
-          field: 'refno',
-          width: "30vw",
+          label: 'Ledger Name',
+          field: 'ledger',
+          width: "10vw",
         },
+      
+        // {
+        //   label: 'Narration',
+        //   field: 'narration',
+        //   width: "30vw",
+        // },
+        // {
+        //   label: 'Process',
+        //   field: 'process',
+        //   width: "30vw",
+        // },
+        
+        // {
+        //   label: 'Ref No',
+        //   field: 'refno',
+        //   width: "30vw",
+        // },
        
        
         {
@@ -79,7 +86,7 @@ class ListYarnInward extends PureComponent {
   deleteYarn_Inward = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.yarn_inward;
+    const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
