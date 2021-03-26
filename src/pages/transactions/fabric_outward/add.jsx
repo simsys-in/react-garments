@@ -307,7 +307,7 @@ class AddFabricOutward extends PureComponent{
                       
                    <Selectbox modelName="order_id" label="Order No" className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
                    <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
-                   <Numberbox label="Vou No" modelName="vouno" required="false" className="col-md-6"></Textbox>
+                   <Numberbox label="Vou No" modelName="vouno" required="false" className="col-md-6"></Numberbox>
                    </div>
                    <div className="row">
                             <div className="col-md-12">
