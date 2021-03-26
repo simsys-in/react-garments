@@ -143,7 +143,6 @@ class ListMenumaster extends PureComponent {
             <Button type="primary" onClick={() => { this.props.history.push("/user/add_menu_master") }}> Add </Button>
           </div>
           <br />
-          <br />
         </div>
         {/* <Table className="table-scroll" style={{ width : '100%' }} columns={this.state.columns}  dataSource={this.state.data} /> */}
         <DataTable data={this.state}></DataTable>

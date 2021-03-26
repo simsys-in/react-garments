@@ -39,10 +39,10 @@ class Topbar extends PureComponent {
     const { toggleTheme } = this.props;
     return (
       <Fragment>
-        <Header className="site-layout-background" style={{ color: 'white', backgroundColor: '#fff', padding: '0px' }} >
+        <Header className="site-layout-background" style={{ color: 'white', backgroundColor: '#fff', padding: '0px', marginLeft : this.props.store.login.sider_collapsed ? '80px' : '200px' }} >
           <div className="row flex-nowrap">
             <div className="col-md-6">
-              <h3 className="primary-text" style={{ marginTop: '10px' }}> <Button type="link" size="large" onClick={() => window.history.back()} icon={<ArrowLeftOutlined />} ></Button> ERP</h3>
+              <h3 className="primary-text" style={{ marginTop: '10px' }}> <Button type="link" size="large" onClick={() => window.history.back()} icon={<ArrowLeftOutlined />} ></Button> Garments ERP</h3>
             </div>
             <div className="col-md-6" align="right" style={{ right: '20px' }}>
               <Button type="link" onClick={() => this.props.history.go(0)} size="large" className="ant-btn-secondary" icon={<FontAwesomeIcon icon={faSync} size="4x" />} ></Button>

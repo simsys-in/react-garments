@@ -288,7 +288,7 @@ class AddProduct extends PureComponent{
                     </div>
 
                     <div className="row">
-                        <Selectbox modelName="product_category_id" label="product Category" className="col-md-4" options={this.state.product_category_data} value={this.state.formData.product_category_id}  ></Selectbox>
+                        <Selectbox modelName="product_category_id" label="Product Category" className="col-md-4" options={this.state.product_category_data} value={this.state.formData.product_category_id}  ></Selectbox>
                         <Selectbox modelName="status" label="Status" className="col-md-4" value={this.state.formData.status} statusSelect ></Selectbox>
                         <Textbox label="QR Code" modelName="qrcode" required="false" className="col-md-4"></Textbox>
 
@@ -334,12 +334,12 @@ class AddProduct extends PureComponent{
                             <Divider plain orientation="left" >Price Details</Divider>
                             <div className="row">
                                 <Textbox label="Pur Amount" modelName="purchase_amount" required="false" className="col-md-6"></Textbox>
-                                <Textbox label="Pur Amt incl Tax" modelName="purchase_rate_incltex" required="false" className="col-md-6"></Textbox>
+                                <Textbox label="Pur Amt incl Tax" modelName="purchase_rate_incltax" required="false" className="col-md-6"></Textbox>
                             </div>
 
                             <div className="row">
                                 <Textbox label="Sales Amount" modelName="sales_amount" required="false" className="col-md-6"></Textbox>
-                                 <Textbox label="Sales Amt incl Tex" modelName="sales_rate_incltex" required="false" className="col-md-6"></Textbox>
+                                 <Textbox label="Sales Amt incl Tax" modelName="sales_rate_incltax" required="false" className="col-md-6"></Textbox>
                             </div>
                         </div>
                     </div>

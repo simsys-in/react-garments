@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Form, Button, Divider  } from 'antd';
+import { Form, Button, Table, Checkbox  } from 'antd';
 import { connect } from 'react-redux';
 import { seo } from '../../../helpers/default';
 import { getRequest, postRequest, putRequest } from '../../../helpers/apihelper';
@@ -25,6 +25,69 @@ class AddUser_Group extends PureComponent{
             formData : {
                 status : 'active'
             },
+            dataSource : [],
+            columns : [
+                {
+                    title: "Menu",
+                    dataIndex: "menu",
+                    key: "menu",
+                    width : '50vw',
+                    // render: (value, record, rowIndex) => (
+                    //   <Checkbox
+                    //     checked={value}
+                    //     onChange={this.handleCheckboxChangeFactory(rowIndex, "name")}
+                    //   />
+                    // )
+                  },
+                  {
+                    title: "Add",
+                    dataIndex: "add_permission",
+                    key: "add_permission",
+                    width : '10vw',
+                    render: (value, record, rowIndex) => (
+                      <Checkbox
+                        checked={value}
+                        onChange={this.handleCheckboxChangeFactory(rowIndex, "add_permission")}
+                      />
+                    )
+                  },
+                  {
+                    title: "Edit",
+                    dataIndex: "edit_permission",
+                    key: "edit_permission",
+                    width : '10vw',
+                    render: (value, record, rowIndex) => (
+                      <Checkbox
+                        checked={value}
+                        onChange={this.handleCheckboxChangeFactory(rowIndex, "edit_permission")}
+                      />
+                    )
+                  },
+                  {
+                    title: "View",
+                    dataIndex: "view_permission",
+                    key: "view_permission",
+                    width : '10vw',
+                    render: (value, record, rowIndex) => (
+                      <Checkbox
+                        checked={value}
+                        onChange={this.handleCheckboxChangeFactory(rowIndex, "view_permission")}
+                      />
+                    )
+                  },
+                  {
+                    title: "Delete",
+                    dataIndex: "delete_permission",
+                    key: "delete_permission",
+                    width : '10vw',
+                    render: (value, record, rowIndex) => (
+                      <Checkbox
+                        checked={value}
+                        onChange={this.handleCheckboxChangeFactory(rowIndex, "delete_permission")}
+                      />
+                    )
+                  }
+            ],
             companiesList : []
         }
         this.id = this.props.match.params.id;
@@ -49,6 +112,29 @@ class AddUser_Group extends PureComponent{
         }
     }
 
+    handleCheckboxChangeFactory = (rowIndex, columnKey) => (event) => {
+        const newCheckboxState = [...this.state.dataSource];
+        newCheckboxState[rowIndex][columnKey] = event.target.checked;
+        // setCheckboxState(newCheckboxState);
+        this.setState({
+            ...this.state,
+            dataSource : newCheckboxState
+        })
+      };
+    
+
+      getMenuList = () => {
+          getRequest('user/getAllMenusForUserPermission?user_group_id=' + this.id).then(data => {
+              if(data.status === "info")
+              {
+                  this.setState({
+                      ...this.state,
+                      dataSource : data.data
+                  })
+              }
+          })
+      }
+
     getUser_Group = () => {
         console.log(this.id)
         if(this.id)
@@ -67,6 +153,7 @@ class AddUser_Group extends PureComponent{
     }
 
     componentDidMount() {
+        this.getMenuList();
         this.getUser_Group();
         interval = setInterval(() => {
             this.validate()
@@ -98,6 +185,7 @@ class AddUser_Group extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
+            values.menuList = this.state.dataSource;
             putRequest('user/user_group?id=' + this.id, values).then(data => {
                 if(data.status === "success")
                 {
@@ -139,11 +227,13 @@ class AddUser_Group extends PureComponent{
                     >
                         
                     <div className="row">
-                        
-                    <Textbox label="User Group" autoFocus modelName="user_group" className="col-md-4"></Textbox>
-                    <Textbox label="State"  modelName="state_id" className="col-md-4"></Textbox>
-
-
+                        <Textbox label="User Group" autoFocus modelName="user_group" className="col-md-4"></Textbox>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <Table pagination={false} columns={this.state.columns} dataSource={this.state.dataSource} />
+                            <br/><br/>
+                        </div>
                     </div>
                    
 

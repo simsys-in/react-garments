@@ -4,6 +4,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import './App.less';
 import {Animated} from "react-animated-css";
+// import { connect } from 'react-redux'
+// import './style/custom-antd.css'
+import './style/theme.less'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
 import {
@@ -86,7 +89,7 @@ import AddColor from './pages/masters/color/add'
 import ListColor from './pages/masters/color/list'
 
 
-/// Masterroup
+/// Mastergroup
 import AddMasterGroup from './pages/masters/master_group/add'
 import ListMasterGroup from './pages/masters/master_group/list'
 
@@ -111,6 +114,9 @@ import ListUserGroup from './pages/admin/user_group/list'
 
 import AddUser from './pages/admin/users/add'
 import ListUser from './pages/admin/users/list'
+/// order
+import AddOrderProgram  from './pages/transactions/order/add'
+import ListOrderProgram from './pages/transactions/order/list'
 
 
 const { Content } = Layout;
@@ -148,7 +154,7 @@ class App extends React.PureComponent
                   <Viewer/>
                 </Route>
                 </Switch>
-            <Content >
+            <Content style={{ marginLeft : this.props.store.login.sider_collapsed ? '80px' : '200px' }}>
                     { this.props.store.login.login ? 
                     <div className="main-content">
                       {/* <Animated animationIn="fadeInUp" animationOut="fadeInDown" animationInDuration={400} animationOutDuration={400} isVisible={true}> */}
@@ -261,6 +267,10 @@ class App extends React.PureComponent
                               <Route exact path="/user/edit_user/:id" component={AddUser} />
                               <Route exact path="/user/list_user" component={ListUser} />
 
+                               {/* order program */}
+                              <Route exact path="/transactions/add_orderprogram" component={AddOrderProgram} />
+                              <Route exact path="/transactions/edit_orderprogram/:id" component={AddOrderProgram} />
+                              <Route exact path="/transactions/list_orderprogram" component={ListOrderProgram} />
 
                               <Redirect to="/" />
                             </Switch>

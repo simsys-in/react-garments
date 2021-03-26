@@ -153,8 +153,23 @@ export default  [
             //     icon : 'percentage',
             //     url : '/masters/list_addless'
             // },
+           
         ]
     },
+
+
+    {
+        name : 'Transactions',
+        role : 'admin',
+        icon : 'user-shield',
+        children : [
+            {
+                name : "Order Program",
+                icon : 'swatchbook',
+                url : '/transactions/list_orderProgram'
+            },
+        ]
+    }
     // {
     //     name : 'Member Tools',
     //     role : 'admin',
