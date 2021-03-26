@@ -1,13 +1,13 @@
 import React from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css'; 
-// import  'bootstrap-css-only/css/bootstrap.min.css'; 
-import 'mdbreact/dist/css/mdb.css';
 import './App.less';
+import  'bootstrap-css-only/css/bootstrap.min.css'; 
+import 'mdbreact/dist/css/mdb.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import './style/theme.less'
+// import './style/custom-antd.css'
 import {Animated} from "react-animated-css";
 // import { connect } from 'react-redux'
-// import './style/custom-antd.css'
-import './style/theme.less'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
 import {
   Router,

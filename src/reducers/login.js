@@ -30,7 +30,7 @@ export default function Login(state=initialState, action){
         case TOGGLE_SIDER : {
             return {
                 ...state,
-                sider_collapsed : !state.sider_collapsed
+                sider_collapsed : action.payload
             }
         }
         

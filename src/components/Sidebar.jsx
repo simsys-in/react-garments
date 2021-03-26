@@ -33,7 +33,7 @@ class Sidebar extends PureComponent {
     }
 
     onCollapse = collapsed => {
-        this.props.toggleSiderCollapse()
+        this.props.toggleSiderCollapse(collapsed)
         this.setState({ 
             collapsed,
             image_class : collapsed ? 'logo-collapsed' : 'logo'

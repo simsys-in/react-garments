@@ -9,6 +9,7 @@ export const onLogOut = () => ({
     type : ON_LOGOUT
 })
 
-export const toggleSiderCollapse = () => ({
-    type : TOGGLE_SIDER
+export const toggleSiderCollapse = (collapsed) => ({
+    type : TOGGLE_SIDER,
+    payload : collapsed
 })
