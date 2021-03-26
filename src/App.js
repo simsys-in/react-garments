@@ -97,6 +97,23 @@ import ListMasterGroup from './pages/masters/master_group/list'
 import AddOrderProgram  from './pages/transactions/order/add'
 import ListOrderProgram from './pages/transactions/order/list'
 
+/// FabricInward
+import AddFabricInward  from './pages/transactions/fabric_inward/add'
+import ListFabricInward from './pages/transactions/fabric_inward/list'
+
+/// Fabricoutward
+import AddFabricOutward  from './pages/transactions/fabric_outward/add'
+import ListFabricOutward from './pages/transactions/fabric_outward/list'
+
+/// FabricInvoice
+import AddFabricInvoice  from './pages/transactions/fabric_invoice/add'
+import ListFabricInvoice from './pages/transactions/fabric_invoice/list'
+
+
+/// Fabric
+import AddFabricReturn  from './pages/transactions/fabric_return/add'
+import ListFabricReturn from './pages/transactions/fabric_return/list'
+
 
 const { Content } = Layout;
 class App extends React.PureComponent
@@ -217,6 +234,29 @@ class App extends React.PureComponent
                               <Route exact path="/transactions/add_orderprogram" component={AddOrderProgram} />
                               <Route exact path="/transactions/edit_orderprogram/:id" component={AddOrderProgram} />
                               <Route exact path="/transactions/list_orderprogram" component={ListOrderProgram} />
+
+
+                                {/* fabric inward */}
+                              <Route exact path="/transactions/add_fabric_inward" component={AddFabricInward} />
+                              <Route exact path="/transactions/edit_fabric_inward/:id" component={AddFabricInward} />
+                              <Route exact path="/transactions/list_fabric_inward" component={ListFabricInward} />
+
+                               {/* fabric outward */}
+                               <Route exact path="/transactions/add_fabric_outward" component={AddFabricOutward} />
+                              <Route exact path="/transactions/edit_fabric_outward/:id" component={AddFabricOutward} />
+                              <Route exact path="/transactions/list_fabric_outward" component={ListFabricOutward} />
+
+
+                               {/* fabric invoice */}
+                              <Route exact path="/transactions/add_fabric_invoice" component={AddFabricInvoice} />
+                              <Route exact path="/transactions/edit_fabric_invoice/:id" component={AddFabricInvoice} />
+                              <Route exact path="/transactions/list_fabric_invoice" component={ListFabricInvoice} />
+
+                               {/* fabric invoice */}
+                              <Route exact path="/transactions/add_fabric_return" component={AddFabricReturn} />
+                              <Route exact path="/transactions/edit_fabric_return/:id" component={AddFabricReturn} />
+                              <Route exact path="/transactions/list_fabric_return" component={ListFabricReturn} />
+
 
                               <Redirect to="/" />
                             </Switch>
