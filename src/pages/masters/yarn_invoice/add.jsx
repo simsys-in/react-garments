@@ -25,7 +25,7 @@ class AddYarn_Invoice extends PureComponent{
             formData : {
                 status : 'active',
                 vou_date : moment(),
-                fabrics : [
+                yarn_invoice_inventory : [
                     {  
                         fabrics : '',
                         gsm : '',
@@ -33,6 +33,8 @@ class AddYarn_Invoice extends PureComponent{
                         qtybag_per :'' ,
                         qty_bag : '',
                         qty_kg : '',
+                        rate : '',
+                        amount : '',
                       
                     }
                 ]
@@ -134,9 +136,10 @@ class AddYarn_Invoice extends PureComponent{
         if(this.id)
         {
             getRequest("masters/yarn_invoice?id=" + this.id).then(data => {
-                data.data[0].date = moment(data.data[0].date)
-                console.log(data.data[0])
-                this.formRef.current.setFieldsValue(data.data[0]);
+                data.data.date = moment(data.data.date)
+                console.log(data.data)
+                data.data.vou_date = moment(data.data.vou_date)
+                this.formRef.current.setFieldsValue(data.data);
             })
 
         }
@@ -201,56 +204,170 @@ class AddYarn_Invoice extends PureComponent{
         })
     };
 
-    addFabrics = () => {
-        var newFabrics = {
-            godown : '',
-            stock: '',
+    addYarn_invoice_inventory = () => {
+        var newYarn_invoice_inventory = {
+            fabrics : '',
+            gsm : '',
+            counts : '',
+            qtybag_per :'' ,
+            qty_bag : '',
+            qty_kg : '',
+            rate : '',
+            amount : '',
            
         }
 
-        var oldFabricsArray = this.state.formData.fabrics;
+        var oldYarn_invoice_inventoryArray = this.state.formData.yarn_invoice_inventory;
 
-        oldFabricsArray.push(newFabrics);
+        oldYarn_invoice_inventoryArray.push(newYarn_invoice_inventory);
 
         this.setState({
             ...this.state,
             formData : {
                 ...this.state.formData,
-                fabrics : oldFabricsArray
+                yarn_invoice_inventory : oldYarn_invoice_inventoryArray
             }
         })
     }
+    //total of answer+answer=answer
+
+    setTotalKgs = () =>{
+        var values = this.formRef.current.getFieldValue();
+        var yarn_invoice_inventory = values.yarn_invoice_inventory;
+        var total_kg = 0;
+        yarn_invoice_inventory.map((item, index) => {
+            total_kg += item.qty_kg;
+
+            if(index === yarn_invoice_inventory.length - 1)
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        inventory_qty_kg_total : total_kg
+                    }
+                }, () => {
+                    this.formRef.current.setFieldsValue({
+                        inventory_qty_kg_total : total_kg
+                    })
+                })
+            }
+
+        })
+    }
+    setTotalAmounts = () =>{
+        var values = this.formRef.current.getFieldValue();
+        var yarn_invoice_inventory = values.yarn_invoice_inventory;
+        var total_amount = 0;
+        yarn_invoice_inventory.map((item, index) => {
+            total_amount += Number(item.amount);
+
+            if(index === yarn_invoice_inventory.length - 1)
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        inventory_amount_total : total_amount
+                    }
+                }, () => {
+                    this.formRef.current.setFieldsValue({
+                        inventory_amount_total : total_amount
+                    })
+                })
+            }
+
+        })
+    }
+
+    //total of bags answer+answer+answer
+    setTotalBags = () =>{
+        var values = this.formRef.current.getFieldValue();
+        var yarn_invoice_inventory = values.yarn_invoice_inventory;
+        var total_bag = 0;
+        yarn_invoice_inventory.map((item, index) => {
+            total_bag += Number(item.qty_bag);
+
+            if(index === yarn_invoice_inventory.length - 1)
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        inventory_qty_bag_total : total_bag
+                    }
+                }, () => {
+                    this.formRef.current.setFieldsValue({
+                        inventory_qty_bag_total : total_bag
+                    })
+                })
+            }
+
+        })
+    }
+
+    //total of multiplication example 20*4=80
 
     setQTYKG = (ev, index) => {
         var values = this.formRef.current.getFieldValue();
-        var fabric = values.fabrics;
+        var fabric = values.yarn_invoice_inventory;
         var currentFabric = fabric[index] ;
         currentFabric.qty_kg = currentFabric.qtybag_per * currentFabric.qty_bag;
 
-        values.fabrics.splice(index, 1, currentFabric);
+        values.yarn_invoice_inventory.splice(index, 1, currentFabric);
 
         this.setState({
             ...this.state,
             formData : {
                 ...this.state.formData,
-                fabrics : values.fabrics
+                yarn_invoice_inventory : values.yarn_invoice_inventory
             }
         }, () => {
             // var data = this.formRef.current.getFieldValue();
             // var qty_kg = Number(data.qtybag_per) + Number(data.qty_bag)
             this.formRef.current.setFieldsValue(values);
+            // this.setTotalKgs();
+            // this.setTotalBags();
+            // this.setTotalAmounts();
+
         })
     }
-    removeFabrics = (index) => {
-        var oldFabricsArray = this.state.formData.fabrics;
 
-        oldFabricsArray.splice(index, 1);
+    //multiplication function example var * var = answer
+    setAMOUNT = (ev, index) => {
+        var values = this.formRef.current.getFieldValue();
+        var fabric = values.yarn_invoice_inventory;
+        var currentFabric = fabric[index] ;
+        currentFabric.amount = currentFabric.qty_kg * currentFabric.rate;
+
+        values.yarn_invoice_inventory.splice(index, 1, currentFabric);
+
+        this.setState({
+            ...this.state,
+            formData : {
+                ...this.state.formData,
+                yarn_invoice_inventory : values.yarn_invoice_inventory
+            }
+        }, () => {
+            // var data = this.formRef.current.getFieldValue();
+            // var qty_kg = Number(data.qtybag_per) + Number(data.qty_bag)
+            this.formRef.current.setFieldsValue(values);
+            this.setTotalKgs();
+            this.setTotalBags();
+            this.setTotalAmounts();
+
+        })
+    }
+    removeYarn_invoice_inventory = (index) => {
+        var oldYarn_invoice_inventoryArray = this.state.formData.yarn_invoice_inventory;
+
+        oldYarn_invoice_inventoryArray.splice(index, 1);
         
         this.setState({
             ...this.state,
             formData : {
                 ...this.state.formData,
-                fabrics : oldFabricsArray
+                yarn_invoice_inventory : oldYarn_invoice_inventoryArray
             }
         })
     }
@@ -302,28 +419,32 @@ class AddYarn_Invoice extends PureComponent{
                     </div>
                     <div className="row">
                              <div className="col-md-12">
-                             <Divider plain orientation="left" >Products</Divider>                                <Form.List name="fabrics">
+                             <Divider plain orientation="left" >Products</Divider>                                <Form.List name="yarn_invoice_inventory">
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
                                                 <div className="row">
                                                     <div className="col-md-11">
                                                         <div className="row">
-                                                            <Selectbox className="col-md-4" field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={field.fabric_id} options={this.state.fabric} label="Fabric"></Selectbox>
-                                                            <Selectbox className="col-md-4" field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={field.color_id} options={this.state.color} label="Color"></Selectbox>
-                                                            <Textbox className="col-md-4" field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={field.gsm} label="Gsm"></Textbox>
+                                                            <Selectbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={field.fabric_id} options={this.state.fabric} label="Fabric"></Selectbox>
+                                                            {/* <Selectbox className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={field.color_id} options={this.state.color} label="Color"></Selectbox> */}
+                                                            <Textbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={field.gsm} label="Gsm"></Textbox>
 
-                                                            <Textbox className="col-md-4" field={field} fieldKey={[ field.fieldKey, 'counts' ]} required = 'false' modelName={[field.name, 'counts']} value={field.counts} label="Counts"></Textbox>
+                                                            <Textbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'counts' ]} required = 'false' modelName={[field.name, 'counts']} value={field.counts} label="Counts"></Textbox>
 
-                                                            <Numberbox className="col-md-4" field={field} fieldKey={[ field.fieldKey, 'qtybag_per' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qtybag_per']} value={field.qtybag_per} label="Qty per"></Numberbox>
-                                                            <Numberbox className="col-md-4" field={field} fieldKey={[ field.fieldKey, 'qty_bag' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qty_bag']} value={field.qty_bag} label="Qty Bags"></Numberbox>
+                                                            <Numberbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'qtybag_per' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qtybag_per']} value={field.qtybag_per} label="Qty per"></Numberbox>
+                                                            <Numberbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'qty_bag' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qty_bag']} value={field.qty_bag} label="Qty Bags"></Numberbox>
 
-                                                            <Numberbox className="col-md-4" field={field} fieldKey={[ field.fieldKey, 'qty_kg' ]} disabled modelName={[field.name, 'qty_kg']} value={field.qty_kg} label="Qty Kg"></Numberbox>
+                                                            <Numberbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'qty_kg' ]} disabled required = 'false' onChange={(ev)=> this.setAMOUNT(ev,field.fieldKey)}modelName={[field.name, 'qty_kg']} value={field.qty_kg} label="Qty Kg"></Numberbox>
+                                                            
+                                                            <Numberbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'rate' ]} onChange={(ev)=> this.setAMOUNT(ev,field.fieldKey)} modelName={[field.name, 'rate']} value={field.rate} label="Rate"></Numberbox>
+                                                           
+                                                            <Numberbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'amount' ]} disabled required = 'false' modelName={[field.name, 'amount']} value={field.amount} label="Amount"></Numberbox>
 
                                                         </div>
                                                     </div>
                                                     <div className="col-md-1">
-                                                        { index === 0  && <Button onClick={this.addFabrics} style={{ marginLeft : 10 }}>+</Button> }
-                                                        { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeFabrics(index)} type="primary">-</Button>}
+                                                        { index === 0  && <Button onClick={this.addYarn_invoice_inventory} style={{ marginLeft : 10 }}>+</Button> }
+                                                        { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeYarn_invoice_inventory(index)} type="primary">-</Button>}
                                                     </div>
                                                  </div>
                                      )
@@ -334,23 +455,21 @@ class AddYarn_Invoice extends PureComponent{
                            </div>
                          </div>
 
-                     {/* <div className="row">
-                        <div className="col-md-12">
-                            <Divider plain orientation="left" >Products</Divider>
-                            <div className="row">
-                            <Selectbox modelName="fabric_id" label="Fabric" className="col-md-6" options={this.state.fabric} value={this.state.fabric_id}  ></Selectbox>
-                                <Textbox label="Gsm" modelName="gsm"  className="col-md-4"></Textbox>
-                                <Textbox label="Counts" modelName="counts"  className="col-md-4"></Textbox>
-                            </div>
-
-                            <div className="row">
-                            <Numberbox label="Qty per" className="col-md-4" max={100}  min={0} modelName="qtybag_per"></Numberbox>
-                            <Numberbox label="Qty Bags" className="col-md-4" max={100}  min={0} modelName="qty_bag"></Numberbox>
-                            <Numberbox label="Qty Kgs" className="col-md-4" max={100} disabled min={0} modelName="qty_kg"></Numberbox>
-
+                         <div className="row">
+                            <div className="col-md-12" align="right">
+                                <Numberbox modelName="inventory_qty_bag_total" value={this.state.formData.inventory_qty_bag_total} disabled label="Total Bags" ></Numberbox>
                             </div>
                         </div>
-                    </div> */}
+                         <div className="row">
+                            <div className="col-md-12" align="right">
+                                <Numberbox modelName="inventory_qty_kg_total" value={this.state.formData.inventory_qty_kg_total} disabled label="Total KGs" ></Numberbox>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12" align="right">
+                                <Numberbox modelName="inventory_amount_total" value={this.state.formData.inventory_amount_total} disabled label="Total Amounts" ></Numberbox>
+                            </div>
+                        </div>
 
                     <div className="row">
                         <div className="col-md-12">

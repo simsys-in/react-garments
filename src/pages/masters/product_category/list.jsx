@@ -16,17 +16,13 @@ class ListProductCategory extends PureComponent {
           label: 'S.No',
           field: 'sno',
           width: "10vw",
-          key: 'sno',
-          defaultSortOrder: 'ascend',
-          render: (text, record) => <p>{text}</p>,
+        
         },
         {
           label: 'Product Category',
           field: 'product_category',
           width: "60vw",
-          key: 'product_category',
-          defaultSortOrder: 'ascend',
-          render: (text, record) => <p>{text}</p>,
+      
         },
        
         {
