@@ -159,7 +159,7 @@ class AddMaster extends PureComponent{
                         <Selectbox modelName="master_group_id" label="Master Group" className="col-md-4" options={this.state.master_group_data} value={this.state.formData.master_group_id}  ></Selectbox>
 
                        
-                        <Textbox label="Narration" autoFocus modelName="narration" className="col-md-4"></Textbox>
+                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
 
 
                     </div>

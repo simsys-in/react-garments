@@ -97,6 +97,62 @@ export default  [
                 icon : 'chalkboard-teacher',
                 url : '/masters/list_master'
             },
+            {
+                name : "YarnInward",
+                icon : 'chalkboard-teacher',
+                url : '/masters/list_yarn_inward'
+            },
+            {
+                name : "YarnOutward",
+                icon : 'shopping-cart',
+                url : '/masters/list_yarn_outward'
+            },
+            {
+                name : "YarnReturn ",
+                icon : 'object-group',
+                url : '/masters/list_yarn_return '
+            },
+            {
+                name : "YarnInvoice",
+                icon : 'chalkboard-teacher',
+                url : '/masters/list_yarn_invoice'
+            },
+            {
+                name : "MenuMaster",
+                icon : 'map-o',
+                url : '/user/list_menu_master'
+            },
+            {
+                name : "user",
+                icon : 'map',
+                url : '/user/list_user'
+            },
+            {
+                name : "user_group",
+                icon : 'chalkboard-teacher',
+                url : '/user/list_user_group'
+            },
+           
+            // {
+            //     name : "Staff",
+            //     icon : 'chalkboard-teacher',
+            //     url : '/masters/list_staffs'
+            // },
+            // {
+            //     name : "Exercise",
+            //     icon : 'dumbbell',
+            //     url : '/masters/list_exercises'
+            // },
+            // {
+            //     name : "Workouts",
+            //     icon : 'bezier-curve',
+            //     url : '/masters/list_workouts'
+            // },
+            // {
+            //     name : "Add Less",
+            //     icon : 'percentage',
+            //     url : '/masters/list_addless'
+            // },
            
         ]
     },

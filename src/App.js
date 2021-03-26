@@ -93,6 +93,27 @@ import ListColor from './pages/masters/color/list'
 import AddMasterGroup from './pages/masters/master_group/add'
 import ListMasterGroup from './pages/masters/master_group/list'
 
+//yarn inward
+import AddYarnInward from './pages/masters/yarn_inward/add'
+import ListYarnInward from './pages/masters/yarn_inward/list'
+// yarn outward
+import AddYarnOutward from './pages/masters/yarn_outward/add'
+import ListYarnOutward from './pages/masters/yarn_outward/list'
+
+import AddYarnReturn from './pages/masters/yarn_return/add'
+import ListYarnReturn from './pages/masters/yarn_return/list'
+
+import AddYarnInvoice from './pages/masters/yarn_invoice/add'
+import ListYarnInvoice from './pages/masters/yarn_invoice/list'
+
+import AddMenuMaster from './pages/admin/menu_master/add'
+import ListMenuMaster from './pages/admin/menu_master/list'
+
+import AddUserGroup from './pages/admin/user_group/add'
+import ListUserGroup from './pages/admin/user_group/list'
+
+import AddUser from './pages/admin/users/add'
+import ListUser from './pages/admin/users/list'
 /// order
 import AddOrderProgram  from './pages/transactions/order/add'
 import ListOrderProgram from './pages/transactions/order/list'
@@ -150,7 +171,7 @@ class App extends React.PureComponent
                   <Viewer/>
                 </Route>
                 </Switch>
-            <Content >
+            <Content style={{ marginLeft : this.props.store.login.sider_collapsed ? '80px' : '200px' }}>
                     { this.props.store.login.login ? 
                     <div className="main-content">
                       {/* <Animated animationIn="fadeInUp" animationOut="fadeInDown" animationInDuration={400} animationOutDuration={400} isVisible={true}> */}
@@ -229,6 +250,39 @@ class App extends React.PureComponent
                               <Route exact path="/masters/add_masterGroup" component={AddMasterGroup} />
                               <Route exact path="/masters/edit_masterGroup/:id" component={AddMasterGroup} />
                               <Route exact path="/masters/list_masterGroup" component={ListMasterGroup} />
+                             
+                             {/* yarn YarnInward */}
+
+                              <Route exact path="/masters/add_yarn_inward" component={AddYarnInward} />
+                              <Route exact path="/masters/edit_yarn_inward/:id" component={AddYarnInward} />
+                              <Route exact path="/masters/list_yarn_inward" component={ListYarnInward} />
+                             {/* yarn Yarn outward */}
+
+                              <Route exact path="/masters/add_yarn_outward" component={AddYarnOutward} />
+                              <Route exact path="/masters/edit_yarn_outward/:id" component={AddYarnOutward} />
+                              <Route exact path="/masters/list_yarn_outward" component={ListYarnOutward} />
+                             
+                              {/* yarn return */}
+                              <Route exact path="/masters/add_yarn_return " component={AddYarnReturn } />
+                              <Route exact path="/masters/edit_yarn_return /:id" component={AddYarnReturn } />
+                              <Route exact path="/masters/list_yarn_return " component={ListYarnReturn } />
+
+                              {/* Yarn_invoice */}
+                              <Route exact path="/masters/add_yarn_invoice" component={AddYarnInvoice} />
+                              <Route exact path="/masters/edit_yarn_invoice/:id" component={AddYarnInvoice} />
+                              <Route exact path="/masters/list_yarn_invoice" component={ListYarnInvoice} />
+                             
+                              <Route exact path="/user/add_menu_master" component={AddMenuMaster} />
+                              <Route exact path="/user/edit_menu_master/:id" component={AddMenuMaster} />
+                              <Route exact path="/user/list_menu_master" component={ListMenuMaster} />
+                             
+                              <Route exact path="/user/add_user_group" component={AddUserGroup} />
+                              <Route exact path="/user/edit_user_group/:id" component={AddUserGroup} />
+                              <Route exact path="/user/list_user_group" component={ListUserGroup} />
+                             
+                              <Route exact path="/user/add_user" component={AddUser} />
+                              <Route exact path="/user/edit_user/:id" component={AddUser} />
+                              <Route exact path="/user/list_user" component={ListUser} />
 
                                {/* order program */}
                               <Route exact path="/transactions/add_orderprogram" component={AddOrderProgram} />

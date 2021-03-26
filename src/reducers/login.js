@@ -1,8 +1,9 @@
-const { SUCCESS_LOGIN, ON_LOGOUT } = require("../actionTypes");
+const { SUCCESS_LOGIN, ON_LOGOUT, TOGGLE_SIDER } = require("../actionTypes");
 
 const initialState = {
     login: false,
-    userData : {}
+    userData : {},
+    sider_collapsed : false
 }
 
 export default function Login(state=initialState, action){
@@ -24,6 +25,12 @@ export default function Login(state=initialState, action){
                 ...state,
                 login : false,
                 userData : {}
+            }
+        }
+        case TOGGLE_SIDER : {
+            return {
+                ...state,
+                sider_collapsed : !state.sider_collapsed
             }
         }
         

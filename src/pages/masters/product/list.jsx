@@ -21,7 +21,7 @@ class ListProduct extends PureComponent {
         },
         {
           label: 'Product Group',
-          field: 'product_group_id',
+          field: 'product_group',
           width: "300px",
           key: 'product_group_id',
           defaultSortOrder: 'ascend',
@@ -29,7 +29,7 @@ class ListProduct extends PureComponent {
         },
         {
           label: 'Product Category',
-          field: 'product_category_id',
+          field: 'product_category',
           width: "300px",
           key: 'product_category_id',
           defaultSortOrder: 'ascend',
@@ -47,7 +47,7 @@ class ListProduct extends PureComponent {
         },
         {
           label: 'Unit',
-          field: 'unit_id',
+          field: 'unit',
           width: "300px",
           key: 'unit_id',
           defaultSortOrder: 'ascend',

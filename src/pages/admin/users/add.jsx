@@ -6,14 +6,15 @@ import { getRequest, postRequest, putRequest } from '../../../helpers/apihelper'
 import { withRouter } from 'react-router';
 import moment from 'moment';
 import Textbox from '../../../components/Inputs/Textbox';
-
+import Selectbox from '../../../components/Inputs/Selectbox';
+import Numberbox from '../../../components/Inputs/Numberbox';
+import Address_Template from '../../../components/Templates/Address_Template';
 
 
 let interval;
 
 
-
-class AddSize extends PureComponent{
+class AddUser extends PureComponent{
     formRef = React.createRef();
     constructor(props){
         super(props);
@@ -24,7 +25,8 @@ class AddSize extends PureComponent{
             formData : {
                 status : 'active'
             },
-            companiesList : []
+            companiesList : [],
+            userGroup : [],
         }
         this.id = this.props.match.params.id;
     }
@@ -33,6 +35,18 @@ class AddSize extends PureComponent{
         console.log('Failed:', errorInfo);
       };
 
+
+      getUserGroupSB = () => {
+        getRequest('user/getUserGroupSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    userGroup : data.data
+                })
+            }
+        })
+    }
     validate = () => {
         if(this.formRef.current)
         {
@@ -48,11 +62,11 @@ class AddSize extends PureComponent{
         }
     }
 
-    getSize = () => {
+    getUser = () => {
         console.log(this.id)
         if(this.id)
         {
-            getRequest("masters/size?id=" + this.id).then(data => {
+            getRequest("user/user?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
@@ -66,7 +80,8 @@ class AddSize extends PureComponent{
     }
 
     componentDidMount() {
-        this.getSize();
+        this.getUser();
+        this.getUserGroupSB();
         interval = setInterval(() => {
             this.validate()
         }, 100);
@@ -78,15 +93,15 @@ class AddSize extends PureComponent{
 
     componentWillMount = () => {
         seo({
-            title: 'Add Size',
-            metaDescription: 'Add Size'
+            title: 'Add User',
+            metaDescription: 'Add User'
           });
 
           if(this.id)
           {
             seo({
-                title: 'Edit Size',
-                metaDescription: 'Edit Size'
+                title: 'Edit User',
+                metaDescription: 'Edit User'
               });
               console.log("Edit Page");
             }
@@ -97,10 +112,10 @@ class AddSize extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('masters/size?id=' + this.id, values).then(data => {
+            putRequest('user/user?id=' + this.id, values).then(data => {
                 if(data.status === "success")
                 {
-                    this.props.history.push('/masters/list_size')
+                    this.props.history.push('/user/list_user')
                     console.log(data) 
                 }
             })
@@ -123,7 +138,7 @@ class AddSize extends PureComponent{
             <Fragment>
                 <div className="row">
                     <div className="col-md-12" align="right">
-                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/masters/list_size') } }>
+                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/user/list_user') } }>
                             { this.id ? "Back" : 'List'}
                         </Button>
                     </div>
@@ -138,25 +153,22 @@ class AddSize extends PureComponent{
                     >
                         
                     <div className="row">
-                        <Textbox label="Size" autoFocus modelName="size" className="col-md-4"></Textbox>
-                        <Textbox label="Size1"  modelName="size1" className="col-md-4"></Textbox>
-                        <Textbox label="Size2" required="false" modelName="size2" className="col-md-4"></Textbox>
-                    </div>
-                    <div className="row">
-                        <Textbox label="Size3" required="false" modelName="size3" className="col-md-4"></Textbox>
-                        <Textbox label="Size4" required="false" modelName="size4" className="col-md-4"></Textbox>
-                        <Textbox label="Size5" required="false" modelName="size5" className="col-md-4"></Textbox>
-                    </div>
-                    <div className="row">
-                        <Textbox label="Size6" required="false" modelName="size6" className="col-md-4"></Textbox>
-                        <Textbox label="Size7" required="false" modelName="size7" className="col-md-4"></Textbox>
-                        <Textbox label="Size8" required="false" modelName="size8" className="col-md-4"></Textbox>
-                    </div>
+                        
+                    <Textbox label="Mobile Number" autoFocus modelName="mobile" className="col-md-4"></Textbox>
+                    <Textbox label="Password"  modelName="password" className="col-md-4"></Textbox>
+                    <Selectbox modelName="user_group_id" label="User Group" className="col-md-4" options={this.state.userGroup} value={this.state.formData.user_group_id}  ></Selectbox>
 
-                    <div className="row">
-                    <Textbox label="Size9" required="false" modelName="size9" className="col-md-4"></Textbox>
 
                     </div>
+                    <div className="row">
+                        
+                    <Textbox label="Email" autoFocus modelName="email" className="col-md-4"></Textbox>
+                    <Textbox label="Name"  modelName="name" className="col-md-4"></Textbox>
+                  
+
+
+                    </div>
+                   
 
                     <div className="row">
                         <div className="col-md-12">
@@ -193,4 +205,4 @@ const mapDispatchToProps = {
     
   }
   
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddSize));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddUser));

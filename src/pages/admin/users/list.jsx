@@ -6,55 +6,60 @@ import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
 import DataTable from '../../../components/Datatable';
 
-class ListMaster extends PureComponent {
+class ListUser extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       columns: [
       
         {
-          label: 'S.No',
+          label: 'S. No',
           field: 'sno',
           width: "10vw",
-          key: 'sno',
-          defaultSortOrder: 'ascend',
-          render: (text, record) => <p>{text}</p>,
+        
+        },
+      
+        {
+          label: 'Mobile ',
+          field: 'mobile',
+          width: "60vw",
+     
         },
         {
-          label: 'Master',
-          field: 'master',
-          width: "20vw",
-          key: 'master',
-          defaultSortOrder: 'ascend',
-          render: (text, record) => <p>{text}</p>,
+          label: 'Password ',
+          field: 'password',
+          width: "60vw",
+     
         },
         {
-          label: 'Master Group',
-          field: 'master_group',
-          width: "20vw",
-          key: 'master_group',
-          defaultSortOrder: 'ascend',
-          render: (text, record) => <p>{text}</p>,
+          label: 'User Group ',
+          field: 'user_group',
+          width: "60vw",
+     
         },
         {
-          label: 'Narration',
-          field: 'narration',
-          width: "40vw",
-          key: 'narration',
-          defaultSortOrder: 'ascend',
-          render: (text, record) => <p>{text}</p>,
+          label: 'Email ',
+          field: 'email',
+          width: "60vw",
+     
         },
-       
+        {
+          label: 'Name ',
+          field: 'name',
+          width: "60vw",
+     
+        },
+        
         {
           label: 'Action',
+          field:'action',
           key: 'action',
-          field: 'action',
-          width: "10vw",
+          width: "30vw",
           defaultSortOrder: 'ascend',
           render: (text, record) => (
             <Space size="middle">
-              <Button type="primary" onClick={() => this.editMaster(record.id)} icon={<EditOutlined />} size="middle" />
-              <Button type="default" color="error" danger onClick={() => this.deleteMaster(record)} icon={<DeleteOutlined />} size="middle" />
+              <Button type="primary" onClick={() => this.editUser(record.id)} icon={<EditOutlined />} size="middle" />
+              <Button type="default" color="error" danger onClick={() => this.deleteUser(record)} icon={<DeleteOutlined />} size="middle" />
             </Space>
           ),
         },
@@ -64,23 +69,23 @@ class ListMaster extends PureComponent {
     }
   }
 
-  editMaster = (id) => {
+  editUser = (id) => {
     console.log(id);
-    this.props.history.push('/masters/edit_master/' + id)
+    this.props.history.push('/user/edit_user/' + id)
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/master?id=' + id).then(data => {
+    deleteRequest('user/user?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
     })
   }
 
-  deleteMaster = (user) => {
+  deleteUser = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.master;
+    const name = user.user;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
@@ -93,22 +98,21 @@ class ListMaster extends PureComponent {
 
   componentDidMount = () => {
     seo({
-      title: 'List Master',
-      metaDescription: 'List Master'
+      title: 'List User',
+      metaDescription: 'List User'
     });
-    getRequest('masters/master').then(data => {
+    getRequest('user/user').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{
           item.sno = index +1;
           item.action = <Space size="middle">
-          <Button type="primary" onClick={() => this.editMaster(item.id)} icon={<EditOutlined />} size="middle" />
-          <Button type="default" color="error" danger onClick={() => this.deleteMaster(item)} icon={<DeleteOutlined />} size="middle" />
+          <Button type="primary" onClick={() => this.editUser(item.id)} icon={<EditOutlined />} size="middle" />
+          <Button type="default" color="error" danger onClick={() => this.deleteUser(item)} icon={<DeleteOutlined />} size="middle" />
         </Space>
 
         newData.push(item)
         })
-        
         this.setState({
           ...this.state,
           rows: newData,
@@ -124,17 +128,17 @@ class ListMaster extends PureComponent {
         <div className="row">
           <div className="col-md-10"></div>
           <div className="col-md-2" align="right">
-            <Button type="primary" onClick={() => { this.props.history.push("/masters/add_master") }}> Add </Button>
+            <Button type="primary" onClick={() => { this.props.history.push("/user/add_user") }}> Add </Button>
           </div>
           <br />
           <br />
         </div>
-        {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
-        <DataTable data={this.state} ></DataTable>
+        {/* <Table className="table-scroll" style={{ width : '100%' }} columns={this.state.columns}  dataSource={this.state.data} /> */}
+        <DataTable data={this.state}></DataTable>
       </Fragment>
     )
   }
 }
 
 
-export default withRouter(ListMaster);
+export default withRouter(ListUser);

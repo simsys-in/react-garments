@@ -6,14 +6,15 @@ import { getRequest, postRequest, putRequest } from '../../../helpers/apihelper'
 import { withRouter } from 'react-router';
 import moment from 'moment';
 import Textbox from '../../../components/Inputs/Textbox';
-
+import Selectbox from '../../../components/Inputs/Selectbox';
+import Numberbox from '../../../components/Inputs/Numberbox';
+import Address_Template from '../../../components/Templates/Address_Template';
 
 
 let interval;
 
 
-
-class AddSize extends PureComponent{
+class AddMenu_Master extends PureComponent{
     formRef = React.createRef();
     constructor(props){
         super(props);
@@ -48,11 +49,11 @@ class AddSize extends PureComponent{
         }
     }
 
-    getSize = () => {
+    getMenu_Master = () => {
         console.log(this.id)
         if(this.id)
         {
-            getRequest("masters/size?id=" + this.id).then(data => {
+            getRequest("user/menu_master?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
@@ -66,7 +67,7 @@ class AddSize extends PureComponent{
     }
 
     componentDidMount() {
-        this.getSize();
+        this.getMenu_Master();
         interval = setInterval(() => {
             this.validate()
         }, 100);
@@ -78,15 +79,15 @@ class AddSize extends PureComponent{
 
     componentWillMount = () => {
         seo({
-            title: 'Add Size',
-            metaDescription: 'Add Size'
+            title: 'Add Menu Master',
+            metaDescription: 'Add Menu Master'
           });
 
           if(this.id)
           {
             seo({
-                title: 'Edit Size',
-                metaDescription: 'Edit Size'
+                title: 'Edit Menu Master',
+                metaDescription: 'Edit Menu Master'
               });
               console.log("Edit Page");
             }
@@ -97,10 +98,10 @@ class AddSize extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('masters/size?id=' + this.id, values).then(data => {
+            putRequest('user/menu_master?id=' + this.id, values).then(data => {
                 if(data.status === "success")
                 {
-                    this.props.history.push('/masters/list_size')
+                    this.props.history.push('/user/list_menu_master')
                     console.log(data) 
                 }
             })
@@ -123,7 +124,7 @@ class AddSize extends PureComponent{
             <Fragment>
                 <div className="row">
                     <div className="col-md-12" align="right">
-                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/masters/list_size') } }>
+                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/user/list_menu_master') } }>
                             { this.id ? "Back" : 'List'}
                         </Button>
                     </div>
@@ -138,25 +139,26 @@ class AddSize extends PureComponent{
                     >
                         
                     <div className="row">
-                        <Textbox label="Size" autoFocus modelName="size" className="col-md-4"></Textbox>
-                        <Textbox label="Size1"  modelName="size1" className="col-md-4"></Textbox>
-                        <Textbox label="Size2" required="false" modelName="size2" className="col-md-4"></Textbox>
+                        
+                    <Textbox label="Menu" autoFocus modelName="menu" className="col-md-4"></Textbox>
+                    <Textbox label="Sts"  modelName="sts" className="col-md-4"></Textbox>
+                    <Textbox label="Menu Route"  modelName="menu_route" className="col-md-4"></Textbox>
+
+
                     </div>
                     <div className="row">
-                        <Textbox label="Size3" required="false" modelName="size3" className="col-md-4"></Textbox>
-                        <Textbox label="Size4" required="false" modelName="size4" className="col-md-4"></Textbox>
-                        <Textbox label="Size5" required="false" modelName="size5" className="col-md-4"></Textbox>
-                    </div>
-                    <div className="row">
-                        <Textbox label="Size6" required="false" modelName="size6" className="col-md-4"></Textbox>
-                        <Textbox label="Size7" required="false" modelName="size7" className="col-md-4"></Textbox>
-                        <Textbox label="Size8" required="false" modelName="size8" className="col-md-4"></Textbox>
+                        
+                    <Numberbox label="Sort Order"  modelName="sort_order" className="col-md-4"></Numberbox>
+                    <Textbox label="Method" required="false" modelName="method" className="col-md-4"></Textbox>
+                    <Textbox label="Icon"  modelName="icon" className="col-md-4"></Textbox>
+
+
                     </div>
 
                     <div className="row">
-                    <Textbox label="Size9" required="false" modelName="size9" className="col-md-4"></Textbox>
+                    <Textbox label="Addon" required="false" modelName="addon" className="col-md-4"></Textbox>
 
-                    </div>
+                        </div>
 
                     <div className="row">
                         <div className="col-md-12">
@@ -193,4 +195,4 @@ const mapDispatchToProps = {
     
   }
   
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddSize));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddMenu_Master));

@@ -69,7 +69,9 @@ class AddLedger extends PureComponent{
             formData : {
                 status : 'active'
             },
-            companiesList : []
+            companiesList : [],
+            ledger_category : [],
+            ledger_group :[],
         }
         this.id = this.props.match.params.id;
     }
@@ -77,6 +79,31 @@ class AddLedger extends PureComponent{
     onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
       };
+
+      getLedgerCategorySB = () => {
+        getRequest('masters/getLedgerCategorySB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    ledger_category : data.data
+                })
+            }
+        })
+    }
+
+    getLedgerGroupSB = () => {
+        
+        getRequest('masters/getLedgerGroupSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    ledger_group : data.data
+                })
+            }
+        })
+    }
 
     validate = () => {
         if(this.formRef.current)
@@ -112,6 +139,9 @@ class AddLedger extends PureComponent{
 
     componentDidMount() {
         this.getLedger();
+        this.getLedgerCategorySB();
+        this.getLedgerGroupSB();
+
         interval = setInterval(() => {
             this.validate()
         }, 100);
@@ -185,13 +215,13 @@ class AddLedger extends PureComponent{
                     <div className="row">
                         <Textbox label="Ledger Name" autoFocus modelName="ledger" className="col-md-4"></Textbox>
                         <Textbox label="Alias" modelName="alias" required="false" className="col-md-4"></Textbox>
-                        <Selectbox modelName="ledger_group_id" label="Ledger Group" className="col-md-4" options={calculateTypes} value={this.state.formData.ledger_group_id}  ></Selectbox>
+                        <Selectbox modelName="ledger_group_id"  required="false" label="Ledger Group" className="col-md-4" options={this.state.ledger_group} value={this.state.ledger_group_id}  ></Selectbox>
                     </div>
 
                     <div className="row">
-                        <Selectbox modelName="ledger_category_id" label="Ledger Category" className="col-md-4" options={types} value={this.state.formData.ledger_category_id}  ></Selectbox>
+                        <Selectbox modelName="ledger_category_id" label="Ledger Category" className="col-md-4" options={this.state.ledger_category} value={this.state.ledger_category_id}  ></Selectbox>
                         <Numberbox label="O.Bal"  required="false" modelName="amount" className="col-md-4"></Numberbox>
-                        <Selectbox modelName="status" label="Status" className="col-md-4" value={this.state.formData.status} statusSelect ></Selectbox>
+                        <Selectbox modelName="status" label="Status" required="false" className="col-md-4" value={this.state.formData.status} statusSelect ></Selectbox>
                     </div>
 
                     <div className="row">
@@ -214,19 +244,19 @@ class AddLedger extends PureComponent{
                             </div>
 
                             <div className="row">
-                                <Textbox required="false" label="Mail" modelName="email" type="email" ></Textbox>
-                                <Textbox required="false" label="Phone" modelName="phone" ></Textbox>
+                                <Textbox required="false" required="false" label="Mail" modelName="email" type="email" ></Textbox>
+                                <Textbox required="false" required="false" label="Phone" modelName="phone" ></Textbox>
                             </div>
                             <div className="row">
-                                <Textbox label="Mobile" modelName="mobile"></Textbox>
+                                <Textbox label="Mobile" required="false" modelName="mobile"></Textbox>
                                 <Selectbox modelName="state_id"  required="false"  label="State" options={formulae} value={this.state.formData.state_id}  ></Selectbox>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <Divider plain orientation="left" >Statury Info</Divider>
                             <div className="row">
-                                <Textbox required="false" label="GST No" modelName="gstno" ></Textbox>
-                                <Textbox required="false" label="Credit Limit" modelName="credit_limit" ></Textbox>
+                                <Textbox required="false" required="false" label="GST No" modelName="gstno" ></Textbox>
+                                <Textbox required="false" required="false" label="Credit Limit" modelName="credit_limit" ></Textbox>
                             </div>
 
                             <div className="row">
@@ -241,7 +271,7 @@ class AddLedger extends PureComponent{
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
-                                <Button type="primary" disabled={ this.state.buttonDisabled }  htmlType="submit" loading={this.state.buttonLoading}>
+                                <Button type="primary"  disabled={ this.state.buttonDisabled }  htmlType="submit" loading={this.state.buttonLoading}>
                                 { this.id ? "Update" : 'Submit'}
                                 </Button>
                             </Form.Item>

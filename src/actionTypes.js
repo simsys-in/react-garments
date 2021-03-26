@@ -14,6 +14,7 @@ export const REQUESTCURRENTSTATE = "REQUESTCURRENTSTATE";
 //// Login
 export const SUCCESS_LOGIN = "SUCCESS_LOGIN"
 export const ON_LOGOUT = "ON_LOGOUT"
+export const TOGGLE_SIDER = "TOGGLE_SIDER"
 
 
 ///// Tenants
