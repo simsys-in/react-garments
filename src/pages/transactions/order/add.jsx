@@ -41,7 +41,9 @@ class AddOrderProgram extends PureComponent{
             companiesList : [],
             size_data : [],
             style_data : [],
-            fabric_data : []
+            fabric_data : [],
+            ledger_name : [],
+            process : [],
         }
         this.id = this.props.match.params.id;
     }
@@ -95,6 +97,32 @@ class AddOrderProgram extends PureComponent{
             }
         })
     }
+
+    getLedgerNameSB = () => {
+        getRequest('transactions/getLedgerNameSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    ledger_name : data.data
+                })
+            }
+        })
+    }
+
+    getProcessSB = () => {
+        
+        getRequest('transactions/getProcessSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    process : data.data
+                })
+            }
+        })
+    }
+
     
     getStyleSB = () => {
         getRequest('transactions/getStyleSB').then(data => {
@@ -119,6 +147,7 @@ class AddOrderProgram extends PureComponent{
             }
         })
     }
+
     
 
     componentDidMount() {
@@ -249,8 +278,8 @@ class AddOrderProgram extends PureComponent{
                             </div>
 
                             <div className="row">
-                            <Selectbox modelName="size_id" label="Size" className="col-md-6" options={this.state.size_data} value={this.state.formData.size_data}  ></Selectbox>
-                            <Selectbox modelName="style_id" label="Style" className="col-md-6" options={this.state.style_data} value={this.state.formData.style_data}  ></Selectbox>
+                            <Selectbox modelName="size_id" label="Size" className="col-md-6" options={this.state.size_data} value={this.state.formData.size_id}  ></Selectbox>
+                            <Selectbox modelName="style_id" label="Style" className="col-md-6" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
                             </div>
                         </div>  
                     </div>
@@ -258,28 +287,27 @@ class AddOrderProgram extends PureComponent{
                     <div className="col-md-12">
                             <Divider plain orientation="left" >FABRIC DETAILS</Divider>
                             <div className="row">
-                                <Selectbox modelName="fabric_id" label="Fabric" className="col-md-6" options={this.state.fabric_data} value={this.state.formData.fabric_data}  ></Selectbox>
-                                <Textbox required="false" className="col-md-6" label="Dia" modelName="dia" ></Textbox>
+                                <Selectbox modelName="fabric_id" label="Fabric" className="col-md-4" options={this.state.fabric_data} value={this.state.formData.fabric_data}  ></Selectbox>
+                                <Textbox required="false" className="col-md-4" label="Dia" modelName="dia" ></Textbox>
+                                <Textbox required="false" className="col-md-4" label="Gsm" modelName="gsm" ></Textbox>
                             </div>
 
-                            <div className="row">
-                                <Textbox required="false" className="col-md-6" label="Gsm" modelName="gsm" ></Textbox>
-                            </div>
+                          
 
                          </div>
                     </div>
                     <div className="row">
-                             <div >
+                             <div className="col-md-12">
                                 <Divider plain orientation="left">PROCESS</Divider>
                                 
                                 <Form.List name="order_process">
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
                                                 <div className="row">
-                                                    <Textbox className="col-md-3" field={field} fieldKey={[ field.fieldKey, 'process_id' ]} modelName={[field.name, 'process_id']}  label="Process" value={field.process_id} ></Textbox>
-                                                    <Textbox className="col-md-3" field={field} fieldKey={[ field.fieldKey, 'ledger_id' ]} modelName={[field.name, 'ledger_id']}  label="Ledger" value={field.ledger} ></Textbox>
-                                                    <Numberbox className="col-md-2" label="Rate" min={0} field={field} fieldKey={[ field.fieldKey, 'rate' ]} modelName={[field.name, 'rate']} value={field.rate} ></Numberbox>
-                                                    <Numberbox className="col-md-2" label="Waste" min={0} max={100} field={field} fieldKey={[ field.fieldKey, 'waste' ]} modelName={[field.name, 'waste']} value={field.waste} ></Numberbox>
+                                                    <Selectbox className="col-md-3" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'process_id' ]} modelName={[field.name, 'process_id']}  label="Process" value={field.name, 'process_id'} options={this.state.process} ></Selectbox>
+                                                    <Selectbox className="col-md-3" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'ledger_id' ]} modelName={[field.name, 'ledger_id']}  label="Ledger" value={field.name, 'ledger'} options={this.state.ledger_name} ></Selectbox>
+                                                    <Numberbox className="col-md-2" showLabel={false} label="Rate" min={0} field={field} fieldKey={[ field.fieldKey, 'rate' ]} modelName={[field.name, 'rate']} value={field.name, 'rate'} ></Numberbox>
+                                                    <Numberbox className="col-md-2" showLabel={false} label="Waste" min={0} max={100} field={field} fieldKey={[ field.fieldKey, 'waste' ]} modelName={[field.name, 'waste']} value={field.name, 'waste'} ></Numberbox>
 
                                                    <div className="col-md-1">
                                                         { index === 0  && <Button onClick={this.addOrderProcess} style={{ marginLeft : 10 }}>+</Button> }
@@ -302,6 +330,7 @@ class AddOrderProgram extends PureComponent{
                             </Form.Item>
                         </div>
                     </div>
+                   
                 </Form>
                 
                 {/* <div className="row"> 

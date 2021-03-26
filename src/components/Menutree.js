@@ -168,6 +168,26 @@ export default  [
                 icon : 'swatchbook',
                 url : '/transactions/list_orderProgram'
             },
+            {
+                name : "Fabric Inward",
+                icon : 'shoping-cart',
+                url : '/transactions/list_fabric_inward'
+            },
+            {
+                name : "Fabric Outward",
+                icon : 'shoping-cart',
+                url : '/transactions/list_fabric_outward'
+            },
+            {
+                name : "Fabric Invoice",
+                icon : 'shoping-cart',
+                url : '/transactions/list_fabric_invoice'
+            },
+            {
+                name : "Fabric Return",
+                icon : 'shoping-cart',
+                url : '/transactions/list_fabric_return'
+            },
         ]
     }
     // {
