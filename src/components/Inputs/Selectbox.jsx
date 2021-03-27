@@ -29,21 +29,21 @@ class Selectbox extends PureComponent {
         const showLabel = issetNotEmpty(this.props.showLabel) ? this.props.showLabel : true;
         return(
             
-            <div className={ this.props.className ? this.props.className : "col-md-6" }>
+            <div className={ this.props.className ? this.props.className : "col-md-6" } style={{ padding : this.props.withoutMargin ? '0' : 'auto', bottom : this.props.withoutMargin ? '-15px' : 'auto' ,top : this.props.withoutMargin ? '0' : 'auto', right : this.props.withoutMargin ? '0' : 'auto', left : this.props.withoutMargin ? '0' : 'auto' }} >
                 <Input.Group compact >
                     
                         { showLabel ? 
                             <Form.Item
-                            validateStatus={ this.props.value ? "success" : "error" }
-                            help={ this.props.value ? "" : "  Please  Select " } >
-                                <Input disabled className="no-border select-search" value={ this.props.label } style={{ color: this.props.value ? 'rgba(0, 0, 0, 0.65)' : 'red', cursor: 'auto' }} />
+                            validateStatus={ this.props.value || !checkBoolean(this.props.required, true) ? "success" : "error" }
+                            help={ this.props.value || !checkBoolean(this.props.required, true) || this.props.withoutMargin ? "" : "  Please  Select " } >
+                                <Input disabled className="no-border select-search" value={ this.props.label } style={{ color: this.props.value || !checkBoolean(this.props.required, true) ? 'rgba(0, 0, 0, 0.65)' : 'red', cursor: 'auto' }} />
                             </Form.Item>
                         : null}
                         <Form.Item
                             className={ showLabel ? "compound-select" : "select"}
                             name={this.props.modelName}
-                            validateStatus={ this.props.value ? "success" : "error" }
-                            help={ this.props.value ? "" :  this.props.label }
+                            validateStatus={ this.props.value || !checkBoolean(this.props.required, true) ? "success" : "error" }
+                            help={ this.props.value || !checkBoolean(this.props.required, true) || this.props.withoutMargin ? null :  this.props.label }
                             rules={[
                             {
                                 required: checkBoolean(this.props.required, true),
@@ -57,7 +57,7 @@ class Selectbox extends PureComponent {
                                 autoFocus={ checkBoolean(this.props.autoFocus) }
                                 name={ this.props.modelName }
                                 id={ this.props.modelName }
-                                placeholder={"Select " + this.props.label}
+                                placeholder={ this.props.noPlaceholder ? "" : "Select " + this.props.label}
                                 optionFilterProp="children"
                                 disabled={ this.props.disabled }
                                 onChange={ this.props.onChange }

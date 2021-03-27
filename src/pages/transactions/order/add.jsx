@@ -154,6 +154,8 @@ class AddOrderProgram extends PureComponent{
         this.getSizeSB();
         this.getStyleSB();
         this.getFabricSB();
+        this.getProcessSB();
+        this.getLedgerNameSB();
         this.getOrderProgram();
         interval = setInterval(() => {
             this.validate()
@@ -268,7 +270,7 @@ class AddOrderProgram extends PureComponent{
                         <div className="col-md-12">
                             <Divider plain orientation="left" >ORDER PROGRAM</Divider>
                             <div className="row">
-                            <Datebox  className="col-md-6" label="Order Date" value={this.state.formData.orderDate} modelName="orderDate" ></Datebox>
+                            <Datebox autoFocus className="col-md-6" label="Order Date" value={this.state.formData.orderDate} modelName="orderDate" ></Datebox>
                             <Textbox required="false" className="col-md-6" label="Order No" modelName="order_no" ></Textbox>
                             </div>
 
@@ -287,7 +289,7 @@ class AddOrderProgram extends PureComponent{
                     <div className="col-md-12">
                             <Divider plain orientation="left" >FABRIC DETAILS</Divider>
                             <div className="row">
-                                <Selectbox modelName="fabric_id" label="Fabric" className="col-md-4" options={this.state.fabric_data} value={this.state.formData.fabric_data}  ></Selectbox>
+                                <Selectbox modelName="fabric_id" label="Fabric" className="col-md-4" options={this.state.fabric_data} value={this.state.formData.fabric_id}  ></Selectbox>
                                 <Textbox required="false" className="col-md-4" label="Dia" modelName="dia" ></Textbox>
                                 <Textbox required="false" className="col-md-4" label="Gsm" modelName="gsm" ></Textbox>
                             </div>

@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Form, Button, Divider  } from 'antd';
+import { Form, Button, Divider, message  } from 'antd';
 import { connect } from 'react-redux';
 import { seo } from '../../../helpers/default';
 import { getRequest, postRequest, putRequest } from '../../../helpers/apihelper';
@@ -65,7 +65,7 @@ class AddFabricOutward extends PureComponent{
         })
     }
 
-    getProcessSB = () => {
+    getProcessSB = (order_id = null) => {
         
         getRequest('transactions/getProcessSB').then(data => {
             if(data.status === "info")
@@ -180,6 +180,18 @@ class AddFabricOutward extends PureComponent{
         }
     }
 
+    getProcessSBForOrderID = (order_id) => {
+        getRequest('masters/getProcessSBForOrderID?order_id=' + order_id).then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    process : data.data
+                })
+            }
+        })
+    }
+
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
@@ -235,6 +247,26 @@ class AddFabricOutward extends PureComponent{
             })
         })
     };
+
+    checkProcesses = (process) => {
+        var values = this.formRef.current.getFieldValue();
+
+        if(values.from_process_id === values.to_process_id)
+        {
+            message.error("From process and To Process cannot be same!")
+            this.setState({
+                ...this.state,
+                formData : {
+                    ...this.state.formData,
+                    to_process_id : null
+                }
+            }, () => {
+                this.formRef.current.setFieldsValue({
+                    to_process_id : null
+                })
+            })
+        }
+    }
 
     addFabricOutwardInventory = () => {
         var newFabricOutwardInventory = {
@@ -293,22 +325,25 @@ class AddFabricOutward extends PureComponent{
                     onFinishFailed={this.onFinishFailed}
                     >
                         
-                        <div className="row">
+                    <div className="row">
                        
-                       <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
+                       <Selectbox modelName="ledger_id" autoFocus label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
                    </div>
-                   
+                    
+                   <div className="row">
+                        <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
+                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
+                   </div>
+
                    <div className="row">
                        <Selectbox modelName="from_process_id" label="From Process" className="col-md-6" options={this.state.process} value={this.state.formData.from_process_id}  ></Selectbox>
                        <Selectbox modelName="to_process_id" label="To Process" className="col-md-6" options={this.state.process} value={this.state.formData.to_process_id}  ></Selectbox>
                    </div>
                    <div className="row">
-                      
-                   <Selectbox modelName="order_id" label="Order No" className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
-                   <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
-                   <Numberbox label="Vou No" modelName="vouno" required="false" className="col-md-6"></Numberbox>
+                        <Numberbox label="Vou No" modelName="vouno" required="false" className="col-md-6"></Numberbox>
                    </div>
+
                    <div className="row">
                             <div className="col-md-12">
                             <Divider plain orientation="left" >Products</Divider>

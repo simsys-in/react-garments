@@ -323,12 +323,12 @@ class AddFabricInward extends PureComponent{
                                                 <div className="row">
                                                     <div className="col-md-11">
                                                         <div className="row">
-                                                            <Selectbox className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} options={this.state.fabric} label="Fabric"></Selectbox>
-                                                            <Selectbox className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
-                                                            <Textbox className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={[field.name, 'gsm']} label="Gsm"></Textbox>
-                                                            <Textbox className="col-md-2"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} required = 'false' modelName={[field.name, 'dia']} value={[field.name, 'dia']} label="Dia"></Textbox>
-                                                            <Numberbox className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                            <Numberbox className="col-md-2"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                            <Selectbox withoutMargin required="false" className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} options={this.state.fabric} label="Fabric"></Selectbox>
+                                                            <Selectbox withoutMargin required="false" className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
+                                                            <Textbox noPlaceholder withoutMargin required="false" className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={[field.name, 'gsm']} label="Gsm"></Textbox>
+                                                            <Textbox withoutMargin className="col-md-2"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} required = 'false' modelName={[field.name, 'dia']} value={[field.name, 'dia']} label="Dia"></Textbox>
+                                                            <Numberbox withoutMargin required="false" className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                            <Numberbox withoutMargin required="false" className="col-md-2"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                         </div>
                                                     </div>
                                                     <div className="col-md-1">
@@ -340,7 +340,8 @@ class AddFabricInward extends PureComponent{
                                             
                                      )
                                  ) }
-                                </Form.List>        
+                                </Form.List>
+                                <br/>
                            </div>
                          </div>
                         
@@ -348,10 +349,8 @@ class AddFabricInward extends PureComponent{
                         
                             <Numberbox className="col-md-3" align="right" modelName='inventory_roll_total' value={this.state.formData.total_roll} disabled label='Total Roll'></Numberbox>
                             <Numberbox className="col-md-3" align="right" modelName='inventory_weight_total' value={this.state.formData.total_weight} disabled label='Total Weight'></Numberbox>
-                                       
-                        
-
-                    </div>
+                        </div>
+                        <br/>
                         
                     
 

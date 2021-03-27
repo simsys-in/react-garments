@@ -17,10 +17,11 @@ class TextBox extends PureComponent {
             <Form.Item
                 name={ this.props.modelName ? this.props.modelName : 'name' }
                 className={ this.props.className ? this.props.className : 'col-md-6' }
+                style={{ padding : this.props.withoutMargin && !checkBoolean(this.props.required, true) ? '0' : 'auto', bottom : this.props.withoutMargin && !checkBoolean(this.props.required, true) ? -17 : 'auto' ,top : this.props.withoutMargin && !checkBoolean(this.props.required, true) ? '0' : 'auto', right : this.props.withoutMargin && !checkBoolean(this.props.required, true) ? '0' : 'auto', left : this.props.withoutMargin && !checkBoolean(this.props.required, true) ? '0' : 'auto' }}
                 rules={[
                 {
                     required: checkBoolean(this.props.required, true),
-                    message: 'Please Input ' + this.props.label + '!' ,
+                    message: this.props.withoutMargin && !checkBoolean(this.props.required, true) ? null :'Please Input ' + this.props.label + '!' ,
                 },
                 {
                     pattern: this.props.preventSpecialCharacters ? new RegExp(/^[a-zA-Z_]+$/i) : new RegExp(/^[a-zA-Z0-9@~`!@#$%^&*()_=+\\\\'; :\"\\/?>.<,-]+$/i),
@@ -29,7 +30,7 @@ class TextBox extends PureComponent {
                 ]}
             >
                 <Input autoFocus={ this.props.autoFocus } addonBefore={ showLabel ? this.props.label : ''} defaultValue={ this.props.defaultValue } disabled={ this.props.disabled } style={{ borderColor : issetNotEmpty(this.props.value) ? "black" : "blue" }}
-                id={ this.props.id } maxLength={ this.props.maxLength } prefix={ this.props.prefix } size={ this.props.size } suffix={ this.props.suffix } type={ this.props.type } value={ this.props.value } onPressEnter={ this.props.onPressEnter } allowClear={ checkBoolean(this.props.allowClear) } bordered={ this.props.bordered } addonAfter={this.props.addonAfter} onChange={ this.props.onChange } onBlur={ this.props.onBlur } placeholder={ "Please Enter " + this.props.label }/>
+                id={ this.props.id } maxLength={ this.props.maxLength } prefix={ this.props.prefix } size={ this.props.size } suffix={ this.props.suffix } type={ this.props.type } value={ this.props.value } onPressEnter={ this.props.onPressEnter } allowClear={ checkBoolean(this.props.allowClear) } bordered={ this.props.bordered } addonAfter={this.props.addonAfter} onChange={ this.props.onChange } onBlur={ this.props.onBlur } placeholder={ this.props.noPlaceholder ? "" : "Please Enter " + this.props.label }/>
             </Form.Item>
         )
     }

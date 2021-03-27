@@ -14,6 +14,7 @@ class Timepicker extends PureComponent {
         return(
             <Form.Item
             className={ this.props.className ? this.props.className : 'col-md-6' }
+            style={{ padding : this.props.withoutMargin ? '0' : 'auto', bottom : this.props.withoutMargin ? '0' : 'auto' ,top : this.props.withoutMargin ? '0' : 'auto', right : this.props.withoutMargin ? '0' : 'auto', left : this.props.withoutMargin ? '0' : 'auto' }}
             name={this.props.modelName}
             rules={[
             {

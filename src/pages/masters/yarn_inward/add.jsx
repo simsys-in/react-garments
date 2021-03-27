@@ -9,6 +9,8 @@ import Textbox from '../../../components/Inputs/Textbox';
 import Selectbox from '../../../components/Inputs/Selectbox';
 import Numberbox from '../../../components/Inputs/Numberbox';
 import Datebox from '../../../components/Inputs/Datebox';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 
 let interval;
@@ -134,8 +136,29 @@ class AddYarn_Inward extends PureComponent{
         }
     }
 
+    getNextFabricInwardVouNo = () => {
+        getRequest('transactions/getNextFabricInwardVouNo').then(data => {
+            console.log(data);
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        vouno : data.max_vou_no
+                    }
+                },() => {
+                    this.formRef.current.setFieldsValue({
+                        vouno : this.state.formData.vouno
+                    })
+                })
+            }
+        })
+    }
+
     componentDidMount() {
         this.getOrderSB();
+        this.getNextFabricInwardVouNo();
         this.getLedgerNameSB();
         this.getProcessSB();
         this.getFabricsSB();
@@ -315,44 +338,69 @@ class AddYarn_Inward extends PureComponent{
                    
                     <div className="row">
                              <div className="col-md-12">
-                             <Divider plain orientation="left" >Products</Divider>                                <Form.List name="yarn_inward_inventory">
+                             <Divider plain orientation="left" >Products</Divider>
+                                <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
+                                    <div className="col-md-11">
+                                        <div className="row">
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Fabric" label="Fabric" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="GSM" label="GSM" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Count" label="Count" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Qty Per" label="Qty Per" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Qty Bags" label="Qty Bags" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Qty KGs" label="Qty KGs" required="false"></Textbox>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-1">
+                                        <Button type="primary" onClick={this.addYarn_inward_inventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
+                                    </div>
+                                </div>
+                                <Form.List name="yarn_inward_inventory">
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
-                                                <div className="row">
+                                                <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
                                                     <div className="col-md-11">
                                                         <div className="row">
-                                                            <Selectbox className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]}  required="false" modelName={[field.name, 'fabric_id']} value={field.name,'fabric_id'} showLabel={false} options={this.state.fabric} label="Fabric"></Selectbox>
+                                                            <Selectbox noPlaceholder withoutMargin className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]}  required="false" modelName={[field.name, 'fabric_id']} value={field.name,'fabric_id'} showLabel={false} options={this.state.fabric} label="Fabric"></Selectbox>
 
-                                                            <Textbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={field.gsm} label="Gsm"></Textbox>
+                                                            <Textbox noPlaceholder withoutMargin showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={field.gsm} required="false" label="GSM"></Textbox>
 
-                                                            <Textbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'counts' ]} required = 'false' modelName={[field.name, 'counts']} value={field.counts} label="Counts"></Textbox>
+                                                            <Textbox withoutMargin noPlaceholder showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'counts' ]} required="false" modelName={[field.name, 'counts']} value={field.counts} label="Counts"></Textbox>
 
-                                                            <Numberbox className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qtybag_per' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qtybag_per']} value={field.qtybag_per} label="Qty per"></Numberbox>
+                                                            <Numberbox noPlaceholder withoutMargin className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qtybag_per' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qtybag_per']} value={field.qtybag_per} label="Qty per"></Numberbox>
 
 
-                                                            <Numberbox className="col-md-2" field={field} showLabel={false} fieldKey={[ field.fieldKey, 'qty_bag' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qty_bag']} value={field.qty_bag} label="Qty Bags"></Numberbox>
+                                                            <Numberbox noPlaceholder withoutMargin className="col-md-2" required="false" field={field} showLabel={false} fieldKey={[ field.fieldKey, 'qty_bag' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qty_bag']} value={field.qty_bag} label="Qty Bags"></Numberbox>
 
-                                                            <Numberbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'qty_kg' ]} disabled required="false"modelName={[field.name, 'qty_kg']} value={field.qty_kg} label="Qty Kg"></Numberbox>
+                                                            <Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'qty_kg' ]} disabled required="false"modelName={[field.name, 'qty_kg']} value={field.qty_kg} label="Qty Kg"></Numberbox>
 
                                                         </div>
                                                     </div>
                                                     <div className="col-md-1">
-                                                        { index === 0  && <Button onClick={this.addYarn_inward_inventory} style={{ marginLeft : 10 }}>+</Button> }
-                                                        { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeYarn_inward_inventory(index)} type="primary">-</Button>}
+                                                        { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeYarn_inward_inventory(index)}> <FontAwesomeIcon  icon={faTimes} />   </Button>}
                                                     </div>
                                                  </div>
                                      )
                                             
                                      )
                                  ) }
-                                </Form.List>        
+                                </Form.List>
                            </div>
                          </div>
-                        <div className="row">
+                         <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
+                            <div className="col-md-11">
+                                <div className="row">
+                                    <div className="col-md-6"></div>
+                                    <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Total" label="Total" required="false"></Textbox>
+                                    <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Qty Bags" label="Qty Bags" required="false"></Textbox>
+                                    <Textbox modelName="inventory_qty_kg_total" withoutMargin showLabel={false} className="col-md-2" disabled value={this.state.formData.inventory_qty_kg_total} label="Total Qty KGs" required="false"></Textbox>
+                                </div>
+                            </div>
+                        </div>
+                        {/* <div className="row">
                             <div className="col-md-12" align="right">
                                 <Numberbox modelName="inventory_qty_kg_total" value={this.state.formData.inventory_qty_kg_total} disabled label="Total KGs" ></Numberbox>
                             </div>
-                        </div>
+                        </div> */}
                      {/* <div className="row">
                         <div className="col-md-12">
                             <Divider plain orientation="left" >Products</Divider>

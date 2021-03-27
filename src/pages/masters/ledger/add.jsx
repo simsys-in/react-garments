@@ -244,8 +244,8 @@ class AddLedger extends PureComponent{
                             </div>
 
                             <div className="row">
-                                <Textbox required="false" required="false" label="Mail" modelName="email" type="email" ></Textbox>
-                                <Textbox required="false" required="false" label="Phone" modelName="phone" ></Textbox>
+                                <Textbox required="false"  label="Mail" modelName="email" type="email" ></Textbox>
+                                <Textbox required="false" label="Phone" modelName="phone" ></Textbox>
                             </div>
                             <div className="row">
                                 <Textbox label="Mobile" required="false" modelName="mobile"></Textbox>
@@ -255,8 +255,8 @@ class AddLedger extends PureComponent{
                         <div className="col-md-6">
                             <Divider plain orientation="left" >Statury Info</Divider>
                             <div className="row">
-                                <Textbox required="false" required="false" label="GST No" modelName="gstno" ></Textbox>
-                                <Textbox required="false" required="false" label="Credit Limit" modelName="credit_limit" ></Textbox>
+                                <Textbox required="false"  label="GST No" modelName="gstno" ></Textbox>
+                                <Textbox required="false" label="Credit Limit" modelName="credit_limit" ></Textbox>
                             </div>
 
                             <div className="row">
