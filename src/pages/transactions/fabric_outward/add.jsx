@@ -9,6 +9,8 @@ import Textbox from '../../../components/Inputs/Textbox';
 import Selectbox from '../../../components/Inputs/Selectbox';
 import Numberbox from '../../../components/Inputs/Numberbox';
 import Datebox from '../../../components/Inputs/Datebox';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 
 let interval;
@@ -192,6 +194,26 @@ class AddFabricOutward extends PureComponent{
         })
     }
 
+    getNextFabricInwardVouNo = () => {
+        getRequest('transactions/getNextFabricInwardVouNo').then(data => {
+            console.log(data);
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        vouno : data.max_vou_no
+                    }
+                },() => {
+                    this.formRef.current.setFieldsValue({
+                        vouno : this.state.formData.vouno
+                    })
+                })
+            }
+        })
+    }
+
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
@@ -199,6 +221,7 @@ class AddFabricOutward extends PureComponent{
         this.getFabricsSB();
         this.getColorSB();
         this.setTOTAL();
+        this.getNextFabricInwardVouNo();
         this.getFabricOutward();
         interval = setInterval(() => {
             this.validate()
@@ -305,6 +328,7 @@ class AddFabricOutward extends PureComponent{
                 fabric_outward_inventory : oldFabricOutwardInventoryArray
             }
         })
+        this.setTOTAL();
     }
     render(){
         return(
@@ -332,8 +356,8 @@ class AddFabricOutward extends PureComponent{
                    </div>
                     
                    <div className="row">
+                        <Numberbox label="Vou No" modelName="vouno" required="false" className="col-md-6"></Numberbox>
                         <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
-                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
                    </div>
 
                    <div className="row">
@@ -341,30 +365,48 @@ class AddFabricOutward extends PureComponent{
                        <Selectbox modelName="to_process_id" label="To Process" className="col-md-6" options={this.state.process} value={this.state.formData.to_process_id}  ></Selectbox>
                    </div>
                    <div className="row">
-                        <Numberbox label="Vou No" modelName="vouno" required="false" className="col-md-6"></Numberbox>
+                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
                    </div>
 
                    <div className="row">
                             <div className="col-md-12">
                             <Divider plain orientation="left" >Products</Divider>
+                            <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
+                                    <div className="col-md-11">
+                                        <div className="row">
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Fabric" label="Fabric" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Color" label="Color" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Gsm" label="Gsm" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Dia" label="Dia" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Roll" label="Roll" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Weight" label="Weight" required="false"></Textbox>
+                                        </div>
+                                         
+                                    </div>
+                                    <div className="col-md-1">
+                                          <Button type="primary" onClick={this.addFabricOutwardInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
+                                   </div>
+                                </div>
                              <Form.List name="fabric_outward_inventory">
                                    { (fields, { add, remove } )=> (
                                        fields.map((field, index) => (
                                                <div className="row">
                                                    <div className="col-md-11">
                                                        <div className="row">
-                                                           <Selectbox className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} options={this.state.fabric} label="Fabric"></Selectbox>
-                                                           <Selectbox className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
-                                                           <Textbox className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={[field.name, 'gsm']} label="Gsm"></Textbox>
-                                                           <Textbox className="col-md-2"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} required = 'false' modelName={[field.name, 'dia']} value={[field.name, 'dia']} label="Dia"></Textbox>
-                                                           <Numberbox className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox className="col-md-2"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                           <Selectbox noPlaceholder required="false" withoutMargin className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} options={this.state.fabric} label="Fabric"></Selectbox>
+                                                           <Selectbox noPlaceholder required="false" withoutMargin className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
+                                                           <Textbox noPlaceholder required="false" withoutMargin className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={[field.name, 'gsm']} label="Gsm"></Textbox>
+                                                           <Textbox noPlaceholder required="false" withoutMargin className="col-md-2"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} required = 'false' modelName={[field.name, 'dia']} value={[field.name, 'dia']} label="Dia"></Textbox>
+                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-2"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                        </div>
+
                                                    </div>
                                                    <div className="col-md-1">
-                                                       { index === 0  && <Button onClick={this.addFabricOutwardInventory} style={{ marginLeft : 10 }}>+</Button> }
-                                                       { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeFabricOutwardInventory(index)} type="primary">-</Button>}
+                                                       
+                                                       { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeFabricOutwardInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
                                                    </div>
+                                                   
                                                 </div>
                                     )
                                            
@@ -374,7 +416,18 @@ class AddFabricOutward extends PureComponent{
                           </div>
                         </div>
                        
+                        <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
+                            <div className="col-md-11">
+                                <div className="row">
+                                    <div className="col-md-6"></div>
+                                    <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Total" label="Total" required="false"></Textbox>
+                                    <Numberbox withoutMargin className='col-md-6' align="right" modelName='inventory_roll_total' value={this.state.formData.inventory_roll_total} disabled label='Total Roll'></Numberbox>
+                                     <Numberbox withoutMargin className='col-md-6' align="right" modelName='inventory_weight_total' value={this.state.formData.inventory_weight_total} disabled label='Total Weight'></Numberbox>
 
+                                </div>
+                            </div>
+                        </div>
+                        
                        
                    
 
@@ -389,12 +442,7 @@ class AddFabricOutward extends PureComponent{
                    </div>
 
 
-                   <div className='row'>
-                       
-                           <Numberbox className='col-md-3' align="right" modelName='inventory_roll_total' value={this.state.formData.inventory_roll_total} disabled label='Total Roll'></Numberbox>
-                           <Numberbox className='col-md-3' align="right" modelName='inventory_weight_total' value={this.state.formData.inventory_weight_total} disabled label='Total Weight'></Numberbox>
-
-                     </div>
+                   
                </Form>
                
                 

@@ -12,7 +12,13 @@ class ListFabricOutward extends PureComponent {
     this.state = {
       columns: [
       
-        
+        {
+          label: 'S.No',
+          field: 'sno',
+          width: "10vw",
+          defaultSortOrder: 'ascend',
+          
+        },
         {
           label: 'Vou Date',
           field: 'vou_date',

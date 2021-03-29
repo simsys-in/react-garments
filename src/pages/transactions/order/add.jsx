@@ -11,6 +11,9 @@ import Numberbox from '../../../components/Inputs/Numberbox';
 import Datebox from '../../../components/Inputs/Datebox';
 import Address_Template from '../../../components/Templates/Address_Template';
 import { addDays, getCurrentDate } from '../../../helpers/timer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
+
 // import moment from 'moment'
 
 
@@ -31,10 +34,18 @@ class AddOrderProgram extends PureComponent{
                 due_date : addDays(getCurrentDate(),7,'days'),
                 order_process : [
                     {
-                        process : '',
-                        ledger : '',
+                        process_id : '',
+                        ledger_id : '',
                         rate : '',
                         waste : ''
+                    }
+                ],
+                order_fabrics : [
+                    {
+                        fabric_id : '',
+                        gsm : '',
+                        dia : ''
+                    
                     }
                 ]
             },
@@ -148,6 +159,26 @@ class AddOrderProgram extends PureComponent{
         })
     }
 
+    getNextOrderNo = () => {
+        getRequest('transactions/getNextOrderNo').then(data => {
+            
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        order_no : data.data.max_order_no
+                    }
+                },() => {
+                    this.formRef.current.setFieldsValue({
+                        order_no : this.state.formData.order_no
+                    })
+                })
+            }
+        })
+    }
+
     
 
     componentDidMount() {
@@ -156,6 +187,7 @@ class AddOrderProgram extends PureComponent{
         this.getFabricSB();
         this.getProcessSB();
         this.getLedgerNameSB();
+        this.getNextOrderNo();
         this.getOrderProgram();
         interval = setInterval(() => {
             this.validate()
@@ -208,10 +240,10 @@ class AddOrderProgram extends PureComponent{
 
     addOrderProcess = () => {
         var newOrderProcess = {
-            price_group : '',
-            sales_rate : '',
-            percentage : '',
-            mrp : '',
+            process_id : '',
+            ledger_id : '',
+            rate : '',
+            waste : '',
         }
 
         var oldOrderProcessArray = this.state.formData.order_process;
@@ -243,6 +275,42 @@ class AddOrderProgram extends PureComponent{
     }
 
     
+
+    addOrderFabrics = () => {
+        var newOrderFabrics = {
+            fabric_id : '',
+            dia : '',
+            gsm : ''
+        }
+
+        var oldOrderFabricsArray = this.state.formData.order_fabrics;
+
+        oldOrderFabricsArray.push(newOrderFabrics);
+
+        this.setState({
+            ...this.state,
+            formData : {
+                ...this.state.formData,
+                order_fabrics : oldOrderFabricsArray
+            }
+        })
+    }
+
+
+    removeOrderFabrics = (index) => {
+        var oldOrderFabricsArray = this.state.formData.order_fabrics;
+
+        oldOrderFabricsArray.splice(index, 1);
+        
+        this.setState({
+            ...this.state,
+            formData : {
+                ...this.state.formData,
+                order_fabrics : oldOrderFabricsArray
+            }
+        })
+        this.setTOTAL();
+    }
 
 
     render(){
@@ -285,14 +353,52 @@ class AddOrderProgram extends PureComponent{
                             </div>
                         </div>  
                     </div>
-                    <div className="row">
+                    <div className="row ">
                     <div className="col-md-12">
                             <Divider plain orientation="left" >FABRIC DETAILS</Divider>
-                            <div className="row">
-                                <Selectbox modelName="fabric_id" label="Fabric" className="col-md-4" options={this.state.fabric_data} value={this.state.formData.fabric_id}  ></Selectbox>
-                                <Textbox required="false" className="col-md-4" label="Dia" modelName="dia" ></Textbox>
-                                <Textbox required="false" className="col-md-4" label="Gsm" modelName="gsm" ></Textbox>
-                            </div>
+                            <div className="row flex-nowrap"  style={{ paddingLeft : 15, paddingRight : 2 }}>
+                                    <div className="col-md-11">
+                                        <div className="row ">
+                                            
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Fabric" label="Fabric" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Dia" label="Dia" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Gsm" label="Gsm" required="false"></Textbox>
+                                          
+                                        <div className="col-md-1">
+                                           <Button type="primary" onClick={this.addOrderFabrics} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
+                                            
+                                        </div>
+                                        </div>
+                                        </div>
+                                    {/* </div> */}
+                                   
+                                </div>
+                                
+                                <Form.List name="order_fabrics">
+                                    { (fields, { add, remove } )=> (
+                                        fields.map((field, index) => (
+                                                <div className="row "  style={{ paddingLeft : 15, paddingRight : 2 }}>
+                                                    <div className="col-md-11">
+                                                        <div className="row flex-nowrap">
+                                                        <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']}  label="Fabric"  options={this.state.fabric_data} value={this.state.formData.fabric_id} noPlaceholder withoutMargin ></Selectbox>
+                                                         <Textbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} modelName={[field.name, 'dia']}  noPlaceholder withoutMargin label="Dia"  ></Textbox>
+                                                        <Textbox  className="col-md-2" label="Gsm" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} noPlaceholder withoutMargin ></Textbox>
+                                                       
+                                                     <div className="col-md-1">
+                                                        { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeOrderFabrics(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
+                                                     </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    
+                                                  
+                                                </div>
+                                            )
+                                            
+                                        )
+                                    ) }
+                                </Form.List>
+                            
 
                           
 
@@ -301,20 +407,39 @@ class AddOrderProgram extends PureComponent{
                     <div className="row">
                              <div className="col-md-12">
                                 <Divider plain orientation="left">PROCESS</Divider>
+                                <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
+                                    <div className="col-md-11">
+                                        <div className="row flex-nowrap">
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Process" label="Process" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Ledger" label="Ledger" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Rate" label="Rate" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Waste" label="Waste" required="false"></Textbox>
+                                            
+                                        <div className="col-md-1">
+                                          <Button type="primary"  onClick={this.addOrderProcess} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
+                                         </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
                                 
                                 <Form.List name="order_process">
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
-                                                <div className="row">
-                                                    <Selectbox className="col-md-3" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'process_id' ]} modelName={[field.name, 'process_id']}  label="Process" value={field.name, 'process_id'} options={this.state.process} ></Selectbox>
-                                                    <Selectbox className="col-md-3" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'ledger_id' ]} modelName={[field.name, 'ledger_id']}  label="Ledger" value={field.name, 'ledger'} options={this.state.ledger_name} ></Selectbox>
-                                                    <Numberbox className="col-md-2" showLabel={false} label="Rate" min={0} field={field} fieldKey={[ field.fieldKey, 'rate' ]} modelName={[field.name, 'rate']} value={field.name, 'rate'} ></Numberbox>
-                                                    <Numberbox className="col-md-2" showLabel={false} label="Waste" min={0} max={100} field={field} fieldKey={[ field.fieldKey, 'waste' ]} modelName={[field.name, 'waste']} value={field.name, 'waste'} ></Numberbox>
-
-                                                   <div className="col-md-1">
-                                                        { index === 0  && <Button onClick={this.addOrderProcess} style={{ marginLeft : 10 }}>+</Button> }
-                                                        { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeOrderProcess(index)} type="primary">-</Button>}
+                                                <div className="row flex-nowrap" style={{ paddingLeft : 15, paddingRight : 2 }}>
+                                                   <div className='col-md-11'>
+                                                       <div className="row ">
+                                                       <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'process_id' ]} modelName={[field.name, 'process_id']}  label="Process" value={field.name, 'process_id'} options={this.state.process} noPlaceholder withoutMargin ></Selectbox>
+                                                    <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'ledger_id' ]} modelName={[field.name, 'ledger_id']}  label="Ledger" value={field.name, 'ledger'} options={this.state.ledger_name} noPlaceholder withoutMargin ></Selectbox>
+                                                    <Numberbox className="col-md-2" required="false" showLabel={false} label="Rate" min={0} field={field} fieldKey={[ field.fieldKey, 'rate' ]} modelName={[field.name, 'rate']} value={field.name, 'rate'} noPlaceholder withoutMargin ></Numberbox>
+                                                    <Numberbox className="col-md-2" required="false" showLabel={false} label="Waste" min={0} max={100} field={field} fieldKey={[ field.fieldKey, 'waste' ]} modelName={[field.name, 'waste']} value={field.name, 'waste'} noPlaceholder withoutMargin ></Numberbox>
+                                                           
+                                                  <div className="col-md-1">
+                                                                { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeOrderProcess(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
                                                     </div>
+                                                   
+                                                  </div>
+                                                 </div>
                                                 </div>
                                             )
                                             

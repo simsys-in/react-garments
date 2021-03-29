@@ -73,7 +73,7 @@ class ListOrderProgram extends PureComponent {
   deleteOrderProgram = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.orderProgram;
+    const name = user.order_no;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
