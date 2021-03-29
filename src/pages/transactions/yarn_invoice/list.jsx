@@ -23,11 +23,11 @@ class ListYarninvoice extends PureComponent {
           field: 'vou_date',
           width: "30vw",
         },
-        {
-          label: 'Vou No',
-          field: 'order_no',
-          width: "30vw",
-        },
+        // {
+        //   label: 'Vou No',
+        //   field: 'order_no',
+        //   width: "30vw",
+        // },
         {
           label: 'Ledger Name',
           field: 'ledger',
@@ -79,11 +79,11 @@ class ListYarninvoice extends PureComponent {
 
   editYarn_Invoice = (id) => {
     console.log(id);
-    this.props.history.push('/masters/edit_yarn_invoice/' + id)
+    this.props.history.push('/transactions/edit_yarn_invoice/' + id)
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/yarn_invoice?id=' + id).then(data => {
+    deleteRequest('transactions/yarn_invoice?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -93,11 +93,11 @@ class ListYarninvoice extends PureComponent {
   deleteYarn_Invoice = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.yarn_invoice;
+    const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
-      content: 'Are you sure want to delete ' + name + " ?",
+      content: 'Are you sure want to delete ?' ,
       okText: 'Yes',
       cancelText: 'No',
       onOk: () => this.confirmDelete(id)
@@ -109,7 +109,7 @@ class ListYarninvoice extends PureComponent {
       title: 'List Yarn Invoice',
       metaDescription: 'List Yarn Invoice'
     });
-    getRequest('masters/yarn_invoice').then(data => {
+    getRequest('transactions/yarn_invoice').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{
@@ -138,7 +138,7 @@ class ListYarninvoice extends PureComponent {
         <div className="row">
           <div className="col-md-10"></div>
           <div className="col-md-2" align="right">
-            <Button type="primary" onClick={() => { this.props.history.push("/masters/add_yarn_invoice") }}> Add </Button>
+            <Button type="primary" onClick={() => { this.props.history.push("/transactions/add_yarn_invoice") }}> Add </Button>
           </div>
           <br />
           <br />

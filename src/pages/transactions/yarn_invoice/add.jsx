@@ -9,6 +9,8 @@ import Textbox from '../../../components/Inputs/Textbox';
 import Selectbox from '../../../components/Inputs/Selectbox';
 import Numberbox from '../../../components/Inputs/Numberbox';
 import Datebox from '../../../components/Inputs/Datebox';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 
 let interval;
@@ -54,7 +56,7 @@ class AddYarn_Invoice extends PureComponent{
       };
 
       getLedgerNameSB = () => {
-        getRequest('masters/getLedgerNameSB').then(data => {
+        getRequest('transactions/getLedgerNameSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -67,7 +69,7 @@ class AddYarn_Invoice extends PureComponent{
 
     getProcessSB = () => {
         
-        getRequest('masters/getProcessSB').then(data => {
+        getRequest('transactions/getProcessSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -80,7 +82,7 @@ class AddYarn_Invoice extends PureComponent{
 
     getFabricsSB = () => {
         
-        getRequest('masters/getFabricsSB').then(data => {
+        getRequest('transactions/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -92,7 +94,7 @@ class AddYarn_Invoice extends PureComponent{
     }
     getColorSB = () => {
         
-        getRequest('masters/getColorSB').then(data => {
+        getRequest('transactions/getColorSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -105,7 +107,7 @@ class AddYarn_Invoice extends PureComponent{
 
     getOrderSB = () => {
 
-        getRequest('masters/getOrderSB').then(data => {
+        getRequest('transactions/getOrderSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -135,7 +137,7 @@ class AddYarn_Invoice extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("masters/yarn_invoice?id=" + this.id).then(data => {
+            getRequest("transactions/yarn_invoice?id=" + this.id).then(data => {
                 data.data.date = moment(data.data.date)
                 console.log(data.data)
                 data.data.vou_date = moment(data.data.vou_date)
@@ -148,6 +150,19 @@ class AddYarn_Invoice extends PureComponent{
             this.formRef.current.validateFields();
         }
     }
+
+    getProcessSBForOrderID = (order_id) => {
+        getRequest('masters/getProcessSBForOrderID?order_id=' + order_id).then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    process : data.data
+                })
+            }
+        })
+    }
+
 
     componentDidMount() {
         this.getOrderSB();
@@ -186,10 +201,10 @@ class AddYarn_Invoice extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('masters/yarn_invoice?id=' + this.id, values).then(data => {
+            putRequest('transactions/yarn_invoice?id=' + this.id, values).then(data => {
                 if(data.status === "success")
                 {
-                    this.props.history.push('/masters/list_yarn_invoice')
+                    this.props.history.push('/transactions/list_yarn_invoice')
                     console.log(data) 
                 }
             })
@@ -370,6 +385,9 @@ class AddYarn_Invoice extends PureComponent{
                 yarn_invoice_inventory : oldYarn_invoice_inventoryArray
             }
         })
+        this.setTotalAmounts();
+        this.setTotalBags();
+        this.setTotalKgs();
     }
 
     // getOrderNos = (ledger_id)
@@ -379,7 +397,7 @@ class AddYarn_Invoice extends PureComponent{
             <Fragment>
                 <div className="row">
                     <div className="col-md-12" align="right">
-                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/masters/list_yarn_invoice') } }>
+                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/transactions/list_yarn_invoice') } }>
                             { this.id ? "Back" : 'List'}
                         </Button>
                     </div>
@@ -396,19 +414,19 @@ class AddYarn_Invoice extends PureComponent{
                     <div className="row">
                        
                         <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
-                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
 
+                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
                     </div>
                     <div className="row">
-                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
-                        <Selectbox modelName="process_id" label="Process" className="col-md-6" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
+                        <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID}  className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                        <Selectbox modelName="process_id" label="Process"  className="col-md-6" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
                         {/* <Textbox label="Id" modelName="order_id"  className="col-md-6"></Textbox> */}
 
                     </div>
                     <div className="row">
                        
                         <Textbox label="Ref No" modelName="refno"  className="col-md-6"></Textbox>
-                        <Selectbox modelName="order_id" label="Order No" className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
                         
                     </div>
                     <div className="row">
@@ -417,34 +435,53 @@ class AddYarn_Invoice extends PureComponent{
                     
 
                     </div>
+                    <div>
                     <div className="row">
                              <div className="col-md-12">
-                             <Divider plain orientation="left" >Products</Divider>                                <Form.List name="yarn_invoice_inventory">
+                             <Divider plain orientation="left" >Products</Divider>  
+                             <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
+                                    <div className="col-md-11">
+                                        <div className="row flex-nowrap">
+                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Fabric" label="Fabric" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1-5" disabled defaultValue="GSM" label="GSM" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1-5" disabled defaultValue="Count" label="Count" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Qty Per" label="Qty Per" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Qty Bags" label="Qty Bags" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Qty KGs" label="Qty KGs" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Qty Rate" label="Qty Rate" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Amount" label="Amount" required="false"></Textbox>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-1">
+                                        <Button type="primary" onClick={this.addYarn_invoice_inventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
+                                    </div>
+                                </div>   
+                                     <Form.List name="yarn_invoice_inventory">
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
-                                                <div className="row">
-                                                    <div className="col-md-11">
-                                                        <div className="row">
-                                                            <Selectbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={field.fabric_id} options={this.state.fabric} label="Fabric"></Selectbox>
-                                                            {/* <Selectbox className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={field.color_id} options={this.state.color} label="Color"></Selectbox> */}
-                                                            <Textbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={field.gsm} label="Gsm"></Textbox>
+                                            <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
+                                            <div className="col-md-11">
+                                                        <div className="row flex-nowrap">
+                                                        <Selectbox noPlaceholder withoutMargin showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={field.name,'fabric_id'} required="false" options={this.state.fabric} label="Fabric"></Selectbox>
+                                                            {/* <Selectbox className="col-md-1" field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={field.color_id} options={this.state.color} label="Color"></Selectbox> */}
+                                                            <Textbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-1-5" field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={field.gsm} label="Gsm"></Textbox>
 
-                                                            <Textbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'counts' ]} required = 'false' modelName={[field.name, 'counts']} value={field.counts} label="Counts"></Textbox>
+                                                            <Textbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-1-5" field={field} fieldKey={[ field.fieldKey, 'counts' ]} required = 'false' modelName={[field.name, 'counts']} value={field.counts} label="Counts"></Textbox>
 
-                                                            <Numberbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'qtybag_per' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qtybag_per']} value={field.qtybag_per} label="Qty per"></Numberbox>
-                                                            <Numberbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'qty_bag' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qty_bag']} value={field.qty_bag} label="Qty Bags"></Numberbox>
+                                                            <Numberbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-1" field={field} fieldKey={[ field.fieldKey, 'qtybag_per' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qtybag_per']} value={field.qtybag_per} label="Qty per"></Numberbox>
 
-                                                            <Numberbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'qty_kg' ]} disabled required = 'false' onChange={(ev)=> this.setAMOUNT(ev,field.fieldKey)}modelName={[field.name, 'qty_kg']} value={field.qty_kg} label="Qty Kg"></Numberbox>
+                                                            <Numberbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-1" field={field} fieldKey={[ field.fieldKey, 'qty_bag' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qty_bag']} value={field.qty_bag} label="Qty Bags"></Numberbox>
+
+                                                            <Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-1" field={field} fieldKey={[ field.fieldKey, 'qty_kg' ]} disabled required = 'false' onChange={(ev)=> this.setAMOUNT(ev,field.fieldKey)}modelName={[field.name, 'qty_kg']} value={field.qty_kg} label="Qty Kg"></Numberbox>
                                                             
-                                                            <Numberbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'rate' ]} onChange={(ev)=> this.setAMOUNT(ev,field.fieldKey)} modelName={[field.name, 'rate']} value={field.rate} label="Rate"></Numberbox>
+                                                            <Numberbox required="false" noPlaceholder withoutMargin showLabel={false} className="col-md-1" field={field} fieldKey={[ field.fieldKey, 'rate' ]} onChange={(ev)=> this.setAMOUNT(ev,field.fieldKey)} modelName={[field.name, 'rate']} value={field.rate} label="Rate"></Numberbox>
                                                            
-                                                            <Numberbox showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'amount' ]} disabled required = 'false' modelName={[field.name, 'amount']} value={field.amount} label="Amount"></Numberbox>
+                                                            <Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-1" field={field} fieldKey={[ field.fieldKey, 'amount' ]} disabled required = 'false' modelName={[field.name, 'amount']} value={field.amount} label="Amount"></Numberbox>
 
                                                         </div>
                                                     </div>
                                                     <div className="col-md-1">
-                                                        { index === 0  && <Button onClick={this.addYarn_invoice_inventory} style={{ marginLeft : 10 }}>+</Button> }
-                                                        { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeYarn_invoice_inventory(index)} type="primary">-</Button>}
+                                                    { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeYarn_invoice_inventory(index)}> <FontAwesomeIcon  icon={faTimes} />   </Button>}
                                                     </div>
                                                  </div>
                                      )
@@ -455,21 +492,21 @@ class AddYarn_Invoice extends PureComponent{
                            </div>
                          </div>
 
-                         <div className="row">
-                            <div className="col-md-12" align="right">
-                                <Numberbox modelName="inventory_qty_bag_total" value={this.state.formData.inventory_qty_bag_total} disabled label="Total Bags" ></Numberbox>
+                         <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
+                            <div className="col-md-11">
+                                <div className="row flex-nowrap">
+                                    <div className="col-md-6"></div>
+                                    <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Total" label="Total" required="false"></Textbox>
+                                    <Numberbox noPlaceholder required="false" withoutMargin showLabel={false} className="col-md-1" modelName="inventory_qty_bag_total" value={this.state.formData.inventory_qty_bag_total} disabled label="Total Bags" ></Numberbox>
+                             <Numberbox noPlaceholder required="false" withoutMargin showLabel={false} className="col-md-1" modelName="inventory_qty_kg_total" value={this.state.formData.inventory_qty_kg_total} disabled label="Total KGs" ></Numberbox>
+                             <Numberbox required="false" noPlaceholder withoutMargin showLabel={false} className="col-md-1"  disabled  ></Numberbox>
+                           <Numberbox noPlaceholder required="false" withoutMargin showLabel={false} className="col-md-1" modelName="inventory_amount_total" value={this.state.formData.inventory_amount_total} disabled label="Total Amounts" ></Numberbox>
+                                </div>
                             </div>
                         </div>
-                         <div className="row">
-                            <div className="col-md-12" align="right">
-                                <Numberbox modelName="inventory_qty_kg_total" value={this.state.formData.inventory_qty_kg_total} disabled label="Total KGs" ></Numberbox>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-md-12" align="right">
-                                <Numberbox modelName="inventory_amount_total" value={this.state.formData.inventory_amount_total} disabled label="Total Amounts" ></Numberbox>
-                            </div>
-                        </div>
+                        
+                        </div>       
+                           
 
                     <div className="row">
                         <div className="col-md-12">

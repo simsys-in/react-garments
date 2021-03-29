@@ -6,7 +6,7 @@ import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
 import DataTable from '../../../components/Datatable';
 
-class ListYarnreturn  extends PureComponent {
+class ListYarnoutward extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,23 +15,19 @@ class ListYarnreturn  extends PureComponent {
           label: 'S.No',
           field: 'sno',
           width: "10vw",
-        
+         
         },
+      
         {
           label: 'Vou Date',
           field: 'vou_date',
           width: "30vw",
         },
-        // {
-        //   label: 'Vou No',
-        //   field: 'vouno',
-        //   width: "30vw",
-        // },
-        // {
-        //   label: 'Vou No',
-        //   field: 'order_no',
-        //   width: "30vw",
-        // },
+        {
+          label: 'Vou No',
+          field: 'vouno',
+          width: "30vw",
+        },
         {
           label: 'Ledger Name',
           field: 'ledger',
@@ -42,20 +38,17 @@ class ListYarnreturn  extends PureComponent {
         //   field: 'narration',
         //   width: "30vw",
         // },
-        
-       
         // {
         //   label: 'Process',
         //   field: 'process',
         //   width: "30vw",
         // },
         // {
-        //   label: 'Ref No',
-        //   field: 'refno',
+        //   label: 'Order No',
+        //   field: 'order_no',
         //   width: "30vw",
         // },
-        
-        
+      
        
        
         {
@@ -66,8 +59,8 @@ class ListYarnreturn  extends PureComponent {
           defaultSortOrder: 'ascend',
           render: (text, record) => (
             <Space size="middle">
-              <Button type="primary" onClick={() => this.editYarn_Return (record.id)} icon={<EditOutlined />} size="middle" />
-              <Button type="default" color="error" danger onClick={() => this.deleteYarn_Return (record)} icon={<DeleteOutlined />} size="middle" />
+              <Button type="primary" onClick={() => this.editYarn_Outward(record.id)} icon={<EditOutlined />} size="middle" />
+              <Button type="default" color="error" danger onClick={() => this.deleteYarn_Outward(record)} icon={<DeleteOutlined />} size="middle" />
             </Space>
           ),
         },
@@ -77,23 +70,23 @@ class ListYarnreturn  extends PureComponent {
     }
   }
 
-  editYarn_Return  = (id) => {
+  editYarn_Outward = (id) => {
     console.log(id);
-    this.props.history.push('/masters/edit_yarn_return/' + id)
+    this.props.history.push('/transactions/edit_yarn_outward/' + id)
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/yarn_return?id=' + id).then(data => {
+    deleteRequest('transactions/yarn_outward?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
     })
   }
 
-  deleteYarn_Return  = (user) => {
+  deleteYarn_Outward = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.yarn_return ;
+    const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
@@ -106,17 +99,17 @@ class ListYarnreturn  extends PureComponent {
 
   componentDidMount = () => {
     seo({
-      title: 'List Yarn Return ',
-      metaDescription: 'List Yarn Return '
+      title: 'List Yarn Outward',
+      metaDescription: 'List Yarn Outward'
     });
-    getRequest('masters/yarn_return').then(data => {
+    getRequest('transactions/yarn_outward').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{
           item.sno = index +1;
           item.action =  <Space size="middle">
-          <Button type="primary" onClick={() => this.editYarn_Return (item.id)} icon={<EditOutlined />} size="middle" />
-          <Button type="default" color="error" danger onClick={() => this.deleteYarn_Return (item)} icon={<DeleteOutlined />} size="middle" />
+          <Button type="primary" onClick={() => this.editYarn_Outward(item.id)} icon={<EditOutlined />} size="middle" />
+          <Button type="default" color="error" danger onClick={() => this.deleteYarn_Outward(item)} icon={<DeleteOutlined />} size="middle" />
         </Space>
 
         newData.push(item)
@@ -138,7 +131,7 @@ class ListYarnreturn  extends PureComponent {
         <div className="row">
           <div className="col-md-10"></div>
           <div className="col-md-2" align="right">
-            <Button type="primary" onClick={() => { this.props.history.push("/masters/add_yarn_return") }}> Add </Button>
+            <Button type="primary" onClick={() => { this.props.history.push("/transactions/add_yarn_outward") }}> Add </Button>
           </div>
           <br />
           <br />
@@ -151,4 +144,4 @@ class ListYarnreturn  extends PureComponent {
 }
 
 
-export default withRouter(ListYarnreturn );
+export default withRouter(ListYarnoutward);
