@@ -136,29 +136,10 @@ class AddYarn_Inward extends PureComponent{
         }
     }
 
-    getNextFabricInwardVouNo = () => {
-        getRequest('transactions/getNextFabricInwardVouNo').then(data => {
-            console.log(data);
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    formData : {
-                        ...this.state.formData,
-                        vouno : data.max_vou_no
-                    }
-                },() => {
-                    this.formRef.current.setFieldsValue({
-                        vouno : this.state.formData.vouno
-                    })
-                })
-            }
-        })
-    }
-
+    
     componentDidMount() {
         this.getOrderSB();
-        this.getNextFabricInwardVouNo();
+        
         this.getLedgerNameSB();
         this.getProcessSB();
         this.getFabricsSB();

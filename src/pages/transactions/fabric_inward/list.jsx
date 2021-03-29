@@ -11,7 +11,14 @@ class ListFabricInward extends PureComponent {
     super(props);
     this.state = {
       columns: [
-      
+        
+        {
+          label: 'S.No',
+          field: 'sno',
+          width: "10vw",
+          defaultSortOrder: 'ascend',
+          
+        },
         {
           label: 'Ledger Name',
           field: 'ledger',
