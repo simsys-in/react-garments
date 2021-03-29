@@ -24,7 +24,7 @@ class ListYarnInward extends PureComponent {
         },
         {
           label: 'Vou No',
-          field: 'order_no',
+          field: 'vouno',
           width: "30vw",
         },
         {
@@ -72,11 +72,11 @@ class ListYarnInward extends PureComponent {
 
   editYarn_Inward = (id) => {
     console.log(id);
-    this.props.history.push('/masters/edit_yarn_inward/' + id)
+    this.props.history.push('/transactions/edit_yarn_inward/' + id)
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/yarn_inward?id=' + id).then(data => {
+    deleteRequest('transactions/yarn_inward?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -86,7 +86,7 @@ class ListYarnInward extends PureComponent {
   deleteYarn_Inward = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.vouno;
+    const name = user.vouno;  
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
@@ -102,7 +102,7 @@ class ListYarnInward extends PureComponent {
       title: 'List Yarn Inward',
       metaDescription: 'List Yarn Inward'
     });
-    getRequest('masters/yarn_inward').then(data => {
+    getRequest('transactions/yarn_inward').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{
@@ -131,7 +131,7 @@ class ListYarnInward extends PureComponent {
         <div className="row">
           <div className="col-md-10"></div>
           <div className="col-md-2" align="right">
-            <Button type="primary" onClick={() => { this.props.history.push("/masters/add_yarn_inward") }}> Add </Button>
+            <Button type="primary" onClick={() => { this.props.history.push("/transactions/add_yarn_inward") }}> Add </Button>
           </div>
           <br />
           <br />
