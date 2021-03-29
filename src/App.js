@@ -20,10 +20,8 @@ import {
 import api from './api.js'
 
 
-import { Layout } from 'antd';
+import { Layout, message } from 'antd';
 
-import Designer from './pages/ReportDesigner.jsx'
-import Viewer from './pages/ReportViewer'
 
 ///// Components
 ///// Components
@@ -134,8 +132,9 @@ import ListFabricInvoice from './pages/transactions/fabric_invoice/list'
 /// Fabric
 import AddFabricReturn  from './pages/transactions/fabric_return/add'
 import ListFabricReturn from './pages/transactions/fabric_return/list'
+import { postRequest } from './helpers/apihelper';
 
-
+let interval;
 const { Content } = Layout;
 class App extends React.PureComponent
 {
@@ -147,7 +146,30 @@ class App extends React.PureComponent
   }
 
   componentDidMount = () => {
-    localStorage.setItem("api", api)
+    interval = setInterval(() => {
+      postRequest('user/verifyLogin').then(function(data){
+        if(data.type === "unauthorized")
+        {
+          message.error(data.message);
+        }
+      })
+    }, 10000);
+    localStorage.setItem("api", api);
+    
+    postRequest('user/verifyLogin').then(function(data){
+      if(data.type === "unauthorized")
+      {
+        message.error(data.message);
+      }
+    })
+    if(!this.props.store.login.login)
+    {
+      this.props.onLogout();
+    }
+  }
+  
+  componentWillUnmount() {
+    clearInterval(interval);
   }
 
   render (){
@@ -163,14 +185,6 @@ class App extends React.PureComponent
               <Topbar history={this.props.history} />
               : null }
             <Router history={this.props.history} >
-              <Switch >
-                <Route exact path="/report_designer">
-                  <Designer />
-                </Route>
-                <Route exact path="/report_viewer">
-                  <Viewer/>
-                </Route>
-                </Switch>
             <Content style={{ marginLeft : this.props.store.login.sider_collapsed ? '80px' : '200px' }}>
                     { this.props.store.login.login ? 
                     <div className="main-content">
