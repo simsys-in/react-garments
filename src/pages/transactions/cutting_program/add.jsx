@@ -572,7 +572,7 @@ class AddCuttingProgram extends PureComponent{
                    
                 </Form>
                 
-                <div className="row"> 
+                {/* <div className="row"> 
                     <div className="col-md-6">
                         <pre> { JSON.stringify(this.formRef, null, 2)  } </pre>
                     </div>
@@ -580,7 +580,7 @@ class AddCuttingProgram extends PureComponent{
                         <pre> { JSON.stringify(this.state.formData, null, 2)  } </pre>
                     </div>
 
-                </div>
+                </div> */}
             </Fragment>
         )
     }
