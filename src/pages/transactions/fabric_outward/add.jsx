@@ -390,7 +390,7 @@ class AddFabricOutward extends PureComponent{
                              <Form.List name="fabric_outward_inventory">
                                    { (fields, { add, remove } )=> (
                                        fields.map((field, index) => (
-                                               <div className="row">
+                                               <div className="row " style={{ paddingLeft : 15, paddingRight : 2 }}>
                                                    <div className="col-md-11">
                                                        <div className="row">
                                                            <Selectbox noPlaceholder required="false" withoutMargin className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} options={this.state.fabric} label="Fabric"></Selectbox>
@@ -414,21 +414,23 @@ class AddFabricOutward extends PureComponent{
                                 ) }
                                </Form.List>        
                           </div>
+                        
                         </div>
                        
                         <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
                             <div className="col-md-11">
                                 <div className="row">
-                                    <div className="col-md-6"></div>
+                                    <div className="col-md-6">
                                     <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Total" label="Total" required="false"></Textbox>
-                                    <Numberbox withoutMargin className='col-md-6' align="right" modelName='inventory_roll_total' value={this.state.formData.inventory_roll_total} disabled label='Total Roll'></Numberbox>
-                                     <Numberbox withoutMargin className='col-md-6' align="right" modelName='inventory_weight_total' value={this.state.formData.inventory_weight_total} disabled label='Total Weight'></Numberbox>
+                                    <Numberbox withoutMargin className='col-md-2' align="right" modelName='inventory_roll_total' value={this.state.formData.inventory_roll_total} disabled label='Total Roll'></Numberbox>
+                                     <Numberbox withoutMargin className='col-md-2' align="right" modelName='inventory_weight_total' value={this.state.formData.inventory_weight_total} disabled label='Total Weight'></Numberbox>
 
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
-                        
-                       
+                          
                    
 
                    <div className="row">

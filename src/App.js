@@ -131,9 +131,14 @@ import AddFabricInvoice  from './pages/transactions/fabric_invoice/add'
 import ListFabricInvoice from './pages/transactions/fabric_invoice/list'
 
 
-/// Fabric
+/// Fabricreturn
 import AddFabricReturn  from './pages/transactions/fabric_return/add'
 import ListFabricReturn from './pages/transactions/fabric_return/list'
+
+//jobwork_outwork
+import AddJobworkOutward  from './pages/transactions/jobwork_outward/add'
+import ListJobworkOutward from './pages/transactions/jobwork_outward/list'
+
 
 
 const { Content } = Layout;
@@ -310,6 +315,12 @@ class App extends React.PureComponent
                               <Route exact path="/transactions/add_fabric_return" component={AddFabricReturn} />
                               <Route exact path="/transactions/edit_fabric_return/:id" component={AddFabricReturn} />
                               <Route exact path="/transactions/list_fabric_return" component={ListFabricReturn} />
+
+
+                               {/* fabric invoice */}
+                              <Route exact path="/transactions/add_jobwork_outward" component={AddJobworkOutward} />
+                              <Route exact path="/transactions/edit_jobwork_outward/:id" component={AddJobworkOutward} />
+                              <Route exact path="/transactions/list_jobwork_outward" component={ListJobworkOutward} />
 
 
                               <Redirect to="/" />
