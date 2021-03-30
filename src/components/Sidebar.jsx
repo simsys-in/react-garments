@@ -72,7 +72,7 @@ class Sidebar extends PureComponent {
                 <Divider />
                 <div >
                     <Menu theme={ theme.theme } defaultSelectedKeys={[this.state.activeKey]} mode="inline" >
-                        {
+                        { this.props.store.login.userData && this.props.store.login.userData.menuList && this.props.store.login.userData.menuList.length > 0 &&
                         this.props.store.login.userData.menuList.map((menu, index) => 
                         menu.name !== null ?
 

@@ -97,26 +97,7 @@ export default  [
                 icon : 'chalkboard-teacher',
                 url : '/masters/list_master'
             },
-            {
-                name : "YarnInward",
-                icon : 'chalkboard-teacher',
-                url : '/masters/list_yarn_inward'
-            },
-            {
-                name : "YarnOutward",
-                icon : 'shopping-cart',
-                url : '/masters/list_yarn_outward'
-            },
-            {
-                name : "YarnReturn ",
-                icon : 'object-group',
-                url : '/masters/list_yarn_return '
-            },
-            {
-                name : "YarnInvoice",
-                icon : 'chalkboard-teacher',
-                url : '/masters/list_yarn_invoice'
-            },
+           
             {
                 name : "MenuMaster",
                 icon : 'map-o',
@@ -187,6 +168,26 @@ export default  [
                 name : "Fabric Return",
                 icon : 'shoping-cart',
                 url : '/transactions/list_fabric_return'
+            },
+            {
+                name : "YarnInward",
+                icon : 'chalkboard-teacher',
+                url : '/transactions/list_yarn_inward'
+            },
+            {
+                name : "YarnOutward",
+                icon : 'shopping-cart',
+                url : '/transactions/list_yarn_outward'
+            },
+            {
+                name : "YarnReturn ",
+                icon : 'object-group',
+                url : '/transactions/list_yarn_return '
+            },
+            {
+                name : "YarnInvoice",
+                icon : 'chalkboard-teacher',
+                url : '/transactions/list_yarn_invoice'
             },
         ]
     }
