@@ -132,7 +132,15 @@ import ListFabricInvoice from './pages/transactions/fabric_invoice/list'
 /// Fabric
 import AddFabricReturn  from './pages/transactions/fabric_return/add'
 import ListFabricReturn from './pages/transactions/fabric_return/list'
+
+
+/// Fabric
+import AddCuttingProgram  from './pages/transactions/cutting_program/add'
+import ListCuttingProgram from './pages/transactions/cutting_program/list'
+
+
 import { postRequest } from './helpers/apihelper';
+import { onLogOut } from './actions/login';
 
 let interval;
 const { Content } = Layout;
@@ -164,7 +172,7 @@ class App extends React.PureComponent
     })
     if(!this.props.store.login.login)
     {
-      this.props.onLogout();
+      this.props.onLogOut();
     }
   }
   
@@ -325,6 +333,11 @@ class App extends React.PureComponent
                               <Route exact path="/transactions/edit_fabric_return/:id" component={AddFabricReturn} />
                               <Route exact path="/transactions/list_fabric_return" component={ListFabricReturn} />
 
+                               {/* fabric invoice */}
+                              <Route exact path="/transactions/add_cutting_program" component={AddCuttingProgram} />
+                              <Route exact path="/transactions/edit_cutting_program/:id" component={AddCuttingProgram} />
+                              <Route exact path="/transactions/list_cutting_program" component={ListCuttingProgram} />
+
 
                               <Redirect to="/" />
                             </Switch>
@@ -361,4 +374,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(withRouter(App))
+export default connect(mapStateToProps, { onLogOut })(withRouter(App))

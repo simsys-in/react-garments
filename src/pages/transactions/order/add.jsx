@@ -448,6 +448,7 @@ class AddOrderProgram extends PureComponent{
                                 </Form.List>
                                 </div>
                          </div>
+                         <br/>
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
