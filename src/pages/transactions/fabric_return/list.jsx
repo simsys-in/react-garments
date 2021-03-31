@@ -13,6 +13,13 @@ class ListFabricReturn extends PureComponent {
       columns: [
       
         {
+          label: 'S.No',
+          field: 'sno',
+          width: "10vw",
+          defaultSortOrder: 'ascend',
+          
+        },
+        {
           label: 'Vou Date',
           field: 'vou_date',
           width: "30vw",

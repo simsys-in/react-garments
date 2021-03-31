@@ -136,6 +136,32 @@ body {
   overflow-y: auto;
 }
 
+table#dynamic-table.table {
+  width: max-content !important;
+}
+
+table#dynamic-table.table > tbody > tr > td {
+  padding: 0px !important;
+  height: fit-content;
+}
+
+table#dynamic-table.table > tbody > tr > td > div> div> div> div> input,
+table#dynamic-table.table > tbody > tr > td > div> span > div> div>div>div> div> div.ant-select-selector {
+  border-left : 1px solid black !important;
+}
+
+table#dynamic-table.table > thead > tr > th {
+  padding: 5px ;
+  border: 1px solid black;
+  text-align: center;
+}
+
+table#dynamic-table.table > thead > tr > th.primary-header {
+  padding: 5px ;
+  border: 1px solid black;
+  text-align: center;
+}
+
 .table-scroll {
   width: auto !important;
   overflow-x: auto !important;

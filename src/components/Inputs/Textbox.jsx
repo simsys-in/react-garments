@@ -17,11 +17,11 @@ class TextBox extends PureComponent {
             <Form.Item
                 name={ this.props.modelName ? this.props.modelName : 'name' }
                 className={ this.props.className ? this.props.className : 'col-md-6' }
-                style={{ padding : this.props.withoutMargin && !checkBoolean(this.props.required, true) ? '0' : 'auto', bottom : this.props.withoutMargin && !checkBoolean(this.props.required, true) ? -17 : 'auto' ,top : this.props.withoutMargin && !checkBoolean(this.props.required, true) ? '0' : 'auto', right : this.props.withoutMargin && !checkBoolean(this.props.required, true) ? '0' : 'auto', left : this.props.withoutMargin && !checkBoolean(this.props.required, true) ? '0' : 'auto' }}
+                style={{ padding : this.props.withoutMargin  ? '0' : 'auto', bottom : this.props.withoutMargin  ? -17 : 'auto' ,top : this.props.withoutMargin  ? '0' : 'auto', right : this.props.withoutMargin  ? '0' : 'auto', left : this.props.withoutMargin  ? '0' : 'auto' }}
                 rules={[
                 {
                     required: checkBoolean(this.props.required, true),
-                    message: this.props.withoutMargin && !checkBoolean(this.props.required, true) ? null :'Please Input ' + this.props.label + '!' ,
+                    message: this.props.withoutMargin  ? '' :'Please Input ' + this.props.label + '!' ,
                 },
                 {
                     pattern: this.props.preventSpecialCharacters ? new RegExp(/^[a-zA-Z_]+$/i) : new RegExp(/^[a-zA-Z0-9@~`!@#$%^&*()_=+\\\\'; :\"\\/?>.<,-]+$/i),

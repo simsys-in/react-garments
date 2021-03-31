@@ -9,6 +9,8 @@ import Textbox from '../../../components/Inputs/Textbox';
 import Selectbox from '../../../components/Inputs/Selectbox';
 import Numberbox from '../../../components/Inputs/Numberbox';
 import Datebox from '../../../components/Inputs/Datebox';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 
 let interval;
@@ -114,6 +116,18 @@ class AddFabricInvoice extends PureComponent{
                 this.setState({
                     ...this.state,
                     order_no : data.data
+                })
+            }
+        })
+    }
+
+    getProcessSBForOrderID = (order_id) => {
+        getRequest('masters/getProcessSBForOrderID?order_id=' + order_id).then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    process : data.data
                 })
             }
         })
@@ -278,6 +292,7 @@ class AddFabricInvoice extends PureComponent{
                 fabric_invoice_inventory : oldFabricInvoiceInventoryArray
             }
         })
+        this.setTOTAL();
     }
 
     
@@ -303,49 +318,67 @@ class AddFabricInvoice extends PureComponent{
                         
                         <div className="row">
                        
-                       <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
-                       <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
-                       <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
+                            <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
+                            <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
+                       </div>
                    
                    
-                   </div>
                   
                    <div className="row">
+                       <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
                        <Selectbox modelName="process_id" label="Process" className="col-md-6" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
-                       <Selectbox modelName="order_id" label="Order No" className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                   </div>
+
+                   <div className="row">
                        <Textbox label="Ref No" modelName="refno"  className="col-md-6"></Textbox>
+                       <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
+
                    </div>
                    
                    <div className="row">
                             <div className="col-md-12">
                             <Divider plain orientation="left" >Products</Divider>
+                            <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
+                                    <div className="col-md-11">
+                                        <div className="row">
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Fabric" label="Fabric" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Color" label="Color" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Gsm" label="Gsm" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Dia" label="Dia" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Roll" label="Roll" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Weight" label="Weight" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Rate" label="Rate" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Amount" label="Amount" required="false"></Textbox>
+                                            
+                                        </div>
+                                    </div>
+                                        <div className="col-md-1">
+                                            <Button type="primary"  onClick={this.addFabricInvoiceInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
+                                        </div>
+                                    
+                                </div>
                              <Form.List name="fabric_invoice_inventory">
                                    { (fields, { add, remove } )=> (
                                        fields.map((field, index) => (
-                                               <div className="row">
+                                               <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
                                                    <div className="col-md-11">
                                                        <div className="row">
-                                                           <Selectbox className="col-md-3" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} options={this.state.fabric} label="Fabric"></Selectbox>
-                                                           <Selectbox className="col-md-3" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
-                                                           <Textbox className="col-md-3" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={[field.name, 'gsm']} label="Gsm"></Textbox>
-                                                           <Textbox className="col-md-3"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} required = 'false' modelName={[field.name, 'dia']} value={[field.name, 'dia']} label="Dia"></Textbox>
-                                                          
-
-                                                       </div>
-
-                                                       <div className="row">
-                                                          
-                                                           <Numberbox className="col-md-3" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox className="col-md-3"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox className="col-md-3" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'rate' ]}  modelName={[field.name, 'rate']} value={[field.name, 'rate']} label="Rate"></Numberbox>
-                                                           <Numberbox className="col-md-3"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} label="Amount" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-
+                                                           <Selectbox withoutMargin required="false" noPlaceholder className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} options={this.state.fabric} label="Fabric"></Selectbox>
+                                                           <Selectbox withoutMargin required="false" noPlaceholder className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
+                                                           <Textbox withoutMargin required="false" noPlaceholder className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={[field.name, 'gsm']} label="Gsm"></Textbox>
+                                                           <Textbox withoutMargin required="false" noPlaceholder className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} required = 'false' modelName={[field.name, 'dia']} value={[field.name, 'dia']} label="Dia"></Textbox>                                                          
+                                                           <Numberbox withoutMargin required="false" noPlaceholder className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                           <Numberbox withoutMargin required="false" noPlaceholder className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                           <Numberbox withoutMargin required="false" noPlaceholder className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'rate' ]}  modelName={[field.name, 'rate']} value={[field.name, 'rate']} label="Rate"></Numberbox>
+                                                           <Numberbox withoutMargin required="false" noPlaceholder className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} label="Amount" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                           
                                                        </div>
                                                    </div>
-                                                   <div className="col-md-1">
-                                                       { index === 0  && <Button onClick={this.addFabricInvoiceInventory} style={{ marginLeft : 10 }}>+</Button> }
-                                                       { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeFabricInvoiceInventory(index)} type="primary">-</Button>}
-                                                   </div>
+                                                       <div className="col-md-1">
+                                                       
+                                                                { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeFabricInvoiceInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
+                                                        </div>
+                                                   
                                                 </div>
                                     )
                                            
@@ -355,14 +388,20 @@ class AddFabricInvoice extends PureComponent{
                           </div>
                         </div>
                        
-                        <div className='row' align="right">
+                        
                        
-                           <Numberbox className="col-md-3" modelName='inventory_roll_total' value={this.state.formData.total_roll} disabled label='Total Roll'></Numberbox>
-                           <Numberbox className="col-md-3" modelName='inventory_weight_total' value={this.state.formData.total_weight} disabled label='Total Weight'></Numberbox>
-                           <Numberbox className="col-md-3" modelName='inventory_amount_total' value={this.state.formData.total_weight} disabled label='Total Amount'></Numberbox>
-                       </div>
-                       
-                   
+                       <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
+                            <div className="col-md-11">
+                                <div className="row">
+                                    <div className="col-md-4"></div>
+                                    <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Total" label="Total" required="false"></Textbox>
+                                    <Numberbox withoutMargin showLabel={false} className="col-md-1" modelName='inventory_roll_total' value={this.state.formData.total_roll} disabled label='Total Roll'></Numberbox>
+                                    <Numberbox withoutMargin showLabel={false} className="col-md-1" modelName='inventory_weight_total' value={this.state.formData.total_weight} disabled label='Total Weight'></Numberbox>
+                                    <Numberbox withoutMargin showLabel={false} className="col-md-1" modelName='inventory_amount_total' value={this.state.formData.total_weight} disabled label='Total Amount'></Numberbox>
+                                </div>
+                            </div>
+                        </div>
+                        
 
                    <div className="row">
                        <div className="col-md-12">

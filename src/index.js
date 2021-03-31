@@ -9,7 +9,9 @@ import {
 import { Provider } from 'react-redux';
 import store from './store';
 import history from './history';
+import { verifyLogin } from './actions/common';
 
+store.dispatch(verifyLogin());
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter history={history}>

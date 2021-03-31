@@ -20,10 +20,8 @@ import {
 import api from './api.js'
 
 
-import { Layout } from 'antd';
+import { Layout, message } from 'antd';
 
-import Designer from './pages/ReportDesigner.jsx'
-import Viewer from './pages/ReportViewer'
 
 ///// Components
 ///// Components
@@ -140,13 +138,28 @@ import AddFabricInvoice  from './pages/transactions/fabric_invoice/add'
 import ListFabricInvoice from './pages/transactions/fabric_invoice/list'
 
 
-/// Fabric
+/// Fabricreturn
 import AddFabricReturn  from './pages/transactions/fabric_return/add'
 import ListFabricReturn from './pages/transactions/fabric_return/list'
 
 import AddEmployee from './pages/masters/employee/add'
 import ListEmployee from './pages/masters/employee/list'
 
+/// Fabric
+import AddCuttingProgram  from './pages/transactions/cutting_program/add'
+import ListCuttingProgram from './pages/transactions/cutting_program/list'
+
+
+import { postRequest } from './helpers/apihelper';
+import { onLogOut } from './actions/login';
+
+//jobwork_outwork
+import AddJobworkOutward  from './pages/transactions/jobwork_outward/add'
+import ListJobworkOutward from './pages/transactions/jobwork_outward/list'
+
+
+
+let interval;
 const { Content } = Layout;
 class App extends React.PureComponent
 {
@@ -158,7 +171,30 @@ class App extends React.PureComponent
   }
 
   componentDidMount = () => {
-    localStorage.setItem("api", api)
+    interval = setInterval(() => {
+      postRequest('user/verifyLogin').then(function(data){
+        if(data.type === "unauthorized")
+        {
+          message.error(data.message);
+        }
+      })
+    }, 10000);
+    localStorage.setItem("api", api);
+    
+    postRequest('user/verifyLogin').then(function(data){
+      if(data.type === "unauthorized")
+      {
+        message.error(data.message);
+      }
+    })
+    if(!this.props.store.login.login)
+    {
+      this.props.onLogOut();
+    }
+  }
+  
+  componentWillUnmount() {
+    clearInterval(interval);
   }
 
   render (){
@@ -174,14 +210,6 @@ class App extends React.PureComponent
               <Topbar history={this.props.history} />
               : null }
             <Router history={this.props.history} >
-              <Switch >
-                <Route exact path="/report_designer">
-                  <Designer />
-                </Route>
-                <Route exact path="/report_viewer">
-                  <Viewer/>
-                </Route>
-                </Switch>
             <Content style={{ marginLeft : this.props.store.login.sider_collapsed ? '80px' : '200px' }}>
                     { this.props.store.login.login ? 
                     <div className="main-content">
@@ -338,6 +366,16 @@ class App extends React.PureComponent
                               <Route exact path="/transactions/list_fabric_return" component={ListFabricReturn} />
 
                               
+                               {/* fabric invoice */}
+                              <Route exact path="/transactions/add_cutting_program" component={AddCuttingProgram} />
+                              <Route exact path="/transactions/edit_cutting_program/:id" component={AddCuttingProgram} />
+                              <Route exact path="/transactions/list_cutting_program" component={ListCuttingProgram} />
+
+
+                               {/* fabric invoice */}
+                              <Route exact path="/transactions/add_jobwork_outward" component={AddJobworkOutward} />
+                              <Route exact path="/transactions/edit_jobwork_outward/:id" component={AddJobworkOutward} />
+                              <Route exact path="/transactions/list_jobwork_outward" component={ListJobworkOutward} />
 
 
                               <Redirect to="/" />
@@ -375,4 +413,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(withRouter(App))
+export default connect(mapStateToProps, { onLogOut })(withRouter(App))

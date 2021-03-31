@@ -96,7 +96,10 @@ export function postRequest(url, data) {
                 var result = {};
 
                 var msg = typeof res.message === "object" ? res.message.message ? res.message.message : 'Problem With Connecting Data Server' : res.message;
-                showAlert(res.status, msg)
+                if(res.message)
+                {
+                    showAlert(res.status, msg)
+                }
                 if (res.status === "success" || res.status === "info") {
                     result = res
                 } else {
