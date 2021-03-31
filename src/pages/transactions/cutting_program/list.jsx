@@ -5,6 +5,7 @@ import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
 import DataTable from '../../../components/Datatable';
+import { getStandardDate } from '../../../helpers/timer'
 
 class ListCuttingProgram extends PureComponent {
   constructor(props) {
@@ -24,20 +25,16 @@ class ListCuttingProgram extends PureComponent {
          
         },
         {
-          label: 'Order Date',
+          label: 'Vou. Date',
           field: 'vou_date',
           width: "300px",
          
         },
-      
         {
-          label: 'Due Date',
-          field: 'due_date',
+          label: 'Lot No.',
+          field: 'lotno',
           width: "300px",
-         
         },
-        
-        
         {
           label: 'Action',
           field: 'action',
@@ -59,7 +56,7 @@ class ListCuttingProgram extends PureComponent {
 
   editCuttingProgram = (id) => {
     console.log(id);
-    this.props.history.push('/transactions/edit_cuttingprogram/' + id)
+    this.props.history.push('/transactions/edit_cutting_program/' + id)
   }
 
   confirmDelete = (id) => {
@@ -73,7 +70,7 @@ class ListCuttingProgram extends PureComponent {
   deleteCuttingProgram = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.order_no;
+    const name = user.lotno;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
@@ -89,18 +86,12 @@ class ListCuttingProgram extends PureComponent {
       title: 'List Cutting Program',
       metaDescription: 'List Cutting Program'
     });
-    getRequest('transactions/CuttingProgram').then(data => {
+    getRequest('transactions/cuttingProgram').then(data => {
       if (data.status === "success") {
         var newData = [];
-        // data.data.map(dt => {
-        //   var newArr = [];
-        //   Object.entries(dt).map(item => {
-        //     newArr.push(item[1]);
-        //   })
-        //   newData.push(newArr);
-        // })
         data.data.map((item, index) =>{
           item.sno = index +1;
+          item.vou_date = getStandardDate(item.vou_date) ;
           item.action =   <Space size="middle">
           <Button type="primary" onClick={() => this.editCuttingProgram(item.id)} icon={<EditOutlined />} size="middle" />
           <Button type="default" color="error" danger onClick={() => this.deleteCuttingProgram(item)} icon={<DeleteOutlined />} size="middle" />
@@ -123,7 +114,7 @@ class ListCuttingProgram extends PureComponent {
         <div className="row">
           <div className="col-md-10"></div>
           <div className="col-md-2" align="right">
-            <Button type="primary" onClick={() => { this.props.history.push("/transactions/add_cuttingprogram") }}> Add </Button>
+            <Button type="primary" onClick={() => { this.props.history.push("/transactions/add_cutting_program") }}> Add </Button>
           </div>
           <br />
           <br />

@@ -92,12 +92,13 @@ class AddCuttingProgram extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("transactions/CuttingProgram?id=" + this.id).then(data => {
+            getRequest("transactions/cuttingProgram?id=" + this.id).then(data => {
                
-                data.data.orderDate = moment(data.data.orderDate)
-                data.data.due_date = moment(data.data.due_date)
+                data.data[0].voudate = moment(data.data[0].voudate)
                 console.log(data.data)
-                this.formRef.current.setFieldsValue(data.data);
+                this.formRef.current.setFieldsValue(data.data[0]);
+                this.onOrderIDChange(data.data[0].order_id);
+                this.calculateQty()
             })
 
         }
@@ -194,28 +195,35 @@ class AddCuttingProgram extends PureComponent{
     }
 
     getNextCuttingProgramLotNo = () => {
-        getRequest('transactions/getNextCuttingProgLotNo').then(data => {
-            
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    formData : {
-                        ...this.state.formData,
-                        lot_no : data.data
+        if(issetNotEmpty(this.state.formData.lotno))
+        {
+            getRequest('transactions/getNextCuttingProgLotNo').then(data => {
+                
+                if(data.status === "info")
+                {
+                    if(issetNotEmpty(this.state.formData.lotno))
+                    {
+                        this.setState({
+                            ...this.state,
+                            formData : {
+                                ...this.state.formData,
+                                lotno : data.data
+                            }
+                        },() => {
+                            this.formRef.current.setFieldsValue({
+                                lotno : this.state.formData.lotno
+                            })
+                        })
                     }
-                },() => {
-                    this.formRef.current.setFieldsValue({
-                        lot_no : this.state.formData.lot_no
-                    })
-                })
-            }
-        })
+                }
+            })
+        }
     }
 
     
 
     componentDidMount() {
+        this.getNextCuttingProgramLotNo();
         this.getSizeSB();
         this.getStyleSB();
         this.getFabricSB();
@@ -223,7 +231,6 @@ class AddCuttingProgram extends PureComponent{
         this.getColorSB();
         this.getCuttingMasterSB();
         this.getProcessSB();
-        this.getNextCuttingProgramLotNo();
         this.getLedgerNameSB();
         this.getCuttingProgram();
         interval = setInterval(() => {
@@ -256,7 +263,7 @@ class AddCuttingProgram extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/cutting_program?id=' + this.id, values).then(data => {
+            putRequest('transactions/cuttingProgram?id=' + this.id, this.state.formData).then(data => {
                 console.log(values)
                 if(data.status === "success")
                 {
@@ -504,14 +511,29 @@ class AddCuttingProgram extends PureComponent{
     }
 
     buttonDisabled = () => {
-        const FORM_DATA = this.formRef.current.getFieldValue();
-        if(issetNotEmpty(FORM_DATA.order_id) && issetNotEmpty(FORM_DATA.lot_no) && issetNotEmpty(FORM_DATA.voudate) && issetNotEmpty(FORM_DATA.process_id) && issetNotEmpty(FORM_DATA.style_id))
+        if(this.formRef && this.formRef.current)
         {
-            var f = 't';
-
-            if(f === 't')
+            const FORM_DATA = this.formRef.current.getFieldValue();
+            if(issetNotEmpty(FORM_DATA.order_id) && issetNotEmpty(FORM_DATA.lotno) && issetNotEmpty(FORM_DATA.voudate) && issetNotEmpty(FORM_DATA.process_id) && issetNotEmpty(FORM_DATA.style_id))
             {
-                return false;
+                var f = 'f';
+
+                var valid_entries = _.filter(FORM_DATA.fabrics, (fabric) => {
+                    return issetNotEmpty(fabric.fabric_id) && issetNotEmpty(fabric.color_id) && issetNotEmpty(fabric.fabric_qty) && issetNotEmpty(fabric.qty_bundle) && issetNotEmpty(fabric.fabric_return_qty) && issetNotEmpty(fabric.fabric_wastage) && issetNotEmpty(fabric.employee_id) && issetNotEmpty(fabric.rate) && issetNotEmpty(fabric.amount) && issetNotEmpty(fabric.qty)
+                }).length;
+                console.log(valid_entries);
+
+                if(valid_entries > 0)
+                {
+                    f = 't';
+                }
+                if(f === 't')
+                {
+                    return false;
+                }
+                else{
+                    return true;
+                }
             }
             else{
                 return true;
@@ -563,7 +585,7 @@ class AddCuttingProgram extends PureComponent{
             <Fragment>
                 <div className="row">
                     <div className="col-md-12" align="right">
-                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/transactions/list_cuttingprogram') } }>
+                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/transactions/list_cutting_program') } }>
                             { this.id ? "Back" : 'List'}
                         </Button>
                     </div>
@@ -584,7 +606,7 @@ class AddCuttingProgram extends PureComponent{
                             <Divider plain orientation="left" >CUTTING PROGRAM</Divider>
                             <div className="row">
                                 <Selectbox autoFocus modelName="order_id" label="Order No" className="col-md-6" onChange={this.onOrderIDChange} options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
-                                <Textbox className="col-md-6" label="Lot No" modelName="lot_no" ></Textbox>
+                                <Textbox className="col-md-6" label="Lot No" modelName="lotno" ></Textbox>
                             </div>
                             <div className="row">
                                 <Datebox  className="col-md-6" label="Vou. Date" value={this.state.formData.voudate} modelName="voudate" ></Datebox>
@@ -739,7 +761,7 @@ class AddCuttingProgram extends PureComponent{
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
-                                <Button type="primary" disabled={ this.state.buttonDisabled || this.buttonDisabled }  htmlType="submit" loading={this.state.buttonLoading}>
+                                <Button type="primary" disabled={ this.buttonDisabled() }  htmlType="submit" loading={this.state.buttonLoading}>
                                 { this.id ? "Update" : 'Submit'}
                                 </Button>
                             </Form.Item>
@@ -748,7 +770,7 @@ class AddCuttingProgram extends PureComponent{
                    
                 </Form>
                 
-                <div className="row"> 
+                {/* <div className="row"> 
                     <div className="col-md-6">
                         <pre> { JSON.stringify(this.formRef, null, 2)  } </pre>
                     </div>
@@ -756,7 +778,7 @@ class AddCuttingProgram extends PureComponent{
                         <pre> { JSON.stringify(this.state.formData, null, 2)  } </pre>
                     </div>
 
-                </div>
+                </div> */}
             </Fragment>
         )
     }
