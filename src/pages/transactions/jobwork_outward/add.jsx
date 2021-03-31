@@ -30,20 +30,19 @@ class AddJobworkOutward extends PureComponent{
                 vou_date : moment(),
                 jobwork_outward_inventory : [
                     {  
-                        color_id : '',
-                        size1 : '',
-                        size2 : '',
-                        size3 :'' ,
-                        size4 : '',
-                        size5 : '',
-                        size6 : '',
-                        size7 : '',
-                        size8 : '',
-                        size9 : '',
-                        order_id : '',
-                        qty : '',
-                        vou_id : '',
-                        inward_inv_id : '',
+                        color_id : null,
+                        size1 : 0,
+                        size2 : 0,
+                        size3 :0 ,
+                        size4 : 0,
+                        size5 : 0,
+                        size6 : 0,
+                        size7 : 0,
+                        size8 : 0,
+                        size9 : 0,
+                        order_id : null,
+                        qty : 0,
+                        
                         
                       
                     }
@@ -123,13 +122,20 @@ class AddJobworkOutward extends PureComponent{
         })
     }
 
-    getCuttingProgramSB = () => {
-        getRequest('transactions/getColorSB').then(data => {
+    getCuttingProgramColorDetails = (order_id) => {
+        getRequest('transactions/getCuttingProgramColorDetails?order_id=' +order_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
                     ...this.state,
-                    jobwork_outward_inventory : data.data
+                    formData : {
+                        ...this.state.formData,
+                        jobwork_outward_inventory : data.data
+                    },
+                },()=>{
+                    this.formRef.current.setFieldsValue({
+                        jobwork_outward_inventory : this.state.formData.jobwork_outward_inventory
+                    })
                 })
             }
         })
@@ -383,7 +389,7 @@ class AddJobworkOutward extends PureComponent{
     onOrderIDChange = (order_id) => {
         this.getProcessSBForOrderID(order_id);
         this.getSizesForOrderID(order_id);
-        this.getCuttingProgramSB(order_id);
+        this.getCuttingProgramColorDetails(order_id);
     }
 
 
@@ -406,22 +412,44 @@ class AddJobworkOutward extends PureComponent{
         })
     }
 
+    getUnitForProductId = (product_id, index) => {
+        getRequest('masters/getUnitForProductID?product_id=' + product_id).then(data => {
+            if(data.status === "info")
+            {
+                var jobwork_outward_product = this.state.formData.jobwork_outward_product;
+                var currentItem = jobwork_outward_product[index];
+                currentItem.unit_id = data.data;
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        jobwork_outward_product : jobwork_outward_product
+                    },
+                },()=>{
+                    this.formRef.current.setFieldsValue({
+                        jobwork_outward_product : this.state.formData.jobwork_outward_product
+                    })
+                })
+            }
+        })
+    }
+
     addJobworkOutwardInventory = () => {
         var newJobworkOutwardInventory = {
-            color_id : '',
-            size1 : '',
-            size2 : '',
-            size3 :'' ,
-            size4 : '',
-            size5 : '',
-            size6 : '',
-            size7 : '',
-            size8 : '',
-            size9 : '',
-            order_id : '',
-            qty : '',
-            vou_id : '',
-            inward_inv_id : '',
+            color_id : null,
+            size1 : 0,
+            size2 : 0,
+            size3 :0 ,
+            size4 : 0,
+            size5 : 0,
+            size6 : 0,
+            size7 : 0,
+            size8 : 0,
+            size9 : 0,
+            order_id : null,
+            qty : 0,
+            
+            
             
         }
 
@@ -627,13 +655,13 @@ class AddJobworkOutward extends PureComponent{
                                     </thead> */}
                                     <thead>
                                         <tr>
-                                            <th width="100px"> <b> Color</b></th>
+                                            <th width="150px"> <b> Color</b></th>
                                            
                                             { this.state.size_data_for_order.map((item) => 
-                                                item !== "" && <th width="40px"> <b> {item}</b></th>
+                                                item !== "" && <th width="100px"> <b> {item}</b></th>
                                             ) }
 
-                                            <th width="50px"> <b> Qty</b></th>
+                                            <th width="100px"> <b> Qty</b></th>
                                             <th width="30px">
                                                 <Button type="primary"  onClick={this.addJobworkOutwardInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
                                             </th>
@@ -649,19 +677,18 @@ class AddJobworkOutward extends PureComponent{
                                                                 {/* <Fragment> */}
                                                                 
                                                                 <td>
-                                                                <Selectbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
+                                                                <Selectbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
                                                                 </td>
                                                                 
                                                                 {
                                                                     this.state.size_data_for_order.map((item, index) => 
                                                                     item !== "" && <td>
-                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(index) + 1)]} value={[field.name, 'size' + Number(Number(index) + 1)]} noPlaceholder withoutMargin ></Numberbox>
+                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(index) + 1)]} value={[field.name, 'size' + Number(Number(index) + 1)]} noPlaceholder withoutMargin onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                                     </td>
                                                                     )
                                                                 }
                                                                 <td>
-                                                                <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Qty" label="Qty" required="false"></Textbox>
-
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
  
                                                                 </td>
                                                                 
@@ -673,6 +700,18 @@ class AddJobworkOutward extends PureComponent{
                                                             ))
                                                         )}
                                                     </Form.List>
+                                                    <tr style={{ backgroundColor : 'lightgray', textAlign : 'right' }}>
+                                            <td> <h6> Total</h6></td>
+
+
+                                            { this.state.size_data_for_order.map((item, index) => 
+                                                item !== "" && <td > <h6> {this.state.formData["size" + Number(Number(index) +1) + "_total"]}</h6></td>
+                                            ) }
+
+                                            <td > <h6> { this.state.formData.inventory_qty_total }</h6></td>
+                                            
+                                        </tr>
+
                                             {/* ); */}
                                         {/* })} */}
                                     </tbody>
@@ -680,7 +719,7 @@ class AddJobworkOutward extends PureComponent{
                         </div>
                     </div>
                     <br/>
-                    <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
+                    {/* <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
                         <div className="col-md-11">
                             <div className="row">
                                 
@@ -701,10 +740,10 @@ class AddJobworkOutward extends PureComponent{
                             </div>
                             
                             
-                        {/* </div> */}
+                        </div> 
                           
 
-                    </div>
+                    </div> */}
                        
                         <div className="row">
                              <div className="col-md-12">
@@ -731,7 +770,7 @@ class AddJobworkOutward extends PureComponent{
                                                 <div className="row flex-nowrap" style={{ paddingLeft : 15, paddingRight : 2 }}>
                                                    <div className='col-md-11'>
                                                        <div className="row ">
-                                                       <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} modelName={[field.name, 'product_id']}  label="Product" value={[field.name, 'product_id']} options={this.state.product_data} noPlaceholder withoutMargin  ></Selectbox>
+                                                       <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} modelName={[field.name, 'product_id']}  label="Product" value={[field.name, 'product_id']} options={this.state.product_data} onChange={(product_id) => this.getUnitForProductId(product_id, index)} noPlaceholder withoutMargin  ></Selectbox>
                                                     <Numberbox className="col-md-2" required="false" showLabel={false} label="Qty" min={0} field={field} fieldKey={[ field.fieldKey, 'qty' ]} modelName={[field.name, 'qty']} value={[field.name, 'qty']} noPlaceholder withoutMargin ></Numberbox>
                                                     <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'unit_id' ]} modelName={[field.name, 'unit_id']}  label="Unit" value={[field.name, 'unit_id']} options={this.state.unit_data} noPlaceholder withoutMargin ></Selectbox>
                                                            
