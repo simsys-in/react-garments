@@ -60,6 +60,9 @@ import ListLedgerGroup from './pages/masters/ledger_group/list'
 ///Ledger Category
 import AddLedgerCategory from './pages/masters/ledger_category/add'
 import ListLedgerCategory from './pages/masters/ledger_category/list'
+
+import AddEmployeeCategory from './pages/masters/employee_category/add'
+import ListEmployeeCategory from './pages/masters/employee_category/list'
 /// Process
 import AddProcess from './pages/masters/process/add'
 import ListProcess from './pages/masters/process/list'
@@ -103,8 +106,14 @@ import ListYarnOutward from './pages/transactions/yarn_outward/list'
 import AddYarnReturn from './pages/transactions/yarn_return/add'
 import ListYarnReturn from './pages/transactions/yarn_return/list'
 
+
+import AddJobworkinward from './pages/transactions/jobwork_inward/add'
+import ListJobworkinward from './pages/transactions/jobwork_inward/list'
+
 import AddYarnInvoice from './pages/transactions/yarn_invoice/add'
 import ListYarnInvoice from './pages/transactions/yarn_invoice/list'
+
+
 
 import AddMenuMaster from './pages/admin/menu_master/add'
 import ListMenuMaster from './pages/admin/menu_master/list'
@@ -135,6 +144,8 @@ import ListFabricInvoice from './pages/transactions/fabric_invoice/list'
 import AddFabricReturn  from './pages/transactions/fabric_return/add'
 import ListFabricReturn from './pages/transactions/fabric_return/list'
 
+import AddEmployee from './pages/masters/employee/add'
+import ListEmployee from './pages/masters/employee/list'
 
 const { Content } = Layout;
 class App extends React.PureComponent
@@ -202,6 +213,10 @@ class App extends React.PureComponent
                               <Route exact path="/masters/add_ledger_category" component={AddLedgerCategory} />
                               <Route exact path="/masters/edit_ledger_category/:id" component={AddLedgerCategory} />
                               <Route exact path="/masters/list_ledger_category" component={ListLedgerCategory} />
+                           
+                              <Route exact path="/masters/add_employee_category" component={AddEmployeeCategory} />
+                              <Route exact path="/masters/edit_employee_category/:id" component={AddEmployeeCategory} />
+                              <Route exact path="/masters/list_employee_category" component={ListEmployeeCategory} />
 
                               {/* process */}
                               <Route exact path="/masters/add_process" component={AddProcess} />
@@ -239,6 +254,10 @@ class App extends React.PureComponent
                               <Route exact path="/masters/add_ledger" component={AddLedger} />
                               <Route exact path="/masters/edit_ledger/:id" component={AddLedger} />
                               <Route exact path="/masters/list_ledger" component={ListLedger} />
+                              
+                              <Route exact path="/masters/add_employee" component={AddEmployee} />
+                              <Route exact path="/masters/edit_employee/:id" component={AddEmployee} />
+                              <Route exact path="/masters/list_employee" component={ListEmployee} />
 
                               {/* color */}
                               <Route exact path="/masters/add_color" component={AddColor} />
@@ -266,11 +285,18 @@ class App extends React.PureComponent
                               <Route exact path="/transactions/add_yarn_return" component={AddYarnReturn } />
                               <Route exact path="/transactions/edit_yarn_return/:id" component={AddYarnReturn } />
                               <Route exact path="/transactions/list_yarn_return" component={ListYarnReturn } />
+                              
+
+                              <Route exact path="/transactions/add_jobwork_inward" component={AddJobworkinward } />
+                              <Route exact path="/transactions/edit_jobwork_inward/:id" component={AddJobworkinward } />
+                              <Route exact path="/transactions/list_jobwork_inward" component={ListJobworkinward } />
 
                               {/* Yarn_invoice */}
                               <Route exact path="/transactions/add_yarn_invoice" component={AddYarnInvoice} />
                               <Route exact path="/transactions/edit_yarn_invoice/:id" component={AddYarnInvoice} />
                               <Route exact path="/transactions/list_yarn_invoice" component={ListYarnInvoice} />
+                             
+                             
                              
                               <Route exact path="/user/add_menu_master" component={AddMenuMaster} />
                               <Route exact path="/user/edit_menu_master/:id" component={AddMenuMaster} />
@@ -310,6 +336,8 @@ class App extends React.PureComponent
                               <Route exact path="/transactions/add_fabric_return" component={AddFabricReturn} />
                               <Route exact path="/transactions/edit_fabric_return/:id" component={AddFabricReturn} />
                               <Route exact path="/transactions/list_fabric_return" component={ListFabricReturn} />
+
+                              
 
 
                               <Redirect to="/" />
