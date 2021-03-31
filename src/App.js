@@ -159,6 +159,16 @@ import ListJobworkOutward from './pages/transactions/jobwork_outward/list'
 
 
 
+
+
+
+
+//designation
+import AddDesignation  from './pages/masters/designation/add'
+import ListDesignation from './pages/masters/designation/list'
+
+
+
 let interval;
 const { Content } = Layout;
 class App extends React.PureComponent
@@ -372,10 +382,24 @@ class App extends React.PureComponent
                               <Route exact path="/transactions/list_cutting_program" component={ListCuttingProgram} />
 
 
-                               {/* fabric invoice */}
+                               {/* jobwork Outward */}
                               <Route exact path="/transactions/add_jobwork_outward" component={AddJobworkOutward} />
                               <Route exact path="/transactions/edit_jobwork_outward/:id" component={AddJobworkOutward} />
                               <Route exact path="/transactions/list_jobwork_outward" component={ListJobworkOutward} />
+
+
+
+
+
+
+
+
+
+
+                              {/*designation */}
+                              <Route exact path="/masters/add_designation" component={AddDesignation} />
+                              <Route exact path="/masters/edit_designation/:id" component={AddDesignation} />
+                              <Route exact path="/masters/list_designation" component={ListDesignation} />
 
 
                               <Redirect to="/" />
