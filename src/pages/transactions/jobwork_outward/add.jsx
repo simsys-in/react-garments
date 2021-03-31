@@ -11,6 +11,7 @@ import Numberbox from '../../../components/Inputs/Numberbox';
 import Datebox from '../../../components/Inputs/Datebox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
+import _ from 'lodash';
 
 
 let interval;
@@ -56,6 +57,7 @@ class AddJobworkOutward extends PureComponent{
                     }
                 ]
             },
+            size_data_for_order : [],
             unit_data : [],
             ledger_name : [],
             product_data: [],
@@ -120,6 +122,20 @@ class AddJobworkOutward extends PureComponent{
             }
         })
     }
+
+    getCuttingProgramSB = () => {
+        getRequest('transactions/getColorSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    jobwork_outward_inventory : data.data
+                })
+            }
+        })
+    }
+
+    
 
     getColorSB = () => {
         
@@ -362,6 +378,15 @@ class AddJobworkOutward extends PureComponent{
         }
     }
 
+    
+
+    onOrderIDChange = (order_id) => {
+        this.getProcessSBForOrderID(order_id);
+        this.getSizesForOrderID(order_id);
+        this.getCuttingProgramSB(order_id);
+    }
+
+
     getMobileForLedgerId = (ledger_id) => {
         getRequest('masters/getMobileForLedgerID?ledger_id=' + ledger_id).then(data => {
             if(data.status === "info")
@@ -430,6 +455,22 @@ class AddJobworkOutward extends PureComponent{
         this.setTOTAL();
     }
 
+    getSizesForOrderID = (order_id) => {
+        getRequest('transactions/getSizesForOrderID?order_id=' + order_id).then(data => {
+            if(data.status === "info")
+            {
+                var items = _.remove(data.data, (currentObject) => {
+                    return currentObject !== "";
+                });
+                
+                this.setState({
+                    ...this.state,
+                    size_data_for_order : items
+                })
+            }
+        })
+    }
+
     addJobworkOutwardProduct = () => {
         var newJobworkOutwardProduct = {
            product_id : '',
@@ -489,7 +530,7 @@ class AddJobworkOutward extends PureComponent{
                     >
                         
                     <div className="row">
-                        <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.getProcessSBForOrderID} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
+                        <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
                         <Selectbox modelName="style_id" label="Style" className="col-md-6" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
                    </div>
                    <div className="row">
@@ -509,14 +550,18 @@ class AddJobworkOutward extends PureComponent{
 
                    
 
-                   <div className="row">
+                   {/* <div className="row">
                             <div className="col-md-12">
                             <Divider plain orientation="left" >Inventory</Divider>
                             <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
                                     <div className="col-md-11">
                                         <div className="row">
                                             <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Color" label="Color" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size1" label="Size1" required="false"></Textbox>
+
+                                            { this.state.size_data_for_order.map((item) => 
+                                                item !== "" && <Textbox width="40px"> <b> {item}</b></Textbox>
+                                            ) } */}
+                                            {/* <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size1" label="Size1" required="false"></Textbox>
                                             <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size2" label="Size2" required="false"></Textbox>
                                             <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size3" label="Size3" required="false"></Textbox>
                                             <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size4" label="Size4" required="false"></Textbox>
@@ -524,8 +569,8 @@ class AddJobworkOutward extends PureComponent{
                                             <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size6" label="Size6" required="false"></Textbox>
                                             <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size7" label="Size7" required="false"></Textbox>
                                             <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size8" label="Size8" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size9" label="Size9" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Qty" label="Qty" required="false"></Textbox>
+                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size9" label="Size9" required="false"></Textbox> */}
+                                            {/* <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Qty" label="Qty" required="false"></Textbox>
                                         </div>
                                          
                                     </div>
@@ -540,8 +585,9 @@ class AddJobworkOutward extends PureComponent{
                                                    <div className="col-md-11">
                                                        <div className="row">
                                                           
-                                                           <Selectbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
-                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size1' ]}  modelName={[field.name, 'size1']} value={[field.name, 'size1']} label="Size1" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                           <Selectbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox> */}
+                                                          
+                                                           {/* <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size1' ]}  modelName={[field.name, 'size1']} value={[field.name, 'size1']} label="Size1" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                            <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size2' ]}  modelName={[field.name, 'size2']} value={[field.name, 'size2']} label="Size2" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                            <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size3' ]}  modelName={[field.name, 'size3']} value={[field.name, 'size3']} label="Size3" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                            <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size4' ]}  modelName={[field.name, 'size4']} value={[field.name, 'size4']} label="Size4" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
@@ -549,8 +595,8 @@ class AddJobworkOutward extends PureComponent{
                                                            <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size6' ]}  modelName={[field.name, 'size6']} value={[field.name, 'size6']} label="Size6" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                            <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size7' ]}  modelName={[field.name, 'size7']} value={[field.name, 'size7']} label="Size7" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                            <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size8' ]}  modelName={[field.name, 'size8']} value={[field.name, 'size8']} label="Size8" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size9' ]}  modelName={[field.name, 'size9']} value={[field.name, 'size9']} label="Size9" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size9' ]}  modelName={[field.name, 'size9']} value={[field.name, 'size9']} label="Size9" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox> */}
+                                                           {/* <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                        </div>
 
                                                    </div>
@@ -566,7 +612,74 @@ class AddJobworkOutward extends PureComponent{
                                 ) }
                                </Form.List>        
                           </div>
-                          </div>
+                          </div> */}
+
+                          <Divider orientation="left" plain> Inventory</Divider>
+                    <br/>
+                    <div className="row">
+                        <div className="col-md-12 table-scroll">
+                            <table id="dynamic-table" className="table table-bordered">
+                                    {/* <thead>
+                                        <tr>
+                                            <th colSpan="1" className="primary-header" style={{ backgroundColor : 'lightblue' }} > <b> COLOR</b></th>
+                                            <th colSpan={this.state.size_data_for_order.length} className="primary-header" style={{ backgroundColor : 'grey' }} > <b> </b></th>
+                                        </tr>
+                                    </thead> */}
+                                    <thead>
+                                        <tr>
+                                            <th width="100px"> <b> Color</b></th>
+                                           
+                                            { this.state.size_data_for_order.map((item) => 
+                                                item !== "" && <th width="40px"> <b> {item}</b></th>
+                                            ) }
+
+                                            <th width="50px"> <b> Qty</b></th>
+                                            <th width="30px">
+                                                <Button type="primary"  onClick={this.addJobworkOutwardInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {/* {this.state.formData.fabrics.map((row, index) => {
+                                            return ( */}
+                                                <Form.List name="jobwork_outward_inventory">
+                                                        { (fields, { add, remove } )=> (
+                                                            fields.map((field, index) => (
+                                                                <tr key={index}>
+                                                                {/* <Fragment> */}
+                                                                
+                                                                <td>
+                                                                <Selectbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
+                                                                </td>
+                                                                
+                                                                {
+                                                                    this.state.size_data_for_order.map((item, index) => 
+                                                                    item !== "" && <td>
+                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(index) + 1)]} value={[field.name, 'size' + Number(Number(index) + 1)]} noPlaceholder withoutMargin ></Numberbox>
+                                                                    </td>
+                                                                    )
+                                                                }
+                                                                <td>
+                                                                <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Qty" label="Qty" required="false"></Textbox>
+
+ 
+                                                                </td>
+                                                                
+                                                                <td>
+                                                                    { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeJobworkOutwardInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
+                                                                </td>
+                                                                {/* </Fragment> */}
+                                                                </tr>
+                                                            ))
+                                                        )}
+                                                    </Form.List>
+                                            {/* ); */}
+                                        {/* })} */}
+                                    </tbody>
+                                </table>
+                        </div>
+                    </div>
+                    <br/>
                     <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
                         <div className="col-md-11">
                             <div className="row">
