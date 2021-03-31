@@ -195,13 +195,13 @@ class AddCuttingProgram extends PureComponent{
     }
 
     getNextCuttingProgramLotNo = () => {
-        if(issetNotEmpty(this.state.formData.lotno))
+        if(!issetNotEmpty(this.state.formData.lotno))
         {
             getRequest('transactions/getNextCuttingProgLotNo').then(data => {
                 
                 if(data.status === "info")
                 {
-                    if(issetNotEmpty(this.state.formData.lotno))
+                    if(!issetNotEmpty(this.state.formData.lotno))
                     {
                         this.setState({
                             ...this.state,
@@ -223,11 +223,11 @@ class AddCuttingProgram extends PureComponent{
     
 
     componentDidMount() {
-        this.getNextCuttingProgramLotNo();
         this.getSizeSB();
         this.getStyleSB();
         this.getFabricSB();
         this.getOrderSB();
+        this.getNextCuttingProgramLotNo();
         this.getColorSB();
         this.getCuttingMasterSB();
         this.getProcessSB();

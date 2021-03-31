@@ -24,15 +24,9 @@ class ListJobworkOutward extends PureComponent {
           field: 'vou_date',
           width: "30vw",
         },
-       
-        {
-          label: 'Vou No',
-          field: 'vouno',
-          width: "30vw",
-        },
         {
             label: 'Order No',
-            field: 'order_id',
+            field: 'order_no',
             width: "30vw",
           },
          
@@ -75,7 +69,7 @@ class ListJobworkOutward extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/jobwork_outward?id=' + id).then(data => {
+    deleteRequest('transactions/jobworkOutward?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
