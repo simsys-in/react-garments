@@ -21,26 +21,7 @@ class AddProduct extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 status : 'active',
-                sales_price : [
-                    {
-                        price_group : '',
-                        sales_rate : '',
-                        percentage : '',
-                        mrp : '',
-                        sgst : '',
-                        cgst : '',
-                        gst : 0,
-                    }
-                ],
-            
-           
-                stock_details : [
-                    {  
-                        godown : '',
-                        stock : '',
-                      
-                    }
-                ]
+              
             },
             unit_data : [],
             product_group_data : [],
@@ -175,62 +156,9 @@ class AddProduct extends PureComponent{
         })
     };
 
-    addSalesPrice = () => {
-        var newSalesPrice = {
-            price_group : '',
-            sales_rate : '',
-            percentage : '',
-            mrp : '',
-        }
+    
 
-        var oldSalesPriceArray = this.state.formData.sales_price;
-
-        oldSalesPriceArray.push(newSalesPrice);
-
-        this.setState({
-            ...this.state,
-            formData : {
-                ...this.state.formData,
-                sales_price : oldSalesPriceArray
-            }
-        })
-    }
-
-
-    removeSalesPrice = (index) => {
-        var oldSalesPriceArray = this.state.formData.sales_price;
-
-        oldSalesPriceArray.splice(index, 1);
-        
-        this.setState({
-            ...this.state,
-            formData : {
-                ...this.state.formData,
-                sales_price : oldSalesPriceArray
-            }
-        })
-    }
-
-    addStockDetails = () => {
-        var newStockDetails = {
-            godown : '',
-            stock: '',
-           
-        }
-
-        var oldStockDetailsArray = this.state.formData.stock_details;
-
-        oldStockDetailsArray.push(newStockDetails);
-
-        this.setState({
-            ...this.state,
-            formData : {
-                ...this.state.formData,
-                stock_details : oldStockDetailsArray
-            }
-        })
-    }
-
+    
     setGST = (ev) => {
         this.setState({
             ...this.state,
@@ -248,19 +176,7 @@ class AddProduct extends PureComponent{
     }
 
 
-    removeStockDetails = (index) => {
-        var oldStockDetailsArray = this.state.formData.stock_details;
-
-        oldStockDetailsArray.splice(index, 1);
-        
-        this.setState({
-            ...this.state,
-            formData : {
-                ...this.state.formData,
-                stock_details : oldStockDetailsArray
-            }
-        })
-    }
+    
 
     render(){
         return(
@@ -283,121 +199,67 @@ class AddProduct extends PureComponent{
                         
                     <div className="row">
                         <Textbox label="Product" autoFocus modelName="product" className="col-md-4"></Textbox>
-                        <Textbox label="Alias" modelName="alias" required="false" className="col-md-4"></Textbox>
                         <Selectbox modelName="product_group_id" label="Product Group" className="col-md-4" options={this.state.product_group_data} value={this.state.formData.product_group_id}  ></Selectbox>
-                    </div>
-
-                    <div className="row">
                         <Selectbox modelName="product_category_id" label="Product Category" className="col-md-4" options={this.state.product_category_data} value={this.state.formData.product_category_id}  ></Selectbox>
-                        <Selectbox modelName="status" label="Status" className="col-md-4" value={this.state.formData.status} statusSelect ></Selectbox>
-                        <Textbox label="QR Code" modelName="qrcode" required="false" className="col-md-4"></Textbox>
-
                     </div>
 
                     <div className="row">
-                       <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox> 
+                        <Textbox label="QR Code" modelName="qrcode" required="false" className="col-md-4"></Textbox>
+                        <Selectbox modelName="status_id" label="Status" className="col-md-4" value={this.state.formData.status} statusSelect ></Selectbox>
+
                     </div>
 
                    
 
+                   
+                     
                     <div className="row">
-                        <div className="col-md-6">
-                            <Divider plain orientation="left" >Unit</Divider>
-                            <div className="row">
-                            <Selectbox modelName="unit_id" label="Unit" className="col-md-12" options={this.state.unit_data} value={this.state.formData.unit_id}  ></Selectbox>
-                            </div>
-
-                            <div className="row">
-                              <Selectbox modelName="unit2_id" label="Alternate Uint" className="col-md-12" options={this.state.unit_data} value={this.state.formData.unit2_id}  ></Selectbox>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
+                    <div className="col-md-12">
                             <Divider plain orientation="left" >Statury Info</Divider>
-                            <div className="row">
+                            {/* <div className="row">
                             <Numberbox label="CGST %" className="col-md-6" max={ 100 } min={0} onChange={ this.setGST } modelName="cgst"></Numberbox>
                             <Numberbox label="SGST %" className="col-md-6" max={ 100} min={0} onChange={ this.setGST } modelName="sgst"></Numberbox>
                             
                             </div>
-
+ */}
                             <div className="row">
-                                <Numberbox label="GST %" className="col-md-6" max={100} disabled min={0} modelName="gst"></Numberbox>
+                                {/* <Numberbox label="GST %" className="col-md-6" max={100} disabled min={0} modelName="gst"></Numberbox> */}
                                 <Textbox required="false" className="col-md-6" label="HSN/SAC" modelName="hsnsac" ></Textbox>
                             </div>
 
                          </div>
+                       
+                    </div>
+
+                    <div className="row">
+                        <div className="col-md-12">
+                            <Divider plain orientation="left" >Price Details</Divider>
+                            <div className="row">
+                                <Textbox label="Pur Amount" modelName="purchase_amount" required="false" className="col-md-6"></Textbox>
+                                <Textbox label="Sales Amount" modelName="sales_amount" required="false" className="col-md-6"></Textbox>
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                    <div className="row">    
+                    <div className="col-md-12">
+                            <Divider plain orientation="left" >Unit</Divider>
+                            <div className="row">
+                            <Selectbox modelName="unit_id" label="Unit" className="col-md-4" options={this.state.unit_data} value={this.state.formData.unit_id}  ></Selectbox>
+                            <Selectbox modelName="unit2_id" label="Unit2" className="col-md-4" options={this.state.unit_data} value={this.state.formData.unit2_id}  ></Selectbox>
+                            <Textbox modelName="unit2_convert" label="1" className="col-md-4"></Textbox>
+                            </div>
+
+                            
+                        </div>
+
                          
                     </div>
 
                     
-                    <div className="row">
-                        <div className="col-md-6">
-                            <Divider plain orientation="left" >Price Details</Divider>
-                            <div className="row">
-                                <Textbox label="Pur Amount" modelName="purchase_amount" required="false" className="col-md-6"></Textbox>
-                                <Textbox label="Pur Amt incl Tax" modelName="purchase_rate_incltax" required="false" className="col-md-6"></Textbox>
-                            </div>
-
-                            <div className="row">
-                                <Textbox label="Sales Amount" modelName="sales_amount" required="false" className="col-md-6"></Textbox>
-                                 <Textbox label="Sales Amt incl Tax" modelName="sales_rate_incltax" required="false" className="col-md-6"></Textbox>
-                            </div>
-                        </div>
-                    </div>
-                         <div className="row">
-                             <div className="col-md-12">
-                                <Divider plain orientation="left">Sales Price</Divider>
-                                
-                                <Form.List name="sales_price">
-                                    { (fields, { add, remove } )=> (
-                                        fields.map((field, index) => (
-                                                <div className="row">
-                                                    <Selectbox className="col-md-3" field={field} fieldKey={[ field.fieldKey, 'price_group' ]} modelName={[field.name, 'price_group']} value={field.price_group} options={this.state.product_category_data} label="Sales Price"></Selectbox>
-
-
-                                                    <Numberbox className="col-md-3" label="Sales Rate" min={0} field={field} fieldKey={[ field.fieldKey, 'sales_rate' ]} modelName={[field.name, 'sales_rate']} value={field.sales_rate} ></Numberbox>
-
-
-                                                    <Numberbox className="col-md-2" label="Percentage" min={0} max={100} field={field} fieldKey={[ field.fieldKey, 'percentage' ]} modelName={[field.name, 'percentage']} value={field.percentage} ></Numberbox>
-
-
-                                                    <Numberbox className="col-md-2" label="MRP" min={0} field={field} fieldKey={[ field.fieldKey, 'mrp' ]} modelName={[field.name, 'mrp']} value={field.mrp} ></Numberbox>
-
-
-                                                    <div className="col-md-2">
-                                                        { index === 0  && <Button onClick={this.addSalesPrice} style={{ marginLeft : 10 }}>+</Button> }
-                                                        { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeSalesPrice(index)} type="primary">-</Button>}
-                                                    </div>
-                                                </div>
-                                            )
-                                            
-                                        )
-                                    ) }
-                                </Form.List>
-                                </div>
-                             {/* <div className="col-md-6"></div> */}
-                         </div>
-                         <div className="row">
-                             <div className="col-md-12">
-                                <Divider plain orientation="left">Stack Details</Divider>
-                                <Form.List name="stock_details">
-                                    { (fields, { add, remove } )=> (
-                                        fields.map((field, index) => (
-                                                <div className="row">
-                                                    <Selectbox className="col-md-5" field={field} fieldKey={[ field.fieldKey, 'godown' ]} modelName={[field.name, 'godown']} value={field.godown} options={this.state.product_category_data} label="Godown"></Selectbox>
-                                                    <Numberbox className="col-md-5" field={field} fieldKey={[ field.fieldKey, 'qty' ]} modelName={[field.name, 'qty']} value={field.qty} label="Qty"></Numberbox>
-                                                        <div className="col-md-2">
-                                                        { index === 0  && <Button onClick={this.addStockDetails} style={{ marginLeft : 10 }}>+</Button> }
-                                                        { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeStockDetails(index)} type="primary">-</Button>}
-                                                    </div>
-                                                 </div>
-                                     )
-                                            
-                                     )
-                                 ) }
-                                </Form.List>        
-                           </div>
-                         </div>
-
+                    
+                         
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>

@@ -20,39 +20,12 @@ class ListProduct extends PureComponent {
           // render: (text, record) => <p>{ 1 }</p>,
         },
         {
-          label: 'Product Group',
-          field: 'product_group',
-          width: "300px",
-          key: 'product_group_id',
-          defaultSortOrder: 'ascend',
-          // render: (text, record) => <p>{ 1 }</p>,
-        },
-        {
-          label: 'Product Category',
-          field: 'product_category',
-          width: "300px",
-          key: 'product_category_id',
-          defaultSortOrder: 'ascend',
-          render: (text, record) => <p>{text}</p>,
-        },
-        {
           label: 'Product',
           field: 'product',
           width: "300px",
           key: 'product',
           defaultSortOrder: 'ascend',
-          // render : (text, row) => 
-          //   <p>{ text.toUpperCase() }</p>
-
-        },
-        {
-          label: 'Unit',
-          field: 'unit',
-          width: "300px",
-          key: 'unit_id',
-          defaultSortOrder: 'ascend',
-          // render : (text, row) => 
-          //   <p>{ text.toUpperCase() }</p>
+          // render: (text, record) => <p>{ 1 }</p>,
         },
         {
           label: 'QR Code',
@@ -60,154 +33,33 @@ class ListProduct extends PureComponent {
           width: "300px",
           key: 'qrcode',
           defaultSortOrder: 'ascend',
+          // render: (text, record) => <p>{ 1 }</p>,
         },
         {
-          label: 'Narration',
-          field: 'narration',
+          label: 'Group',
+          field: 'product_group',
           width: "300px",
-          key: 'narration',
+          key: 'product_group',
           defaultSortOrder: 'ascend',
+          // render: (text, record) => <p>{ 1 }</p>,
         },
         {
-          label: 'Pur Rate',
-          field: 'purchase_rate',
+          label: 'Category',
+          field: 'product_category',
           width: "300px",
-          key: 'purchase_rate',
-          defaultSortOrder: 'ascend',
+         
         },
+       
         {
-          label: 'Sale Rate',
-          key: 'sale_rate',
-          width: "250px",
-          field: 'sale_rate',
+          label: 'Unit',
+          field: 'unit',
+          width: "300px",
+          key: 'unit',
           defaultSortOrder: 'ascend',
-          // render: status => (
-          //   <>
-          //   <Tag color={ status === "inactive" ? "error" : "green" } key={status}>
-          //     { status ? status.toUpperCase() : ""}
-          //   </Tag>
-          //   </>
-          // ),
+          // render : (text, row) => 
+          //   <p>{ text.toUpperCase() }</p>
         },
-        {
-            label: 'Quantity',
-            field: 'qty',
-            width: "300px",
-            key: 'qty',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'Pur Rate Last',
-            field: 'purchase_rate_last',
-            width: "300px",
-            key: 'purchase_rate_last',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'Min Stock Qty',
-            field: 'purchase_rate',
-            width: "300px",
-            key: 'purchase_rate',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'HSN/SAC',
-            field: 'hsnsac',
-            width: "300px",
-            key: 'hsnsac',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'GST %',
-            field: 'gst',
-            width: "300px",
-            key: 'gst',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'SGST %',
-            field: 'sgst',
-            width: "300px",
-            key: 'sgst',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'CGST %',
-            field: 'cgst',
-            width: "300px",
-            key: 'cgst',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'Sts',
-            field: 'sts',
-            width: "300px",
-            key: 'sts',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'Unit2',
-            field: 'unit2_id',
-            width: "300px",
-            key: 'unit2_id',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'Unit2 Convert',
-            field: 'unit2_convert',
-            width: "300px",
-            key: 'unit2_convert',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'Clo Qty',
-            field: 'clo_qty',
-            width: "300px",
-            key: 'clo_qty',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'Status',
-            field: 'status_id',
-            width: "300px",
-            key: 'status_id',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'Pur Amt incl Tex',
-            field: 'purchase_rate_incltax',
-            width: "300px",
-            key: 'purchase_rate_incltax',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'Sales Amt incl Tex',
-            field: 'sales_rate_incltax',
-            width: "300px",
-            key: 'sales_rate_incltax',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'Pur Amount',
-            field: 'purchase_amount',
-            width: "300px",
-            key: 'purchase_amount',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'Sales Amount',
-            field: 'sales_amount',
-            width: "300px",
-            key: 'sales_amount',
-            defaultSortOrder: 'ascend',
-          },
-          {
-            label: 'Alias',
-            field: 'alias',
-            width: "300px",
-            key: 'alias',
-            defaultSortOrder: 'ascend',
-          },
+       
         
         {
           label: 'Action',
