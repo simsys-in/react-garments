@@ -12,6 +12,7 @@ import Datebox from '../../../components/Inputs/Datebox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash';
+import Checkbox from 'antd/lib/checkbox/Checkbox';
 
 
 let interval;
@@ -126,16 +127,30 @@ class AddJobworkOutward extends PureComponent{
         getRequest('transactions/getCuttingProgramColorDetails?order_id=' +order_id).then(data => {
             if(data.status === "info")
             {
+                var newArr = data.data;
+                this.state.formData.jobwork_outward_inventory.map((item) => {
+                    newArr.map(obj => {
+                        if(obj.color_id === item.color_id)
+                        {
+                            obj.selected = true;
+                        }
+                    })
+                })
+                // newArr.map(item => {
+                //     item.selected = true;
+                // })
+
                 this.setState({
                     ...this.state,
                     formData : {
                         ...this.state.formData,
-                        jobwork_outward_inventory : data.data
+                        jobwork_outward_inventory : newArr
                     },
                 },()=>{
                     this.formRef.current.setFieldsValue({
                         jobwork_outward_inventory : this.state.formData.jobwork_outward_inventory
                     })
+                    this.setTOTAL()
                 })
             }
         })
@@ -211,19 +226,54 @@ class AddJobworkOutward extends PureComponent{
         var total_size9 = 0;
         var total_qty = 0;
         jobwork_outward_inventory.map((item, index) => {
-            total_size1 += Number(item.size1);
-            total_size2 += Number(item.size2);
-            total_size3 += Number(item.size3);
-            total_size4 += Number(item.size4);
-            total_size5 += Number(item.size5);
-            total_size6 += Number(item.size6);
-            total_size7 += Number(item.size7);
-            total_size8 += Number(item.size8);
-            total_size9 += Number(item.size9);
-            total_qty += Number(item.size1)+Number(item.size2)+Number(item.size3)+Number(item.size4)+Number(item.size5)+Number(item.size6)+Number(item.size7)+Number(item.size8)+Number(item.size9);
-            item.qty = Number(item.size1)+Number(item.size2)+Number(item.size3)+Number(item.size4)+Number(item.size5)+Number(item.size6)+Number(item.size7)+Number(item.size8)+Number(item.size9);
-            if(index === jobwork_outward_inventory.length - 1)
-            {
+            // console.log(item);
+            if(item.selected){
+                total_size1 += Number(item.size1);
+                total_size2 += Number(item.size2);
+                total_size3 += Number(item.size3);
+                total_size4 += Number(item.size4);
+                total_size5 += Number(item.size5);
+                total_size6 += Number(item.size6);
+                total_size7 += Number(item.size7);
+                total_size8 += Number(item.size8);
+                total_size9 += Number(item.size9);
+                total_qty += Number(item.size1)+Number(item.size2)+Number(item.size3)+Number(item.size4)+Number(item.size5)+Number(item.size6)+Number(item.size7)+Number(item.size8)+Number(item.size9);
+                item.qty = Number(item.size1)+Number(item.size2)+Number(item.size3)+Number(item.size4)+Number(item.size5)+Number(item.size6)+Number(item.size7)+Number(item.size8)+Number(item.size9);
+                if(index === jobwork_outward_inventory.length - 1)
+                {
+                    this.setState({
+                        ...this.state,
+                        formData : {
+                            ...this.state.formData,
+                            size1_total : total_size1,
+                            size2_total : total_size2,
+                            size3_total : total_size3,
+                            size4_total : total_size4,
+                            size5_total : total_size5,
+                            size6_total : total_size6,
+                            size7_total : total_size7,
+                            size8_total : total_size8,
+                            size9_total : total_size9,
+                            inventory_qty_total : total_qty,
+                        }
+                    }, () => {
+                        this.formRef.current.setFieldsValue({
+                            size1_total : total_size1,
+                            size2_total : total_size2,
+                            size3_total : total_size3,
+                            size4_total : total_size4,
+                            size5_total : total_size5,
+                            size6_total : total_size6,
+                            size7_total : total_size7,
+                            size8_total : total_size8,
+                            size9_total : total_size9,
+                            inventory_qty_total : total_qty,
+                        })
+                    })
+                }
+            }
+            else{
+                
                 this.setState({
                     ...this.state,
                     formData : {
@@ -282,6 +332,8 @@ class AddJobworkOutward extends PureComponent{
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
+                this.onOrderIDChange(data.data.order_id)
+                this.getMobileForLedgerId(data.data.ledger_id)
             })
 
         }
@@ -346,7 +398,7 @@ class AddJobworkOutward extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/jobworkOutward?id=' + this.id, values).then(data => {
+            putRequest('transactions/jobworkOutward?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_jobwork_outward')
@@ -390,7 +442,26 @@ class AddJobworkOutward extends PureComponent{
         this.getProcessSBForOrderID(order_id);
         this.getSizesForOrderID(order_id);
         this.getCuttingProgramColorDetails(order_id);
+        this.getStyleForOrderID(order_id);
     }
+    
+    getStyleForOrderID = (order_id) => {
+        getRequest('transactions/getStyleForOrderId?order_id=' + order_id).then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        style_id : Number(data.data)
+                    }
+                }, () => {
+                    this.formRef.current.setFieldsValue(this.state.formData);
+                })
+            }
+        })
+    }
+
 
 
     getMobileForLedgerId = (ledger_id) => {
@@ -419,6 +490,7 @@ class AddJobworkOutward extends PureComponent{
                 var jobwork_outward_product = this.state.formData.jobwork_outward_product;
                 var currentItem = jobwork_outward_product[index];
                 currentItem.unit_id = data.data;
+                currentItem.product_id = product_id;
                 this.setState({
                     ...this.state,
                     formData : {
@@ -483,6 +555,28 @@ class AddJobworkOutward extends PureComponent{
         this.setTOTAL();
     }
 
+    checkAllItems = (ev) => {
+        var checked = ev.target.checked;
+        var formData = this.state.formData;
+        var inventories = formData.jobwork_outward_inventory;
+        console.log(checked);
+        inventories.map((item, index) => {
+            item.selected = checked;
+            if(index === inventories.length - 1)
+            {
+                console.log(formData);
+                this.setState({
+                    ...this.state,
+                    formData : formData
+                }, () => {
+                    this.formRef.current.setFieldsValue(formData);
+                    this.setTOTAL()
+                })
+            }
+        })
+
+    }
+
     getSizesForOrderID = (order_id) => {
         getRequest('transactions/getSizesForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
@@ -543,7 +637,7 @@ class AddJobworkOutward extends PureComponent{
             <Fragment>
                 <div className="row">
                     <div className="col-md-12" align="right">
-                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/transactions/list_fabric_outward') } }>
+                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/transactions/list_jobwork_outward') } }>
                             { this.id ? "Back" : 'List'}
                         </Button>
                     </div>
@@ -559,7 +653,7 @@ class AddJobworkOutward extends PureComponent{
                         
                     <div className="row">
                         <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
-                        <Selectbox modelName="style_id" label="Style" className="col-md-6" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
+                        <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-6" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
                    </div>
                    <div className="row">
                        <Selectbox modelName="from_process_id" label="From Process" className="col-md-6" options={this.state.process} value={this.state.formData.from_process_id}  ></Selectbox>
@@ -567,7 +661,7 @@ class AddJobworkOutward extends PureComponent{
                    </div>
                    <div className="row">
                        <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
-                       <Textbox modelName="mobile" label="Mobile" className="col-md-6" required="false"></Textbox>
+                       <Textbox modelName="mobile" disabled label="Mobile" className="col-md-6" required="false"></Textbox>
                    </div>
                     
                    <div className="row">
@@ -655,10 +749,11 @@ class AddJobworkOutward extends PureComponent{
                                     </thead> */}
                                     <thead>
                                         <tr>
+                                            <th width="150px"> <Checkbox onChange={this.checkAllItems} /></th>
                                             <th width="150px"> <b> Color</b></th>
                                            
-                                            { this.state.size_data_for_order.map((item) => 
-                                                item !== "" && <th width="100px"> <b> {item}</b></th>
+                                            { this.state.size_data_for_order.map((item, index) => 
+                                                item !== "" && <th key={index} width="100px"> <b> {item}</b></th>
                                             ) }
 
                                             <th width="100px"> <b> Qty</b></th>
@@ -676,14 +771,28 @@ class AddJobworkOutward extends PureComponent{
                                                                 <tr key={index}>
                                                                 {/* <Fragment> */}
                                                                 
+                                                                <td style={{ textAlign : 'center' }}>
+                                                                    <Form.Item
+                                                                    valuePropName="checked"
+                                                                    name={[field.name, "selected"]}
+                                                                    fieldKey={[field.fieldKey, "selected"]}
+                                                                    // initialValue={false}
+                                                                    >
+                                                                        <Checkbox onChange={this.setTOTAL}></Checkbox>
+                                                                    </Form.Item>
+
+
+                                                                    {/* <Checkbox field={field} fieldKey={[ field.fieldKey, 'selected' ]} modelName={[field.name, 'selected']} checked={[field.name, 'selected']} value={[field.name, 'selected']} /> */}
+                                                                </td>
+                                                                
                                                                 <td>
-                                                                <Selectbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
+                                                                <Selectbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} disabled modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
                                                                 </td>
                                                                 
                                                                 {
-                                                                    this.state.size_data_for_order.map((item, index) => 
-                                                                    item !== "" && <td>
-                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(index) + 1)]} value={[field.name, 'size' + Number(Number(index) + 1)]} noPlaceholder withoutMargin onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                    this.state.size_data_for_order.map((item, ind) => 
+                                                                    item !== "" && <td key={ind}>
+                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(ind) + 1)]} value={[field.name, 'size' + Number(Number(index) + 1)]} noPlaceholder withoutMargin onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                                     </td>
                                                                     )
                                                                 }
@@ -701,11 +810,11 @@ class AddJobworkOutward extends PureComponent{
                                                         )}
                                                     </Form.List>
                                                     <tr style={{ backgroundColor : 'lightgray', textAlign : 'right' }}>
-                                            <td> <h6> Total</h6></td>
+                                            <td colSpan={2}> <h6> Total</h6></td>
 
 
                                             { this.state.size_data_for_order.map((item, index) => 
-                                                item !== "" && <td > <h6> {this.state.formData["size" + Number(Number(index) +1) + "_total"]}</h6></td>
+                                                item !== "" && <td key={index}> <h6> {this.state.formData["size" + Number(Number(index) +1) + "_total"]}</h6></td>
                                             ) }
 
                                             <td > <h6> { this.state.formData.inventory_qty_total }</h6></td>
@@ -767,12 +876,12 @@ class AddJobworkOutward extends PureComponent{
                                 <Form.List name="jobwork_outward_product">
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
-                                                <div className="row flex-nowrap" style={{ paddingLeft : 15, paddingRight : 2 }}>
+                                                <div className="row flex-nowrap" key={index} style={{ paddingLeft : 15, paddingRight : 2 }}>
                                                    <div className='col-md-11'>
                                                        <div className="row ">
-                                                       <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} modelName={[field.name, 'product_id']}  label="Product" value={[field.name, 'product_id']} options={this.state.product_data} onChange={(product_id) => this.getUnitForProductId(product_id, index)} noPlaceholder withoutMargin  ></Selectbox>
+                                                       <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} modelName={[field.name, 'product_id']}  label="Product" value={[field.name, 'product_id']} options={this.state.product_data} onChange={(product_id) => this.getUnitForProductId(product_id, index)} onBlur={(product_id) => this.getUnitForProductId(product_id, index)} noPlaceholder withoutMargin  ></Selectbox>
                                                     <Numberbox className="col-md-2" required="false" showLabel={false} label="Qty" min={0} field={field} fieldKey={[ field.fieldKey, 'qty' ]} modelName={[field.name, 'qty']} value={[field.name, 'qty']} noPlaceholder withoutMargin ></Numberbox>
-                                                    <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'unit_id' ]} modelName={[field.name, 'unit_id']}  label="Unit" value={[field.name, 'unit_id']} options={this.state.unit_data} noPlaceholder withoutMargin ></Selectbox>
+                                                    <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'unit_id' ]} disabled modelName={[field.name, 'unit_id']}  label="Unit" value={[field.name, 'unit_id']} options={this.state.unit_data} noPlaceholder withoutMargin ></Selectbox>
                                                            
                                                   <div className="col-md-1">
                                                                 { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeJobworkOutwardProduct(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
@@ -789,7 +898,7 @@ class AddJobworkOutward extends PureComponent{
                                 </div>
                          </div>                       
                        
-                   
+                   <br/>
 
                    <div className="row">
                        <div className="col-md-12">
@@ -806,6 +915,15 @@ class AddJobworkOutward extends PureComponent{
                </Form>
                
                 
+                {/* <div className="row"> 
+                    <div className="col-md-6">
+                        <pre> { JSON.stringify(this.formRef, null, 2)  } </pre>
+                    </div>
+                    <div className="col-md-6">
+                        <pre> { JSON.stringify(this.state.formData, null, 2)  } </pre>
+                    </div>
+
+                </div> */}
                
             </Fragment>
         )
