@@ -15,10 +15,10 @@ class Sidebar extends PureComponent {
     {
         super(props);
         this.state = {
-            collapsed: false,
+            collapsed: true,
             login: true,
             theme: "light",
-            image_class : 'logo',
+            image_class : 'logo-collapsed',
             activeKey : '0',
             menuTree : menuTree
         }
