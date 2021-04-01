@@ -162,6 +162,9 @@ import ListBranch from './pages/masters/branch/list'
 //department
 import AddDepartment from './pages/masters/department/add'
 import ListDepartment from './pages/masters/department/list'
+///bank
+import AddBank from './pages/masters/bank/add'
+import ListBank from './pages/masters/bank/list'
 
 
 let interval;
@@ -386,14 +389,18 @@ class App extends React.PureComponent
 
                               
                               
-                              
+                              {/* branch */}
                               <Route exact path="/masters/add_branch" component={AddBranch} />
                               <Route exact path="/masters/edit_branch/:id" component={AddBranch} />
                               <Route exact path="/masters/list_branch" component={ListBranch} />
-
+                              {/* department */}
                               <Route exact path="/masters/add_department" component={AddDepartment} />
                               <Route exact path="/masters/edit_department/:id" component={AddDepartment} />
                               <Route exact path="/masters/list_department" component={ListDepartment} />
+                              {/* bank */}
+                              <Route exact path="/masters/add_bank" component={AddBank} />
+                              <Route exact path="/masters/edit_bank/:id" component={AddBank} />
+                              <Route exact path="/masters/list_bank" component={ListBank} />
                             
 
 

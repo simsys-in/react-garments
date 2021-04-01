@@ -12,6 +12,8 @@ import Datebox from '../../../components/Inputs/Datebox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash';
+import Checkbox from 'antd/lib/checkbox/Checkbox';
+
 
 
 let interval;
@@ -111,6 +113,38 @@ class AddJobwork_Inward  extends PureComponent{
             }
         })
     }
+    getJobworkOutwardColorDetails = (order_id) => {
+        getRequest('transactions/getJobworkOutwardColorDetails?order_id=' +order_id).then(data => {
+            if(data.status === "info")
+            {
+                var newArr = data.data;
+                this.state.formData.jobwork_inward_inventory.map((item) => {
+                    newArr.map(obj => {
+                        if(obj.color_id === item.color_id)
+                        {
+                            obj.selected = true;
+                        }
+                    })
+                })
+                // newArr.map(item => {
+                //     item.selected = true;
+                // })
+
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        jobwork_inward_inventory : newArr
+                    },
+                },()=>{
+                    this.formRef.current.setFieldsValue({
+                        jobwork_inward_inventory : this.state.formData.jobwork_inward_inventory
+                    })
+                    this.setTOTAL()
+                })
+            }
+        })
+    }
     getColorSB = () => {
         
         getRequest('transactions/getColorSB').then(data => {
@@ -138,19 +172,54 @@ class AddJobwork_Inward  extends PureComponent{
         var total_size9 = 0;
         var total_qty = 0;
         jobwork_inward_inventory.map((item, index) => {
-            total_size1 += Number(item.size1);
-            total_size2 += Number(item.size2);
-            total_size3 += Number(item.size3);
-            total_size4 += Number(item.size4);
-            total_size5 += Number(item.size5);
-            total_size6 += Number(item.size6);
-            total_size7 += Number(item.size7);
-            total_size8 += Number(item.size8);
-            total_size9 += Number(item.size9);
-            total_qty += Number(item.size1)+Number(item.size2)+Number(item.size3)+Number(item.size4)+Number(item.size5)+Number(item.size6)+Number(item.size7)+Number(item.size8)+Number(item.size9);
-            item.qty = Number(item.size1)+Number(item.size2)+Number(item.size3)+Number(item.size4)+Number(item.size5)+Number(item.size6)+Number(item.size7)+Number(item.size8)+Number(item.size9);
-            if(index === jobwork_inward_inventory.length - 1)
-            {
+            // console.log(item);
+            if(item.selected){
+                total_size1 += Number(item.size1);
+                total_size2 += Number(item.size2);
+                total_size3 += Number(item.size3);
+                total_size4 += Number(item.size4);
+                total_size5 += Number(item.size5);
+                total_size6 += Number(item.size6);
+                total_size7 += Number(item.size7);
+                total_size8 += Number(item.size8);
+                total_size9 += Number(item.size9);
+                total_qty += Number(item.size1)+Number(item.size2)+Number(item.size3)+Number(item.size4)+Number(item.size5)+Number(item.size6)+Number(item.size7)+Number(item.size8)+Number(item.size9);
+                item.qty = Number(item.size1)+Number(item.size2)+Number(item.size3)+Number(item.size4)+Number(item.size5)+Number(item.size6)+Number(item.size7)+Number(item.size8)+Number(item.size9);
+                if(index === jobwork_inward_inventory.length - 1)
+                {
+                    this.setState({
+                        ...this.state,
+                        formData : {
+                            ...this.state.formData,
+                            size1_total : total_size1,
+                            size2_total : total_size2,
+                            size3_total : total_size3,
+                            size4_total : total_size4,
+                            size5_total : total_size5,
+                            size6_total : total_size6,
+                            size7_total : total_size7,
+                            size8_total : total_size8,
+                            size9_total : total_size9,
+                            inventory_qty_total : total_qty,
+                        }
+                    }, () => {
+                        this.formRef.current.setFieldsValue({
+                            size1_total : total_size1,
+                            size2_total : total_size2,
+                            size3_total : total_size3,
+                            size4_total : total_size4,
+                            size5_total : total_size5,
+                            size6_total : total_size6,
+                            size7_total : total_size7,
+                            size8_total : total_size8,
+                            size9_total : total_size9,
+                            inventory_qty_total : total_qty,
+                        })
+                    })
+                }
+            }
+            else{
+                
                 this.setState({
                     ...this.state,
                     formData : {
@@ -185,6 +254,7 @@ class AddJobwork_Inward  extends PureComponent{
     }
 
 
+
     validate = () => {
         if(this.formRef.current)
         {
@@ -209,6 +279,9 @@ class AddJobwork_Inward  extends PureComponent{
                 console.log(data.data)
                 data.data.vou_date = moment(data.data.vou_date)
                 this.formRef.current.setFieldsValue(data.data);
+                this.formRef.current.setFieldsValue(data.data);
+                this.onOrderIDChange(data.data.order_id)
+                this.getMobileForLedgerID(data.data.ledger_id)
             })
 
         }
@@ -254,8 +327,10 @@ class AddJobwork_Inward  extends PureComponent{
     onOrderIDChange = (order_id) => {
         this.getProcessSBForOrderID(order_id);
         this.getSizesForOrderID(order_id);
-        // this.getCuttingProgramColorDetails(order_id);
+        this.getJobworkOutwardColorDetails(order_id);
     }
+
+
     getMobileForLedgerID = (ledger_id) => {
         getRequest('masters/getMobileForLedgerID?ledger_id=' + ledger_id).then(data => {
             if(data.status === "info")
@@ -313,7 +388,7 @@ class AddJobwork_Inward  extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/jobwork_inward?id=' + this.id, values).then(data => {
+            putRequest('transactions/jobwork_inward?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_jobwork_inward')
@@ -331,7 +406,27 @@ class AddJobwork_Inward  extends PureComponent{
         })
     };
 
+    checkAllItems = (ev) => {
+        var checked = ev.target.checked;
+        var formData = this.state.formData;
+        var inventories = formData.jobwork_inward_inventory;
+        console.log(checked);
+        inventories.map((item, index) => {
+            item.selected = checked;
+            if(index === inventories.length - 1)
+            {
+                console.log(formData);
+                this.setState({
+                    ...this.state,
+                    formData : formData
+                }, () => {
+                    this.formRef.current.setFieldsValue(formData);
+                    this.setTOTAL()
+                })
+            }
+        })
 
+    }
     getSizesForOrderID = (order_id) => {
         getRequest('transactions/getSizesForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
@@ -375,363 +470,7 @@ class AddJobwork_Inward  extends PureComponent{
         })
     }
 
-    // setTotalKgs = () =>{
-    //     var values = this.formRef.current.getFieldValue();
-    //     var jobwork_inward_inventory = values.jobwork_inward_inventory;
-    //     var total_kg = 0;
-    //     jobwork_inward_inventory.map((item, index) => {
-    //         total_kg += item.qty_kg;
-
-    //         if(index === jobwork_inward_inventory.length - 1)
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 formData : {
-    //                     ...this.state.formData,
-    //                     inventory_qty_kg_total : total_kg
-    //                 }
-    //             }, () => {
-    //                 this.formRef.current.setFieldsValue({
-    //                     inventory_qty_kg_total : total_kg
-    //                 })
-    //             })
-    //         }
-
-    //     })
-    // }
-    // setTotalSize1 = () =>{
-    //     var values = this.formRef.current.getFieldValue();
-    //     var jobwork_inward_inventory = values.jobwork_inward_inventory;
-    //     var total_size1 = 0;
-    //     jobwork_inward_inventory.map((item, index) => {
-    //         total_size1 += Number(item.size1);
-
-    //         if(index === jobwork_inward_inventory.length - 1)
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 formData : {
-    //                     ...this.state.formData,
-    //                     size1_total : total_size1
-    //                 }
-    //             }, () => {
-    //                 this.formRef.current.setFieldsValue({
-    //                     size1_total : total_size1
-    //                 })
-    //             })
-    //         }
-
-    //     })
-    // }
-    // setTotalSize2 = () =>{
-    //     var values = this.formRef.current.getFieldValue();
-    //     var jobwork_inward_inventory = values.jobwork_inward_inventory;
-    //     var total_size2 = 0;
-    //     jobwork_inward_inventory.map((item, index) => {
-    //         total_size2 += Number(item.size2);
-
-    //         if(index === jobwork_inward_inventory.length - 1)
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 formData : {
-    //                     ...this.state.formData,
-    //                     size2_total : total_size2
-    //                 }
-    //             }, () => {
-    //                 this.formRef.current.setFieldsValue({
-    //                     size2_total : total_size2
-    //                 })
-    //             })
-    //         }
-
-    //     })
-    // }
-    // setTotalSize3 = () =>{
-    //     var values = this.formRef.current.getFieldValue();
-    //     var jobwork_inward_inventory = values.jobwork_inward_inventory;
-    //     var total_size3 = 0;
-    //     jobwork_inward_inventory.map((item, index) => {
-    //         total_size3 += Number(item.size3);
-
-    //         if(index === jobwork_inward_inventory.length - 1)
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 formData : {
-    //                     ...this.state.formData,
-    //                     size3_total : total_size3
-    //                 }
-    //             }, () => {
-    //                 this.formRef.current.setFieldsValue({
-    //                     size3_total : total_size3
-    //                 })
-    //             })
-    //         }
-
-    //     })
-    // }
-    // setTotalSize4 = () =>{
-    //     var values = this.formRef.current.getFieldValue();
-    //     var jobwork_inward_inventory = values.jobwork_inward_inventory;
-    //     var total_size4 = 0;
-    //     jobwork_inward_inventory.map((item, index) => {
-    //         total_size4 += Number(item.size4);
-
-    //         if(index === jobwork_inward_inventory.length - 1)
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 formData : {
-    //                     ...this.state.formData,
-    //                     size4_total : total_size4
-    //                 }
-    //             }, () => {
-    //                 this.formRef.current.setFieldsValue({
-    //                     size4_total : total_size4
-    //                 })
-    //             })
-    //         }
-
-    //     })
-    // }
-    // setTotalSize5 = () =>{
-    //     var values = this.formRef.current.getFieldValue();
-    //     var jobwork_inward_inventory = values.jobwork_inward_inventory;
-    //     var total_size5 = 0;
-    //     jobwork_inward_inventory.map((item, index) => {
-    //         total_size5 += Number(item.size5);
-
-    //         if(index === jobwork_inward_inventory.length - 1)
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 formData : {
-    //                     ...this.state.formData,
-    //                     size5_total : total_size5
-    //                 }
-    //             }, () => {
-    //                 this.formRef.current.setFieldsValue({
-    //                     size5_total : total_size5
-    //                 })
-    //             })
-    //         }
-
-    //     })
-    // }
-    // setTotalSize6 = () =>{
-    //     var values = this.formRef.current.getFieldValue();
-    //     var jobwork_inward_inventory = values.jobwork_inward_inventory;
-    //     var total_size6 = 0;
-    //     jobwork_inward_inventory.map((item, index) => {
-    //         total_size6 += Number(item.size6);
-
-    //         if(index === jobwork_inward_inventory.length - 1)
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 formData : {
-    //                     ...this.state.formData,
-    //                     size6_total : total_size6
-    //                 }
-    //             }, () => {
-    //                 this.formRef.current.setFieldsValue({
-    //                     size6_total : total_size6
-    //                 })
-    //             })
-    //         }
-
-    //     })
-    // }
-    // setTotalSize7 = () =>{
-    //     var values = this.formRef.current.getFieldValue();
-    //     var jobwork_inward_inventory = values.jobwork_inward_inventory;
-    //     var total_size7 = 0;
-    //     jobwork_inward_inventory.map((item, index) => {
-    //         total_size7 += Number(item.size7);
-
-    //         if(index === jobwork_inward_inventory.length - 1)
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 formData : {
-    //                     ...this.state.formData,
-    //                     size7_total : total_size7
-    //                 }
-    //             }, () => {
-    //                 this.formRef.current.setFieldsValue({
-    //                     size7_total : total_size7
-    //                 })
-    //             })
-    //         }
-
-    //     })
-    // }
-    // setTotalSize8 = () =>{
-    //     var values = this.formRef.current.getFieldValue();
-    //     var jobwork_inward_inventory = values.jobwork_inward_inventory;
-    //     var total_size8 = 0;
-    //     jobwork_inward_inventory.map((item, index) => {
-    //         total_size8 += Number(item.size8);
-
-    //         if(index === jobwork_inward_inventory.length - 1)
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 formData : {
-    //                     ...this.state.formData,
-    //                     size8_total : total_size8
-    //                 }
-    //             }, () => {
-    //                 this.formRef.current.setFieldsValue({
-    //                     size8_total : total_size8
-    //                 })
-    //             })
-    //         }
-
-    //     })
-    // }
-    // setTotalSize9 = () =>{
-    //     var values = this.formRef.current.getFieldValue();
-    //     var jobwork_inward_inventory = values.jobwork_inward_inventory;
-    //     var total_size9 = 0;
-    //     jobwork_inward_inventory.map((item, index) => {
-    //         total_size9 += Number(item.size9);
-
-    //         if(index === jobwork_inward_inventory.length - 1)
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 formData : {
-    //                     ...this.state.formData,
-    //                     size9_total : total_size9
-    //                 }
-    //             }, () => {
-    //                 this.formRef.current.setFieldsValue({
-    //                     size9_total : total_size9
-    //                 })
-    //             })
-    //         }
-
-    //     })
-    // }
-    // setTotalQty = () =>{
-    //     var values = this.formRef.current.getFieldValue();
-    //     var jobwork_inward_inventory = values.jobwork_inward_inventory;
-    //     var total_qty = 0;
-    //     jobwork_inward_inventory.map((item, index) => {
-    //         total_qty += Number(item.qty);
-
-    //         if(index === jobwork_inward_inventory.length - 1)
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 formData : {
-    //                     ...this.state.formData,
-    //                     inventory_qty_total : total_qty
-    //                 }
-    //             }, () => {
-    //                 this.formRef.current.setFieldsValue({
-    //                     inventory_qty_total : total_qty
-    //                 })
-    //             })
-    //         }
-
-    //     })
-    // }
-    // setTotalBags = () =>{
-    //     var values = this.formRef.current.getFieldValue();
-    //     var jobwork_inward_inventory = values.jobwork_inward_inventory;
-    //     var total_bag = 0;
-    //     jobwork_inward_inventory.map((item, index) => {
-    //         total_bag += Number(item.qty_bag);
-
-    //         if(index === jobwork_inward_inventory.length - 1)
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 formData : {
-    //                     ...this.state.formData,
-    //                     inventory_qty_bag_total : total_bag
-    //                 }
-    //             }, () => {
-    //                 this.formRef.current.setFieldsValue({
-    //                     inventory_qty_bag_total : total_bag
-    //                 })
-    //             })
-    //         }
-
-    //     })
-    // }
-
-
-    // setQTYKG = (ev, index) => {
-    //     var values = this.formRef.current.getFieldValue();
-    //     var fabric = values.jobwork_inward_inventory;
-    //     var currentFabric = fabric[index] ;
-    //     currentFabric.qty_kg = currentFabric.qtybag_per * currentFabric.qty_bag;
-
-    //     values.jobwork_inward_inventory.splice(index, 1, currentFabric);
-
-    //     this.setState({
-    //         ...this.state,
-    //         formData : {
-    //             ...this.state.formData,
-    //             jobwork_inward_inventory : values.jobwork_inward_inventory
-    //         }
-    //     }, () => {
-    //         // var data = this.formRef.current.getFieldValue();
-    //         // var qty_kg = Number(data.qtybag_per) + Number(data.qty_bag)
-    //         this.formRef.current.setFieldsValue(values);
-    //         this.setTotalKgs();
-    //         this.setTotalBags();
-    //         this.setTotalSize1();
-    //         this.setTotalSize2();
-    //         this.setTotalSize3();
-    //         this.setTotalSize4();
-    //         this.setTotalSize5();
-    //         this.setTotalSize6();
-    //         this.setTotalSize7();
-    //         this.setTotalSize8();
-    //         this.setTotalSize9();
-    //         this.setTotalQty();
-
-
-    //     })
-    // }
-    // setQTYCOLOR = (ev, index) => {
-    //     var values = this.formRef.current.getFieldValue();
-    //     var fabric = values.jobwork_inward_inventory;
-    //     var currentFabric = fabric[index] ;
-    //     currentFabric.qty = Number( currentFabric.size1) + Number(currentFabric.size2)+ Number(currentFabric.size3) + Number(currentFabric.size4) + Number(currentFabric.size5) + Number(currentFabric.size6) + Number(currentFabric.size7) + Number(currentFabric.size8) + Number(currentFabric.size9);
-
-    //     values.jobwork_inward_inventory.splice(index, 1, currentFabric);
-
-    //     this.setState({
-    //         ...this.state,
-    //         formData : {
-    //             ...this.state.formData,
-    //             jobwork_inward_inventory : values.jobwork_inward_inventory
-    //         }
-    //     }, () => {
-    //         // var data = this.formRef.current.getFieldValue();
-    //         // var qty_kg = Number(data.qtybag_per) + Number(data.qty_bag)
-    //         this.formRef.current.setFieldsValue(values);
-    //         this.setTotalKgs();
-    //         this.setTotalBags();
-    //         this.setTotalSize1();
-    //         this.setTotalSize2();
-    //         this.setTotalSize3();
-    //         this.setTotalSize4();
-    //         this.setTotalSize5();
-    //         this.setTotalSize6();
-    //         this.setTotalSize7();
-    //         this.setTotalSize8();
-    //         this.setTotalSize9();
-    //         this.setTotalQty();
-
-    //     })
-    // }
+    
     removeJobwork_inward_inventory = (index) => {
         var oldJobwork_inward_inventoryArray = this.state.formData.jobwork_inward_inventory;
 
@@ -778,7 +517,7 @@ class AddJobwork_Inward  extends PureComponent{
                     <div className="row">
                         {/* <Textbox label="Id" modelName="order_id"  className="col-md-6"></Textbox> */}
                         <Selectbox modelName="ledger_id" label="Ledger Name" onChange={this.getMobileForLedgerID} className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
-                        <Textbox label="Mobile" modelName="mobile" required = "false"  className="col-md-6"></Textbox>
+                        <Textbox label="Mobile" disabled modelName="mobile" required="false"  className="col-md-6"></Textbox>
 
 
 
@@ -806,6 +545,7 @@ class AddJobwork_Inward  extends PureComponent{
                            
                                     <thead>
                                         <tr>
+                                        <th width="150px"> <Checkbox onChange={this.checkAllItems} /></th>
 
                                         <th width="150px"> <b> Color</b></th>
                                            
@@ -825,6 +565,19 @@ class AddJobwork_Inward  extends PureComponent{
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
                                             <tr key={index}>
+                                                <td style={{ textAlign : 'center' }}>
+                                                                    <Form.Item
+                                                                    valuePropName="checked"
+                                                                    name={[field.name, "selected"]}
+                                                                    fieldKey={[field.fieldKey, "selected"]}
+                                                                    // initialValue={false}
+                                                                    >
+                                                                        <Checkbox onChange={this.setTOTAL}></Checkbox>
+                                                                    </Form.Item>
+
+
+                                                                    {/* <Checkbox field={field} fieldKey={[ field.fieldKey, 'selected' ]} modelName={[field.name, 'selected']} checked={[field.name, 'selected']} value={[field.name, 'selected']} /> */}
+                                                                </td>
                                                 <td>
                                                 <Selectbox noPlaceholder withoutMargin showLabel={false} required="false" className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={field.color_id} options={this.state.color} label="Color"></Selectbox>
                                                 </td>
@@ -848,16 +601,17 @@ class AddJobwork_Inward  extends PureComponent{
                                                     </Form.List> 
 
                                                     <tr style={{ backgroundColor : 'lightgray', textAlign : 'right' }}>
-                                            <td> <h6> Total</h6></td>
+                                            <td colSpan={2}> <h6> Total</h6></td>
 
 
                                             { this.state.size_data_for_order.map((item, index) => 
-                                                item !== "" && <td > <h6> {this.state.formData["size" + Number(Number(index) +1) + "_total"]}</h6></td>
+                                                item !== "" && <td key={index}> <h6> {this.state.formData["size" + Number(Number(index) +1) + "_total"]}</h6></td>
                                             ) }
 
                                             <td > <h6> { this.state.formData.inventory_qty_total }</h6></td>
                                             
-                                        </tr>                                    </tbody>
+                                        </tr>                       
+                                                 </tbody>
                             </table>
                                 
 
