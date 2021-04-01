@@ -175,6 +175,112 @@ import ListBank from './pages/masters/bank/list'
 import AddDesignation  from './pages/masters/designation/add'
 import ListDesignation from './pages/masters/designation/list'
 
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+
+
+
+
+
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+///// Boopathi Workspace //////
+
+
+
+
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+
+
+
+
+
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+
+
+
+
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+///// Kowsalya Workspace //////
+
+
+
+
+
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+
+
+
+
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+///// Hariprakash Workspace //////
+
+
+
 
 
 let interval;
@@ -411,21 +517,101 @@ class App extends React.PureComponent
                               <Route exact path="/masters/add_bank" component={AddBank} />
                               <Route exact path="/masters/edit_bank/:id" component={AddBank} />
                               <Route exact path="/masters/list_bank" component={ListBank} />
-                            
-
-
-
-
-
-
-
-
-
 
                               {/*designation */}
                               <Route exact path="/masters/add_designation" component={AddDesignation} />
                               <Route exact path="/masters/edit_designation/:id" component={AddDesignation} />
                               <Route exact path="/masters/list_designation" component={ListDesignation} />
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+
+
+
+
+                            
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+                            {/* Boopathi Workspace */}
+
+
+
+
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+
+
+
+
+
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+                            {/* Kowsalya Workspace */}
+
+
+
+
+
+
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+
+
+
+
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
+                            {/* Hariprakash Workspace */}
 
 
                               <Redirect to="/" />
