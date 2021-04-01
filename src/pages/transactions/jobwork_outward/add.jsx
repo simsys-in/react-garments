@@ -652,8 +652,8 @@ class AddJobworkOutward extends PureComponent{
                     >
                         
                     <div className="row">
-                        <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
-                        <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-6" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
+                        <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange} className="col-sm-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
+                        <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-sm-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
                    </div>
                    <div className="row">
                        <Selectbox modelName="from_process_id" label="From Process" className="col-md-6" options={this.state.process} value={this.state.formData.from_process_id}  ></Selectbox>

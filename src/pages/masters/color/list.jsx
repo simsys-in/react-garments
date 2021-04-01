@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Table, Tag, Space, Button, Modal } from 'antd';
-import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined, PrinterOutlined } from '@ant-design/icons';
 import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
@@ -10,6 +10,8 @@ class ListColor extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      showPrint : false,
+      selectedItem : {},
       columns: [
       
         {
@@ -39,6 +41,7 @@ class ListColor extends PureComponent {
             <Space size="middle">
               <Button type="primary" onClick={() => this.editColor(record.id)} icon={<EditOutlined />} size="middle" />
               <Button type="default" color="error" danger onClick={() => this.deleteColor(record)} icon={<DeleteOutlined />} size="middle" />
+              <Button type="primary" onClick={() => this.printColor(record)} icon={<DeleteOutlined />} size="middle" />
             </Space>
           ),
         },
@@ -87,7 +90,8 @@ class ListColor extends PureComponent {
           item.sno = index +1;
           item.action = <Space size="middle">
           <Button type="primary" onClick={() => this.editColor(item.id)} icon={<EditOutlined />} size="middle" />
-          <Button type="default" color="error" danger onClick={() => this.deleteColor(item)} icon={<DeleteOutlined />} size="middle" />
+          <Button type="default" danger onClick={() => this.deleteColor(item)} icon={<DeleteOutlined />} size="middle" />
+          <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" />
         </Space>
 
         newData.push(item)
@@ -100,6 +104,35 @@ class ListColor extends PureComponent {
       }
     })
     // }
+  }
+
+  hideMoal = () => {
+    this.setState({
+      ...this.state,
+      showPrint : false,
+      selectedItem : {}
+    })
+  }
+
+  showPrint = (record) => {
+
+    this.setState({
+      ...this.state,
+      showPrint : true,
+      selectedItem : record
+    })
+  }
+
+  printColor = () => {
+    var printContents = document.getElementById('printable-area').innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+     window.location.reload();
   }
 
   render() {
@@ -115,6 +148,37 @@ class ListColor extends PureComponent {
         </div>
         {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
         <DataTable data={this.state} ></DataTable>
+        {/* { this.state.showPrint && */}
+         <Modal
+          title="Color Details"
+          centered
+          visible={this.state.showPrint}
+          onOk={() => this.printColor()}
+          okText="Print"
+          onCancel={() => this.hideMoal(false)}
+        >
+          <div id="printable-area">
+            <h4>Color Details</h4>
+            <br/>
+            <h5>Color Name : { this.state.selectedItem.color }</h5>
+            <h5>Color ID : { this.state.selectedItem.id }</h5>
+            <table border="1">
+              <thead>
+                <tr>
+                  <th width="200px">Color</th>
+                  <th width="200px">ID</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{this.state.selectedItem.color}</td>
+                  <td>{this.state.selectedItem.id}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </Modal>
+         {/* } */}
       </Fragment>
     )
   }
