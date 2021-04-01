@@ -57,6 +57,31 @@ export default  [
                 url : '/masters/list_product_category'
             },
             {
+                name : "Branch",
+                icon : 'hat-cowboy',
+                url : '/masters/list_branch'
+            },
+            {
+                name : "Department",
+                icon : 'hat-cowboy',
+                url : '/masters/list_department'
+            },
+            {
+                name : "Bank",
+                icon : 'hat-cowboy',
+                url : '/masters/list_bank'
+            },
+            {
+                name : "Employee",
+                icon : 'hat-cowboy',
+                url : '/masters/list_employee'
+            },
+            {
+                name : "Employee_category",
+                icon : 'hat-cowboy',
+                url : '/masters/list_employee_category'
+            },
+            {
                 name : "Product Group",
                 icon : 'utensils',
                 url : '/masters/list_product_group'
@@ -109,10 +134,11 @@ export default  [
                 url : '/user/list_user'
             },
             {
-                name : "user_group",
+                name : "User Group",
                 icon : 'chalkboard-teacher',
                 url : '/user/list_user_group'
             },
+            
            
             // {
             //     name : "Staff",
@@ -188,6 +214,11 @@ export default  [
                 name : "YarnInvoice",
                 icon : 'chalkboard-teacher',
                 url : '/transactions/list_yarn_invoice'
+            },
+            {
+                name : "Jobwork Inward",
+                icon : 'chalkboard-teacher',
+                url : '/transactions/list_jobwork_inward'
             },
         ]
     }

@@ -156,7 +156,15 @@ import { onLogOut } from './actions/login';
 //jobwork_outwork
 import AddJobworkOutward  from './pages/transactions/jobwork_outward/add'
 import ListJobworkOutward from './pages/transactions/jobwork_outward/list'
-
+///branch
+import AddBranch from './pages/masters/branch/add'
+import ListBranch from './pages/masters/branch/list'
+//department
+import AddDepartment from './pages/masters/department/add'
+import ListDepartment from './pages/masters/department/list'
+///bank
+import AddBank from './pages/masters/bank/add'
+import ListBank from './pages/masters/bank/list'
 
 
 
@@ -293,6 +301,8 @@ class App extends React.PureComponent
                               <Route exact path="/masters/edit_ledger/:id" component={AddLedger} />
                               <Route exact path="/masters/list_ledger" component={ListLedger} />
                               
+                              
+                              
                               <Route exact path="/masters/add_employee" component={AddEmployee} />
                               <Route exact path="/masters/edit_employee/:id" component={AddEmployee} />
                               <Route exact path="/masters/list_employee" component={ListEmployee} />
@@ -386,6 +396,22 @@ class App extends React.PureComponent
                               <Route exact path="/transactions/add_jobwork_outward" component={AddJobworkOutward} />
                               <Route exact path="/transactions/edit_jobwork_outward/:id" component={AddJobworkOutward} />
                               <Route exact path="/transactions/list_jobwork_outward" component={ListJobworkOutward} />
+
+                              
+                              
+                              {/* branch */}
+                              <Route exact path="/masters/add_branch" component={AddBranch} />
+                              <Route exact path="/masters/edit_branch/:id" component={AddBranch} />
+                              <Route exact path="/masters/list_branch" component={ListBranch} />
+                              {/* department */}
+                              <Route exact path="/masters/add_department" component={AddDepartment} />
+                              <Route exact path="/masters/edit_department/:id" component={AddDepartment} />
+                              <Route exact path="/masters/list_department" component={ListDepartment} />
+                              {/* bank */}
+                              <Route exact path="/masters/add_bank" component={AddBank} />
+                              <Route exact path="/masters/edit_bank/:id" component={AddBank} />
+                              <Route exact path="/masters/list_bank" component={ListBank} />
+                            
 
 
 
