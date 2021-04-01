@@ -281,6 +281,9 @@ import ListDesignation from './pages/masters/designation/list'
 
 
 
+//designation
+import AddJobworkInvoice  from './pages/transactions/jobwork_invoice/add'
+import ListJobworkInvoice from './pages/transactions/jobwork_invoice/list'
 
 
 let interval;
@@ -612,6 +615,12 @@ class App extends React.PureComponent
                             {/* Hariprakash Workspace */}
                             {/* Hariprakash Workspace */}
                             {/* Hariprakash Workspace */}
+
+                              {/*jobwork_invoice */}
+                              <Route exact path="/transactions/add_jobwork_invoice" component={AddJobworkInvoice} />
+                              <Route exact path="/transactions/edit_jobwork_invoice/:id" component={AddJobworkInvoice} />
+                              <Route exact path="/transactions/list_jobwork_invoice" component={ListJobworkInvoice} />
+
 
 
                               <Redirect to="/" />
