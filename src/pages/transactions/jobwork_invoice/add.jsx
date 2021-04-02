@@ -220,7 +220,7 @@ class AddJobworkInvoice extends PureComponent{
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
-                this.onOrderIDChange(data.data.order_id);
+                this.getProductAndSizeSBForOrderID(data.data.order_id);
                 this.getMobileForLedgerId(data.data.ledger_id)
             })
 
@@ -231,35 +231,28 @@ class AddJobworkInvoice extends PureComponent{
         }
     }
 
-    onOrderIDChange = (order_id) => {
-        this.getProductSBForOrderID(order_id);
-        this.getSizeForOrderID(order_id);
-    }
+    
 
-    getProductSBForOrderID = (order_id) => {
-        getRequest('masters/getProductSBForOrderID?order_id=' + order_id).then(data => {
+    getProductAndSizeSBForOrderID = (order_id,index) => {
+        getRequest('transactions/getProductAndSizeSBForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
+                var formData = this.formRef.current.getFieldsValue();
+                var jobwork_invoice_inventory = formData.jobwork_invoice_inventory;
+                var currentItem = jobwork_invoice_inventory[index];
+                currentItem.product_id = data.data[0].style_id;
+                currentItem.size_id = data.data[0].size_id;
                 this.setState({
                     ...this.state,
-                    product : data.data
+                    formData : formData,
+                },()=>{
+                    this.formRef.current.setFieldsValue(this.state.formData)
                 })
             }
         })
     }
 
-    getSizeForOrderID = (order_id) => {
-        getRequest('masters/getSizeSBForOrderID?order_id=' + order_id).then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    size_data : data.data
-                })
-            }
-        })
-    }
-
+    
     
 
     componentDidMount() {
@@ -539,13 +532,13 @@ class AddJobworkInvoice extends PureComponent{
                                                                 </td>
                                                                 
                                                                 <td>
-                                                                <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange}  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
+                                                                <Selectbox  autoFocus  onChange={(order_id) => this.getProductAndSizeSBForOrderID(order_id,index)}  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.order_no}  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'order_id' ]}  modelName={[field.name, 'order_id']} value={[field.name, 'order_id']} label="Order No" ></Selectbox>  
                                                                 </td>
                                                                 <td>
-                                                                <Selectbox modelName="product_id" label="Product"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.product} value={this.state.formData.product_id}  ></Selectbox>  
+                                                                <Selectbox label="Product"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.product} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} disabled modelName={[field.name, 'product_id']} value={[field.name, 'product_id']}  ></Selectbox>  
                                                                 </td>
                                                                 <td>
-                                                                <Selectbox modelName="size_id" label="Size"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.size_data} value={this.state.formData.size_id}  ></Selectbox>  
+                                                                <Selectbox  label="Size"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.size_data} field={field} fieldKey={[ field.fieldKey, 'size_id' ]} disabled modelName={[field.name, 'size_id']} value={[field.name, 'size_id']}  ></Selectbox>  
                                                                 </td>
                                                                 
                                                                 
