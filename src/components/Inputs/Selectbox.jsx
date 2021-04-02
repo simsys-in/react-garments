@@ -8,11 +8,11 @@ const { Option } = Select;
 const selectOptions = [
     {
         name : 'Active',
-        value : 'active',
+        value : 1,
     },
     {
         name : 'Inactive',
-        value : 'inactive',
+        value : 0,
     }
 ]
 class Selectbox extends PureComponent {

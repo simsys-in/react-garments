@@ -55,6 +55,7 @@ class AddOrderProgram extends PureComponent{
             fabric_data : [],
             ledger_name : [],
             process : [],
+            ledger_name : []
         }
         this.id = this.props.match.params.id;
     }
@@ -343,13 +344,19 @@ class AddOrderProgram extends PureComponent{
                             </div>
 
                             <div className="row">
+                            <Selectbox modelName="ledger_id" label="Ladger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger}  ></Selectbox>
                             <Datebox  className="col-md-6" label="Due Date" value={this.state.formData.due_date} modelName="due_date" ></Datebox>
+                            </div>
+
+
+                            <div className="row">
                             <Selectbox modelName="status_id" label="Status" required="true" value={this.state.formData.status} statusSelect ></Selectbox>
+                            <Selectbox modelName="size_id" label="Size" className="col-md-6" options={this.state.size_data} value={this.state.formData.size_id}  ></Selectbox>
                             </div>
 
                             <div className="row">
-                            <Selectbox modelName="size_id" label="Size" className="col-md-6" options={this.state.size_data} value={this.state.formData.size_id}  ></Selectbox>
                             <Selectbox modelName="style_id" label="Style" className="col-md-6" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
+
                             </div>
                         </div>  
                     </div>
