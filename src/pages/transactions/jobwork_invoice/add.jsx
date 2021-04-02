@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash';
 import Checkbox from 'antd/lib/checkbox/Checkbox';
+import { issetNotEmpty } from '../../../helpers/formhelpers';
 
 
 let interval;
@@ -67,7 +68,7 @@ class AddJobworkInvoice extends PureComponent{
       };
 
       getLedgerNameSB = () => {
-        getRequest('transactions/getLedgerNameSB').then(data => {
+        getRequest('masters/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -88,6 +89,35 @@ class AddJobworkInvoice extends PureComponent{
                 this.setState({
                     ...this.state,
                     process : data.data
+                })
+            }
+        })
+    }
+
+
+   
+    getProductSB = (order_id = null) => {
+        
+        getRequest('masters/getAllProductSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    product : data.data
+                })
+            }
+        })
+    }
+
+   
+    getSizeSB = (order_id = null) => {
+        
+        getRequest('masters/getAllSizeSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    size_data : data.data
                 })
             }
         })
@@ -128,7 +158,17 @@ class AddJobworkInvoice extends PureComponent{
 
     
 
-
+    getAccountsLedger = () => {
+        getRequest('masters/getAccountsLedger?ledger_group_id=11').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    acLedger_data : data.data
+                })
+            }
+        })
+    }
 
     
 
@@ -154,10 +194,10 @@ class AddJobworkInvoice extends PureComponent{
         var total_amount = 0;
         jobwork_invoice_inventory.map((item, index) => {
             // console.log(item);
+            item.amount = item.qty *item.rate; 
             if(item.selected){
-               
-                total_qty += Number(item.inventory_qty_total)
-                total_amount += Number(item.inventory_amount_total)
+                total_qty += Number(item.qty)
+                total_amount += Number(item.amount)
 
                 if(index === jobwork_invoice_inventory.length - 1)
                 {
@@ -220,7 +260,7 @@ class AddJobworkInvoice extends PureComponent{
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
-                this.onOrderIDChange(data.data.order_id);
+                this.getProductAndSizeSBForOrderID(data.data.order_id);
                 this.getMobileForLedgerId(data.data.ledger_id)
             })
 
@@ -231,41 +271,37 @@ class AddJobworkInvoice extends PureComponent{
         }
     }
 
-    onOrderIDChange = (order_id) => {
-        this.getProductSBForOrderID(order_id);
-        this.getSizeForOrderID(order_id);
-    }
+    
 
-    getProductSBForOrderID = (order_id) => {
-        getRequest('masters/getProductSBForOrderID?order_id=' + order_id).then(data => {
+    getProductAndSizeSBForOrderID = (order_id,index) => {
+        getRequest('transactions/getProductAndSizeSBForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
+                var formData = this.formRef.current.getFieldsValue();
+                var jobwork_invoice_inventory = formData.jobwork_invoice_inventory;
+                var currentItem = jobwork_invoice_inventory[index];
+                currentItem.product_id = data.data[0].style_id;
+                currentItem.size_id = data.data[0].size_id;
                 this.setState({
                     ...this.state,
-                    product : data.data
-                })
-            }
-        })
-    }
-
-    getSizeForOrderID = (order_id) => {
-        getRequest('masters/getSizeSBForOrderID?order_id=' + order_id).then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    size_data : data.data
+                    formData : formData,
+                },()=>{
+                    this.formRef.current.setFieldsValue(this.state.formData)
                 })
             }
         })
     }
 
     
+    
 
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
         this.getProcessSB();
+        this.getProductSB();
+        this.getSizeSB();
+        this.getAccountsLedger();
         this.setTOTAL();
         this.getJobworkInvoice();
         interval = setInterval(() => {
@@ -387,7 +423,7 @@ class AddJobworkInvoice extends PureComponent{
     checkAllItems = (ev) => {
         var checked = ev.target.checked;
         var formData = this.state.formData;
-        var inventories = formData.jobwork_outward_inventory;
+        var inventories = formData.jobwork_invoice_inventory;
         console.log(checked);
         inventories.map((item, index) => {
             item.selected = checked;
@@ -403,6 +439,41 @@ class AddJobworkInvoice extends PureComponent{
                 })
             }
         })
+
+    }
+
+    getOrdersForLedgerAndProcess = (ledger,process) => {
+        getRequest('transactions/getOrdersForLedgerAndProcess?ledger=' + ledger + '&process=' + process).then(data => {
+            if(data.status === "info")
+            {
+                console.log(data.data);
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        jobwork_invoice_inventory : data.data
+                    }
+                }, () => {
+                    this.formRef.current.setFieldsValue(this.state.formData);
+                    this.setTOTAL()
+                })
+            }
+        })
+    }
+
+    onLedgerAndProcessChange = () => {
+        const FORMDATA = this.formRef.current.getFieldValue();
+        const PROCESS = issetNotEmpty(FORMDATA.process_id) ? FORMDATA.process_id : null;
+        const LEDGER = issetNotEmpty(FORMDATA.ledger_id) ? FORMDATA.ledger_id : null;
+
+        if(issetNotEmpty(LEDGER))
+        {
+            this.getMobileForLedgerId(LEDGER);
+        }
+        if(issetNotEmpty(LEDGER) && issetNotEmpty(PROCESS))
+        {
+            this.getOrdersForLedgerAndProcess(LEDGER, PROCESS);
+        }
 
     }
 
@@ -467,23 +538,23 @@ class AddJobworkInvoice extends PureComponent{
                         
                    
                    <div className="row">
-                       <Selectbox modelName="process_id" label="Process" className="col-md-6" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
-                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
+                       <Selectbox modelName="process_id" autoFocus className="col-md-4" label="Process" options={this.state.process} value={this.state.formData.process_id} onChange={this.onLedgerAndProcessChange} ></Selectbox>
+                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.onLedgerAndProcessChange}></Selectbox>
+                       <Textbox modelName="mobile" disabled label="Mobile" className="col-md-4" required="false"></Textbox>
                    </div>
                    <div className="row">
-                       <Textbox modelName="mobile" disabled label="Mobile" className="col-md-6" required="false"></Textbox>
-                       <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
+                       <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
+                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
+                        <Selectbox modelName="ledger2_id"  label="Accounts Ledger" className="col-md-4" options={this.state.acLedger_data} required="false" value={this.state.formData.ledger2_id} ></Selectbox>
                    </div>
                     
                    <div className="row">
-                     <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
-                     <Selectbox modelName="ledger2_id"  label="Accounts Ledger" className="col-md-6" options={this.state.acLedger_data} required="false" value={this.state.formData.ledger2_id} ></Selectbox>
  
                    </div>
 
                    <div className="row">
-                     <Textbox label="Ref No" modelName="refno" required="false" className="col-md-6"></Textbox>
-                     <Selectbox modelName="menu_id" required="false" label="Menu" className="col-md-6" options={this.state.menu_data} value={this.state.formData.menu_id} ></Selectbox>
+                     <Textbox label="Ref No" modelName="refno" required="false" className="col-md-4"></Textbox>
+                     {/* <Selectbox modelName="menu_id" required="false" label="Menu" className="col-md-6" options={this.state.menu_data} value={this.state.formData.menu_id} ></Selectbox> */}
  
                    </div>
 
@@ -503,14 +574,14 @@ class AddJobworkInvoice extends PureComponent{
                                     </thead> */}
                                     <thead>
                                         <tr>
-                                            <th width="30px"> <Checkbox onChange={this.checkAllItems} /></th>
-                                            <th width="100px"> <b> Order No</b></th>
-                                            <th width="100px"> <b> Product</b></th>
-                                            <th width="100px"> <b> Size</b></th>
-                                            <th width="100px"> <b> Qty</b></th>
-                                            <th width="100px"> <b> Rate</b></th>
-                                            <th width="100px"> <b> Amount</b></th>
-                                            <th width="30px">
+                                            <th width="100px"> <Checkbox onChange={this.checkAllItems} /></th>
+                                            <th width="300px"> <b> Order No</b></th>
+                                            <th width="250px"> <b> Product</b></th>
+                                            <th width="200px"> <b> Size</b></th>
+                                            <th width="200px"> <b> Qty</b></th>
+                                            <th width="200px"> <b> Rate</b></th>
+                                            <th width="200px"> <b> Amount</b></th>
+                                            <th width="100px">
                                                 <Button type="primary"  onClick={this.addJobworkInvoiceInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
                                             </th>
                                         </tr>
@@ -539,27 +610,27 @@ class AddJobworkInvoice extends PureComponent{
                                                                 </td>
                                                                 
                                                                 <td>
-                                                                <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange}  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
+                                                                <Selectbox disabled onChange={(order_id) => this.getProductAndSizeSBForOrderID(order_id,index)}  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.order_no} field={field} fieldKey={[ field.fieldKey, 'order_id' ]}  modelName={[field.name, 'order_id']} value={[field.name, 'order_id']} label="Order No" ></Selectbox>  
                                                                 </td>
                                                                 <td>
-                                                                <Selectbox modelName="product_id" label="Product"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.product} value={this.state.formData.product_id}  ></Selectbox>  
+                                                                <Selectbox label="Product"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.product} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} disabled modelName={[field.name, 'product_id']} value={[field.name, 'product_id']}  ></Selectbox>  
                                                                 </td>
                                                                 <td>
-                                                                <Selectbox modelName="size_id" label="Size"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.size_data} value={this.state.formData.size_id}  ></Selectbox>  
+                                                                <Selectbox label="Size"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.size_data} field={field} fieldKey={[ field.fieldKey, 'size_id' ]} disabled modelName={[field.name, 'size_id']} value={[field.name, 'size_id']}  ></Selectbox>  
                                                                 </td>
                                                                 
                                                                 
                                                                
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" onChange={this.setTOTAL}></Numberbox>
  
                                                                 </td>
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'rate' ]}  modelName={[field.name, 'rate']} value={[field.name, 'rate']} label="Rate"></Numberbox>
+                                                                <Numberbox noPlaceholder disabled required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'rate' ]}  modelName={[field.name, 'rate']} value={[field.name, 'rate']} label="Rate"></Numberbox>
  
                                                                 </td>
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} label="Amount" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder disabled required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} label="Amount" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
  
                                                                 </td>
                                                                 <td>
@@ -575,7 +646,7 @@ class AddJobworkInvoice extends PureComponent{
 
                                             <td > <h6> { this.state.formData.inventory_qty_total }</h6></td>
                                            
-                                              <td><h6></h6></td>
+                                              <td></td>
                                             <td > <h6> { this.state.formData.inventory_amount_total }</h6></td>
                                             
                                         </tr>
