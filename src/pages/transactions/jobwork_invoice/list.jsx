@@ -33,7 +33,7 @@ class ListJobworkInvoice extends PureComponent {
         
         {
           label: 'Ledger ',
-          field: 'ledger_id',
+          field: 'ledger',
           width: "10vw",
         },
 
