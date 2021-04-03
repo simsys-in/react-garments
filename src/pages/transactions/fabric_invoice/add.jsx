@@ -29,7 +29,7 @@ class AddFabricInvoice extends PureComponent{
                 vou_date : moment(),
                 fabric_invoice_inventory : [
                     {  
-                        fabrics_id : '',
+                        fabric_id : '',
                         color_id : '',
                         gsm : '',
                         dia : '',
@@ -57,7 +57,7 @@ class AddFabricInvoice extends PureComponent{
       };
 
       getLedgerNameSB = () => {
-        getRequest('transactions/getLedgerNameSB').then(data => {
+        getRequest('masters/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -197,12 +197,34 @@ class AddFabricInvoice extends PureComponent{
         }
     }
 
+
+    getNextFabricInwardVouNo = () => {
+        getRequest('transactions/getNextFabricInwardVouNo').then(data => {
+            // console.log(data.max_vou_no);
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        vouno : data.data.max_vou_no
+                    }
+                },() => {
+                    this.formRef.current.setFieldsValue({
+                        vouno : this.state.formData.vouno
+                    })
+                })
+            }
+        })
+    }
+
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
         this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
+        this.getNextFabricInwardVouNo();
         this.setTOTAL();
         this.getFabricInvoice();
         interval = setInterval(() => {
@@ -255,7 +277,7 @@ class AddFabricInvoice extends PureComponent{
 
     addFabricInvoiceInventory = () => {
         var newFabricInvoiceInventory = {
-            fabrics_id : '',
+            fabric_id : '',
             color_id : '',
             gsm : '',
             dia : '',
@@ -318,8 +340,8 @@ class AddFabricInvoice extends PureComponent{
                         
                         <div className="row">
                        
-                            <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
-                            <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
+                            <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
+                            <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
                        </div>
                    
                    
@@ -330,9 +352,13 @@ class AddFabricInvoice extends PureComponent{
                    </div>
 
                    <div className="row">
+                        <Textbox label="Vou No" modelName="vouno"  className="col-md-6"></Textbox>
                        <Textbox label="Ref No" modelName="refno"  className="col-md-6"></Textbox>
-                       <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
 
+                   </div>
+
+                   <div className="row">
+                       <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
                    </div>
                    
                    <div className="row">
@@ -393,11 +419,13 @@ class AddFabricInvoice extends PureComponent{
                        <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
                             <div className="col-md-11">
                                 <div className="row">
-                                    <div className="col-md-4"></div>
+                                    <div className="col-md-3"></div>
                                     <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Total" label="Total" required="false"></Textbox>
                                     <Numberbox withoutMargin showLabel={false} className="col-md-1" modelName='inventory_roll_total' value={this.state.formData.total_roll} disabled label='Total Roll'></Numberbox>
                                     <Numberbox withoutMargin showLabel={false} className="col-md-1" modelName='inventory_weight_total' value={this.state.formData.total_weight} disabled label='Total Weight'></Numberbox>
+                                    <Textbox withoutMargin noPlaceholder required="false" disabled label="empty" className="col-md-1" showLabel={false}></Textbox>
                                     <Numberbox withoutMargin showLabel={false} className="col-md-1" modelName='inventory_amount_total' value={this.state.formData.total_weight} disabled label='Total Amount'></Numberbox>
+
                                 </div>
                             </div>
                         </div>
@@ -418,6 +446,15 @@ class AddFabricInvoice extends PureComponent{
                </Form>
                
                
+                {/* <div className="row"> 
+                <div className="col-md-6">
+                    <pre> { JSON.stringify(this.formRef, null, 2)  } </pre>
+                </div>
+                <div className="col-md-6">
+                    <pre> { JSON.stringify(this.state.formData, null, 2)  } </pre>
+                </div>
+
+                </div> */}
             </Fragment>
         )
     }

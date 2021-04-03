@@ -26,12 +26,18 @@ class ListFabricInvoice extends PureComponent {
           width: "30vw",
         },
        
+        {
+          label: 'Vou No',
+          field: 'vouno',
+          width: "30vw",
+        },
         
         {
           label: 'Ledger Name',
           field: 'ledger',
           width: "10vw",
         },
+
        
        
         {

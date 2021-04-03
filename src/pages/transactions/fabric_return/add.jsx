@@ -55,7 +55,7 @@ class AddFabricReturn extends PureComponent{
       };
 
       getLedgerNameSB = () => {
-        getRequest('transactions/getLedgerNameSB').then(data => {
+        getRequest('masters/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -199,6 +199,7 @@ class AddFabricReturn extends PureComponent{
         this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
+        this.getNextFabricInwardVouNo();
         this.setTOTAL();
         this.getFabricReturn();
         interval = setInterval(() => {
@@ -248,6 +249,27 @@ class AddFabricReturn extends PureComponent{
             })
         })
     };
+
+    getNextFabricInwardVouNo = () => {
+        getRequest('transactions/getNextFabricInwardVouNo').then(data => {
+            // console.log(data.max_vou_no);
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        vouno : data.data.max_vou_no
+                    }
+                },() => {
+                    this.formRef.current.setFieldsValue({
+                        vouno : this.state.formData.vouno
+                    })
+                })
+            }
+        })
+    }
+
 
     addFabricReturnInventory = () => {
         var newFabricReturnInventory = {
@@ -312,19 +334,24 @@ class AddFabricReturn extends PureComponent{
                         
                         <div className="row">
                        
-                         <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
-                         <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
+                         <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
+                         <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
                       </div>
 
                    
                   
                    <div className="row">
-                        <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
-                        <Selectbox modelName="order_id" onChange={this.getProcessSBForOrderID} label="Order No" className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                        <Selectbox modelName="process_id" label="Process" className="col-md-6" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
+                        <Selectbox modelName="order_id" onChange={this.getProcessSBForOrderID} label="Order No" className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
                    </div>
+
                    <div className="row">
-                       <Textbox label="Ref No" modelName="refno"  className="col-md-4"></Textbox>
-                       <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
+                       <Textbox label="Vou No" modelName="vouno"  className="col-md-6"></Textbox>
+                       <Textbox label="Ref No" modelName="refno"  className="col-md-6"></Textbox>
+                   </div>
+
+                   <div className="row">
+                       <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
 
                    </div>
                   

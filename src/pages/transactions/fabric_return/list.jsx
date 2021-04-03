@@ -24,6 +24,12 @@ class ListFabricReturn extends PureComponent {
           field: 'vou_date',
           width: "30vw",
         },
+
+        {
+          label : "Vou No",
+          field : 'vouno',
+          width : "30vw"
+        },
        
         
         {
@@ -68,7 +74,7 @@ class ListFabricReturn extends PureComponent {
   deleteFabricReturn = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.ladger;
+    const name = user.ledger;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,

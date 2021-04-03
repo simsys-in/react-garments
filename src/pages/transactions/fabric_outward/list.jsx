@@ -62,7 +62,7 @@ class ListFabricOutward extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/fabric_outward?id=' + id).then(data => {
+    deleteRequest('transactions/fabricoutward?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }

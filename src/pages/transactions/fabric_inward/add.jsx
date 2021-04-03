@@ -55,8 +55,8 @@ class AddFabricInward extends PureComponent{
         console.log('Failed:', errorInfo);
       };
 
-      getLedgerNameSB = () => {
-        getRequest('transactions/getLedgerNameSB').then(data => {
+      getAllLedgerSB = () => {
+        getRequest('masters/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -218,7 +218,7 @@ class AddFabricInward extends PureComponent{
 
     componentDidMount() {
         this.getOrderSB();
-        this.getLedgerNameSB();
+        this.getAllLedgerSB();
         this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
