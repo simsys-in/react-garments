@@ -194,8 +194,8 @@ class AddFabricOutward extends PureComponent{
         })
     }
 
-    getNextFabricInwardVouNo = () => {
-        getRequest('transactions/getNextFabricInwardVouNo').then(data => {
+    getNextFabricOutwardVouNo = () => {
+        getRequest('transactions/getNextFabricOutwardVouNo').then(data => {
             console.log(data);
             if(data.status === "info")
             {
@@ -220,9 +220,8 @@ class AddFabricOutward extends PureComponent{
         this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
-        this.getNextFabricInwardVouNo();
         this.setTOTAL();
-        this.getNextFabricInwardVouNo();
+        this.getNextFabricOutwardVouNo();
         this.getFabricOutward();
         interval = setInterval(() => {
             this.validate()
@@ -254,7 +253,7 @@ class AddFabricOutward extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/fabricOutward?id=' + this.id, values).then(data => {
+            putRequest('transactions/fabricOutward?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_fabric_outward')

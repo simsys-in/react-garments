@@ -198,8 +198,8 @@ class AddFabricInvoice extends PureComponent{
     }
 
 
-    getNextFabricInwardVouNo = () => {
-        getRequest('transactions/getNextFabricInwardVouNo').then(data => {
+    getNextFabricInvoiceVouNo = () => {
+        getRequest('transactions/getNextFabricInvoiceVouNo').then(data => {
             // console.log(data.max_vou_no);
             if(data.status === "info")
             {
@@ -224,7 +224,7 @@ class AddFabricInvoice extends PureComponent{
         this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
-        this.getNextFabricInwardVouNo();
+        this.getNextFabricInvoiceVouNo();
         this.setTOTAL();
         this.getFabricInvoice();
         interval = setInterval(() => {
