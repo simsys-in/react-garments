@@ -55,6 +55,7 @@ class AddJobwork_Inward  extends PureComponent{
             order_no : [],
             fabric : [],
             color : [],
+            product : []
         }
         this.id = this.props.match.params.id;
     }
@@ -64,7 +65,7 @@ class AddJobwork_Inward  extends PureComponent{
       };
 
       getLedgerNameSB = () => {
-        getRequest('transactions/getLedgerNameSB').then(data => {
+        getRequest('masters/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -100,6 +101,20 @@ class AddJobwork_Inward  extends PureComponent{
             }
         })
     }
+
+    getProductSB = (order_id = null) => {
+        
+        getRequest('masters/getAllProductSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    product : data.data
+                })
+            }
+        })
+    }
+
 
     getOrderSB = () => {
 
@@ -356,6 +371,7 @@ class AddJobwork_Inward  extends PureComponent{
         this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
+        this.getProductSB();
         this.getJobwork_Inward();
         this.setTOTAL();
         interval = setInterval(() => {
@@ -531,7 +547,8 @@ class AddJobwork_Inward  extends PureComponent{
                     </div>
                     <div className="row">
                    
-                        <Textbox label="Product" modelName="product" required="false" className="col-md-6"></Textbox>
+                        <Selectbox label="Product" modelName="product_id" required="false" className="col-md-6"  options={this.state.product} value={ this.state.formData.product}  ></Selectbox>  
+
                        <Textbox label="Adas" modelName="adas" required="false"  className="col-md-6"></Textbox>
 
 
