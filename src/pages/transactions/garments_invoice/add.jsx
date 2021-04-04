@@ -119,12 +119,12 @@ class AddGarmentsInvoice extends PureComponent{
 
     getMarketingUserSB = () => {
 
-        getRequest('transactions/getProductSB').then(data => {
+        getRequest('transactions/getMarketingUserSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
                     ...this.state,
-                    product_data : data.data
+                    user_data : data.data
                 })
             }
         })
@@ -277,6 +277,8 @@ class AddGarmentsInvoice extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getAllLedgerSB();
+        this.getMarketingUserSB();
+        this.getProductSB();
         this.setTOTAL();
         this.getGarmentsInvoice();
         interval = setInterval(() => {
@@ -330,10 +332,6 @@ class AddGarmentsInvoice extends PureComponent{
    
     
 
-    onOrderIDChange = (order_id) => {
-        
-        this.getSizesForOrderID(order_id);
-            }
     
    
 
