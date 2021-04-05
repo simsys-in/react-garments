@@ -247,8 +247,8 @@ class AddProduct extends PureComponent{
                             <Divider plain orientation="left" >Unit</Divider>
                             <div className="row">
                             <Selectbox modelName="unit_id" label="Unit" className="col-md-4" options={this.state.unit_data} value={this.state.formData.unit_id}  ></Selectbox>
-                            <Selectbox modelName="unit2_id" label="Unit2" className="col-md-4" options={this.state.unit_data} value={this.state.formData.unit2_id}  ></Selectbox>
-                            <Textbox modelName="unit2_convert" label="1" className="col-md-4"></Textbox>
+                            <Selectbox modelName="unit2_id" label="Unit2" required="false" className="col-md-4" options={this.state.unit_data} value={this.state.formData.unit2_id}  ></Selectbox>
+                            <Textbox modelName="unit2_convert" label="1" required="false" className="col-md-4"></Textbox>
                             </div>
 
                             

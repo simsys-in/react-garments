@@ -219,7 +219,7 @@ class AddLedger extends PureComponent{
                     </div>
 
                     <div className="row">
-                        <Selectbox modelName="ledger_category_id" label="Ledger Category" className="col-md-4" options={this.state.ledger_category} value={this.state.ledger_category_id}  ></Selectbox>
+                        <Selectbox modelName="ledger_category_id" label="Ledger Category" className="col-md-4" options={this.state.ledger_category} value={this.state.formData.ledger_category_id}  ></Selectbox>
                         <Numberbox label="O.Bal"  required="false" modelName="amount" className="col-md-4"></Numberbox>
                         <Selectbox modelName="status" label="Status" required="false" className="col-md-4" value={this.state.formData.status} statusSelect ></Selectbox>
                     </div>

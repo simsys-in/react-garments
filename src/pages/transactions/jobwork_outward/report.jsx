@@ -76,175 +76,143 @@ class Report extends PureComponent {
         const { report_details } = this.state;
         return(
             <Fragment>
-                <div id="printable-area">
                 { this.state.show_details &&
-                <table border={1} style={{border:"lightgray", marginLeft:"5%",marginRight:"5%", marginTop:"5%", marginBottom:"5%"}}>
-                    <tr>
-                        
-                        <td colSpan={2} style={{width:"30%"}} >
-                            <table style={{marginLeft:"5%"}}>   
-                                                         {/* <div className="col-6" style={{ border : '1px solid black' }} > */}
-                             <tr style={{fontWeight:"bold"}}>   { report_details.company_details.company } </tr>
-                            <tr>    <p> Address :  { report_details.company_details.address } </p> </tr>
-                             <tr>   <p> Phone :  { report_details.company_details.phone } </p></tr>
-                               <tr> <p> Mail :  { report_details.company_details.email } </p></tr>
-                              <tr> <p> GSTIN :  <b style={{fontWeight:"bold"}}> { report_details.company_details.gstno } </b> </p></tr> 
-                            {/* </div> */}
-                            </table>
+                <div className="row print-area" id="printableArea">
+                    <div className="col-md-12">
+                        <div >
+                        <div className="row" >
+                            <div className="col-md-6" style={{ border : '1px solid black', padding : 0, paddingLeft : 5 }}>
+                                <h6 style={{fontWeight:"bold"}}>   { report_details.company_details.company } </h6>
+                                <p style={{ whiteSpace : 'pre-wrap' }}> Address :  { report_details.company_details.address } </p>
+                                <p> Phone :  { report_details.company_details.phone } </p>
+                                <p> Mail :  { report_details.company_details.email } </p>
+                                <p> GSTIN :  <b style={{fontWeight:"bold"}}> { report_details.company_details.gstno } </b> </p>
+                            </div>
+                            <div className="col-md-6" style={{ padding : 0,border : '1px solid black' }}>
 
-                         </td>
-                         {/* <td style={{width:"20%"}}>
-
-                         </td> */}
-                         <td colSpan={2} style={{width:"50%"}}>
-                          
-                                <table border={1} width={"100%"} style={{border:"lightgray"}}>
-                                    <tr> 
-                                        <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center' }}> <b> DELIVERY NOTE </b> </td>
-                                    </tr>
-                                    <tr>
-                                        <th> DC No </th>
-                                        <td style={{fontWeight:"bold"}}> { report_details.dcno }</td>
-                                        <th> Dated </th>
-                                        <td style={{fontWeight:"bold"}}> { getStandardDate(report_details.vou_date)} </td>
-                                    </tr>
-                                    <tr>
-                                        <th> Process </th>
-                                        <td style={{fontWeight:"bold"}}> { report_details.process }</td>
-                                        <th> HSN Code </th>
-                                        <td style={{fontWeight:"bold"}}> {report_details.hsnsac} </td>
-                                    </tr>
-                                    <tr>
-                                        <th> Order No </th>
-                                        <td style={{fontWeight:"bold"}}> { report_details.order_no }</td>
-                                        <th> Vehicle No </th>
-                                        <td style={{fontWeight:"bold"}}> {report_details.vehicle_no} </td>
-                                    </tr>
-                                    <tr>
-                                        <th> Product </th>
-                                        <td style={{fontWeight:"bold"}}> { report_details.product }</td>
-                                        <th>  </th>
-                                        <td>  </td>
-                                    </tr>
-                                </table>
-                        
-                        </td>
-                    </tr>
-                            <tr>
-                                <td colSpan={2} style={{width:"50%"}}>
-                                <tr><p>Delivery to</p></tr>
-                                    <table style={{marginLeft:"5%"}}>
-
-                                <tr style={{fontWeight:"bold"}}><p><b>{ report_details.ledger_details.ledger } , </b></p> </tr>
-                               <tr> <p>Address : { report_details.ledger_details.delivery_address }</p></tr>
-                              <tr>  <p> Contact :{ report_details.ledger_details.mobile} </p></tr>
-                              <tr>  <p><b> GSTIN :{ report_details.ledger_details.gstno} </b></p></tr>
-                             
-                                </table>
-                                </td>
-
-                                <td colSpan={2} style={{width:"50%"}}>
-                                        <b style={{fontWeight:"bold"}}>ACCESSORIES</b>
-                                    <table border={1} width="90%" style={{border:"lightgray",marginLeft:"5%"}}>
-                                        { report_details.accessories.map(item => 
-                                        <tr>
-
-                                          <td>  { item.product }</td>
-                                          <td>  { item.qty }
-                                            { item.unit } </td>
-                                           
+                                <table width={"100%"} style={{border:"lightgray", margin : 0, padding : 0}}>
+                                        <tr> 
+                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid black' }}> <h5> DELIVERY NOTE </h5> </td>
                                         </tr>
-                                    )}
-                                       
+                                        <tr>
+                                            <th> DC No </th>
+                                            <td style={{fontWeight:"bold"}}> { report_details.dcno }</td>
+                                            <th> Dated </th>
+                                            <td style={{fontWeight:"bold"}}> { getStandardDate(report_details.vou_date)} </td>
+                                        </tr>
+                                        <tr>
+                                            <th> Process </th>
+                                            <td style={{fontWeight:"bold"}}> { report_details.process }</td>
+                                            <th> HSN Code </th>
+                                            <td style={{fontWeight:"bold"}}> {report_details.hsnsac} </td>
+                                        </tr>
+                                        <tr>
+                                            <th> Order No </th>
+                                            <td style={{fontWeight:"bold"}}> { report_details.order_no }</td>
+                                            <th> Vehicle No </th>
+                                            <td style={{fontWeight:"bold"}}> {report_details.vehicle_no} </td>
+                                        </tr>
+                                        <tr>
+                                            <th> Product </th>
+                                            <td style={{fontWeight:"bold"}}> { report_details.product }</td>
+                                            <th>  </th>
+                                            <td>  </td>
+                                        </tr>
                                     </table>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                            <td colSpan={4}>
-                                     <table border={1} width="100%" style={{border:"lightgray"}}>
-                                <thead>
-                                 
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style={{fontWeight:"bold"}}>Color</td>
-                                        { report_details.color_size_details.map((size,index) => 
-                                        size !== "" &&
-                                                <td style={{fontWeight:"bold"}}>{ size }</td>
-                                            ) }
-                                        <td style={{fontWeight:"bold"}}>Qty</td>
-                                    </tr>
-                                    { report_details.color_details.map(item => 
-                                        <tr>
-
-                                            <td>{ item.color }</td>
-                                            { report_details.color_size_details.map((size,index) => 
-                                        size !== "" &&
-                                                <td>{ item["size" + Number(Number(index) + 1)] }</td>
-                                            ) }
-                                            {/* <td>{ item.size1 }</td>
-                                            <td>{ item.size3 }</td>
-                                            <td>{ item.size4 }</td>
-                                            <td>{ item.size5 }</td>
-                                            <td>{ item.size6 }</td>
-                                            <td>{ item.size7 }</td>
-                                            <td>{ item.size8 }</td>
-                                            <td>{ item.size9 }</td> */}
-                                            <td>{ item.qty }</td>
+                                </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-6" style={{ border : '1px solid black', padding : 0, paddingLeft : 5 }}>
+                                <b>Delivery to</b>
+                                <div style={{ marginLeft : 15 }}>
+                                    <p><b>{ report_details.ledger_details.ledger } , </b></p> 
+                                    <p>Address : { report_details.ledger_details.delivery_address }</p>
+                                    <p> Contact :{ report_details.ledger_details.mobile} </p>
+                                    <p><b> GSTIN :{ report_details.ledger_details.gstno} </b></p>
+                                </div>
+                            </div>
+                            <div className="col-md-6" style={{ border : '1px solid black', padding : 0}}>
+                                <b style={{fontWeight:"bold", marginLeft : 5}}>ACCESSORIES</b>
+                                <table border={1} width="100%" style={{border:"lightgray"}}>
+                                    <thead>
+                                        <tr style={{ backgroundColor : 'lightgray' }}>
+                                            <th> <b> Accessories</b></th>
+                                            <th> <b> Qty</b></th>
                                         </tr>
-                                    )}
-                                    <tr>
-                                        <td> Grand Total</td>
-                                        {/* <td>{this.state.size1_total}</td> */}
+                                    </thead>
+                                    <tbody>
+                                        { report_details.accessories.map(item => 
+                                            <tr>
+                                                <td>  { item.product }</td>
+                                                <td>  { item.qty }
+                                                    { " " + item.unit } </td>    
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12" style={{ padding : 0 }}>
+                                <table  width="100%" >
+                                    <thead>
+                                        <tr  style={{ backgroundColor : 'lightgray' }}>
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>Color</th>
+                                            { report_details.color_size_details.map((size,index) => 
+                                            size !== "" &&
+                                                    <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>{ size }</th>
+                                                ) }
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>Qty</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                         
-                                        { report_details.color_size_details.map((size,index) => 
-                                        size !== "" &&
-                                                <td style={{fontWeight:"bold"}}>{ this.state["size" + Number(Number(index) + 1) + "_total"] }</td>
-                                            ) }
-{/*                                         
-                                        <td> {this.state.size2_total}</td>
-                                        <td>{this.state.size3_total}</td>
-                                        <td>{this.state.size4_total}</td>
-                                        <td>{this.state.size5_total}</td>
-                                        <td>{this.state.size6_total}</td>
-                                        <td>{this.state.size7_total}</td>
-                                        <td>{this.state.size8_total}</td>
-                                        <td>{this.state.size9_total}</td> */}
-                                        <td style={{fontWeight:"bold"}}>{this.state.qty_total}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            </td>
-                            <td>
+                                        { report_details.color_details.map(item => 
+                                            <tr border={1}>
 
-                            </td>
-                            </tr>
-                            <tr>
-                                <td colSpan={2}>
-                                    <p style={{textDecorationLine: 'underline'}}>Terms</p>
-                                Any discrepancy found in this invoice should be notified
-                                imediately Subject to "Tirupur Jurisdiction only."
-                                </td>
-                                <td>
-                                    <br />
-                                    <br />
-                                Receiver's Seal Signature
-                                </td>
-                                <td  >
+                                                <td style={{border : '1px solid gray', paddingLeft : '5px'}}>{ item.color }</td>
+                                                { report_details.color_size_details.map((size,index) => 
+                                                    size !== "" && <td style={{border : '1px solid gray', paddingLeft : '5px'}}>{ item["size" + Number(Number(index) + 1)] }</td>
+                                                ) }
+                                                <td style={{border : '1px solid gray', paddingLeft : '5px'}}>{ item.qty }</td>
+                                            </tr>
+                                        )}
+                                        <tr>
+                                            <td style={{border : '1px solid gray', paddingLeft : '5px'}}> Grand Total</td>
+                                            { report_details.color_size_details.map((size,index) => 
+                                            size !== "" &&
+                                                    <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>{ this.state["size" + Number(Number(index) + 1) + "_total"] }</td>
+                                                ) }
+                                            <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>{this.state.qty_total}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-6" style={{ border : '1px solid black', padding : 0, paddingLeft : 5 }}>
+                                <p style={{textDecorationLine: 'underline'}}>Terms</p>
+                                <p style={{ whiteSpace : 'pre-line' }}>  Any discrepancy found in this invoice should be notified imediately Subject to "Tirupur Jurisdiction only.</p>
+                            </div>
+                            <div className="col-md-3" style={{ border : '1px solid black', padding : 0, paddingLeft : 5}}>
+                                <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
+                                    Receiver's Seal Signature
+                                </div>
+                            </div>
+                            <div className="col-md-3" style={{ border : '1px solid black', padding : 0, paddingLeft : 5 }}>
+                                <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
+                                    {/* Receiver's Seal Signature */}
                                     For  <b style={{fontWeight:"bold"}}>{ report_details.company_details.company }</b>
-                                </td>
-                                <td>
+                                </div>
+                            </div>
+                        </div>
+                  
+                    </div>
+                    </div>
+                </div>
 
-                                </td>
-                         </tr>
-
-                        {/* </div> */}
-                   
-                </table>
-
-}
-</div>
+                }
             </Fragment>
         )
     }
