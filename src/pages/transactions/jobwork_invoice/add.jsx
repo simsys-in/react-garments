@@ -81,18 +81,18 @@ class AddJobworkInvoice extends PureComponent{
 
 
    
-    getProcessSB = (order_id = null) => {
+    // getProcessSB = (order_id = null) => {
         
-        getRequest('transactions/getProcessSB').then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    process : data.data
-                })
-            }
-        })
-    }
+    //     getRequest('transactions/getProcessSB').then(data => {
+    //         if(data.status === "info")
+    //         {
+    //             this.setState({
+    //                 ...this.state,
+    //                 process : data.data
+    //             })
+    //         }
+    //     })
+    // }
 
 
    
@@ -319,7 +319,7 @@ class AddJobworkInvoice extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
-        this.getProcessSB();
+        // this.getProcessSB();
         this.getProductSB();
         this.getSizeSB();
         this.getAccountsLedger();

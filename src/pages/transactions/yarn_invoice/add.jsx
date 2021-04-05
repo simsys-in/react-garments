@@ -56,7 +56,7 @@ class AddYarn_Invoice extends PureComponent{
       };
 
       getLedgerNameSB = () => {
-        getRequest('transactions/getLedgerNameSB').then(data => {
+        getRequest('masters/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -67,22 +67,22 @@ class AddYarn_Invoice extends PureComponent{
         })
     }
 
-    getProcessSB = () => {
+    // getProcessSB = () => {
         
-        getRequest('transactions/getProcessSB').then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    process : data.data
-                })
-            }
-        })
-    }
+    //     getRequest('masters/getProcessSB').then(data => {
+    //         if(data.status === "info")
+    //         {
+    //             this.setState({
+    //                 ...this.state,
+    //                 process : data.data
+    //             })
+    //         }
+    //     })
+    // }
 
     getFabricsSB = () => {
         
-        getRequest('transactions/getFabricsSB').then(data => {
+        getRequest('masters/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -94,7 +94,7 @@ class AddYarn_Invoice extends PureComponent{
     }
     getColorSB = () => {
         
-        getRequest('transactions/getColorSB').then(data => {
+        getRequest('masters/getAllColorSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -167,7 +167,7 @@ class AddYarn_Invoice extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
-        this.getProcessSB();
+        // this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
         this.getYarn_Invoice();

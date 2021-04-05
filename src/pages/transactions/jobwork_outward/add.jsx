@@ -110,18 +110,18 @@ class AddJobworkOutward extends PureComponent{
         })
     }
 
-    getProcessSB = (order_id = null) => {
+    // getProcessSB = (order_id = null) => {
         
-        getRequest('transactions/getProcessSB').then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    process : data.data
-                })
-            }
-        })
-    }
+    //     getRequest('transactions/getProcessSB').then(data => {
+    //         if(data.status === "info")
+    //         {
+    //             this.setState({
+    //                 ...this.state,
+    //                 process : data.data
+    //             })
+    //         }
+    //     })
+    // }
 
     getCuttingProgramColorDetails = (order_id) => {
         getRequest('transactions/getCuttingProgramColorDetails?order_id=' +order_id).then(data => {
@@ -160,7 +160,7 @@ class AddJobworkOutward extends PureComponent{
 
     getColorSB = () => {
         
-        getRequest('transactions/getColorSB').then(data => {
+        getRequest('masters/getAllColorSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -174,7 +174,7 @@ class AddJobworkOutward extends PureComponent{
 
     getFabricsSB = () => {
         
-        getRequest('transactions/getFabricSB').then(data => {
+        getRequest('masters/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -200,7 +200,7 @@ class AddJobworkOutward extends PureComponent{
 
     getProductSB = () => {
 
-        getRequest('transactions/getProductSB').then(data => {
+        getRequest('masters/getAllProductSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -360,7 +360,7 @@ class AddJobworkOutward extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getAllLedgerSB();
-        this.getProcessSB();
+        // this.getProcessSB();
         this.getFabricsSB();
         this.getStyleSB();
         this.getUnitSB();

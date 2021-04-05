@@ -53,7 +53,7 @@ class AddYarn_Outward extends PureComponent{
       };
 
       getLedgerNameSB = () => {
-        getRequest('transactions/getLedgerNameSB').then(data => {
+        getRequest('masters/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -64,22 +64,22 @@ class AddYarn_Outward extends PureComponent{
         })
     }
 
-    getProcessSB = () => {
+    // getProcessSB = () => {
         
-        getRequest('transactions/getProcessSB').then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    process : data.data
-                })
-            }
-        })
-    }
+    //     getRequest('masters/getProcessSB').then(data => {
+    //         if(data.status === "info")
+    //         {
+    //             this.setState({
+    //                 ...this.state,
+    //                 process : data.data
+    //             })
+    //         }
+    //     })
+    // }
 
     getFabricsSB = () => {
         
-        getRequest('transactions/getFabricsSB').then(data => {
+        getRequest('masters/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -171,7 +171,7 @@ class AddYarn_Outward extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
-        this.getProcessSB();
+        // this.getProcessSB();
         this.getFabricsSB();
         this.getYarn_Outward();
         interval = setInterval(() => {

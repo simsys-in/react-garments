@@ -111,7 +111,7 @@ class AddOrderProgram extends PureComponent{
     }
 
     getLedgerNameSB = () => {
-        getRequest('transactions/getLedgerNameSB').then(data => {
+        getRequest('masters/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -122,18 +122,18 @@ class AddOrderProgram extends PureComponent{
         })
     }
 
-    getProcessSB = () => {
+    // getProcessSB = () => {
         
-        getRequest('transactions/getProcessSB').then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    process : data.data
-                })
-            }
-        })
-    }
+    //     getRequest('transactions/getProcessSB').then(data => {
+    //         if(data.status === "info")
+    //         {
+    //             this.setState({
+    //                 ...this.state,
+    //                 process : data.data
+    //             })
+    //         }
+    //     })
+    // }
 
     
     getStyleSB = () => {
@@ -149,7 +149,7 @@ class AddOrderProgram extends PureComponent{
     }
     
     getFabricSB = () => {
-        getRequest('transactions/getfabricSB').then(data => {
+        getRequest('masters/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -186,7 +186,7 @@ class AddOrderProgram extends PureComponent{
         this.getSizeSB();
         this.getStyleSB();
         this.getFabricSB();
-        this.getProcessSB();
+        // this.getProcessSB();
         this.getLedgerNameSB();
         this.getNextOrderNo();
         this.getOrderProgram();

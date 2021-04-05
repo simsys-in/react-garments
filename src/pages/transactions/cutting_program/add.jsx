@@ -145,7 +145,7 @@ class AddCuttingProgram extends PureComponent{
     }
 
     getLedgerNameSB = () => {
-        getRequest('transactions/getLedgerNameSB').then(data => {
+        getRequest('masters/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -156,18 +156,18 @@ class AddCuttingProgram extends PureComponent{
         })
     }
 
-    getProcessSB = () => {
+    // getProcessSB = () => {
         
-        getRequest('transactions/getProcessSB').then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    process : data.data
-                })
-            }
-        })
-    }
+    //     getRequest('transactions/getProcessSB').then(data => {
+    //         if(data.status === "info")
+    //         {
+    //             this.setState({
+    //                 ...this.state,
+    //                 process : data.data
+    //             })
+    //         }
+    //     })
+    // }
 
     
     getStyleSB = () => {
@@ -183,7 +183,7 @@ class AddCuttingProgram extends PureComponent{
     }
     
     getFabricSB = () => {
-        getRequest('transactions/getfabricSB').then(data => {
+        getRequest('masters/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -230,7 +230,7 @@ class AddCuttingProgram extends PureComponent{
         this.getNextCuttingProgramLotNo();
         this.getColorSB();
         this.getCuttingMasterSB();
-        this.getProcessSB();
+        // this.getProcessSB();
         this.getLedgerNameSB();
         this.getCuttingProgram();
         interval = setInterval(() => {

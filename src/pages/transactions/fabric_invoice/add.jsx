@@ -68,22 +68,22 @@ class AddFabricInvoice extends PureComponent{
         })
     }
 
-    getProcessSB = () => {
+    // getProcessSB = () => {
         
-        getRequest('transactions/getProcessSB').then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    process : data.data
-                })
-            }
-        })
-    }
+    //     getRequest('transactions/getProcessSB').then(data => {
+    //         if(data.status === "info")
+    //         {
+    //             this.setState({
+    //                 ...this.state,
+    //                 process : data.data
+    //             })
+    //         }
+    //     })
+    // }
 
     getColorSB = () => {
         
-        getRequest('transactions/getColorSB').then(data => {
+        getRequest('masters/getAllColorSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -97,7 +97,7 @@ class AddFabricInvoice extends PureComponent{
 
     getFabricsSB = () => {
         
-        getRequest('transactions/getFabricSB').then(data => {
+        getRequest('masters/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -221,7 +221,7 @@ class AddFabricInvoice extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
-        this.getProcessSB();
+        // this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
         this.getNextFabricInvoiceVouNo();

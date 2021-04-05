@@ -67,22 +67,22 @@ class AddFabricOutward extends PureComponent{
         })
     }
 
-    getProcessSB = (order_id = null) => {
+    // getProcessSB = (order_id = null) => {
         
-        getRequest('transactions/getProcessSB').then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    process : data.data
-                })
-            }
-        })
-    }
+    //     getRequest('transactions/getProcessSB').then(data => {
+    //         if(data.status === "info")
+    //         {
+    //             this.setState({
+    //                 ...this.state,
+    //                 process : data.data
+    //             })
+    //         }
+    //     })
+    // }
 
     getColorSB = () => {
         
-        getRequest('transactions/getColorSB').then(data => {
+        getRequest('masters/getAllColorSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -96,7 +96,7 @@ class AddFabricOutward extends PureComponent{
 
     getFabricsSB = () => {
         
-        getRequest('transactions/getFabricSB').then(data => {
+        getRequest('masters/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -217,7 +217,7 @@ class AddFabricOutward extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getAllLedgerSB();
-        this.getProcessSB();
+        // this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
         this.setTOTAL();
