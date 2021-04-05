@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash';
 import Checkbox from 'antd/lib/checkbox/Checkbox';
+import { issetNotEmpty } from '../../../helpers/formhelpers';
 
 
 
@@ -76,7 +77,7 @@ class AddJobwork_Inward  extends PureComponent{
         })
     }
 
-    getProcessSB = () => {
+    getProcessSB = (order_id = null) => {
         
         getRequest('transactions/getProcessSB').then(data => {
             if(data.status === "info")
@@ -88,6 +89,7 @@ class AddJobwork_Inward  extends PureComponent{
             }
         })
     }
+
 
     getFabricsSB = () => {
         
@@ -343,6 +345,7 @@ class AddJobwork_Inward  extends PureComponent{
         this.getProcessSBForOrderID(order_id);
         this.getSizesForOrderID(order_id);
         this.getJobworkOutwardColorDetails(order_id);
+        
     }
 
 
@@ -365,6 +368,29 @@ class AddJobwork_Inward  extends PureComponent{
         })
     }
 
+    getLedgerForOrderAndProcessID = (order_id,process_id) => {
+        if(issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(this.state.formData.process_id))
+        {
+            getRequest('transactions/getLedgerForOrderAndProcessID?order_id=' + this.state.formData.order_id + "&process_id=" + this.state.formData.process_id).then(data => {
+                if(data.status === "info")
+                {
+                    this.setState({
+                        ...this.state,
+                        formData : {
+                            ...this.state.formData,
+                            ledger_id : data.data[0].ledger_id
+                                            },
+                    },() => {
+                        this.formRef.current.setFieldsValue({
+                            ledger_id : this.state.formData.ledger_id
+                        })
+                    })
+                }
+            })
+        }
+    }
+
+
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
@@ -372,6 +398,7 @@ class AddJobwork_Inward  extends PureComponent{
         this.getFabricsSB();
         this.getColorSB();
         this.getProductSB();
+        
         this.getJobwork_Inward();
         this.setTOTAL();
         interval = setInterval(() => {
@@ -527,7 +554,7 @@ class AddJobwork_Inward  extends PureComponent{
                        
                        
                        <Selectbox modelName="order_id" label="Order No" onChange={this.onOrderIDChange} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
-                        <Selectbox modelName="process_id" label="Process" className="col-md-6" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
+                        <Selectbox modelName="process_id" label="Process" className="col-md-6" options={this.state.process} value={this.state.formData.process_id} onChange={this.getLedgerForOrderAndProcessID} ></Selectbox>
 
                     </div>
                     <div className="row">
