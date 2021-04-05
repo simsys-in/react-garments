@@ -74,8 +74,8 @@ class AddJobworkOutward extends PureComponent{
         console.log('Failed:', errorInfo);
       };
 
-      getLedgerNameSB = () => {
-        getRequest('transactions/getLedgerNameSB').then(data => {
+      getAllLedgerSB = () => {
+        getRequest('masters/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -359,7 +359,7 @@ class AddJobworkOutward extends PureComponent{
 
     componentDidMount() {
         this.getOrderSB();
-        this.getLedgerNameSB();
+        this.getAllLedgerSB();
         this.getProcessSB();
         this.getFabricsSB();
         this.getStyleSB();
@@ -652,8 +652,8 @@ class AddJobworkOutward extends PureComponent{
                     >
                         
                     <div className="row">
-                        <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange} className="col-sm-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
-                        <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-sm-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
+                        <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
+                        <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-6" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
                    </div>
                    <div className="row">
                        <Selectbox modelName="from_process_id" label="From Process" className="col-md-6" options={this.state.process} value={this.state.formData.from_process_id}  ></Selectbox>
@@ -672,70 +672,7 @@ class AddJobworkOutward extends PureComponent{
 
                    
 
-                   {/* <div className="row">
-                            <div className="col-md-12">
-                            <Divider plain orientation="left" >Inventory</Divider>
-                            <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
-                                    <div className="col-md-11">
-                                        <div className="row">
-                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Color" label="Color" required="false"></Textbox>
-
-                                            { this.state.size_data_for_order.map((item) => 
-                                                item !== "" && <Textbox width="40px"> <b> {item}</b></Textbox>
-                                            ) } */}
-                                            {/* <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size1" label="Size1" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size2" label="Size2" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size3" label="Size3" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size4" label="Size4" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size5" label="Size5" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size6" label="Size6" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size7" label="Size7" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size8" label="Size8" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Size9" label="Size9" required="false"></Textbox> */}
-                                            {/* <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Qty" label="Qty" required="false"></Textbox>
-                                        </div>
-                                         
-                                    </div>
-                                    <div className="col-md-1">
-                                          <Button type="primary" onClick={this.addJobworkOutwardInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
-                                   </div>
-                                </div>
-                             <Form.List name="jobwork_outward_inventory">
-                                   { (fields, { add, remove } )=> (
-                                       fields.map((field, index) => (
-                                               <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
-                                                   <div className="col-md-11">
-                                                       <div className="row">
-                                                          
-                                                           <Selectbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox> */}
-                                                          
-                                                           {/* <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size1' ]}  modelName={[field.name, 'size1']} value={[field.name, 'size1']} label="Size1" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size2' ]}  modelName={[field.name, 'size2']} value={[field.name, 'size2']} label="Size2" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size3' ]}  modelName={[field.name, 'size3']} value={[field.name, 'size3']} label="Size3" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size4' ]}  modelName={[field.name, 'size4']} value={[field.name, 'size4']} label="Size4" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size5' ]}  modelName={[field.name, 'size5']} value={[field.name, 'size5']} label="Size5" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size6' ]}  modelName={[field.name, 'size6']} value={[field.name, 'size6']} label="Size6" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size7' ]}  modelName={[field.name, 'size7']} value={[field.name, 'size7']} label="Size7" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size8' ]}  modelName={[field.name, 'size8']} value={[field.name, 'size8']} label="Size8" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size9' ]}  modelName={[field.name, 'size9']} value={[field.name, 'size9']} label="Size9" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox> */}
-                                                           {/* <Numberbox noPlaceholder required="false" withoutMargin className="col-md-1"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                       </div>
-
-                                                   </div>
-                                                   <div className="col-md-1">
-                                                       
-                                                       { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeJobworkOutwardInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
-                                                   </div>
-                                                   
-                                                </div>
-                                    )
-                                           
-                                    )
-                                ) }
-                               </Form.List>        
-                          </div>
-                          </div> */}
-
+                  
                           <Divider orientation="left" plain> Inventory</Divider>
                     <br/>
                     <div className="row">
@@ -828,31 +765,7 @@ class AddJobworkOutward extends PureComponent{
                         </div>
                     </div>
                     <br/>
-                    {/* <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
-                        <div className="col-md-11">
-                            <div className="row">
-                                
-                                    <Textbox withoutMargin showLabel={false} className="col-md-1" disabled defaultValue="Total" label="Total" required="false"></Textbox>
-                                    <Numberbox withoutMargin showLabel={false} className="col-md-1" withoutMargin modelName='size1_total' value={this.state.formData.total_size1} disabled label='Total Size1'></Numberbox>
-                                    <Numberbox withoutMargin showLabel={false} className="col-md-1" withoutMargin modelName='size2_total' value={this.state.formData.total_size2} disabled label='Total Size2'></Numberbox>
-                                    <Numberbox withoutMargin showLabel={false} className="col-md-1" withoutMargin modelName='size3_total' value={this.state.formData.total_size3} disabled label='Total Size3'></Numberbox>
-                                    <Numberbox withoutMargin showLabel={false} className="col-md-1" withoutMargin modelName='size4_total' value={this.state.formData.total_size4} disabled label='Total Size4'></Numberbox>
-                                    <Numberbox withoutMargin showLabel={false} className="col-md-1" withoutMargin modelName='size5_total' value={this.state.formData.total_size5} disabled label='Total Size5'></Numberbox>
-                                    <Numberbox withoutMargin showLabel={false} className="col-md-1" withoutMargin modelName='size6_total' value={this.state.formData.total_size6} disabled label='Total Size6'></Numberbox>
-                                    <Numberbox withoutMargin showLabel={false} className="col-md-1" withoutMargin modelName='size7_total' value={this.state.formData.total_size7} disabled label='Total Size7'></Numberbox>
-                                    <Numberbox withoutMargin showLabel={false} className="col-md-1" withoutMargin modelName='size8_total' value={this.state.formData.total_size8} disabled label='Total Size8'></Numberbox>
-                                    <Numberbox withoutMargin showLabel={false} className="col-md-1" withoutMargin modelName='size9_total' value={this.state.formData.total_size9} disabled label='Total Size9'></Numberbox>
-                                    <Numberbox withoutMargin showLabel={false} className="col-md-1" withoutMargin modelName='inventory_qty_total' value={this.state.formData.total_qty} disabled label='Total Qty'></Numberbox>
-                                   
-                                </div>
-
-                            </div>
-                            
-                            
-                        </div> 
-                          
-
-                    </div> */}
+                   
                        
                         <div className="row">
                              <div className="col-md-12">

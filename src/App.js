@@ -217,6 +217,9 @@ import ListDesignation from './pages/masters/designation/list'
 ///// Kowsalya Workspace //////
 ///// Kowsalya Workspace //////
 
+//garments invoice
+import AddGarmentsInvoice  from './pages/transactions/garments_invoice/add'
+import ListGarmentsInvoice from './pages/transactions/garments_invoice/list'
 
 
 
@@ -567,6 +570,10 @@ class App extends React.PureComponent
                             {/* Kowsalya Workspace */}
                             {/* Kowsalya Workspace */}
 
+                             {/* jobwork Outward */}
+                              <Route exact path="/transactions/add_garments_invoice" component={AddGarmentsInvoice} />
+                              <Route exact path="/transactions/edit_garments_invoice/:id" component={AddGarmentsInvoice} />
+                              <Route exact path="/transactions/list_garments_invoice" component={ListGarmentsInvoice} />
 
 
 

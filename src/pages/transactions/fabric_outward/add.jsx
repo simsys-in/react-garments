@@ -55,8 +55,8 @@ class AddFabricOutward extends PureComponent{
         console.log('Failed:', errorInfo);
       };
 
-      getLedgerNameSB = () => {
-        getRequest('transactions/getLedgerNameSB').then(data => {
+      getAllLedgerSB = () => {
+        getRequest('masters/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -194,8 +194,8 @@ class AddFabricOutward extends PureComponent{
         })
     }
 
-    getNextFabricInwardVouNo = () => {
-        getRequest('transactions/getNextFabricInwardVouNo').then(data => {
+    getNextFabricOutwardVouNo = () => {
+        getRequest('transactions/getNextFabricOutwardVouNo').then(data => {
             console.log(data);
             if(data.status === "info")
             {
@@ -216,12 +216,12 @@ class AddFabricOutward extends PureComponent{
 
     componentDidMount() {
         this.getOrderSB();
-        this.getLedgerNameSB();
+        this.getAllLedgerSB();
         this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
         this.setTOTAL();
-        this.getNextFabricInwardVouNo();
+        this.getNextFabricOutwardVouNo();
         this.getFabricOutward();
         interval = setInterval(() => {
             this.validate()
@@ -253,7 +253,7 @@ class AddFabricOutward extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/fabricOutward?id=' + this.id, values).then(data => {
+            putRequest('transactions/fabricOutward?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_fabric_outward')
@@ -270,6 +270,26 @@ class AddFabricOutward extends PureComponent{
             })
         })
     };
+
+    getNextFabricInwardVouNo = () => {
+        getRequest('transactions/getNextFabricInwardVouNo').then(data => {
+            // console.log(data.max_vou_no);
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        vouno : data.data.max_vou_no
+                    }
+                },() => {
+                    this.formRef.current.setFieldsValue({
+                        vouno : this.state.formData.vouno
+                    })
+                })
+            }
+        })
+    }
 
     checkProcesses = (process) => {
         var values = this.formRef.current.getFieldValue();
@@ -356,7 +376,7 @@ class AddFabricOutward extends PureComponent{
                    </div>
                     
                    <div className="row">
-                        <Numberbox label="Vou No" modelName="vouno" required="false" className="col-md-6"></Numberbox>
+                        <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-6"></Textbox>
                         <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
                    </div>
 
@@ -420,12 +440,12 @@ class AddFabricOutward extends PureComponent{
                         <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
                             <div className="col-md-11">
                                 <div className="row">
-                                    <div className="col-md-6">
+                                   <div className="col-md-6"></div>
                                     <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Total" label="Total" required="false"></Textbox>
-                                    <Numberbox withoutMargin className='col-md-2' align="right" modelName='inventory_roll_total' value={this.state.formData.inventory_roll_total} disabled label='Total Roll'></Numberbox>
-                                     <Numberbox withoutMargin className='col-md-2' align="right" modelName='inventory_weight_total' value={this.state.formData.inventory_weight_total} disabled label='Total Weight'></Numberbox>
+                                    <Numberbox withoutMargin className='col-md-2' showLabel={false} align="right" modelName='inventory_roll_total' value={this.state.formData.inventory_roll_total} disabled label='Total Roll'></Numberbox>
+                                     <Numberbox withoutMargin className='col-md-2' showLabel={false} align="right" modelName='inventory_weight_total' value={this.state.formData.inventory_weight_total} disabled label='Total Weight'></Numberbox>
 
-                                    </div>
+                                    
                                     
                                 </div>
                             </div>

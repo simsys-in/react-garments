@@ -271,6 +271,27 @@ class AddJobworkInvoice extends PureComponent{
         }
     }
 
+    getNextJobworkInwardVouNo = () => {
+        getRequest('transactions/getNextJobworkInwardVouNo').then(data => {
+            // console.log(data.max_vou_no);
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        vouno : data.data.max_vou_no
+                    }
+                },() => {
+                    this.formRef.current.setFieldsValue({
+                        vouno : this.state.formData.vouno
+                    })
+                })
+            }
+        })
+    }
+
+
     
 
     getProductAndSizeSBForOrderID = (order_id,index) => {
@@ -302,6 +323,7 @@ class AddJobworkInvoice extends PureComponent{
         this.getProductSB();
         this.getSizeSB();
         this.getAccountsLedger();
+        this.getNextJobworkInwardVouNo();
         this.setTOTAL();
         this.getJobworkInvoice();
         interval = setInterval(() => {
@@ -544,16 +566,15 @@ class AddJobworkInvoice extends PureComponent{
                    </div>
                    <div className="row">
                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
-                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
+                       <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
                         <Selectbox modelName="ledger2_id"  label="Accounts Ledger" className="col-md-4" options={this.state.acLedger_data} required="false" value={this.state.formData.ledger2_id} ></Selectbox>
+
                    </div>
                     
-                   <div className="row">
- 
-                   </div>
-
+                  
                    <div className="row">
                      <Textbox label="Ref No" modelName="refno" required="false" className="col-md-4"></Textbox>
+                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                      {/* <Selectbox modelName="menu_id" required="false" label="Menu" className="col-md-6" options={this.state.menu_data} value={this.state.formData.menu_id} ></Selectbox> */}
  
                    </div>
