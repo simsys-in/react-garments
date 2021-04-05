@@ -274,6 +274,25 @@ class AddGarmentsInvoice extends PureComponent{
         }
     }
 
+    getNextGarmentsInvoiceVouNo = () => {
+        getRequest('transactions/getNextGarmentsInvoiceVouNo').then(data => {
+            // console.log(data.max_vou_no);
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        vouno : data.data.max_vou_no
+                    }
+                },() => {
+                    this.formRef.current.setFieldsValue({
+                        vouno : this.state.formData.vouno
+                    })
+                })
+            }
+        })
+    }
     
     
 
@@ -282,6 +301,7 @@ class AddGarmentsInvoice extends PureComponent{
         this.getAllLedgerSB();
         this.getMarketingUserSB();
         this.getProductSB();
+        this.getNextGarmentsInvoiceVouNo();
         this.setTOTAL();
         this.getGarmentsInvoice();
         interval = setInterval(() => {
@@ -450,13 +470,15 @@ class AddGarmentsInvoice extends PureComponent{
                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
                    </div>
                    <div className="row">
+                   <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-6"></Textbox>
                    <Selectbox modelName="marketing_user_id"  label="Marketed By" className="col-md-6" options={this.state.user_data} value={this.state.formData.marketing_user_id} ></Selectbox>
-                   <Textbox label="Delivery Address" modelName="delivery_address" required="false" className="col-md-6"></Textbox>
                    </div>
+
 
                    
                     
                    <div className="row">
+                   <Textbox label="Delivery Address" modelName="delivery_address" required="false" className="col-md-6"></Textbox>
                      <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
                        
                    </div>
