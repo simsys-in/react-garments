@@ -225,6 +225,9 @@ import ListGarmentsInvoice from './pages/transactions/garments_invoice/list'
 import AddGarmentsDeliveryNote  from './pages/transactions/garments_delivery_note/add'
 import ListGarmentsDeliveryNote from './pages/transactions/garments_delivery_note/list'
 
+//garments receipt note
+import AddGarmentsReceiptNote  from './pages/transactions/garments_receipt_note/add'
+import ListGarmentsReceiptNote from './pages/transactions/garments_receipt_note/list'
 
 
 ///// Kowsalya Workspace //////
@@ -578,11 +581,15 @@ class App extends React.PureComponent
                               <Route exact path="/transactions/edit_garments_invoice/:id" component={AddGarmentsInvoice} />
                               <Route exact path="/transactions/list_garments_invoice" component={ListGarmentsInvoice} />
 
-                             {/* jobwork Outward */}
+                             {/* garments delivery note */}
                              <Route exact path="/transactions/add_garments_delivery_note" component={AddGarmentsDeliveryNote} />
                               <Route exact path="/transactions/edit_garments_delivery_note/:id" component={AddGarmentsDeliveryNote} />
                               <Route exact path="/transactions/list_garments_delivery_note" component={ListGarmentsDeliveryNote} />
 
+                              {/* jobwork receipt note */}
+                              <Route exact path="/transactions/add_garments_receipt_note" component={AddGarmentsReceiptNote} />
+                              <Route exact path="/transactions/edit_garments_receipt_note/:id" component={AddGarmentsReceiptNote} />
+                              <Route exact path="/transactions/list_garments_receipt_note" component={ListGarmentsReceiptNote} />
 
 
                             {/* Kowsalya Workspace */}
