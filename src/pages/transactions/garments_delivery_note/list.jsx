@@ -5,9 +5,9 @@ import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
 import DataTable from '../../../components/Datatable';
-import Report from './report';
+// import Report from './report';
 
-class ListGarmentsInvoice extends PureComponent {
+class ListGarmentsDeliveryNote extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,8 +54,8 @@ class ListGarmentsInvoice extends PureComponent {
           defaultSortOrder: 'ascend',
           render: (text, record) => (
             <Space size="middle">
-              <Button type="primary" onClick={() => this.editGarmentsInvoice(record.id)} icon={<EditOutlined />} size="middle" />
-              <Button type="default" color="error" danger onClick={() => this.deleteGarmentsInvoice(record)} icon={<DeleteOutlined />} size="middle" />
+              <Button type="primary" onClick={() => this.editGarmentsDeliveryNote(record.id)} icon={<EditOutlined />} size="middle" />
+              <Button type="default" color="error" danger onClick={() => this.deleteGarmentsDeliveryNote(record)} icon={<DeleteOutlined />} size="middle" />
             </Space>
           ),
         },
@@ -65,13 +65,13 @@ class ListGarmentsInvoice extends PureComponent {
     }
   }
 
-  editGarmentsInvoice = (id) => {
+  editGarmentsDeliveryNote = (id) => {
     console.log(id);
-    this.props.history.push('/transactions/edit_garments_invoice/' + id)
+    this.props.history.push('/transactions/edit_garments_delivery_note/' + id)
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/garmentsInvoice?id=' + id).then(data => {
+    deleteRequest('transactions/garmentsDeliveryNote?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -100,7 +100,7 @@ class ListGarmentsInvoice extends PureComponent {
 
 
 
-  deleteGarmentsInvoice = (user) => {
+  deleteGarmentsDeliveryNote = (user) => {
     const id = user.id
     console.log(id);
     const name = user.ledger;
@@ -116,18 +116,18 @@ class ListGarmentsInvoice extends PureComponent {
 
   componentDidMount = () => {
     seo({
-      title: 'List Garments Invoice',
-      metaDescription: 'List Garments Invoice'
+      title: 'List Garments Delivery Note',
+      metaDescription: 'List Garments Delivery Note'
     });
-    getRequest('transactions/garmentsInvoice').then(data => {
+    getRequest('transactions/garmentsDeliveryNote').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{
           item.sno = index +1;
           item.action =  <Space size="middle">
-          <Button type="primary" onClick={() => this.editGarmentsInvoice(item.id)} icon={<EditOutlined />} size="middle" />
-          <Button type="default" color="error" danger onClick={() => this.deleteGarmentsInvoice(item)} icon={<DeleteOutlined />} size="middle" />
-          <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" />
+          <Button type="primary" onClick={() => this.editGarmentsDeliveryNote(item.id)} icon={<EditOutlined />} size="middle" />
+          <Button type="default" color="error" danger onClick={() => this.deleteGarmentsDeliveryNote(item)} icon={<DeleteOutlined />} size="middle" />
+          {/* <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" /> */}
         </Space>
 
         newData.push(item)
@@ -144,17 +144,17 @@ class ListGarmentsInvoice extends PureComponent {
   }
 
   
-  printDiv = () => {
-    var printContents = document.getElementById('printable-area').innerHTML;
-     var originalContents = document.body.innerHTML;
+//   printDiv = () => {
+//     var printContents = document.getElementById('printable-area').innerHTML;
+//      var originalContents = document.body.innerHTML;
 
-     document.body.innerHTML = printContents;
+//      document.body.innerHTML = printContents;
 
-     window.print();
+//      window.print();
 
-     document.body.innerHTML = originalContents;
-     window.location.reload();
-  }
+//      document.body.innerHTML = originalContents;
+//      window.location.reload();
+//   }
 
 
   render() {
@@ -163,15 +163,15 @@ class ListGarmentsInvoice extends PureComponent {
         <div className="row">
           <div className="col-md-10"></div>
           <div className="col-md-2" align="right">
-            <Button type="primary" onClick={() => { this.props.history.push("/transactions/add_garments_invoice") }}> Add </Button>
+            <Button type="primary" onClick={() => { this.props.history.push("/transactions/add_garments_delivery_note") }}> Add </Button>
           </div>
           <br />
           <br />
         </div>
         <DataTable data={this.state} ></DataTable>
 
-        <Modal
-          title="Garments Invoice"
+        {/* <Modal
+          title="Garments Delivery Note"
           centered
           width={1000}
           visible={this.state.showPrint}
@@ -180,7 +180,7 @@ class ListGarmentsInvoice extends PureComponent {
           onCancel={() => this.hideMoal(false)}
         >
           <Report itemId={this.state.selectedItem.id} id="printable-area" />
-        </Modal>
+        </Modal> */}
 
       </Fragment>
     )
@@ -188,4 +188,4 @@ class ListGarmentsInvoice extends PureComponent {
 }
 
 
-export default withRouter(ListGarmentsInvoice);
+export default withRouter(ListGarmentsDeliveryNote);

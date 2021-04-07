@@ -18,7 +18,7 @@ import Checkbox from 'antd/lib/checkbox/Checkbox';
 let interval;
 
 
-class AddGarmentsInvoice extends PureComponent{
+class AddGarmentsReceiptNote extends PureComponent{
     formRef = React.createRef();
     constructor(props){
         super(props);
@@ -29,10 +29,11 @@ class AddGarmentsInvoice extends PureComponent{
             formData : {
                 status : 'active',
                 vou_date : moment(),
-                garments_invoice_inventory : [
+                garments_receipt_note_inventory : [
                     {  
                         color_id : null,
                         vou_id : null,
+                        color : null,
                         size1_qty : 0,
                         size2_qty : 0,
                         size3_qty :0 ,
@@ -42,21 +43,8 @@ class AddGarmentsInvoice extends PureComponent{
                         size7_qty : 0,
                         size8_qty : 0,
                         size9_qty : 0,
-                        amount: 0,
-                        product_id : null,
-                        size1_rate : 0,
-                        size2_rate : 0,
-                        size3_rate : 0,
-                        size4_rate : 0,
-                        size5_rate : 0,
-                        size6_rate : 0,
-                        size7_rate : 0,
-                        size8_rate : 0,
-                        size9_rate : 0,
-                        disc_percentage	: 0,
-                        disc_value	: 0,
                         qty : 0,
-                        
+                        unit: null
                       
                     }
                
@@ -65,9 +53,10 @@ class AddGarmentsInvoice extends PureComponent{
             },
             
             user_data : [],
+            unit_data : [],
             ledger_name : [],
             product_data: [],
-        
+            color_data: [],
             order_no : [],
            
         }
@@ -117,6 +106,57 @@ class AddGarmentsInvoice extends PureComponent{
         })
     }
 
+    getColorSB = () => {
+        
+        getRequest('masters/getAllColorSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    color_data : data.data
+                })
+            }
+        })
+    }
+
+
+    getUnitSB = () => {
+        getRequest('masters/getUnitSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    unit_data : data.data
+                })
+            }
+        })
+    }
+
+    getUnitForProductId = (product_id, index) => {
+        getRequest('masters/getUnitForProductID?product_id=' + product_id).then(data => {
+            if(data.status === "info")
+            {
+                var garments_receipt_note_inventory = this.state.formData.garments_receipt_note_inventory;
+                var currentItem = garments_receipt_note_inventory[index];
+                currentItem.unit_id = data.data;
+                currentItem.product_id = product_id;
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        garments_receipt_note_inventory : garments_receipt_note_inventory
+                    },
+                },()=>{
+                    this.formRef.current.setFieldsValue({
+                        garments_receipt_note_inventory: this.state.formData.garments_receipt_note_inventory
+                    })
+                })
+            }
+        })
+    }
+
+
+
     getMarketingUserSB = () => {
 
         getRequest('transactions/getMarketingUserSB').then(data => {
@@ -134,7 +174,7 @@ class AddGarmentsInvoice extends PureComponent{
 
     setTOTAL =() => {
         var values =  this.formRef.current.getFieldValue();
-        var garments_invoice_inventory = values.garments_invoice_inventory;
+        var garments_receipt_note_inventory = values.garments_receipt_note_inventory;
         var total_size1 = 0;
         var total_size2 = 0;
         var total_size3 = 0;
@@ -145,10 +185,10 @@ class AddGarmentsInvoice extends PureComponent{
         var total_size8 = 0;
         var total_size9 = 0;
         var total_qty = 0;
-        var total_amount_qty = 0;
-        garments_invoice_inventory.map((item, index) => {
+        
+        garments_receipt_note_inventory.map((item, index) => {
             // console.log(item);
-            if(item.selected){
+        
                 total_size1 += Number(item.size1_qty);
                 total_size2 += Number(item.size2_qty);
                 total_size3 += Number(item.size3_qty);
@@ -160,12 +200,8 @@ class AddGarmentsInvoice extends PureComponent{
                 total_size9 += Number(item.size9_qty);
                 total_qty += Number(item.size1_qty)+Number(item.size2_qty)+Number(item.size3_qty)+Number(item.size4_qty)+Number(item.size5_qty)+Number(item.size6_qty)+Number(item.size7_qty)+Number(item.size8_qty)+Number(item.size9_qty);
                 item.qty = Number(item.size1_qty)+Number(item.size2_qty)+Number(item.size3_qty)+Number(item.size4_qty)+Number(item.size5_qty)+Number(item.size6_qty)+Number(item.size7_qty)+Number(item.size8_qty)+Number(item.size9_qty);
-
-                total_amount_qty += Number((Number(item.size1_qty) * Number(item.size1_rate)))+Number((Number(item.size1_qty) * Number(item.size2_rate)))+Number((Number(item.size3_qty) * Number(item.size3_rate)))+Number((Number(item.size4_qty) * Number(item.size4_rate)))+Number((Number(item.size5_qty) * Number(item.size5_rate)))+Number((Number(item.size6_qty) * Number(item.size6_rate)))+Number((Number(item.size7_qty) * Number(item.size7_rate)))+Number((Number(item.size8_qty) * Number(item.size8_rate)))+Number((Number(item.size9_qty) * Number(item.size9_rate)));
                 
-                item.amount = Number((Number(item.size1_qty) * Number(item.size1_rate)))+Number((Number(item.size1_qty) * Number(item.size2_rate)))+Number((Number(item.size3_qty) * Number(item.size3_rate)))+Number((Number(item.size4_qty) * Number(item.size4_rate)))+Number((Number(item.size5_qty) * Number(item.size5_rate)))+Number((Number(item.size6_qty) * Number(item.size6_rate)))+Number((Number(item.size7_qty) * Number(item.size7_rate)))+Number((Number(item.size8_qty) * Number(item.size8_rate)))+Number((Number(item.size9_qty) * Number(item.size9_rate)));
-
-                if(index === garments_invoice_inventory.length - 1)
+                if(index === garments_receipt_note_inventory.length - 1)
                 {
                     this.setState({
                         ...this.state,
@@ -181,7 +217,7 @@ class AddGarmentsInvoice extends PureComponent{
                             size8_qty_total : Number(total_size8),
                             size9_qty_total : Number(total_size9),
                             inventory_qty_total : Number(total_qty),
-                            inventory_amount_total : Number(total_amount_qty),
+                            
                         }
                     }, () => {
                         this.formRef.current.setFieldsValue({
@@ -195,46 +231,12 @@ class AddGarmentsInvoice extends PureComponent{
                             size8_qty_total : Number(total_size8),
                             size9_qty_total : Number(total_size9),
                             inventory_qty_total : Number(total_qty),
-                            inventory_amount_total : Number(total_amount_qty),
+                            
                         })
                     })
                 }
-            }
-            else{
-                
-                this.setState({
-                    ...this.state,
-                    formData : {
-                        ...this.state.formData,
-                        size1_qty_total : Number(total_size1),
-                        size2_qty_total : Number(total_size2),
-                        size3_qty_total : Number(total_size3),
-                        size4_qty_total : Number(total_size4),
-                        size5_qty_total : Number(total_size5),
-                        size6_qty_total : Number(total_size6),
-                        size7_qty_total : Number(total_size7),
-                        size8_qty_total : Number(total_size8),
-                        size9_qty_total : Number(total_size9),
-                        inventory_qty_total : Number(total_qty),
-                        inventory_amount_total : Number(total_amount_qty),
-                    }
-                }, () => {
-                    this.formRef.current.setFieldsValue({
-                        size1_qty_total : Number(total_size1),
-                        size2_qty_total : Number(total_size2),
-                        size3_qty_total : Number(total_size3),
-                        size4_qty_total : Number(total_size4),
-                        size5_qty_total : Number(total_size5),
-                        size6_qty_total : Number(total_size6),
-                        size7_qty_total : Number(total_size7),
-                        size8_qty_total : Number(total_size8),
-                        size9_qty_total : Number(total_size9),
-                        inventory_qty_total : Number(total_qty),
-                        inventory_amount_total : Number(total_amount_qty),
-                            
-                    })
-                })
-            }
+            
+            
         })
     }
 
@@ -255,16 +257,20 @@ class AddGarmentsInvoice extends PureComponent{
         }
     }
 
-    getGarmentsInvoice = () => {
+    
+
+    getGarmentsReceiptNote = () => {
         console.log(this.id)
         if(this.id)
         {
-            getRequest("transactions/garmentsInvoice?id=" + this.id).then(data => {
+            getRequest("transactions/garmentsReceiptNote?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
-            
-            
+                this.getMobileForLedgerID(data.data.ledger_id)
+                data.data.garments_receipt_note_inventory.map((item,index) => {
+                    this.getUnitForProductId(item.product_id, index)
+                })
             })
 
         }
@@ -274,8 +280,8 @@ class AddGarmentsInvoice extends PureComponent{
         }
     }
 
-    getNextGarmentsInvoiceVouNo = () => {
-        getRequest('transactions/getNextGarmentsInvoiceVouNo').then(data => {
+    getNextGarmentsReceiptNoteVouNo = () => {
+        getRequest('transactions/getNextGarmentsReceiptNoteVouNo').then(data => {
             // console.log(data.max_vou_no);
             if(data.status === "info")
             {
@@ -294,6 +300,25 @@ class AddGarmentsInvoice extends PureComponent{
         })
     }
     
+    getMobileForLedgerID = (ledger_id) => {
+        getRequest('masters/getMobileForLedgerID?ledger_id=' + ledger_id).then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        mobile : data.data
+                    },
+                },() => {
+                    this.formRef.current.setFieldsValue({
+                        mobile : this.state.formData.mobile
+                    })
+                })
+            }
+        })
+    }
+
     
 
     componentDidMount() {
@@ -301,9 +326,11 @@ class AddGarmentsInvoice extends PureComponent{
         this.getAllLedgerSB();
         this.getMarketingUserSB();
         this.getProductSB();
-        this.getNextGarmentsInvoiceVouNo();
+        this.getColorSB();
+        this.getUnitSB();
+        this.getNextGarmentsReceiptNoteVouNo();
         this.setTOTAL();
-        this.getGarmentsInvoice();
+        this.getGarmentsReceiptNote();
         interval = setInterval(() => {
             this.validate()
         }, 100);
@@ -315,15 +342,15 @@ class AddGarmentsInvoice extends PureComponent{
 
     componentWillMount = () => {
         seo({
-            title: 'Add Garments Invoice',
-            metaDescription: 'Add Garments Invoice'
+            title: 'Add Garments Receipt Note',
+            metaDescription: 'Add Garments Receipt Note'
           });
 
           if(this.id)
           {
             seo({
-                title: 'Edit Garments Invoice',
-                metaDescription: 'Edit Garments Invoice'
+                title: 'Edit Garments Receipt Note',
+                metaDescription: 'Edit Garments Receipt Note'
               });
               console.log("Edit Page");
             }
@@ -334,10 +361,10 @@ class AddGarmentsInvoice extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/garmentsInvoice?id=' + this.id, this.state.formData).then(data => {
+            putRequest('transactions/garmentsReceiptNote?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
-                    this.props.history.push('/transactions/list_garments_invoice')
+                    this.props.history.push('/transactions/list_garments_receipt_note')
                     console.log(data) 
                 }
             })
@@ -359,89 +386,78 @@ class AddGarmentsInvoice extends PureComponent{
    
 
    
-    addGarmentsInvoiceInventory = () => {
-        var newGarmentsInvoiceInventory = {
+    addGarmentsReceiptNoteInventory = () => {
+        var newGarmentsReceiptNoteInventory = {
             color_id : null,
-            vou_id : null,
-            size1_qty : 0,
-            size2_qty : 0,
-            size3_qty :0 ,
-            size4_qty : 0,
-            size5_qty : 0,
-            size6_qty : 0,
-            size7_qty : 0,
-            size8_qty : 0,
-            size9_qty : 0,
-            amount: 0,
-            product_id : null,
-            size1_rate : 0,
-            size2_rate : 0,
-            size3_rate : 0,
-            size4_rate : 0,
-            size5_rate : 0,
-            size6_rate : 0,
-            size7_rate : 0,
-            size8_rate : 0,
-            size9_rate : 0,
-            disc_percentage	: 0,
-            disc_value	: 0,
-            qty : 0,
-            
+                        vou_id : null,
+                        color : null,
+                        size1_qty : 0,
+                        size2_qty : 0,
+                        size3_qty :0 ,
+                        size4_qty : 0,
+                        size5_qty : 0,
+                        size6_qty : 0,
+                        size7_qty : 0,
+                        size8_qty : 0,
+                        size9_qty : 0,
+                        qty : 0,
+                        unit: null
+                      
             
             
         }
 
-        var oldGarmentsInvoiceInventoryArray = this.state.formData.garments_invoice_inventory;
+        var oldGarmentsReceiptNoteInventoryArray = this.state.formData.garments_receipt_note_inventory;
 
-        oldGarmentsInvoiceInventoryArray.push(newGarmentsInvoiceInventory);
+        oldGarmentsReceiptNoteInventoryArray.push(newGarmentsReceiptNoteInventory);
 
         this.setState({
             ...this.state,
             formData : {
                 ...this.state.formData,
-                garments_invoice_inventory : oldGarmentsInvoiceInventoryArray
+                garments_receipt_note_inventory : oldGarmentsReceiptNoteInventoryArray
 
             }
         })
     }
 
    
-    removeGarmentsInvoiceInventory = (index) => {
-        var oldGarmentsInvoiceInventoryArray = this.state.formData.garments_invoice_inventory;
+    removeGarmentsReceiptNoteInventory = (index) => {
+        var oldGarmentsReceiptNoteInventoryArray = this.state.formData.garments_receipt_note_inventory;
 
-        oldGarmentsInvoiceInventoryArray.splice(index, 1);
+        oldGarmentsReeceiptNoteInventoryArray.splice(index, 1);
         
         this.setState({
             ...this.state,
             formData : {
                 ...this.state.formData,
-                garments_invoice_inventory : oldGarmentsInvoiceInventoryArray
+                garments_receipt_note_inventory : oldGarmentsReceiptNoteInventoryArray
             }
         })
         this.setTOTAL();
     }
 
-    checkAllItems = (ev) => {
-        var checked = ev.target.checked;
-        var formData = this.state.formData;
-        var inventories = formData.garments_invoice_inventory;
-        console.log(checked);
-        inventories.map((item, index) => {
-            item.selected = checked;
-            if(index === inventories.length - 1)
-            {
-                console.log(formData);
-                this.setState({
-                    ...this.state,
-                    formData : formData
-                }, () => {
-                    this.formRef.current.setFieldsValue(formData);
-                    this.setTOTAL()
-                })
-            }
-        })
+    // checkAllItems = (ev) => {
+    //     var checked = ev.target.checked;
+    //     var formData = this.state.formData;
+    //     var inventories = formData.garments_delivery_note_inventory;
+    //     console.log(checked);
+    //     inventories.map((item, index) => {
+    //         item.selected = checked;
+    //         if(index === inventories.length - 1)
+    //         {
+    //             console.log(formData);
+    //             this.setState({
+    //                 ...this.state,
+    //                 formData : formData
+    //             }, () => {
+    //                 this.formRef.current.setFieldsValue(formData);
+    //                 this.setTOTAL()
+    //             })
+    //         }
+    //     })
 
-    }
+    // }
 
    
   
@@ -451,7 +467,7 @@ class AddGarmentsInvoice extends PureComponent{
             <Fragment>
                 <div className="row">
                     <div className="col-md-12" align="right">
-                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/transactions/list_garments_invoice') } }>
+                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/transactions/list_garments_receipt_note') } }>
                             { this.id ? "Back" : 'List'}
                         </Button>
                     </div>
@@ -466,7 +482,14 @@ class AddGarmentsInvoice extends PureComponent{
                     >
                         
                     <div className="row">
-                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
+                     <Selectbox modelName="order_id" label="Order No"  className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+
+                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerID}></Selectbox>
+                   </div>
+
+                   <div className="row">
+                      <Textbox label="Mobile" disabled modelName="mobile" required="false"  className="col-md-6"></Textbox>
+
                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
                    </div>
                    <div className="row">
@@ -478,7 +501,6 @@ class AddGarmentsInvoice extends PureComponent{
                    
                     
                    <div className="row">
-                   <Textbox label="Delivery Address" modelName="delivery_address" required="false" className="col-md-6"></Textbox>
                      <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
                        
                    </div>
@@ -499,37 +521,39 @@ class AddGarmentsInvoice extends PureComponent{
                                     </thead> */}
                                     <thead>
                                         <tr>
-                                            <th width="30px"> <Checkbox onChange={this.checkAllItems} /></th>
-                                            <th width="40px"> <b> Ref No</b></th>
+                                            {/* <th width="30px"> <Checkbox onChange={this.checkAllItems} /></th> */}
+                                        
                                             <th width="80px"> <b> Product</b></th>
+                                            <th width="80px"> <b>Color</b></th>
+                                            <th width="80px"> <b>Unit</b></th>
                                             <th width="80px"> <b> Description</b></th>
-                                            <th width="40px"> <b> Size1/Rate</b></th>
-                                            <th width="40px"> <b> Size2/Rate</b></th>
-                                            <th width="40px"> <b> Size3/Rate</b></th>
-                                            <th width="40px"> <b> Size4/Rate</b></th>
-                                            <th width="40px"> <b> Size5/Rate</b></th>
-                                            <th width="40px"> <b> Size6/Rate</b></th>
-                                            <th width="40px"> <b> Size7/Rate</b></th>
-                                            <th width="40px"> <b> Size8/Rate</b></th>
-                                            <th width="40px"> <b> Size9/Rate</b></th>
-                                            <th width="40px"> <b> Disc%/Rate</b></th>
+                                            <th width="40px"> <b> Size1</b></th>
+                                            <th width="40px"> <b> Size2</b></th>
+                                            <th width="40px"> <b> Size3</b></th>
+                                            <th width="40px"> <b> Size4</b></th>
+                                            <th width="40px"> <b> Size5</b></th>
+                                            <th width="40px"> <b> Size6</b></th>
+                                            <th width="40px"> <b> Size7</b></th>
+                                            <th width="40px"> <b> Size8</b></th>
+                                            <th width="40px"> <b> Size9</b></th>
+                                        
                                             <th width="40px"> <b> Qty</b></th>
-                                            <th width="40px"> <b> Amount</b></th>
+                                            
                                             <th width="30px">
-                                                <Button type="primary"  onClick={this.addGarmentsInvoiceInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
+                                                <Button type="primary"  onClick={this.addGarmentsDeliveryNoteInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {/* {this.state.formData.fabrics.map((row, index) => {
                                             return ( */}
-                                                <Form.List name="garments_invoice_inventory">
+                                                <Form.List name="garments_receipt_note_inventory">
                                                         { (fields, { add, remove } )=> (
                                                             fields.map((field, index) => (
                                                                 <tr key={index}>
                                                                 {/* <Fragment> */}
                                                                 
-                                                                <td  style={{ textAlign : 'center' }}>
+                                                                {/* <td  style={{ textAlign : 'center' }}>
                                                                     <Form.Item
                                                                     valuePropName="checked"
                                                                     name={[field.name, "selected"]}
@@ -537,91 +561,82 @@ class AddGarmentsInvoice extends PureComponent{
                                                                     // initialValue={false}
                                                                     >
                                                                         <Checkbox onChange={this.setTOTAL}></Checkbox>
-                                                                    </Form.Item>
+                                                                    </Form.Item> */}
 
 
                                                                     {/* <Checkbox field={field} fieldKey={[ field.fieldKey, 'selected' ]} modelName={[field.name, 'selected']} checked={[field.name, 'selected']} value={[field.name, 'selected']} /> */}
-                                                                </td>
-                                                                <td ><Textbox className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} field={field} fieldKey={[ field.fieldKey, 'refno' ]} modelName={[field.name, 'refno']}  label="Ref No"></Textbox></td>
+                                                                {/* </td> */}
                                                                 
                                                                 <td>
-                                                                <Selectbox  className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} modelName={[field.name, 'product_id']}  label="Product" value={[field.name, 'product_id']} options={this.state.product_data}    ></Selectbox>
+                                                                <Selectbox  className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} modelName={[field.name, 'product_id']}  label="Product" value={[field.name, 'product_id']} options={this.state.product_data}  onChange={(product_id) => this.getUnitForProductId(product_id,index)}  ></Selectbox>
+                                                                </td>
+
+                                                                <td>
+                                                                <Selectbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]}  modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
+                                                                </td>
+
+                                                                <td>
+                                                                <Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'unit_id' ]} disabled modelName={[field.name, 'unit_id']}  label="Unit" value={[field.name, 'unit_id']} options={this.state.unit_data} noPlaceholder withoutMargin ></Selectbox>
+                                                   
                                                                 </td>
 
                                                                 <td><Textbox className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} field={field} fieldKey={[ field.fieldKey, 'description' ]} modelName={[field.name, 'description']}  label="Description"></Textbox></td>
                                                                 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size1_qty' ]}  modelName={[field.name, 'size1_qty']} value={[field.name, 'size1_qty']} label="Size1 Qty" onChange={this.setTOTAL}></Numberbox>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size1_rate' ]}  modelName={[field.name, 'size1_rate']} value={[field.name, 'size1_rate']} label="Size1 Rate" onChange={this.setTOTAL}></Numberbox>
-
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size1_qty' ]}  modelName={[field.name, 'size1_qty']} value={[field.name, 'size1_qty']} label="Size1 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                               
                                                                 </td>
 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size2_qty' ]}  modelName={[field.name, 'size2_qty']} value={[field.name, 'size2_qty']} label="Size2 Qty" onChange={this.setTOTAL}></Numberbox>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size2_rate' ]}  modelName={[field.name, 'size2_rate']} value={[field.name, 'size2_rate']} label="Size2 Rate" onChange={this.setTOTAL}></Numberbox>
-
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size2_qty' ]}  modelName={[field.name, 'size2_qty']} value={[field.name, 'size2_qty']} label="Size2 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                               
                                                                 </td>
 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size3_qty' ]}  modelName={[field.name, 'size3_qty']} value={[field.name, 'size3_qty']} label="Size3 Qty" onChange={this.setTOTAL}></Numberbox>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size3_rate' ]}  modelName={[field.name, 'size3_rate']} value={[field.name, 'size3_rate']} label="Size3 Rate" onChange={this.setTOTAL}></Numberbox>
-
-                                                                </td>
-
-                                                                <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size4_qty' ]}  modelName={[field.name, 'size4_qty']} value={[field.name, 'size4_qty']} label="Size4 Qty" onChange={this.setTOTAL}></Numberbox>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size4_rate' ]}  modelName={[field.name, 'size4_rate']} value={[field.name, 'size4_rate']} label="Size4 Rate" onChange={this.setTOTAL}></Numberbox>
-
-                                                                </td>
-
-                                                                <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size5_qty' ]}  modelName={[field.name, 'size5_qty']} value={[field.name, 'size5_qty']} label="Size5 Qty" onChange={this.setTOTAL}></Numberbox>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size5_rate' ]}  modelName={[field.name, 'size5_rate']} value={[field.name, 'size5_rate']} label="Size5 Rate" onChange={this.setTOTAL}></Numberbox>
-
-                                                                </td>
-
-                                                                <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size6_qty' ]}  modelName={[field.name, 'size6_qty']} value={[field.name, 'size6_qty']} label="Size6 Qty" onChange={this.setTOTAL}></Numberbox>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size6_rate' ]}  modelName={[field.name, 'size6_rate']} value={[field.name, 'size6_rate']} label="Size6 Rate" onChange={this.setTOTAL}></Numberbox>
-
-                                                                </td>
-
-                                                                <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size7_qty' ]}  modelName={[field.name, 'size7_qty']} value={[field.name, 'size7_qty']} label="Size7 Qty" onChange={this.setTOTAL}></Numberbox>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size7_rate' ]}  modelName={[field.name, 'size7_rate']} value={[field.name, 'size7_rate']} label="Size7 Rate" onChange={this.setTOTAL}></Numberbox>
-
-                                                                </td>
-
-                                                                <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size8_qty' ]}  modelName={[field.name, 'size8_qty']} value={[field.name, 'size8_qty']} label="Size8 Qty" onChange={this.setTOTAL}></Numberbox>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size8_rate' ]}  modelName={[field.name, 'size8_rate']} value={[field.name, 'size8_rate']} label="Size8 Rate" onChange={this.setTOTAL}></Numberbox>
-
-                                                                </td>
-
-                                                                <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size9_qty' ]}  modelName={[field.name, 'size9_qty']} value={[field.name, 'size9_qty']} label="Size9 Qty" onChange={this.setTOTAL}></Numberbox>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size9_rate' ]}  modelName={[field.name, 'size9_rate']} value={[field.name, 'size9_rate']} label="Size9 Rate" onChange={this.setTOTAL}></Numberbox>
-
-                                                                </td>
-                                                                <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'disc_percentage' ]}  modelName={[field.name, 'disc_percentage']} value={[field.name, 'disc_percentage']} label="Disc Percentage"></Numberbox>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'disc_value' ]}  modelName={[field.name, 'disc_value']} value={[field.name, 'disc_value']} label="Disc Value"></Numberbox>
-
-                                                                </td>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size3_qty' ]}  modelName={[field.name, 'size3_qty']} value={[field.name, 'size3_qty']} label="Size3 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                                 
-                                                                <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" onChange={this.setTOTAL}></Numberbox>
- 
-                                                                </td>   
+                                                                </td>
 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} label="Amount" onChange={this.setTOTAL}></Numberbox>
- 
-                                                                </td>   
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size4_qty' ]}  modelName={[field.name, 'size4_qty']} value={[field.name, 'size4_qty']} label="Size4 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                
+                                                                </td>
+
+                                                                <td>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size5_qty' ]}  modelName={[field.name, 'size5_qty']} value={[field.name, 'size5_qty']} label="Size5 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                               
+                                                                </td>
+
+                                                                <td>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size6_qty' ]}  modelName={[field.name, 'size6_qty']} value={[field.name, 'size6_qty']} label="Size6 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                               
+                                                                </td>
+
+                                                                <td>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size7_qty' ]}  modelName={[field.name, 'size7_qty']} value={[field.name, 'size7_qty']} label="Size7 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                
+                                                                </td>
+
+                                                                <td>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size8_qty' ]}  modelName={[field.name, 'size8_qty']} value={[field.name, 'size8_qty']} label="Size8 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                               
+                                                                </td>
+
+                                                                <td>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size9_qty' ]}  modelName={[field.name, 'size9_qty']} value={[field.name, 'size9_qty']} label="Size9 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+
+                                                                </td>
                                                                
                                                                 
                                                                 <td>
-                                                                    { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeGarmentsInvoiceInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+ 
+                                                                </td>   
+
+                                                               
+                                                                
+                                                                <td>
+                                                                    { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeGarmentsDeliveryNoteInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
                                                                 </td>
                                                                 {/* </Fragment> */}
                                                                 </tr>
@@ -629,7 +644,7 @@ class AddGarmentsInvoice extends PureComponent{
                                                         )}
                                                     </Form.List>
                                                     <tr style={{ backgroundColor : 'lightgray', textAlign : 'right' }}>
-                                            <td colSpan={4}> <h6> Size Qty Total</h6></td>
+                                            <td colSpan={4}> <h6> Total</h6></td>
                                             <td > <h6> { this.state.formData.size1_qty_total }</h6></td>
                                             <td > <h6> { this.state.formData.size2_qty_total }</h6></td>
                                             <td > <h6> { this.state.formData.size3_qty_total }</h6></td>
@@ -639,9 +654,9 @@ class AddGarmentsInvoice extends PureComponent{
                                             <td > <h6> { this.state.formData.size7_qty_total }</h6></td>
                                             <td > <h6> { this.state.formData.size8_qty_total }</h6></td>
                                             <td > <h6> { this.state.formData.size9_qty_total }</h6></td>
-                                            <td> <h6></h6></td>
+                                            
                                             <td > <h6> { this.state.formData.inventory_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.inventory_amount_total	 }</h6></td>
+                                            
 
                                            
 
@@ -698,4 +713,4 @@ const mapDispatchToProps = {
     
   }
   
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddGarmentsInvoice));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddGarmentsReceiptNote));
