@@ -207,29 +207,29 @@ class AddGarmentsDeliveryNote extends PureComponent{
                         ...this.state,
                         formData : {
                             ...this.state.formData,
-                            size1_qty_total : Number(total_size1),
-                            size2_qty_total : Number(total_size2),
-                            size3_qty_total : Number(total_size3),
-                            size4_qty_total : Number(total_size4),
-                            size5_qty_total : Number(total_size5),
-                            size6_qty_total : Number(total_size6),
-                            size7_qty_total : Number(total_size7),
-                            size8_qty_total : Number(total_size8),
-                            size9_qty_total : Number(total_size9),
+                            size1_total : Number(total_size1),
+                            size2_total : Number(total_size2),
+                            size3_total : Number(total_size3),
+                            size4_total : Number(total_size4),
+                            size5_total : Number(total_size5),
+                            size6_total : Number(total_size6),
+                            size7_total : Number(total_size7),
+                            size8_total : Number(total_size8),
+                            size9_total : Number(total_size9),
                             inventory_qty_total : Number(total_qty),
                             
                         }
                     }, () => {
                         this.formRef.current.setFieldsValue({
-                            size1_qty_total : Number(total_size1),
-                            size2_qty_total : Number(total_size2),
-                            size3_qty_total : Number(total_size3),
-                            size4_qty_total : Number(total_size4),
-                            size5_qty_total : Number(total_size5),
-                            size6_qty_total : Number(total_size6),
-                            size7_qty_total : Number(total_size7),
-                            size8_qty_total : Number(total_size8),
-                            size9_qty_total : Number(total_size9),
+                            size1_total : Number(total_size1),
+                            size2_total : Number(total_size2),
+                            size3_total : Number(total_size3),
+                            size4_total : Number(total_size4),
+                            size5_total : Number(total_size5),
+                            size6_total : Number(total_size6),
+                            size7_total : Number(total_size7),
+                            size8_total : Number(total_size8),
+                            size9_total : Number(total_size9),
                             inventory_qty_total : Number(total_qty),
                             
                         })
@@ -645,15 +645,15 @@ class AddGarmentsDeliveryNote extends PureComponent{
                                                     </Form.List>
                                                     <tr style={{ backgroundColor : 'lightgray', textAlign : 'right' }}>
                                             <td colSpan={4}> <h6> Total</h6></td>
-                                            <td > <h6> { this.state.formData.size1_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size2_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size3_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size4_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size5_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size6_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size7_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size8_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size9_qty_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size1_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size2_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size3_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size4_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size5_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size6_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size7_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size8_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size9_total }</h6></td>
                                             
                                             <td > <h6> { this.state.formData.inventory_qty_total }</h6></td>
                                             

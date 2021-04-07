@@ -165,7 +165,7 @@ class AddJobwork_Inward  extends PureComponent{
     }
     getColorSB = () => {
         
-        getRequest('transactions/getAllColorSB').then(data => {
+        getRequest('masters/getAllColorSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -304,31 +304,31 @@ class AddJobwork_Inward  extends PureComponent{
 
         }
         else{
-            // this.getNextYarnReturnVouNo();
+            this.getNextJobworkInwardVouNo();
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
         }
     }
 
-    // getNextYarnReturnVouNo = () => {
-    //     getRequest('transactions/getNextYarnReturnVouNo').then(data => {
-    //         console.log(data);
-    //         if(data.status === "info")
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 formData : {
-    //                     ...this.state.formData,
-    //                     vouno : data.data.max_vou_no
-    //                 }
-    //             },() => {
-    //                 this.formRef.current.setFieldsValue({
-    //                     vouno : this.state.formData.vouno
-    //                 })
-    //             })
-    //         }
-    //     })
-    // }
+    getNextJobworkInwardVouNo = () => {
+        getRequest('transactions/getNextJobworkInwardVouNo').then(data => {
+            console.log(data);
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        vouno : data.data.max_vou_no
+                    }
+                },() => {
+                    this.formRef.current.setFieldsValue({
+                        vouno : this.state.formData.vouno
+                    })
+                })
+            }
+        })
+    }
 
     getProcessSBForOrderID = (order_id) => {
         getRequest('masters/getProcessSBForOrderID?order_id=' + order_id).then(data => {
@@ -569,7 +569,7 @@ class AddJobwork_Inward  extends PureComponent{
                     <div className="row">
                         <Datebox label="Vou Date" value={this.state.formData.vou_date}  modelName="vou_date" className="col-md-6"></Datebox>
                    
-                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
+                    <Textbox label="Vou No" modelName="vouno"  className="col-md-6"></Textbox>
 
 
                     </div>
@@ -578,6 +578,13 @@ class AddJobwork_Inward  extends PureComponent{
                         <Selectbox label="Product" modelName="product_id" required="false" className="col-md-6"  options={this.state.product} value={ this.state.formData.product}  ></Selectbox>  
 
                        <Textbox label="Adas" modelName="adas" required="false"  className="col-md-6"></Textbox>
+
+
+                    </div>
+                    <div className="row">
+                   
+                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
+
 
 
                     </div>

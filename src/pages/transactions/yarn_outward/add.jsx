@@ -358,90 +358,51 @@ class AddYarn_Outward extends PureComponent{
                     <div className="row">
                              <div className="col-md-12">
                              <Divider plain orientation="left" >Products</Divider>  
-
-                              <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
-                                    <div className="col-md-11">
-                                        <div className="row flex-nowarp">
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Fabric" label="Fabric" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="GSM" label="GSM" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Count" label="Count" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Qty Per" label="Qty Per" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Qty Bags" label="Qty Bags" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Qty KGs" label="Qty KGs" required="false"></Textbox>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-1">
-                                        <Button type="primary" onClick={this.addYarn_outward_inventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
-                                    </div>
-                                </div>       
-                                    <Form.List name="yarn_outward_inventory">
+                             <table id="dynamic-table" className="table table-bordered">
+                             <thead >
+                                    <tr>
+                                        <th width="200px">Fabric </th>
+                                        <th>GSM</th>
+                                        <th>Count</th>
+                                        <th>Qty Per</th>
+                                        <th>Qty Bags</th>
+                                        <th>Qty KGs</th>
+                                        <th> <Button type="primary" onClick={this.addYarn_outward_inventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <Form.List name="yarn_outward_inventory">
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
-                                                <div className="row"  style={{ paddingLeft : 15, paddingRight : 2 }}>
-                                                    <div className="col-md-11">
-                                                        <div className="row flex-nowarp">
-                                                            <Selectbox noPlaceholder withoutMargin showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={field.name,'fabric_id'} required="false" options={this.state.fabric} label="Fabric"></Selectbox>
-
-                                                            <Textbox noPlaceholder withoutMargin required="false" showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={field.gsm} label="Gsm"></Textbox>
-
-                                                            <Textbox noPlaceholder withoutMargin showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'counts' ]} required='false' modelName={[field.name, 'counts']} value={field.counts} label="Counts"></Textbox>
-
-                                                            <Numberbox noPlaceholder withoutMargin required="false"  showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'qtybag_per' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qtybag_per']} value={field.qtybag_per} label="Qty per"></Numberbox>
-
-                                                            <Numberbox noPlaceholder withoutMargin required="false"  showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'qty_bag' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qty_bag']} value={field.qty_bag} label="Qty Bags"></Numberbox>
-
-                                                            <Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-2" field={field} fieldKey={[ field.fieldKey, 'qty_kg' ]} disabled required='false'
-                                                             modelName={[field.name, 'qty_kg']} value={field.qty_kg} label="Qty Kg"></Numberbox>
-
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-1">
-                                                    { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeYarn_outward_inventory(index)}> <FontAwesomeIcon  icon={faTimes} />   </Button>}
-                                                    </div>
-                                                 </div>
-                                     )
+                                            <tr>
+                                                <td><Selectbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={field.name,'fabric_id'} required="false" options={this.state.fabric} label="Fabric"></Selectbox></td>
+                                                <td><Numberbox noPlaceholder withoutMargin required="false" showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={field.gsm} label="Gsm"></Numberbox></td>
+                                                <td> <Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'counts' ]} required='false' modelName={[field.name, 'counts']} value={field.counts} label="Counts"></Numberbox></td>
+                                                <td>  <Numberbox noPlaceholder withoutMargin required="false"  showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'qtybag_per' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qtybag_per']} value={field.qtybag_per} label="Qty per"></Numberbox></td>
+                                                <td> <Numberbox noPlaceholder withoutMargin required="false"  showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'qty_bag' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qty_bag']} value={field.qty_bag} label="Qty Bags"></Numberbox></td>
+                                                <td><Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'qty_kg' ]} disabled required='false'
+                                                             modelName={[field.name, 'qty_kg']} value={field.qty_kg} label="Qty Kg"></Numberbox></td>
+                                                <td>  { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeYarn_outward_inventory(index)}> <FontAwesomeIcon  icon={faTimes} />   </Button>}</td>
+                                            </tr>
+                                               )
                                             
-                                     )
-                                 ) }
-                                </Form.List>        
+                                               )
+                                           ) }
+                                          </Form.List> 
+                                          <tr>
+                                          <td colSpan={5} style={{textAlign:'right'}}> <h6> Total</h6></td> 
+                                <td><Numberbox noPlaceholder modelName="inventory_qty_kg_total" withoutMargin showLabel={false} className="col-md-12" disabled value={this.state.formData.inventory_qty_kg_total} label="Total Qty KGs" required="false"></Numberbox></td>  
+                                  
+                               
+                                          </tr>
+                                </tbody>
+                               
+                             </table>
                            </div>
                          </div>
 
-                         <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
-                            <div className="col-md-11">
-                                <div className="row flex-nowarp">
-                                    <div className="col-md-8"></div>
-                                    <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Total" label="Total" required="false"></Textbox>
-                                    {/* <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Qty Bags" label="Qty Bags" required="false"></Textbox> */}
-                                    <Textbox noPlaceholder modelName="inventory_qty_kg_total" withoutMargin showLabel={false} className="col-md-2" disabled value={this.state.formData.inventory_qty_kg_total} label="Total Qty KGs" required="false"></Textbox>
-                                </div>
-                            </div>
-                        </div>
-
-                     {/* <div className="row">
-                        <div className="col-md-12">
-                            <Divider plain orientation="left" >Products</Divider>
-                            <div className="row">
-                            <Selectbox modelName="fabric_id" label="Fabric" className="col-md-6" options={this.state.fabric} value={this.state.fabric_id}  ></Selectbox>
-                                <Textbox label="Gsm" modelName="gsm"  className="col-md-4"></Textbox>
-                                <Textbox label="Counts" modelName="counts"  className="col-md-4"></Textbox>
-                            </div>
-
-                            <div className="row">
-                            <Numberbox label="Qty per" className="col-md-4" max={100}  min={0} modelName="qtybag_per"></Numberbox>
-                            <Numberbox label="Qty Bags" className="col-md-4" max={100}  min={0} modelName="qty_bag"></Numberbox>
-                            <Numberbox label="Qty Kgs" className="col-md-4" max={100} disabled min={0} modelName="qty_kg"></Numberbox>
-
-                            </div>
-                        </div>
-                    </div> */}
-
-                            {/* <div className="row">
-                            <div className="col-md-12" align="right">
-                                <Numberbox modelName="inventory_qty_kg_total" value={this.state.formData.inventory_qty_kg_total} disabled label="Total KGs" ></Numberbox>
-                            </div>
-                        </div> */}
-
+<br></br>
+                    
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
@@ -455,15 +416,7 @@ class AddYarn_Outward extends PureComponent{
                    
                 </Form> 
                 
-                {/* <div className="row"> 
-                <div className="col-md-6">
-                    <pre> { JSON.stringify(this.formRef, null, 2)  } </pre>
-                </div>
-                <div className="col-md-6">
-                    <pre> { JSON.stringify(this.state.formData, null, 2)  } </pre>
-                </div>
-
-                </div> */}
+               
             </Fragment>
         )
     }
