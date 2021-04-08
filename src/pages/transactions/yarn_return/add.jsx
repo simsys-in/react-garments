@@ -399,7 +399,7 @@ class AddYarn_Return  extends PureComponent{
 
                     </div>
                                        <div className="row">
-                             <div className="col-md-12">
+                                       <div className="col-md-12 table-scroll">
                              <Divider plain orientation="left" >Products</Divider>  
 
                             <table id="dynamic-table" className="table table-bordered">

@@ -439,29 +439,29 @@ class AddYarn_Invoice extends PureComponent{
                         <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
                     </div>
                     <div className="row">
+                    <Textbox label="Vou No" modelName="vouno"  className="col-md-6"></Textbox>
                         <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID}  className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
-                        <Selectbox modelName="process_id" label="Process"  className="col-md-6" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
                         {/* <Textbox label="Id" modelName="order_id"  className="col-md-6"></Textbox> */}
 
                     </div>
                     <div className="row">
                        
+                        <Selectbox modelName="process_id" label="Process"  className="col-md-6" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
                         <Textbox label="Ref No" modelName="refno"  className="col-md-6"></Textbox>
-                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
                         
                     </div>
                     <div className="row">
                        
+                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
                       
-                    <Textbox label="Vou No" modelName="vouno"  className="col-md-6"></Textbox>
 
 
                     </div>
                     <div>
                     <div className="row">
-                             <div className="col-md-12">
+                    <div className="col-md-12 table-scroll">
                              <Divider plain orientation="left" >Products</Divider>  
-                             <table id="dynamic-table" className="table table-bordered">
+                             <table id="dynamic-table" className="table table-bordered" width="100%">
                                 <thead >
                                     <tr>
                                         <th width="200px">Fabric </th>
@@ -483,12 +483,23 @@ class AddYarn_Invoice extends PureComponent{
                                         <td> <Selectbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={field.name,'fabric_id'} required="false" options={this.state.fabric} label="Fabric"></Selectbox></td>
 
                                         <td> <Numberbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={field.gsm} label="Gsm"></Numberbox></td>
+
                                         <td> <Numberbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'counts' ]} required = 'false' modelName={[field.name, 'counts']} value={field.counts} label="Counts"></Numberbox></td>
+
                                         <td> <Numberbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'qtybag_per' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qtybag_per']} value={field.qtybag_per} label="Qty per"></Numberbox></td>
+
+
                                         <td><Numberbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'qty_bag' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qty_bag']} value={field.qty_bag} label="Qty Bags"></Numberbox></td>
+
                                         <td> <Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'qty_kg' ]} disabled required = 'false' onChange={(ev)=> this.setAMOUNT(ev,field.fieldKey)}modelName={[field.name, 'qty_kg']} value={field.qty_kg} label="Qty Kg"></Numberbox></td>
+
+
                                         <td>  <Numberbox required="false" noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'rate' ]} onChange={(ev)=> this.setAMOUNT(ev,field.fieldKey)} modelName={[field.name, 'rate']} value={field.rate} label="Rate"></Numberbox></td>
+
+
                                         <td><Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'amount' ]} disabled required = 'false' modelName={[field.name, 'amount']} value={field.amount} label="Amount"></Numberbox></td>
+
+                                        
                                         <td>  { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeYarn_invoice_inventory(index)}> <FontAwesomeIcon  icon={faTimes} />   </Button>}</td>
                                     </tr>
                                        )

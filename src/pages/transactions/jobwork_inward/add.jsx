@@ -577,7 +577,7 @@ class AddJobwork_Inward  extends PureComponent{
                    
                         <Selectbox label="Product" modelName="product_id" required="false" className="col-md-6"  options={this.state.product} value={ this.state.formData.product}  ></Selectbox>  
 
-                       <Textbox label="Adas" modelName="adas" required="false"  className="col-md-6"></Textbox>
+                       <Checkbox label="Adas" modelName="adas" required="false"  className="col-md-6"></Checkbox>
 
 
                     </div>
