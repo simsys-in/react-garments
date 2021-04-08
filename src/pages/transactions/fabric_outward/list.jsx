@@ -1,10 +1,12 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Table, Tag, Space, Button, Modal } from 'antd';
-import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined,PrinterOutlined } from '@ant-design/icons';
 import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
 import DataTable from '../../../components/Datatable';
+import Report from './report';
+
 
 class ListFabricOutward extends PureComponent {
   constructor(props) {
@@ -69,6 +71,26 @@ class ListFabricOutward extends PureComponent {
     })
   }
 
+  hideMoal = () => {
+    this.setState({
+      ...this.state,
+      showPrint : false,
+      selectedItem : {}
+    }, () => {
+      // window.location.reload();
+    })
+  }
+
+  showPrint = (record) => {
+
+    this.setState({
+      ...this.state,
+      showPrint : true,
+      selectedItem : record
+    })
+  }
+
+
   deleteFabricOutward = (user) => {
     const id = user.id
     console.log(id);
@@ -96,6 +118,8 @@ class ListFabricOutward extends PureComponent {
           item.action =  <Space size="middle">
           <Button type="primary" onClick={() => this.editFabricOutward(item.id)} icon={<EditOutlined />} size="middle" />
           <Button type="default" color="error" danger onClick={() => this.deleteFabricOutward(item)} icon={<DeleteOutlined />} size="middle" />
+          <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" />
+
         </Space>
 
         newData.push(item)
@@ -110,6 +134,19 @@ class ListFabricOutward extends PureComponent {
     })
     // }
   }
+
+  printDiv = () => {
+    var printContents = document.getElementById('printableArea').innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+     window.location.reload();
+  }
+
 
   render() {
     return (
