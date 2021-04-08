@@ -12,6 +12,8 @@ class ListFabricOutward extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      showPrint : false,
+      selectedItem : {},
       columns: [
       
         {
@@ -161,6 +163,18 @@ class ListFabricOutward extends PureComponent {
         </div>
         {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
         <DataTable data={this.state} ></DataTable>
+
+        <Modal
+          title="Fabric Outward"
+          centered
+          width={1000}
+          visible={this.state.showPrint}
+          onOk={() => this.printDiv()}
+          okText="Print"
+          onCancel={() => this.hideMoal(false)}
+        >
+          <Report itemId={this.state.selectedItem.id} id="printableArea" />
+        </Modal>
       </Fragment>
     )
   }
