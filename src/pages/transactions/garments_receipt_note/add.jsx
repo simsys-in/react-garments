@@ -34,15 +34,15 @@ class AddGarmentsReceiptNote extends PureComponent{
                         color_id : null,
                         vou_id : null,
                         color : null,
-                        size1_qty : 0,
-                        size2_qty : 0,
-                        size3_qty :0 ,
-                        size4_qty : 0,
-                        size5_qty : 0,
-                        size6_qty : 0,
-                        size7_qty : 0,
-                        size8_qty : 0,
-                        size9_qty : 0,
+                        size1 : 0,
+                        size2 : 0,
+                        size3 :0 ,
+                        size4 : 0,
+                        size5 : 0,
+                        size6 : 0,
+                        size7 : 0,
+                        size8 : 0,
+                        size9 : 0,
                         qty : 0,
                         unit: null
                       
@@ -189,17 +189,17 @@ class AddGarmentsReceiptNote extends PureComponent{
         garments_receipt_note_inventory.map((item, index) => {
             // console.log(item);
         
-                total_size1 += Number(item.size1_qty);
-                total_size2 += Number(item.size2_qty);
-                total_size3 += Number(item.size3_qty);
-                total_size4 += Number(item.size4_qty);
-                total_size5 += Number(item.size5_qty);
-                total_size6 += Number(item.size6_qty);
-                total_size7 += Number(item.size7_qty);
-                total_size8 += Number(item.size8_qty);
-                total_size9 += Number(item.size9_qty);
-                total_qty += Number(item.size1_qty)+Number(item.size2_qty)+Number(item.size3_qty)+Number(item.size4_qty)+Number(item.size5_qty)+Number(item.size6_qty)+Number(item.size7_qty)+Number(item.size8_qty)+Number(item.size9_qty);
-                item.qty = Number(item.size1_qty)+Number(item.size2_qty)+Number(item.size3_qty)+Number(item.size4_qty)+Number(item.size5_qty)+Number(item.size6_qty)+Number(item.size7_qty)+Number(item.size8_qty)+Number(item.size9_qty);
+                total_size1 += Number(item.size1);
+                total_size2 += Number(item.size2);
+                total_size3 += Number(item.size3);
+                total_size4 += Number(item.size4);
+                total_size5 += Number(item.size5);
+                total_size6 += Number(item.size6);
+                total_size7 += Number(item.size7);
+                total_size8 += Number(item.size8);
+                total_size9 += Number(item.size9);
+                total_qty += Number(item.size1)+Number(item.size2)+Number(item.size3)+Number(item.size4)+Number(item.size5)+Number(item.size6)+Number(item.size7)+Number(item.size8)+Number(item.size9);
+                item.qty = Number(item.size1)+Number(item.size2)+Number(item.size3)+Number(item.size4)+Number(item.size5)+Number(item.size6)+Number(item.size7)+Number(item.size8)+Number(item.size9);
                 
                 if(index === garments_receipt_note_inventory.length - 1)
                 {
@@ -207,29 +207,29 @@ class AddGarmentsReceiptNote extends PureComponent{
                         ...this.state,
                         formData : {
                             ...this.state.formData,
-                            size1_qty_total : Number(total_size1),
-                            size2_qty_total : Number(total_size2),
-                            size3_qty_total : Number(total_size3),
-                            size4_qty_total : Number(total_size4),
-                            size5_qty_total : Number(total_size5),
-                            size6_qty_total : Number(total_size6),
-                            size7_qty_total : Number(total_size7),
-                            size8_qty_total : Number(total_size8),
-                            size9_qty_total : Number(total_size9),
+                            size1_total : Number(total_size1),
+                            size2_total : Number(total_size2),
+                            size3_total : Number(total_size3),
+                            size4_total : Number(total_size4),
+                            size5_total : Number(total_size5),
+                            size6_total : Number(total_size6),
+                            size7_total : Number(total_size7),
+                            size8_total : Number(total_size8),
+                            size9_total : Number(total_size9),
                             inventory_qty_total : Number(total_qty),
                             
                         }
                     }, () => {
                         this.formRef.current.setFieldsValue({
-                            size1_qty_total : Number(total_size1),
-                            size2_qty_total : Number(total_size2),
-                            size3_qty_total : Number(total_size3),
-                            size4_qty_total : Number(total_size4),
-                            size5_qty_total : Number(total_size5),
-                            size6_qty_total : Number(total_size6),
-                            size7_qty_total : Number(total_size7),
-                            size8_qty_total : Number(total_size8),
-                            size9_qty_total : Number(total_size9),
+                            size1_total : Number(total_size1),
+                            size2_total : Number(total_size2),
+                            size3_total : Number(total_size3),
+                            size4_total : Number(total_size4),
+                            size5_total : Number(total_size5),
+                            size6_total : Number(total_size6),
+                            size7_total : Number(total_size7),
+                            size8_total : Number(total_size8),
+                            size9_total : Number(total_size9),
                             inventory_qty_total : Number(total_qty),
                             
                         })
@@ -320,6 +320,7 @@ class AddGarmentsReceiptNote extends PureComponent{
     }
 
     
+    
 
     componentDidMount() {
         this.getOrderSB();
@@ -388,18 +389,18 @@ class AddGarmentsReceiptNote extends PureComponent{
    
     addGarmentsReceiptNoteInventory = () => {
         var newGarmentsReceiptNoteInventory = {
-            color_id : null,
+                        color_id : null,
                         vou_id : null,
                         color : null,
-                        size1_qty : 0,
-                        size2_qty : 0,
-                        size3_qty :0 ,
-                        size4_qty : 0,
-                        size5_qty : 0,
-                        size6_qty : 0,
-                        size7_qty : 0,
-                        size8_qty : 0,
-                        size9_qty : 0,
+                        size1 : 0,
+                        size2 : 0,
+                        size3 :0 ,
+                        size4 : 0,
+                        size5 : 0,
+                        size6 : 0,
+                        size7 : 0,
+                        size8 : 0,
+                        size9 : 0,
                         qty : 0,
                         unit: null
                       
@@ -425,7 +426,7 @@ class AddGarmentsReceiptNote extends PureComponent{
     removeGarmentsReceiptNoteInventory = (index) => {
         var oldGarmentsReceiptNoteInventoryArray = this.state.formData.garments_receipt_note_inventory;
 
-        oldGarmentsReeceiptNoteInventoryArray.splice(index, 1);
+        oldGarmentsReceiptNoteInventoryArray.splice(index, 1);
         
         this.setState({
             ...this.state,
@@ -540,7 +541,7 @@ class AddGarmentsReceiptNote extends PureComponent{
                                             <th width="40px"> <b> Qty</b></th>
                                             
                                             <th width="30px">
-                                                <Button type="primary"  onClick={this.addGarmentsDeliveryNoteInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
+                                                <Button type="primary"  onClick={this.addGarmentsReceiptNoteInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
                                             </th>
                                         </tr>
                                     </thead>
@@ -583,47 +584,47 @@ class AddGarmentsReceiptNote extends PureComponent{
                                                                 <td><Textbox className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} field={field} fieldKey={[ field.fieldKey, 'description' ]} modelName={[field.name, 'description']}  label="Description"></Textbox></td>
                                                                 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size1_qty' ]}  modelName={[field.name, 'size1_qty']} value={[field.name, 'size1_qty']} label="Size1 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size1' ]}  modelName={[field.name, 'size1']} value={[field.name, 'size1']} label="Size1" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                                
                                                                 </td>
 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size2_qty' ]}  modelName={[field.name, 'size2_qty']} value={[field.name, 'size2_qty']} label="Size2 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size2' ]}  modelName={[field.name, 'size2']} value={[field.name, 'size2']} label="Size2" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                                
                                                                 </td>
 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size3_qty' ]}  modelName={[field.name, 'size3_qty']} value={[field.name, 'size3_qty']} label="Size3 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size3' ]}  modelName={[field.name, 'size3']} value={[field.name, 'size3']} label="Size3" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                                 
                                                                 </td>
 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size4_qty' ]}  modelName={[field.name, 'size4_qty']} value={[field.name, 'size4_qty']} label="Size4 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size4' ]}  modelName={[field.name, 'size4']} value={[field.name, 'size4']} label="Size4" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                                 
                                                                 </td>
 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size5_qty' ]}  modelName={[field.name, 'size5_qty']} value={[field.name, 'size5_qty']} label="Size5 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size5' ]}  modelName={[field.name, 'size5']} value={[field.name, 'size5']} label="Size5" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                                
                                                                 </td>
 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size6_qty' ]}  modelName={[field.name, 'size6_qty']} value={[field.name, 'size6_qty']} label="Size6 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size6' ]}  modelName={[field.name, 'size6']} value={[field.name, 'size6']} label="Size6" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                                
                                                                 </td>
 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size7_qty' ]}  modelName={[field.name, 'size7_qty']} value={[field.name, 'size7_qty']} label="Size7 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size7' ]}  modelName={[field.name, 'size7']} value={[field.name, 'size7']} label="Size7" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                                 
                                                                 </td>
 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size8_qty' ]}  modelName={[field.name, 'size8_qty']} value={[field.name, 'size8_qty']} label="Size8 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size8' ]}  modelName={[field.name, 'size8']} value={[field.name, 'size8']} label="Size8" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
                                                                
                                                                 </td>
 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size9_qty' ]}  modelName={[field.name, 'size9_qty']} value={[field.name, 'size9_qty']} label="Size9 Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size9' ]}  modelName={[field.name, 'size9']} value={[field.name, 'size9']} label="Size9" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
 
                                                                 </td>
                                                                
@@ -636,7 +637,7 @@ class AddGarmentsReceiptNote extends PureComponent{
                                                                
                                                                 
                                                                 <td>
-                                                                    { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeGarmentsDeliveryNoteInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
+                                                                    { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeGarmentsReceiptNoteInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
                                                                 </td>
                                                                 {/* </Fragment> */}
                                                                 </tr>
@@ -645,15 +646,15 @@ class AddGarmentsReceiptNote extends PureComponent{
                                                     </Form.List>
                                                     <tr style={{ backgroundColor : 'lightgray', textAlign : 'right' }}>
                                             <td colSpan={4}> <h6> Total</h6></td>
-                                            <td > <h6> { this.state.formData.size1_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size2_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size3_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size4_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size5_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size6_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size7_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size8_qty_total }</h6></td>
-                                            <td > <h6> { this.state.formData.size9_qty_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size1_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size2_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size3_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size4_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size5_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size6_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size7_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size8_total }</h6></td>
+                                            <td > <h6> { this.state.formData.size9_total }</h6></td>
                                             
                                             <td > <h6> { this.state.formData.inventory_qty_total }</h6></td>
                                             
