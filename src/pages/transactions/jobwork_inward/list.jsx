@@ -22,18 +22,18 @@ class ListJobworkinword  extends PureComponent {
           field: 'vou_date',
           width: "30vw",
         },
-        // {
-        //   label: 'Vou No',
-        //   field: 'vouno',
-        //   width: "30vw",
-        // },
+        {
+          label: 'Vou No',
+          field: 'vouno',
+          width: "30vw",
+        },
         {
           label: 'Order No',
           field: 'order_no',
           width: "30vw",
         },
         {
-          label: 'Ledger Name',
+          label: 'Ledger',
           field: 'ledger',
           width: "10vw",
         },
@@ -49,11 +49,11 @@ class ListJobworkinword  extends PureComponent {
         //   field: 'process',
         //   width: "30vw",
         // },
-        // {
-        //   label: 'Ref No',
-        //   field: 'refno',
-        //   width: "30vw",
-        // },
+        {
+          label: 'Qty Total',
+          field: 'inventory_qty_total',
+          width: "30vw",
+        },
         
         
        

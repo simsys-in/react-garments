@@ -177,6 +177,7 @@ class AddFabricOutward extends PureComponent{
 
         }
         else{
+           
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
         }
@@ -203,7 +204,7 @@ class AddFabricOutward extends PureComponent{
                     ...this.state,
                     formData : {
                         ...this.state.formData,
-                        vouno : data.max_vou_no
+                        vouno : data.data.max_vou_no
                     }
                 },() => {
                     this.formRef.current.setFieldsValue({
@@ -220,8 +221,8 @@ class AddFabricOutward extends PureComponent{
         // this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
-        this.setTOTAL();
         this.getNextFabricOutwardVouNo();
+        this.setTOTAL();
         this.getFabricOutward();
         interval = setInterval(() => {
             this.validate()
@@ -271,26 +272,7 @@ class AddFabricOutward extends PureComponent{
         })
     };
 
-    getNextFabricInwardVouNo = () => {
-        getRequest('transactions/getNextFabricInwardVouNo').then(data => {
-            // console.log(data.max_vou_no);
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    formData : {
-                        ...this.state.formData,
-                        vouno : data.data.max_vou_no
-                    }
-                },() => {
-                    this.formRef.current.setFieldsValue({
-                        vouno : this.state.formData.vouno
-                    })
-                })
-            }
-        })
-    }
-
+    
     checkProcesses = (process) => {
         var values = this.formRef.current.getFieldValue();
 
@@ -391,66 +373,55 @@ class AddFabricOutward extends PureComponent{
                    <div className="row">
                             <div className="col-md-12">
                             <Divider plain orientation="left" >Products</Divider>
-                            <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
-                                    <div className="col-md-11">
-                                        <div className="row">
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Fabric" label="Fabric" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Color" label="Color" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Gsm" label="Gsm" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Dia" label="Dia" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Roll" label="Roll" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Weight" label="Weight" required="false"></Textbox>
-                                        </div>
-                                         
-                                    </div>
-                                    <div className="col-md-1">
-                                          <Button type="primary" onClick={this.addFabricOutwardInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
-                                   </div>
-                                </div>
-                             <Form.List name="fabric_outward_inventory">
+                            <table id="dynamic-table" className="table table-bordered">
+                             <thead >
+                                    <tr>
+                                        <th width="200px">Fabric </th>
+                                        <th width="200px">Color</th>
+                                        <th>GSM</th>
+                                        <th>Dia</th>
+                                        <th>Roll</th>
+                                        <th>Weight</th>
+                                        <th> <Button type="primary" onClick={this.addFabricOutwardInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <Form.List name="fabric_outward_inventory">
                                    { (fields, { add, remove } )=> (
                                        fields.map((field, index) => (
-                                               <div className="row " style={{ paddingLeft : 15, paddingRight : 2 }}>
-                                                   <div className="col-md-11">
-                                                       <div className="row">
-                                                           <Selectbox noPlaceholder required="false" withoutMargin className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} options={this.state.fabric} label="Fabric"></Selectbox>
-                                                           <Selectbox noPlaceholder required="false" withoutMargin className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
-                                                           <Textbox noPlaceholder required="false" withoutMargin className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={[field.name, 'gsm']} label="Gsm"></Textbox>
-                                                           <Textbox noPlaceholder required="false" withoutMargin className="col-md-2"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} required = 'false' modelName={[field.name, 'dia']} value={[field.name, 'dia']} label="Dia"></Textbox>
-                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-2" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                           <Numberbox noPlaceholder required="false" withoutMargin className="col-md-2"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
-                                                       </div>
+                                           <tr>
+                                               <td> <Selectbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} options={this.state.fabric} label="Fabric"></Selectbox></td>
+                                               <td><Selectbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox></td>
 
-                                                   </div>
-                                                   <div className="col-md-1">
-                                                       
-                                                       { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeFabricOutwardInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
-                                                   </div>
-                                                   
-                                                </div>
-                                    )
+                                               <td><Numberbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={[field.name, 'gsm']} label="Gsm"></Numberbox></td>
+
+                                               <td> <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} required = 'false' modelName={[field.name, 'dia']} value={[field.name, 'dia']} label="Dia"></Numberbox></td>
+
+                                               <td> <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox></td>
+
+                                               <td> <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox></td>
+                                               <td>{ index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeFabricOutwardInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}</td>
+                                           </tr>
+                                              )
                                            
-                                    )
-                                ) }
-                               </Form.List>        
+                                              )
+                                          ) }
+                                         </Form.List> 
+                                         <tr>
+                                         <td colSpan={4} style={{textAlign:'right'}}> <h6> Total</h6></td>
+                                    <td><Numberbox withoutMargin className='col-md-12' showLabel={false} align="right" modelName='inventory_roll_total' value={this.state.formData.inventory_roll_total} disabled label='Total Roll'></Numberbox></td>
+                                    <td><Numberbox withoutMargin className='col-md-12' showLabel={false} align="right" modelName='inventory_weight_total' value={this.state.formData.inventory_weight_total} disabled label='Total Weight'></Numberbox></td>
+                                         </tr>
+                                </tbody>
+                                
+                                </table>
+                          
+                                        
                           </div>
                         
                         </div>
+                       <br />
                        
-                        <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
-                            <div className="col-md-11">
-                                <div className="row">
-                                   <div className="col-md-6"></div>
-                                    <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Total" label="Total" required="false"></Textbox>
-                                    <Numberbox withoutMargin className='col-md-2' showLabel={false} align="right" modelName='inventory_roll_total' value={this.state.formData.inventory_roll_total} disabled label='Total Roll'></Numberbox>
-                                     <Numberbox withoutMargin className='col-md-2' showLabel={false} align="right" modelName='inventory_weight_total' value={this.state.formData.inventory_weight_total} disabled label='Total Weight'></Numberbox>
-
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                          
                    
 
                    <div className="row">

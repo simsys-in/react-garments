@@ -391,16 +391,21 @@ class AddYarn_Return  extends PureComponent{
                        <Textbox label="Ref No" modelName="refno" required="false"  className="col-md-6"></Textbox>
                         <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
 
+                    </div>
+                    <div className="row">
+                   
+                      
+                        <Textbox label="Vou No" modelName="vouno"  className="col-md-6"></Textbox>
 
                     </div>
                                        <div className="row">
                              <div className="col-md-12">
                              <Divider plain orientation="left" >Products</Divider>  
 
-                            <table>
-                                <thead>
+                            <table id="dynamic-table" className="table table-bordered">
+                                <thead >
                                     <tr>
-                                        <th>Fabric </th>
+                                        <th width="200px">Fabric </th>
                                         <th>GSM</th>
                                         <th>Count</th>
                                         <th>Qty Per</th>
@@ -419,11 +424,11 @@ class AddYarn_Return  extends PureComponent{
                                                     <Selectbox noPlaceholder withoutMargin className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} showLabel={false} options={this.state.fabric} required="false" label="Fabric"></Selectbox>
                                                 </td>
                                                 <td>
-                                                    <Textbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'gsm' ]} required="false" modelName={[field.name, 'gsm']} value={field.gsm} label="Gsm"></Textbox>
+                                                    <Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'gsm' ]} required="false" modelName={[field.name, 'gsm']} value={field.gsm} label="Gsm"></Numberbox>
                                                 </td>
                                                 <td>
 
-                                                            <Textbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'counts' ]} required = 'false' modelName={[field.name, 'counts']} value={field.counts} label="Counts"></Textbox>
+                                                            <Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'counts' ]} required = 'false' modelName={[field.name, 'counts']} value={field.counts} label="Counts"></Numberbox>
 
                                                 </td>
                                                 <td>
@@ -447,24 +452,21 @@ class AddYarn_Return  extends PureComponent{
                                      )
                                  ) }
                                 </Form.List>
+                                <tr>
+                                <td colSpan={4} style={{textAlign:'right'}}> <h6> Total</h6></td>   
+                                    <td>   <Numberbox noPlaceholder modelName="inventory_qty_bag_total" withoutMargin showLabel={false} className="col-md-12" disabled value={this.state.formData.inventory_qty_bag_total} 
+                                     label="Total Qty Bags" required="false"></Numberbox></td>
+                                    <td>   <Numberbox noPlaceholder modelName="inventory_qty_kg_total" withoutMargin showLabel={false} className="col-md-12" disabled value={this.state.formData.inventory_qty_kg_total} label="Total Qty KGs" required="false"></Numberbox></td>
+                               
+                                </tr>
                                 </tbody>
+                               
                             </table>
                            </div>
-                         </div>
-                         <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
-                            <div className="col-md-11">
-                                <div className="row flex-nowarp">
-                                    <div className="col-md-6"></div>
-                                    <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Total" label="Total" required="false"></Textbox>
-                                    {/* <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Qty Bags" label="Qty Bags" required="false"></Textbox> */}
-                                    <Textbox noPlaceholder modelName="inventory_qty_bag_total" withoutMargin showLabel={false} className="col-md-2" disabled value={this.state.formData.inventory_qty_bag_total} 
-                                     label="Total Qty Bags" required="false"></Textbox>
-                                    <Textbox noPlaceholder modelName="inventory_qty_kg_total" withoutMargin showLabel={false} className="col-md-2" disabled value={this.state.formData.inventory_qty_kg_total} label="Total Qty KGs" required="false"></Textbox>
-                                </div>
-                            </div>
-                        </div>
+                      
                
-
+<br></br>
+                         </div>
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
