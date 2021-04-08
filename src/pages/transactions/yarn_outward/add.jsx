@@ -27,6 +27,7 @@ class AddYarn_Outward extends PureComponent{
             formData : {
                 status : 'active',
                 vou_date : moment(),
+                refno : "",
                 yarn_outward_inventory : [
                     {  
                         fabrics : '',
@@ -339,9 +340,9 @@ class AddYarn_Outward extends PureComponent{
                     <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
                     </div>
                     <div className="row">
+                    <Selectbox modelName="from_process_id" label=" From Process" className="col-md-6" options={this.state.process} value={this.state.formData.from_process_id}  ></Selectbox>
                     <Selectbox modelName="to_process_id" label=" To Process" className="col-md-6" options={this.state.process} value={this.state.formData.to_process_id}  ></Selectbox>
 
-                    <Selectbox modelName="from_process_id" label=" From Process" className="col-md-6" options={this.state.process} value={this.state.formData.from_process_id}  ></Selectbox>
                    
 
                    
@@ -356,7 +357,7 @@ class AddYarn_Outward extends PureComponent{
                     </div>
                    
                     <div className="row">
-                             <div className="col-md-12">
+                             <div className="col-md-12 table-scroll">
                              <Divider plain orientation="left" >Products</Divider>  
                              <table id="dynamic-table" className="table table-bordered">
                              <thead >

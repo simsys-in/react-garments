@@ -122,18 +122,18 @@ class AddOrderProgram extends PureComponent{
         })
     }
 
-    // getProcessSB = () => {
+    getProcessSB = () => {
         
-    //     getRequest('transactions/getProcessSB').then(data => {
-    //         if(data.status === "info")
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 process : data.data
-    //             })
-    //         }
-    //     })
-    // }
+        getRequest('masters/getAllProcessSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    process : data.data
+                })
+            }
+        })
+    }
 
     
     getStyleSB = () => {
@@ -186,7 +186,7 @@ class AddOrderProgram extends PureComponent{
         this.getSizeSB();
         this.getStyleSB();
         this.getFabricSB();
-        // this.getProcessSB();
+        this.getProcessSB();
         this.getLedgerNameSB();
         this.getNextOrderNo();
         this.getOrderProgram();
@@ -344,7 +344,7 @@ class AddOrderProgram extends PureComponent{
                             </div>
 
                             <div className="row">
-                            <Selectbox modelName="ledger_id" label="Ladger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger}  ></Selectbox>
+                            <Selectbox modelName="ledger_id" label="Ladger Name" required="false" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id}  ></Selectbox>
                             <Datebox  className="col-md-6" label="Due Date" value={this.state.formData.due_date} modelName="due_date" ></Datebox>
                             </div>
 

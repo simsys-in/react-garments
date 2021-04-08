@@ -27,6 +27,7 @@ class AddFabricReturn extends PureComponent{
             formData : {
                 status : 'active',
                 vou_date : moment(),
+                narration : "",
                 fabric_return_inventory : [
                     {  
                         fabrics_id : '',
@@ -79,18 +80,18 @@ class AddFabricReturn extends PureComponent{
     }
 
 
-    // getProcessSB = () => {
+    getProcessSB = () => {
         
-    //     getRequest('transactions/getProcessSB').then(data => {
-    //         if(data.status === "info")
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 process : data.data
-    //             })
-    //         }
-    //     })
-    // }
+        getRequest('masters/getAllProcessSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    process : data.data
+                })
+            }
+        })
+    }
 
     getColorSB = () => {
         
@@ -196,7 +197,7 @@ class AddFabricReturn extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
-        // this.getProcessSB();
+        this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
         this.getNextFabricReturnVouNo();
@@ -341,8 +342,8 @@ class AddFabricReturn extends PureComponent{
                    
                   
                    <div className="row">
-                        <Selectbox modelName="process_id" label="Process" className="col-md-6" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
                         <Selectbox modelName="order_id" onChange={this.getProcessSBForOrderID} label="Order No" className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                        <Selectbox modelName="process_id" label="Process" className="col-md-6" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
                    </div>
 
                    <div className="row">

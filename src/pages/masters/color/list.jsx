@@ -91,7 +91,7 @@ class ListColor extends PureComponent {
           item.action = <Space size="middle">
           <Button type="primary" onClick={() => this.editColor(item.id)} icon={<EditOutlined />} size="middle" />
           <Button type="default" danger onClick={() => this.deleteColor(item)} icon={<DeleteOutlined />} size="middle" />
-          <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" />
+          {/* <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" /> */}
         </Space>
 
         newData.push(item)

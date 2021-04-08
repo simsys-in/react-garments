@@ -127,6 +127,7 @@ class AddYarn_Inward extends PureComponent{
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
+                this.getProcessSBForOrderID(data.data.order_id);
             })
 
         }

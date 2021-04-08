@@ -27,6 +27,7 @@ class AddFabricInvoice extends PureComponent{
             formData : {
                 status : 'active',
                 vou_date : moment(),
+                narration : "",
                 fabric_invoice_inventory : [
                     {  
                         fabric_id : '',
@@ -68,18 +69,18 @@ class AddFabricInvoice extends PureComponent{
         })
     }
 
-    // getProcessSB = () => {
+    getProcessSB = () => {
         
-    //     getRequest('transactions/getProcessSB').then(data => {
-    //         if(data.status === "info")
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 process : data.data
-    //             })
-    //         }
-    //     })
-    // }
+        getRequest('masters/getAllProcessSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    process : data.data
+                })
+            }
+        })
+    }
 
     getColorSB = () => {
         
@@ -221,7 +222,7 @@ class AddFabricInvoice extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
-        // this.getProcessSB();
+        this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
         this.getNextFabricInvoiceVouNo();
