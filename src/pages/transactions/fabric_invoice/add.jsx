@@ -363,7 +363,7 @@ class AddFabricInvoice extends PureComponent{
                    </div>
                    
                    <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-12 table-scroll">
                             <Divider plain orientation="left" >Products</Divider>
                             <table id="dynamic-table" className="table table-bordered">
                              <thead >
@@ -397,7 +397,7 @@ class AddFabricInvoice extends PureComponent{
                                                <td><Numberbox withoutMargin required="false" noPlaceholder className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox></td>
 
                                                <td><Numberbox withoutMargin required="false" noPlaceholder className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'rate' ]}  modelName={[field.name, 'rate']} value={[field.name, 'rate']} label="Rate"></Numberbox></td>
-                                               <td>  <Numberbox withoutMargin required="false" noPlaceholder className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} label="Amount" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox></td>
+                                               <td>  <Numberbox withoutMargin required="false" noPlaceholder className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} label="Amount" disabled onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox></td>
 
                                                <td> { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeFabricInvoiceInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}</td>
                                            </tr>
