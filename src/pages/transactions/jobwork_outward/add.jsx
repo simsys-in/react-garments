@@ -110,18 +110,18 @@ class AddJobworkOutward extends PureComponent{
         })
     }
 
-    // getProcessSB = (order_id = null) => {
+    getProcessSB = (order_id = null) => {
         
-    //     getRequest('transactions/getProcessSB').then(data => {
-    //         if(data.status === "info")
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 process : data.data
-    //             })
-    //         }
-    //     })
-    // }
+        getRequest('masters/getAllProcessSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    process : data.data
+                })
+            }
+        })
+    }
 
     getCuttingProgramColorDetails = (order_id) => {
         getRequest('transactions/getCuttingProgramColorDetails?order_id=' +order_id).then(data => {
@@ -360,9 +360,10 @@ class AddJobworkOutward extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getAllLedgerSB();
-        // this.getProcessSB();
+        this.getProcessSB();
         this.getFabricsSB();
         this.getStyleSB();
+        this.getNextJobworkOutwardVouNo();
         this.getUnitSB();
         this.getProductSB();
         this.getColorSB();
@@ -506,6 +507,27 @@ class AddJobworkOutward extends PureComponent{
         })
     }
 
+    getNextJobworkOutwardVouNo = () => {
+        getRequest('transactions/getNextJobworkOutwardVouNo').then(data => {
+            console.log(data);
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        vouno : data.data.max_vou_no
+                    }
+                },() => {
+                    this.formRef.current.setFieldsValue({
+                        vouno : this.state.formData.vouno
+                    })
+                })
+            }
+        })
+    }
+
+
     addJobworkOutwardInventory = () => {
         var newJobworkOutwardInventory = {
             color_id : null,
@@ -647,7 +669,7 @@ class AddJobworkOutward extends PureComponent{
                     ref={this.formRef}
                     name="basic"
                     initialValues={this.state.formData}
-                    onFinish={this.onFinish}
+                    // onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     >
                         
@@ -666,8 +688,13 @@ class AddJobworkOutward extends PureComponent{
                     
                    <div className="row">
                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
+                       <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-6"></Textbox>
+
+                   </div>
+
+                   <div className="row">
                      <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
-                       
+
                    </div>
 
                    
@@ -729,12 +756,12 @@ class AddJobworkOutward extends PureComponent{
                                                                 {
                                                                     this.state.size_data_for_order.map((item, ind) => 
                                                                     item !== "" && <td key={ind}>
-                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(ind) + 1)]} value={[field.name, 'size' + Number(Number(index) + 1)]} noPlaceholder withoutMargin onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(ind) + 1)]} value={[field.name, 'size' + Number(Number(index) + 1)]} noPlaceholder withoutMargin onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                     </td>
                                                                     )
                                                                 }
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" disabled onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
  
                                                                 </td>
                                                                 
@@ -816,7 +843,7 @@ class AddJobworkOutward extends PureComponent{
                    <div className="row">
                        <div className="col-md-12">
                            <Form.Item>
-                               <Button type="primary" disabled={ this.state.buttonDisabled }  htmlType="submit" loading={this.state.buttonLoading}>
+                               <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                { this.id ? "Update" : 'Submit'}
                                </Button>
                            </Form.Item>

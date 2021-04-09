@@ -143,6 +143,7 @@ class AddFabricInvoice extends PureComponent{
         fabric_invoice_inventory.map((item, index) => {
             total_roll += Number(item.roll);
             total_weight += Number(item.weight);
+            item.amount = Number(item.rate) * Number(item.weight);
             total_amount += Number(item.amount);
 
             if(index === fabric_invoice_inventory.length - 1)
@@ -258,7 +259,7 @@ class AddFabricInvoice extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/fabricInvoice?id=' + this.id, values).then(data => {
+            putRequest('transactions/fabricInvoice?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_fabric_invoice')
@@ -335,7 +336,7 @@ class AddFabricInvoice extends PureComponent{
                     ref={this.formRef}
                     name="basic"
                     initialValues={this.state.formData}
-                    onFinish={this.onFinish}
+                    // onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     >
                         
@@ -392,12 +393,12 @@ class AddFabricInvoice extends PureComponent{
 
                                                <td> <Numberbox withoutMargin required="false" noPlaceholder className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} required = 'false' modelName={[field.name, 'dia']} value={[field.name, 'dia']} label="Dia"></Numberbox> </td>
 
-                                               <td> <Numberbox withoutMargin required="false" noPlaceholder className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox></td>
+                                               <td> <Numberbox withoutMargin required="false" noPlaceholder className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox></td>
 
-                                               <td><Numberbox withoutMargin required="false" noPlaceholder className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox></td>
+                                               <td><Numberbox withoutMargin required="false" noPlaceholder className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox></td>
 
-                                               <td><Numberbox withoutMargin required="false" noPlaceholder className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'rate' ]}  modelName={[field.name, 'rate']} value={[field.name, 'rate']} label="Rate"></Numberbox></td>
-                                               <td>  <Numberbox withoutMargin required="false" noPlaceholder className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} label="Amount" disabled onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox></td>
+                                               <td><Numberbox withoutMargin required="false" noPlaceholder className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'rate' ]}  modelName={[field.name, 'rate']} value={[field.name, 'rate']} onChange={(ev) => this.setTOTAL(ev,field.fieldKey)} label="Rate"></Numberbox></td>
+                                               <td>  <Numberbox withoutMargin required="false" noPlaceholder className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} label="Amount" disabled onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox></td>
 
                                                <td> { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeFabricInvoiceInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}</td>
                                            </tr>
@@ -429,7 +430,7 @@ class AddFabricInvoice extends PureComponent{
                    <div className="row">
                        <div className="col-md-12">
                            <Form.Item>
-                               <Button type="primary" disabled={ this.state.buttonDisabled }  htmlType="submit" loading={this.state.buttonLoading}>
+                               <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish}  htmlType="submit" loading={this.state.buttonLoading}>
                                { this.id ? "Update" : 'Submit'}
                                </Button>
                            </Form.Item>

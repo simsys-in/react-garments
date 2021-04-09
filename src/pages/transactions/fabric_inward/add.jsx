@@ -67,18 +67,18 @@ class AddFabricInward extends PureComponent{
         })
     }
 
-    // getProcessSB = () => {
+    getProcessSB = () => {
         
-    //     getRequest('transactions/getProcessSB').then(data => {
-    //         if(data.status === "info")
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 process : data.data
-    //             })
-    //         }
-    //     })
-    // }
+        getRequest('masters/getAllProcessSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    process : data.data
+                })
+            }
+        })
+    }
 
     getColorSB = () => {
         
@@ -219,7 +219,7 @@ class AddFabricInward extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getAllLedgerSB();
-        // this.getProcessSB();
+        this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
         this.setTOTAL();
@@ -257,7 +257,7 @@ class AddFabricInward extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/fabricInward?id=' + this.id, values).then(data => {
+            putRequest('transactions/fabricInward?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_fabric_inward')
@@ -335,7 +335,7 @@ class AddFabricInward extends PureComponent{
                     ref={this.formRef}
                     name="basic"
                     initialValues={this.state.formData}
-                    onFinish={this.onFinish}
+                    // onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     >
                         
@@ -384,8 +384,8 @@ class AddFabricInward extends PureComponent{
                                         <td> <Selectbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox></td>
                                         <td> <Numberbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={[field.name, 'gsm']} label="Gsm"></Numberbox></td>
                                         <td>  <Numberbox noPlaceholder withoutMargin required="false" className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} required = 'false' modelName={[field.name, 'dia']} value={[field.name, 'dia']} label="Dia"></Numberbox></td>
-                                        <td> <Numberbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox></td>
-                                        <td><Numberbox noPlaceholder withoutMargin required="false" className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox></td>
+                                        <td> <Numberbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox></td>
+                                        <td><Numberbox noPlaceholder withoutMargin required="false" className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox></td>
                                         <td> { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeFabricInwardInventory(index)} type="primary"> <FontAwesomeIcon  icon={faTimes} /> </Button>}</td>
                                     </tr>
                                     )
@@ -413,7 +413,7 @@ class AddFabricInward extends PureComponent{
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
-                                <Button type="primary" disabled={ this.state.buttonDisabled }  htmlType="submit" loading={this.state.buttonLoading}>
+                                <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                 { this.id ? "Update" : 'Submit'}
                                 </Button>
                             </Form.Item>
