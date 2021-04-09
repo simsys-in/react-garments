@@ -141,7 +141,7 @@ class AddLedger_Category extends PureComponent{
                     <div className="row">
                         <Textbox label="Ledger Category" autoFocus modelName="ledger_category" className="col-md-4"></Textbox>
                     </div>
-
+<br />
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>

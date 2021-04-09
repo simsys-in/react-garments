@@ -653,11 +653,15 @@ class AddJobworkOutward extends PureComponent{
                         
                     <div className="row">
                         <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
+
                         <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-6" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
+
                    </div>
                    <div className="row">
                        <Selectbox modelName="from_process_id" label="From Process" className="col-md-6" options={this.state.process} value={this.state.formData.from_process_id}  ></Selectbox>
+
                        <Selectbox modelName="to_process_id" label="To Process" className="col-md-6" options={this.state.process} value={this.state.formData.to_process_id}  ></Selectbox>
+                       
                    </div>
                    <div className="row">
                        <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
@@ -673,11 +677,13 @@ class AddJobworkOutward extends PureComponent{
                    
 
                   
-                          <Divider orientation="left" plain> Inventory</Divider>
                     <br/>
                     <div className="row">
-                        <div className="col-md-12 table-scroll">
-                            <table id="dynamic-table" className="table table-bordered">
+
+                        <div className="col-md-7 table-scroll">
+                        <Divider orientation="left" plain> Inventory</Divider>
+
+                            <table id="dynamic-table" className="table table-bordered table-scroll">
                                     {/* <thead>
                                         <tr>
                                             <th colSpan="1" className="primary-header" style={{ backgroundColor : 'lightblue' }} > <b> COLOR</b></th>
@@ -686,15 +692,15 @@ class AddJobworkOutward extends PureComponent{
                                     </thead> */}
                                     <thead>
                                         <tr>
-                                            <th width="150px"> <Checkbox onChange={this.checkAllItems} /></th>
-                                            <th width="150px"> <b> Color</b></th>
+                                            <th > <Checkbox onChange={this.checkAllItems} /></th>
+                                            <th> <b> Color</b></th>
                                            
                                             { this.state.size_data_for_order.map((item, index) => 
                                                 item !== "" && <th key={index} width="100px"> <b> {item}</b></th>
                                             ) }
 
-                                            <th width="100px"> <b> Qty</b></th>
-                                            <th width="30px">
+                                            <th> <b> Qty</b></th>
+                                            <th width="10px">
                                                 <Button type="primary"  onClick={this.addJobworkOutwardInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
                                             </th>
                                         </tr>
@@ -763,55 +769,49 @@ class AddJobworkOutward extends PureComponent{
                                     </tbody>
                                 </table>
                         </div>
+                        <div className="col-md-5">
+                                <Divider plain orientation="left">Accessories</Divider>
+                                <table id="dynamic-table" className="table table-bordered" width="100%">
+                                <thead >
+                                    <tr>
+                                        <th>Product</th>
+                                        <th width="170px">Qty</th>
+                                        <th>Unit</th>
+                                        
+                                        <th width="10px"><Button type="primary"  onClick={this.addJobworkOutwardProduct} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <Form.List name="jobwork_outward_product">
+                                    { (fields, { add, remove } )=> (
+                                        fields.map((field, index) => (
+                                            <tr>
+                                                <td> <Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} modelName={[field.name, 'product_id']}  label="Product" value={[field.name, 'product_id']} options={this.state.product_data} onChange={(product_id) => this.getUnitForProductId(product_id, index)} onBlur={(product_id) => this.getUnitForProductId(product_id, index)} noPlaceholder withoutMargin  ></Selectbox></td>
+
+                                                <td> <Numberbox className="col-md-12" required="false" showLabel={false} label="Qty" min={0} field={field} fieldKey={[ field.fieldKey, 'qty' ]} modelName={[field.name, 'qty']} value={[field.name, 'qty']} noPlaceholder withoutMargin ></Numberbox></td>
+
+                                                <td><Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'unit_id' ]} disabled modelName={[field.name, 'unit_id']}  label="Unit" value={[field.name, 'unit_id']} options={this.state.unit_data} noPlaceholder withoutMargin ></Selectbox></td>
+
+                                                <td>  { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeJobworkOutwardProduct(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}</td>
+
+                                            </tr>
+                                             )
+                                            
+                                             )
+                                         ) }
+                                     </Form.List>
+                                    
+                                </tbody>
+                                </table>
+                                </div>
                     </div>
                     <br/>
                    
                        
                         <div className="row">
-                             <div className="col-md-12">
-                                <Divider plain orientation="left">Accessories</Divider>
-                                <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
-                                    <div className="col-md-11">
-                                        <div className="row flex-nowrap">
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Product" label="Product" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Qty" label="Qty" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Unit" label="Unit" required="false"></Textbox>
-                                            
-                                            
-                                        <div className="col-md-1">
-                                          <Button type="primary"  onClick={this.addJobworkOutwardProduct} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
-                                         </div>
-                                        </div>
-                                    </div>
-                                   
-                                </div>
-                                
-                                <Form.List name="jobwork_outward_product">
-                                    { (fields, { add, remove } )=> (
-                                        fields.map((field, index) => (
-                                                <div className="row flex-nowrap" key={index} style={{ paddingLeft : 15, paddingRight : 2 }}>
-                                                   <div className='col-md-11'>
-                                                       <div className="row ">
-                                                       <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} modelName={[field.name, 'product_id']}  label="Product" value={[field.name, 'product_id']} options={this.state.product_data} onChange={(product_id) => this.getUnitForProductId(product_id, index)} onBlur={(product_id) => this.getUnitForProductId(product_id, index)} noPlaceholder withoutMargin  ></Selectbox>
-                                                    <Numberbox className="col-md-2" required="false" showLabel={false} label="Qty" min={0} field={field} fieldKey={[ field.fieldKey, 'qty' ]} modelName={[field.name, 'qty']} value={[field.name, 'qty']} noPlaceholder withoutMargin ></Numberbox>
-                                                    <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'unit_id' ]} disabled modelName={[field.name, 'unit_id']}  label="Unit" value={[field.name, 'unit_id']} options={this.state.unit_data} noPlaceholder withoutMargin ></Selectbox>
-                                                           
-                                                  <div className="col-md-1">
-                                                                { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeJobworkOutwardProduct(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
-                                                    </div>
-                                                   
-                                                  </div>
-                                                 </div>
-                                                </div>
-                                            )
-                                            
-                                        )
-                                    ) }
-                                </Form.List>
-                                </div>
-                         </div>                       
-                       
-                   <br/>
+                             
+                         </div>
+                         <br/>
 
                    <div className="row">
                        <div className="col-md-12">

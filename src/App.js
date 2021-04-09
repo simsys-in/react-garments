@@ -432,9 +432,9 @@ class App extends React.PureComponent
 
 
                                {/* master Group */}
-                              <Route exact path="/masters/add_masterGroup" component={AddMasterGroup} />
-                              <Route exact path="/masters/edit_masterGroup/:id" component={AddMasterGroup} />
-                              <Route exact path="/masters/list_masterGroup" component={ListMasterGroup} />
+                              <Route exact path="/masters/add_master_group" component={AddMasterGroup} />
+                              <Route exact path="/masters/edit_master_group/:id" component={AddMasterGroup} />
+                              <Route exact path="/masters/list_master_group" component={ListMasterGroup} />
                              
                              {/* yarn YarnInward */}
 
@@ -477,9 +477,9 @@ class App extends React.PureComponent
                               <Route exact path="/user/list_user" component={ListUser} />
 
                                {/* order program */}
-                              <Route exact path="/transactions/add_orderprogram" component={AddOrderProgram} />
-                              <Route exact path="/transactions/edit_orderprogram/:id" component={AddOrderProgram} />
-                              <Route exact path="/transactions/list_orderprogram" component={ListOrderProgram} />
+                              <Route exact path="/transactions/add_order_program" component={AddOrderProgram} />
+                              <Route exact path="/transactions/edit_order_program/:id" component={AddOrderProgram} />
+                              <Route exact path="/transactions/list_order_program" component={ListOrderProgram} />
 
 
                                 {/* fabric inward */}

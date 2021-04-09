@@ -22,11 +22,11 @@ class ListYarnreturn  extends PureComponent {
           field: 'vou_date',
           width: "30vw",
         },
-        // {
-        //   label: 'Vou No',
-        //   field: 'vouno',
-        //   width: "30vw",
-        // },
+        {
+          label: 'Vou No',
+          field: 'vouno',
+          width: "30vw",
+        },
         // {
         //   label: 'Vou No',
         //   field: 'order_no',

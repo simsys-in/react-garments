@@ -141,7 +141,7 @@ class AddEmployee_Category extends PureComponent{
                     <div className="row">
                         <Textbox label="Employee category" autoFocus modelName="employee_category" className="col-md-4"></Textbox>
                     </div>
-
+<br />
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>

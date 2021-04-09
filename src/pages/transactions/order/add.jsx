@@ -310,7 +310,7 @@ class AddOrderProgram extends PureComponent{
                 order_fabrics : oldOrderFabricsArray
             }
         })
-        this.setTOTAL();
+        // this.setTOTAL();
     }
 
 
@@ -339,121 +339,96 @@ class AddOrderProgram extends PureComponent{
                         <div className="col-md-12">
                             <Divider plain orientation="left" >ORDER PROGRAM</Divider>
                             <div className="row">
-                            <Datebox autoFocus className="col-md-6" label="Order Date" value={this.state.formData.orderDate} modelName="orderDate" ></Datebox>
-                            <Textbox required="false" className="col-md-6" label="Order No" modelName="order_no" ></Textbox>
+                            <Datebox autoFocus className="col-md-4" label="Order Date" value={this.state.formData.orderDate} modelName="orderDate" ></Datebox>
+                            <Selectbox modelName="ledger_id" label="Ladger Name" required="false" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id}  ></Selectbox>
+                            <Textbox required="false" className="col-md-4" label="Order No" modelName="order_no" ></Textbox>
                             </div>
 
                             <div className="row">
-                            <Selectbox modelName="ledger_id" label="Ladger Name" required="false" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id}  ></Selectbox>
-                            <Datebox  className="col-md-6" label="Due Date" value={this.state.formData.due_date} modelName="due_date" ></Datebox>
+                            <Datebox  className="col-md-4" label="Due Date" value={this.state.formData.due_date} modelName="due_date" ></Datebox>
+                            <Selectbox modelName="status_id" className="col-md-4" label="Status" required="true" value={this.state.formData.status} statusSelect ></Selectbox>
+                            <Selectbox modelName="size_id" label="Size" className="col-md-4" options={this.state.size_data} value={this.state.formData.size_id}  ></Selectbox>
                             </div>
-
-
                             <div className="row">
-                            <Selectbox modelName="status_id" label="Status" required="true" value={this.state.formData.status} statusSelect ></Selectbox>
-                            <Selectbox modelName="size_id" label="Size" className="col-md-6" options={this.state.size_data} value={this.state.formData.size_id}  ></Selectbox>
-                            </div>
-
-                            <div className="row">
-                            <Selectbox modelName="style_id" label="Style" className="col-md-6" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
+                            <Selectbox modelName="style_id" label="Style" className="col-md-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
 
                             </div>
                         </div>  
                     </div>
                     <div className="row ">
-                    <div className="col-md-12">
+                    <div className="col-md-12 table-scroll">
                             <Divider plain orientation="left" >FABRIC DETAILS</Divider>
-                            <div className="row flex-nowrap"  style={{ paddingLeft : 15, paddingRight : 2 }}>
-                                    <div className="col-md-11">
-                                        <div className="row ">
-                                            
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Fabric" label="Fabric" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Dia" label="Dia" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Gsm" label="Gsm" required="false"></Textbox>
-                                          
-                                        <div className="col-md-1">
-                                           <Button type="primary" onClick={this.addOrderFabrics} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
-                                            
-                                        </div>
-                                        </div>
-                                        </div>
-                                    {/* </div> */}
-                                   
-                                </div>
-                                
+                            <table id="dynamic-table" className="table table-bordered" width="100%">
+                                <thead >
+                                    <tr>
+                                        <th>Fabric </th>
+                                        <th>Dia</th>
+                                        <th>GSM</th>
+                                       
+                                        <th width="10px" >   <Button type="primary" onClick={this.addOrderFabrics} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                 <Form.List name="order_fabrics">
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
-                                                <div className="row "  style={{ paddingLeft : 15, paddingRight : 2 }}>
-                                                    <div className="col-md-11">
-                                                        <div className="row flex-nowrap">
-                                                        <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']}  label="Fabric"  options={this.state.fabric_data} value={this.state.formData.fabric_id} noPlaceholder withoutMargin ></Selectbox>
-                                                         <Textbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} modelName={[field.name, 'dia']}  noPlaceholder withoutMargin label="Dia"  ></Textbox>
-                                                        <Textbox  className="col-md-2" label="Gsm" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} noPlaceholder withoutMargin ></Textbox>
-                                                       
-                                                     <div className="col-md-1">
-                                                        { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeOrderFabrics(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
-                                                     </div>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                    
-                                                  
-                                                </div>
-                                            )
+                                            <tr>
+                                                <td>    <Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']}  label="Fabric"  options={this.state.fabric_data} value={this.state.formData.fabric_id} noPlaceholder withoutMargin ></Selectbox></td>
+
+                                                <td><Textbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} modelName={[field.name, 'dia']}  noPlaceholder withoutMargin label="Dia"  ></Textbox></td>
+
+                                                <td>  <Textbox  className="col-md-12" label="Gsm" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} noPlaceholder withoutMargin ></Textbox></td>
+
+                                                <td>  { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeOrderFabrics(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}</td>
+                                            </tr>
+                                             )
                                             
-                                        )
-                                    ) }
-                                </Form.List>
-                            
-
-                          
-
-                         </div>
+                                             )
+                                         ) }
+                                     </Form.List>
+                                </tbody>
+                                </table>
+                        </div>
                     </div>
                     <div className="row">
-                             <div className="col-md-12">
+                    <div className="col-md-12 table-scroll">
+                        
                                 <Divider plain orientation="left">PROCESS</Divider>
-                                <div className="row" style={{ paddingLeft : 15, paddingRight : 2 }}>
-                                    <div className="col-md-11">
-                                        <div className="row flex-nowrap">
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Process" label="Process" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Ledger" label="Ledger" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Rate" label="Rate" required="false"></Textbox>
-                                            <Textbox withoutMargin showLabel={false} className="col-md-2" disabled defaultValue="Waste" label="Waste" required="false"></Textbox>
-                                            
-                                        <div className="col-md-1">
-                                          <Button type="primary"  onClick={this.addOrderProcess} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
-                                         </div>
-                                        </div>
-                                    </div>
-                                   
-                                </div>
-                                
+                                <table id="dynamic-table" className="table table-bordered" width="100%">
+                                <thead >
+                                    <tr>
+                                        <th>Process</th>
+                                        <th>Ledger</th>
+                                        <th>Rate</th>
+                                        <th>Waste</th>
+                                       
+                                        <th width="10px"> <Button type="primary"  onClick={this.addOrderProcess} style={{ marginLeft : 10}}> <FontAwesomeIcon  icon={faPlus} />  </Button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                 <Form.List name="order_process">
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
-                                                <div className="row flex-nowrap" style={{ paddingLeft : 15, paddingRight : 2 }}>
-                                                   <div className='col-md-11'>
-                                                       <div className="row ">
-                                                       <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'process_id' ]} modelName={[field.name, 'process_id']}  label="Process" value={field.name, 'process_id'} options={this.state.process} noPlaceholder withoutMargin ></Selectbox>
-                                                    <Selectbox className="col-md-2" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'ledger_id' ]} modelName={[field.name, 'ledger_id']}  label="Ledger" value={field.name, 'ledger'} options={this.state.ledger_name} noPlaceholder withoutMargin ></Selectbox>
-                                                    <Numberbox className="col-md-2" required="false" showLabel={false} label="Rate" min={0} field={field} fieldKey={[ field.fieldKey, 'rate' ]} modelName={[field.name, 'rate']} value={field.name, 'rate'} noPlaceholder withoutMargin ></Numberbox>
-                                                    <Numberbox className="col-md-2" required="false" showLabel={false} label="Waste" min={0} max={100} field={field} fieldKey={[ field.fieldKey, 'waste' ]} modelName={[field.name, 'waste']} value={field.name, 'waste'} noPlaceholder withoutMargin ></Numberbox>
-                                                           
-                                                  <div className="col-md-1">
-                                                                { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeOrderProcess(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
-                                                    </div>
-                                                   
-                                                  </div>
-                                                 </div>
-                                                </div>
-                                            )
+                                            <tr>
+                                                <td>    <Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'process_id' ]} modelName={[field.name, 'process_id']}  label="Process" value={field.name, 'process_id'} options={this.state.process} noPlaceholder withoutMargin ></Selectbox></td>
+
+                                                <td> <Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'ledger_id' ]} modelName={[field.name, 'ledger_id']}  label="Ledger" value={field.name, 'ledger'} options={this.state.ledger_name} noPlaceholder withoutMargin ></Selectbox></td>
+
+                                                <td> <Numberbox className="col-md-12" required="false" showLabel={false} label="Rate" min={0} field={field} fieldKey={[ field.fieldKey, 'rate' ]} modelName={[field.name, 'rate']} value={field.name, 'rate'} noPlaceholder withoutMargin ></Numberbox></td>
+
+                                                <td> <Numberbox className="col-md-12" required="false" showLabel={false} label="Waste" min={0} max={100} field={field} fieldKey={[ field.fieldKey, 'waste' ]} modelName={[field.name, 'waste']} value={field.name, 'waste'} noPlaceholder withoutMargin ></Numberbox></td>
+
+                                                <td>  { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeOrderProcess(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}</td>
+                                            </tr>
+                                             )
                                             
-                                        )
-                                    ) }
-                                </Form.List>
-                                </div>
+                                             )
+                                         ) }
+                                     </Form.List>
+
+                                </tbody>
+                                </table>
+                                 </div>
                          </div>
                          <br/>
                     <div className="row">

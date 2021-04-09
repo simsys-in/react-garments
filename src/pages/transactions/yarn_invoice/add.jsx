@@ -447,7 +447,7 @@ class AddYarn_Invoice extends PureComponent{
                     <div className="row">
                        
                         <Selectbox modelName="process_id" label="Process"  className="col-md-6" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
-                        <Textbox label="Ref No" modelName="refno"  className="col-md-6"></Textbox>
+                        <Textbox label="Ref No" modelName="refno" required="false" className="col-md-6"></Textbox>
                         
                     </div>
                     <div className="row">

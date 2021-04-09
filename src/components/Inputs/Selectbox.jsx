@@ -29,7 +29,7 @@ class Selectbox extends PureComponent {
         const showLabel = issetNotEmpty(this.props.showLabel) ? this.props.showLabel : true;
         return(
             
-            <div className={ this.props.className ? this.props.className : "col-md-6" } style={{ padding : this.props.withoutMargin ? '0' : 'auto', bottom : this.props.withoutMargin ? '-15px' : 'auto' ,top : this.props.withoutMargin ? '0' : 'auto', right : this.props.withoutMargin ? '0' : 'auto', left : this.props.withoutMargin ? '0' : 'auto' }} >
+            <div className={ this.props.className ? this.props.className : 'col-md-4' } style={{ padding : this.props.withoutMargin ? '0' : 'auto', bottom : this.props.withoutMargin ? '-15px' : 'auto' ,top : this.props.withoutMargin ? '0' : 'auto', right : this.props.withoutMargin ? '0' : 'auto', left : this.props.withoutMargin ? '0' : 'auto' }} >
                 <Input.Group compact >
                     
                         { showLabel ? 

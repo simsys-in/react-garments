@@ -31,6 +31,7 @@ class AddJobwork_Inward  extends PureComponent{
             formData : {
                 status : 'active',
                 vou_date : moment(),
+                adas : 1,
                 jobwork_inward_inventory : [
                     {  
                        color : '',
@@ -346,6 +347,8 @@ class AddJobwork_Inward  extends PureComponent{
         this.getProcessSBForOrderID(order_id);
         this.getSizesForOrderID(order_id);
         this.getJobworkOutwardColorDetails(order_id);
+        this.getLedgerForOrderID(order_id);
+
         
     }
 
@@ -363,6 +366,24 @@ class AddJobwork_Inward  extends PureComponent{
                 },() => {
                     this.formRef.current.setFieldsValue({
                         mobile : this.state.formData.mobile
+                    })
+                })
+            }
+        })
+    }
+    getLedgerForOrderID = (order_id) => {
+        getRequest('masters/getLedgerForOrderID?order_id=' + order_id).then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        ledger : data.data
+                    },
+                },() => {
+                    this.formRef.current.setFieldsValue({
+                        ledger : this.state.formData.ledger
                     })
                 })
             }
@@ -530,6 +551,17 @@ class AddJobwork_Inward  extends PureComponent{
         this.setTOTAL();
     }
 
+    onAdasChange = (ev) => {
+        this.setState({
+            ...this.state,
+            formData : {
+                ...this.state.formData,
+                adas : ev.target.checked
+            }
+        }, () => {
+            this.formRef.current.setFieldsValue(this.state.formData)
+        })
+    }
     // getOrderNos = (ledger_id)
 
     render(){
@@ -554,40 +586,38 @@ class AddJobwork_Inward  extends PureComponent{
                     <div className="row">
                        
                        
-                       <Selectbox modelName="order_id" label="Order No" onChange={this.onOrderIDChange} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
-                        <Selectbox modelName="process_id" label="Process" className="col-md-6" options={this.state.process} value={this.state.formData.process_id} onChange={this.getLedgerForOrderAndProcessID} ></Selectbox>
+                       <Selectbox modelName="order_id" label="Order No" onChange={this.onOrderIDChange} className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                        <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id} onChange={this.getLedgerForOrderAndProcessID} ></Selectbox>
+                        <Selectbox modelName="ledger_id" label="Ledger Name" onChange={this.getMobileForLedgerID} className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
 
                     </div>
                     <div className="row">
-                        {/* <Textbox label="Id" modelName="order_id"  className="col-md-6"></Textbox> */}
-                        <Selectbox modelName="ledger_id" label="Ledger Name" onChange={this.getMobileForLedgerID} className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
-                        <Textbox label="Mobile" disabled modelName="mobile" required="false"  className="col-md-6"></Textbox>
+                        {/* <Textbox label="Id" modelName="order_id"  className="col-md-4"></Textbox> */}
+                        <Textbox label="Mobile" disabled modelName="mobile" required="false"  className="col-md-4"></Textbox>
 
-
-
-                    </div>
-                    <div className="row">
-                        <Datebox label="Vou Date" value={this.state.formData.vou_date}  modelName="vou_date" className="col-md-6"></Datebox>
+                        <Datebox label="Vou Date" value={this.state.formData.vou_date}  modelName="vou_date" className="col-md-4"></Datebox>
                    
-                    <Textbox label="Vou No" modelName="vouno"  className="col-md-6"></Textbox>
+                    <Textbox label="Vou No" modelName="vouno"  className="col-md-4"></Textbox>
 
 
                     </div>
+                   
                     <div className="row">
                    
-                        <Selectbox label="Product" modelName="product_id" required="false" className="col-md-6"  options={this.state.product} value={ this.state.formData.product}  ></Selectbox>  
-
-                       <Checkbox label="Adas" modelName="adas" required="false"  className="col-md-6"></Checkbox>
+                        <Selectbox label="Product" modelName="product_id" required="false" className="col-md-4"  options={this.state.product} value={ this.state.formData.product}  ></Selectbox>  
+                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
+                        <Form.Item name="adas" className="col-md-6" label="Adas" 
+                        rules={[
+                            {
+                                required : false
+                            }
+                        ]}>
+                            <Checkbox onChange={this.onAdasChange} checked={this.state.formData.adas}></Checkbox>
+                        </Form.Item>
 
 
                     </div>
-                    <div className="row">
                    
-                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
-
-
-
-                    </div>
 
                     <Divider plain orientation="left" >Products</Divider> 
 

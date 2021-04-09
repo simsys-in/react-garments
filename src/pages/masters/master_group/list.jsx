@@ -50,11 +50,11 @@ class ListMasterGroup extends PureComponent {
 
   editMasterGroup = (id) => {
     console.log(id);
-    this.props.history.push('/masters/edit_masterGroup/' + id)
+    this.props.history.push('/masters/edit_master_group/' + id)
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/masterGroup?id=' + id).then(data => {
+    deleteRequest('masters/master_group?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -80,7 +80,7 @@ class ListMasterGroup extends PureComponent {
       title: 'List Master Group',
       metaDescription: 'List Master Group'
     });
-    getRequest('masters/masterGroup').then(data => {
+    getRequest('masters/master_group').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{
@@ -108,7 +108,7 @@ class ListMasterGroup extends PureComponent {
         <div className="row">
           <div className="col-md-10"></div>
           <div className="col-md-2" align="right">
-            <Button type="primary" onClick={() => { this.props.history.push("/masters/add_masterGroup") }}> Add </Button>
+            <Button type="primary" onClick={() => { this.props.history.push("/masters/add_master_group") }}> Add </Button>
           </div>
           <br />
           <br />

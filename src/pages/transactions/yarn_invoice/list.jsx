@@ -23,11 +23,11 @@ class ListYarninvoice extends PureComponent {
           field: 'vou_date',
           width: "30vw",
         },
-        // {
-        //   label: 'Vou No',
-        //   field: 'order_no',
-        //   width: "30vw",
-        // },
+        {
+          label: 'Vou No',
+          field: 'vouno',
+          width: "30vw",
+        },
         {
           label: 'Ledger Name',
           field: 'ledger',
