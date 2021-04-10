@@ -172,7 +172,7 @@ class AddLedger extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('masters/ledger?id=' + this.id, values).then(data => {
+            putRequest('masters/ledger?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_ledger')
@@ -208,7 +208,7 @@ class AddLedger extends PureComponent{
                     ref={this.formRef}
                     name="basic"
                     initialValues={this.state.formData}
-                    onFinish={this.onFinish}
+                    // onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     >
                         
@@ -249,14 +249,14 @@ class AddLedger extends PureComponent{
                             </div>
                             <div className="row">
                                 <Textbox label="Mobile" required="false" modelName="mobile"></Textbox>
-                                <Selectbox modelName="state_id"  required="false"  label="State" options={formulae} value={this.state.formData.state_id}  ></Selectbox>
+                                <Textbox modelName="state_id"  required="false"  label="State"></Textbox>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <Divider plain orientation="left" >Statury Info</Divider>
                             <div className="row">
                                 <Textbox required="false"  label="GST No" modelName="gstno" ></Textbox>
-                                <Textbox required="false" label="Credit Limit" modelName="credit_limit" ></Textbox>
+                                <Numberbox required="false" label="Credit Limit" modelName="credit_limit" ></Numberbox>
                             </div>
 
                             <div className="row">
@@ -271,7 +271,7 @@ class AddLedger extends PureComponent{
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
-                                <Button type="primary"  disabled={ this.state.buttonDisabled }  htmlType="submit" loading={this.state.buttonLoading}>
+                                <Button type="primary"  disabled={ this.state.buttonDisabled } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                 { this.id ? "Update" : 'Submit'}
                                 </Button>
                             </Form.Item>

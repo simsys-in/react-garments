@@ -51,7 +51,7 @@ class AddMasterGroup extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("masters/masterGroup?id=" + this.id).then(data => {
+            getRequest("masters/master_group?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
@@ -96,10 +96,10 @@ class AddMasterGroup extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('masters/masterGroup?id=' + this.id, values).then(data => {
+            putRequest('masters/master_group?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
-                    this.props.history.push('/masters/list_masterGroup')
+                    this.props.history.push('/masters/list_master_group')
                     console.log(data) 
                 }
             })
@@ -122,7 +122,7 @@ class AddMasterGroup extends PureComponent{
             <Fragment>
                 <div className="row">
                     <div className="col-md-12" align="right">
-                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/masters/list_masterGroup') } }>
+                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/masters/list_master_group') } }>
                             { this.id ? "Back" : 'List'}
                         </Button>
                     </div>
@@ -132,7 +132,7 @@ class AddMasterGroup extends PureComponent{
                     ref={this.formRef}
                     name="basic"
                     initialValues={this.state.formData}
-                    onFinish={this.onFinish}
+                    // onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     >
                         
@@ -143,7 +143,7 @@ class AddMasterGroup extends PureComponent{
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
-                                <Button type="primary" disabled={ this.state.buttonDisabled }  htmlType="submit" loading={this.state.buttonLoading}>
+                                <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                 { this.id ? "Update" : 'Submit'}
                                 </Button>
                             </Form.Item>

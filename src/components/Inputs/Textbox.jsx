@@ -16,7 +16,7 @@ class TextBox extends PureComponent {
         return(
             <Form.Item
                 name={ this.props.modelName ? this.props.modelName : 'name' }
-                className={ this.props.className ? this.props.className : 'col-md-6' }
+                className={ this.props.className ? this.props.className : 'col-md-4' }
                 style={{ padding : this.props.withoutMargin  ? '0' : 'auto', bottom : this.props.withoutMargin  ? -17 : 'auto' ,top : this.props.withoutMargin  ? '0' : 'auto', right : this.props.withoutMargin  ? '0' : 'auto', left : this.props.withoutMargin  ? '0' : 'auto' }}
                 rules={[
                 {

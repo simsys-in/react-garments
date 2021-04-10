@@ -294,6 +294,15 @@ class Report extends PureComponent {
                                                 <td style={{border : '1px solid gray', paddingLeft : '5px'}}>{ item.amount }</td>
                                             </tr>
                                         )}
+
+                                        <tr>
+                                            <td>GRAND TOTAL</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{report_details.inventorytotal[0].inventory_qty_total}</td>
+                                            <td>{report_details.inventorytotal[0].inventory_amount_total}</td>
+                                            <td></td>
+                                        </tr>
                                         
 
                                         

@@ -39,7 +39,7 @@ class ListMenumaster extends PureComponent {
         },
         {
           label: 'Sort Order ',
-          field: 'sprt_order',
+          field: 'sort_order',
           width: "60vw",
      
         },

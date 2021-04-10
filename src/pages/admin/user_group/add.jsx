@@ -186,7 +186,7 @@ class AddUser_Group extends PureComponent{
             buttonLoading : true
         },() => {
             values.menuList = this.state.dataSource;
-            putRequest('user/user_group?id=' + this.id, values).then(data => {
+            putRequest('user/user_group?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/user/list_user_group')
@@ -222,7 +222,7 @@ class AddUser_Group extends PureComponent{
                     ref={this.formRef}
                     name="basic"
                     initialValues={this.state.formData}
-                    onFinish={this.onFinish}
+                    // onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     >
                         
@@ -240,7 +240,7 @@ class AddUser_Group extends PureComponent{
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
-                                <Button type="primary" disabled={ this.state.buttonDisabled }  htmlType="submit" loading={this.state.buttonLoading}>
+                                <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                 { this.id ? "Update" : 'Submit'}
                                 </Button>
                             </Form.Item>

@@ -162,8 +162,9 @@ class AddGarmentsInvoice extends PureComponent{
                 item.qty = Number(item.size1_qty)+Number(item.size2_qty)+Number(item.size3_qty)+Number(item.size4_qty)+Number(item.size5_qty)+Number(item.size6_qty)+Number(item.size7_qty)+Number(item.size8_qty)+Number(item.size9_qty);
 
                 total_amount_qty += Number((Number(item.size1_qty) * Number(item.size1_rate)))+Number((Number(item.size1_qty) * Number(item.size2_rate)))+Number((Number(item.size3_qty) * Number(item.size3_rate)))+Number((Number(item.size4_qty) * Number(item.size4_rate)))+Number((Number(item.size5_qty) * Number(item.size5_rate)))+Number((Number(item.size6_qty) * Number(item.size6_rate)))+Number((Number(item.size7_qty) * Number(item.size7_rate)))+Number((Number(item.size8_qty) * Number(item.size8_rate)))+Number((Number(item.size9_qty) * Number(item.size9_rate)));
-                
-                item.amount = Number((Number(item.size1_qty) * Number(item.size1_rate)))+Number((Number(item.size1_qty) * Number(item.size2_rate)))+Number((Number(item.size3_qty) * Number(item.size3_rate)))+Number((Number(item.size4_qty) * Number(item.size4_rate)))+Number((Number(item.size5_qty) * Number(item.size5_rate)))+Number((Number(item.size6_qty) * Number(item.size6_rate)))+Number((Number(item.size7_qty) * Number(item.size7_rate)))+Number((Number(item.size8_qty) * Number(item.size8_rate)))+Number((Number(item.size9_qty) * Number(item.size9_rate)));
+                var amount = Number((Number(item.size1_qty) * Number(item.size1_rate)))+Number((Number(item.size1_qty) * Number(item.size2_rate)))+Number((Number(item.size3_qty) * Number(item.size3_rate)))+Number((Number(item.size4_qty) * Number(item.size4_rate)))+Number((Number(item.size5_qty) * Number(item.size5_rate)))+Number((Number(item.size6_qty) * Number(item.size6_rate)))+Number((Number(item.size7_qty) * Number(item.size7_rate)))+Number((Number(item.size8_qty) * Number(item.size8_rate)))+Number((Number(item.size9_qty) * Number(item.size9_rate)));
+                item.disc_value = Number(amount) * (Number(item.disc_percentage)/100);
+                item.amount = amount - item.disc_value;
 
                 if(index === garments_invoice_inventory.length - 1)
                 {
@@ -604,18 +605,18 @@ class AddGarmentsInvoice extends PureComponent{
 
                                                                 </td>
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'disc_percentage' ]}  modelName={[field.name, 'disc_percentage']} value={[field.name, 'disc_percentage']} label="Disc Percentage"></Numberbox>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'disc_value' ]}  modelName={[field.name, 'disc_value']} value={[field.name, 'disc_value']} label="Disc Value"></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'disc_percentage' ]}  modelName={[field.name, 'disc_percentage']} value={[field.name, 'disc_percentage']} onChange={this.setTOTAL} label="Disc Percentage"></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'disc_value' ]} disabled modelName={[field.name, 'disc_value']} value={[field.name, 'disc_value']} label="Disc Value" onChange={this.setTOTAL}></Numberbox>
 
                                                                 </td>
                                                                 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" onChange={this.setTOTAL}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" disabled onChange={this.setTOTAL}></Numberbox>
  
                                                                 </td>   
 
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} label="Amount" onChange={this.setTOTAL}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} disabled label="Amount" onChange={this.setTOTAL}></Numberbox>
  
                                                                 </td>   
                                                                

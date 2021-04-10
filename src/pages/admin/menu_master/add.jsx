@@ -13,6 +13,19 @@ import Address_Template from '../../../components/Templates/Address_Template';
 
 let interval;
 
+const status = [
+    {
+        name : "Active",
+        value : 1
+    },
+    {
+        name : "Inactive",
+        value : 0
+
+    }
+
+]
+
 
 class AddMenu_Master extends PureComponent{
     formRef = React.createRef();
@@ -98,7 +111,7 @@ class AddMenu_Master extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('user/menu_master?id=' + this.id, values).then(data => {
+            putRequest('user/menu_master?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/user/list_menu_master')
@@ -134,24 +147,25 @@ class AddMenu_Master extends PureComponent{
                     ref={this.formRef}
                     name="basic"
                     initialValues={this.state.formData}
-                    onFinish={this.onFinish}
+                    // onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     >
                         
                     <div className="row">
                         
                     <Textbox label="Menu" autoFocus modelName="menu" className="col-md-4"></Textbox>
-                    <Textbox label="Sts"  modelName="sts" className="col-md-4"></Textbox>
                     <Textbox label="Menu Route"  modelName="menu_route" className="col-md-4"></Textbox>
+                    <Numberbox label="Sort Order"  modelName="sort_order" className="col-md-4"></Numberbox>
 
 
                     </div>
+                    {/* <br /> */}
                     <div className="row">
                         
-                    <Numberbox label="Sort Order"  modelName="sort_order" className="col-md-4"></Numberbox>
                     <Textbox label="Method" required="false" modelName="method" className="col-md-4"></Textbox>
                     <Textbox label="Icon"  modelName="icon" className="col-md-4"></Textbox>
 
+                    <Selectbox label="Status"  modelName="sts" options={status} value={this.state.formData.status} className="col-md-4"></Selectbox>
 
                     </div>
 
@@ -159,11 +173,11 @@ class AddMenu_Master extends PureComponent{
                     <Textbox label="Addon" required="false" modelName="addon" className="col-md-4"></Textbox>
 
                         </div>
-
+<br />
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
-                                <Button type="primary" disabled={ this.state.buttonDisabled }  htmlType="submit" loading={this.state.buttonLoading}>
+                            <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                 { this.id ? "Update" : 'Submit'}
                                 </Button>
                             </Form.Item>

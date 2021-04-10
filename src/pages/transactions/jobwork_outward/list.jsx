@@ -23,6 +23,11 @@ class ListJobworkOutward extends PureComponent {
           
         },
         {
+          label: 'Vou No',
+          field: 'vouno',
+          width: "30vw",
+        },
+        {
           label: 'Vou Date',
           field: 'vou_date',
           width: "30vw",
@@ -104,7 +109,7 @@ class ListJobworkOutward extends PureComponent {
   deleteJobworkOutward = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.ledger;
+    const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,

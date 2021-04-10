@@ -93,7 +93,7 @@ class ListJobworkinword  extends PureComponent {
   deleteJobwork_Inward  = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.jobwork_inward ;
+    const name = user.vouno ;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
