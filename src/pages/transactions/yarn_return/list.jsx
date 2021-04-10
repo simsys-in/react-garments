@@ -93,7 +93,7 @@ class ListYarnreturn  extends PureComponent {
   deleteYarn_Return  = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.yarn_return ;
+    const name = user.vouno ;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,

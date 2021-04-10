@@ -75,7 +75,7 @@ class ListFabricInvoice extends PureComponent {
   deleteFabricInvoice = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.ledger;
+    const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,

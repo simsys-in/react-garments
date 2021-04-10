@@ -219,7 +219,7 @@ class AddYarn_Return  extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/yarn_return?id=' + this.id, values).then(data => {
+            putRequest('transactions/yarn_return?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_yarn_return')
@@ -366,7 +366,7 @@ class AddYarn_Return  extends PureComponent{
                     ref={this.formRef}
                     name="basic"
                     initialValues={this.state.formData}
-                    onFinish={this.onFinish}
+                    // onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     >
                         
@@ -470,7 +470,7 @@ class AddYarn_Return  extends PureComponent{
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
-                                <Button type="primary" disabled={ this.state.buttonDisabled }  htmlType="submit" loading={this.state.buttonLoading}>
+                                <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                 { this.id ? "Update" : 'Submit'}
                                 </Button>
                             </Form.Item>

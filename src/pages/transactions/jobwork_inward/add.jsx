@@ -579,7 +579,7 @@ class AddJobwork_Inward  extends PureComponent{
                     ref={this.formRef}
                     name="basic"
                     initialValues={this.state.formData}
-                    onFinish={this.onFinish}
+                    // onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     >
                         
@@ -666,12 +666,12 @@ class AddJobwork_Inward  extends PureComponent{
                                                 {
                                                                     this.state.size_data_for_order.map((item, index) => 
                                                                     item !== "" && <td>
-                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(index) + 1)]} value={[field.name, 'size' + Number(Number(index) + 1)]} noPlaceholder withoutMargin onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(index) + 1)]} value={[field.name, 'size' + Number(Number(index) + 1)]} noPlaceholder withoutMargin onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                     </td>
                                                                     )
                                                                 }
                                                <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" onChange={(ev) => this.setTOTAL (ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']} label="Qty" disabled onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
  
                                                  </td>  
                                                 <td>
@@ -706,7 +706,7 @@ class AddJobwork_Inward  extends PureComponent{
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
-                                <Button type="primary" disabled={ this.state.buttonDisabled }  htmlType="submit" loading={this.state.buttonLoading}>
+                                <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                 { this.id ? "Update" : 'Submit'}
                                 </Button>
                             </Form.Item>

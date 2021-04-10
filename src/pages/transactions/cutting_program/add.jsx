@@ -156,18 +156,18 @@ class AddCuttingProgram extends PureComponent{
         })
     }
 
-    // getProcessSB = () => {
+    getProcessSB = () => {
         
-    //     getRequest('transactions/getProcessSB').then(data => {
-    //         if(data.status === "info")
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 process : data.data
-    //             })
-    //         }
-    //     })
-    // }
+        getRequest('transactions/getAllProcessSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    process : data.data
+                })
+            }
+        })
+    }
 
     
     getStyleSB = () => {
@@ -230,7 +230,7 @@ class AddCuttingProgram extends PureComponent{
         this.getNextCuttingProgramLotNo();
         this.getColorSB();
         this.getCuttingMasterSB();
-        // this.getProcessSB();
+        this.getProcessSB();
         this.getLedgerNameSB();
         this.getCuttingProgram();
         interval = setInterval(() => {
@@ -595,7 +595,7 @@ class AddCuttingProgram extends PureComponent{
                     ref={this.formRef}
                     name="basic"
                     initialValues={this.state.formData}
-                    onFinish={this.onFinish}
+                    // onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     >
                         
@@ -725,7 +725,7 @@ class AddCuttingProgram extends PureComponent{
                                                                     <Numberbox className="col-md-12" required="false" showLabel={false} label="Rate"  field={field} fieldKey={[ field.fieldKey, 'rate' ]} onChange={this.calculateQty} modelName={[field.name, 'rate']} value={[field.name, 'rate']} noPlaceholder withoutMargin ></Numberbox>
                                                                 </td>
                                                                 <td>
-                                                                    <Numberbox className="col-md-12" required="false" disabled showLabel={false} label="Amount"  field={field} fieldKey={[ field.fieldKey, 'amount' ]} modelName={[field.name, 'amount']} value={[field.name, 'amount']} noPlaceholder withoutMargin ></Numberbox>
+                                                                    <Numberbox className="col-md-12" required="false" disabled showLabel={false} label="Amount"  field={field} fieldKey={[ field.fieldKey, 'amount' ]} modelName={[field.name, 'amount']} value={[field.name, 'amount']} noPlaceholder disabled withoutMargin ></Numberbox>
                                                                 </td>
                                                                 <td>
                                                                     { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeFabrics(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
@@ -761,7 +761,7 @@ class AddCuttingProgram extends PureComponent{
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
-                                <Button type="primary" disabled={ this.buttonDisabled() }  htmlType="submit" loading={this.state.buttonLoading}>
+                                <Button type="primary" disabled={ this.buttonDisabled() } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                 { this.id ? "Update" : 'Submit'}
                                 </Button>
                             </Form.Item>

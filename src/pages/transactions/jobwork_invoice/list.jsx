@@ -101,7 +101,7 @@ class ListJobworkInvoice extends PureComponent {
   deleteJobworkInvoice = (user) => {
     const id = user.id
     console.log(id);
-    const name = user.ledger;
+    const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
