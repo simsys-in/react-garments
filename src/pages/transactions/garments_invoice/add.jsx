@@ -513,7 +513,7 @@ class AddGarmentsInvoice extends PureComponent{
                                             <th width="40px"> <b> Size8/Rate</b></th>
                                             <th width="40px"> <b> Size9/Rate</b></th>
                                             <th width="40px"> <b> Disc%/Rate</b></th>
-                                            <th width="40px"> <b> Qty</b></th>
+                                            <th width="70px"> <b> Qty</b></th>
                                             <th width="40px"> <b> Amount</b></th>
                                             <th width="30px">
                                                 <Button type="primary"  onClick={this.addGarmentsInvoiceInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
