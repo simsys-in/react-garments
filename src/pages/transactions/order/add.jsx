@@ -83,7 +83,7 @@ class AddOrderProgram extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("transactions/orderProgram?id=" + this.id).then(data => {
+            getRequest("transactions/order_program?id=" + this.id).then(data => {
                
                 data.data.orderDate = moment(data.data.orderDate)
                 data.data.due_date = moment(data.data.due_date)
@@ -220,11 +220,11 @@ class AddOrderProgram extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/orderProgram?id=' + this.id, this.state.formData).then(data => {
+            putRequest('transactions/order_program?id=' + this.id, this.state.formData).then(data => {
                 console.log(values)
                 if(data.status === "success")
                 {
-                    this.props.history.push('/transactions/list_orderprogram')
+                    this.props.history.push('/transactions/list_order_program')
                     console.log(data) 
                 }
             })
@@ -319,7 +319,7 @@ class AddOrderProgram extends PureComponent{
             <Fragment>
                 <div className="row">
                     <div className="col-md-12" align="right">
-                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/transactions/list_orderprogram') } }>
+                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/transactions/list_order_program') } }>
                             { this.id ? "Back" : 'List'}
                         </Button>
                     </div>

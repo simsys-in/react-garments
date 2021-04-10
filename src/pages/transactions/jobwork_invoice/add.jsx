@@ -271,8 +271,8 @@ class AddJobworkInvoice extends PureComponent{
         }
     }
 
-    getNextJobworkInwardVouNo = () => {
-        getRequest('transactions/getNextJobworkInwardVouNo').then(data => {
+    getNextJobworkInvoiceVouNo = () => {
+        getRequest('transactions/getNextJobworkInvoiceVouNo').then(data => {
             // console.log(data.max_vou_no);
             if(data.status === "info")
             {
@@ -323,7 +323,7 @@ class AddJobworkInvoice extends PureComponent{
         this.getProductSB();
         this.getSizeSB();
         this.getAccountsLedger();
-        this.getNextJobworkInwardVouNo();
+        this.getNextJobworkInvoiceVouNo();
         this.setTOTAL();
         this.getJobworkInvoice();
         interval = setInterval(() => {

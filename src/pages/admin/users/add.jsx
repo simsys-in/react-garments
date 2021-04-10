@@ -23,7 +23,7 @@ class AddUser extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active'
+                // status : 'active'
             },
             companiesList : [],
             userGroup : [],
@@ -168,7 +168,7 @@ class AddUser extends PureComponent{
 
 
                     </div>
-                   
+       <br />            
 
                     <div className="row">
                         <div className="col-md-12">

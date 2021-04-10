@@ -158,7 +158,7 @@ class AddCuttingProgram extends PureComponent{
 
     getProcessSB = () => {
         
-        getRequest('transactions/getAllProcessSB').then(data => {
+        getRequest('masters/getAllProcessSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -605,16 +605,15 @@ class AddCuttingProgram extends PureComponent{
                         <div className="col-md-12">
                             <Divider plain orientation="left" >CUTTING PROGRAM</Divider>
                             <div className="row">
-                                <Selectbox autoFocus modelName="order_id" label="Order No" className="col-md-6" onChange={this.onOrderIDChange} options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
-                                <Textbox className="col-md-6" label="Lot No" modelName="lotno" ></Textbox>
+                                <Selectbox autoFocus modelName="order_id" label="Order No" className="col-md-4" onChange={this.onOrderIDChange} options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                                <Textbox className="col-md-4" label="Lot No" modelName="lotno" ></Textbox>
+                                <Datebox  className="col-md-4" label="Vou. Date" value={this.state.formData.voudate} modelName="voudate" ></Datebox>
                             </div>
+                            
                             <div className="row">
-                                <Datebox  className="col-md-6" label="Vou. Date" value={this.state.formData.voudate} modelName="voudate" ></Datebox>
-                                <Selectbox modelName="process_id" label="Process" className="col-md-6" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
-                            </div>
-                            <div className="row">
-                                <Selectbox modelName="style_id" label="Style" disabled required="false" className="col-md-6" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
-                                <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
+                                <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
+                                <Selectbox modelName="style_id" label="Style" disabled required="false" className="col-md-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
+                                <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                             </div>
 
                         </div>  
