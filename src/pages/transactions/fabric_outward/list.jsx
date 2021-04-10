@@ -79,7 +79,7 @@ class ListFabricOutward extends PureComponent {
       showPrint : false,
       selectedItem : {}
     }, () => {
-      // window.location.reload();
+      window.location.reload();
     })
   }
 

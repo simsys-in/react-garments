@@ -159,7 +159,7 @@ class AddJobworkInvoice extends PureComponent{
     
 
     getAccountsLedger = () => {
-        getRequest('masters/getAccountsLedger?ledger_group_id=11').then(data => {
+        getRequest('masters/getAccountsLedger').then(data => {
             if(data.status === "info")
             {
                 this.setState({

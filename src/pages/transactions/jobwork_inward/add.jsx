@@ -78,19 +78,19 @@ class AddJobwork_Inward  extends PureComponent{
         })
     }
 
-    // getProcessSB = () => {
-    // getProcessSB = (order_id = null) => {
+    
+    getProcessSB = (order_id = null) => {
         
-    //     getRequest('masters/getProcessSB').then(data => {
-    //         if(data.status === "info")
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 process : data.data
-    //             })
-    //         }
-    //     })
-    // }
+        getRequest('masters/getAllProcessSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    process : data.data
+                })
+            }
+        })
+    }
 
 
     getFabricsSB = () => {
@@ -298,8 +298,8 @@ class AddJobwork_Inward  extends PureComponent{
                 console.log(data.data)
                 data.data.vou_date = moment(data.data.vou_date)
                 this.formRef.current.setFieldsValue(data.data);
-                this.formRef.current.setFieldsValue(data.data);
                 this.onOrderIDChange(data.data.order_id)
+                this.formRef.current.setFieldsValue(data.data);
                 this.getMobileForLedgerID(data.data.ledger_id)
             })
 
@@ -344,10 +344,10 @@ class AddJobwork_Inward  extends PureComponent{
     }
 
     onOrderIDChange = (order_id) => {
+        this.getLedgerForOrderAndProcessID(order_id)
         this.getProcessSBForOrderID(order_id);
         this.getSizesForOrderID(order_id);
         this.getJobworkOutwardColorDetails(order_id);
-        this.getLedgerForOrderID(order_id);
 
         
     }
@@ -371,25 +371,7 @@ class AddJobwork_Inward  extends PureComponent{
             }
         })
     }
-    getLedgerForOrderID = (order_id) => {
-        getRequest('masters/getLedgerForOrderID?order_id=' + order_id).then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    formData : {
-                        ...this.state.formData,
-                        ledger : data.data
-                    },
-                },() => {
-                    this.formRef.current.setFieldsValue({
-                        ledger : this.state.formData.ledger
-                    })
-                })
-            }
-        })
-    }
-
+    
     getLedgerForOrderAndProcessID = (order_id,process_id) => {
         if(issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(this.state.formData.process_id))
         {
@@ -416,7 +398,7 @@ class AddJobwork_Inward  extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
-        // this.getProcessSB();
+        this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
         this.getProductSB();
@@ -586,7 +568,7 @@ class AddJobwork_Inward  extends PureComponent{
                     <div className="row">
                        
                        
-                       <Selectbox modelName="order_id" label="Order No" onChange={this.onOrderIDChange} className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                       <Selectbox modelName="order_id" label="Order No" onChange={this.onOrderIDChange} className="col-md-4" options={this.state.order_no}  value={this.state.formData.order_id}  ></Selectbox>
                         <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id} onChange={this.getLedgerForOrderAndProcessID} ></Selectbox>
                         <Selectbox modelName="ledger_id" label="Ledger Name" onChange={this.getMobileForLedgerID} className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
 
