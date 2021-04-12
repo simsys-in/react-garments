@@ -346,10 +346,10 @@ class AddJobwork_Inward  extends PureComponent{
     }
 
     onOrderIDChange = (order_id) => {
-        this.getLedgerForOrderAndProcessID(order_id)
         this.getProcessSBForOrderID(order_id);
         this.getSizesForOrderID(order_id);
         this.getJobworkOutwardColorDetails(order_id);
+        this.getLedgerForOrderAndProcessID(this.state.formData.process_id)
 
         
     }
@@ -374,10 +374,11 @@ class AddJobwork_Inward  extends PureComponent{
         })
     }
     
-    getLedgerForOrderAndProcessID = (order_id,process_id) => {
-        if(issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(this.state.formData.process_id))
+    getLedgerForOrderAndProcessID = (process_id) => {
+        console.log(issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(process_id), this.state.formData.order_id ,process_id)
+        if(issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(process_id))
         {
-            getRequest('transactions/getLedgerForOrderAndProcessID?order_id=' + this.state.formData.order_id + "&process_id=" + this.state.formData.process_id).then(data => {
+            getRequest('transactions/getLedgerForOrderAndProcessID?order_id=' + this.state.formData.order_id + "&process_id=" + process_id).then(data => {
                 if(data.status === "info")
                 {
                     this.setState({
