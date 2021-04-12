@@ -697,6 +697,11 @@ class AddJobworkOutward extends PureComponent{
                      <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                        
                    </div>
+                   <div className="row">
+                     
+                   <Textbox label="Vehicle No" modelName="vehicle_no"  className="col-md-4"></Textbox>
+                       
+                   </div>
                     <br/>
                     <div className="row">
 

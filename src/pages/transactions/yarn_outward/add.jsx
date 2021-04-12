@@ -344,6 +344,7 @@ class AddYarn_Outward extends PureComponent{
                   
                     <div className="row">
                     <Textbox label="Ref No" required="false" modelName="refno"  className="col-md-4"></Textbox>
+                    <Textbox label="Vehicle No" modelName="vehicle_no"  className="col-md-4"></Textbox>
                     <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                     {/* <Selectbox modelName="order_id" label="Order No" className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox> */}
 

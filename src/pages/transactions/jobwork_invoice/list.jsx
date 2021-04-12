@@ -168,7 +168,7 @@ class ListJobworkInvoice extends PureComponent {
         {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
         <DataTable data={this.state} ></DataTable>
         <Modal
-          title="Jobwork Outward"
+          title="Jobwork Invoice"
           centered
           width={1000}
           visible={this.state.showPrint}

@@ -611,7 +611,7 @@ class AddCuttingProgram extends PureComponent{
                             </div>
                             
                             <div className="row">
-                                <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
+                                <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} disabled value={this.state.formData.process_id=8}  ></Selectbox>
                                 <Selectbox modelName="style_id" label="Style" disabled required="false" className="col-md-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
                                 <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                             </div>
