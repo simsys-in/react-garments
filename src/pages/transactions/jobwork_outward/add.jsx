@@ -674,40 +674,33 @@ class AddJobworkOutward extends PureComponent{
                     >
                         
                     <div className="row">
-                        <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
+                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
+                    <Textbox modelName="mobile" disabled label="Mobile" className="col-md-4" required="false"></Textbox>
 
-                        <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-6" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
+                    <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
+
+
+                        
 
                    </div>
                    <div className="row">
-                       <Selectbox modelName="from_process_id" label="From Process" className="col-md-6" options={this.state.process} value={this.state.formData.from_process_id}  ></Selectbox>
+                       <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
+                   <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange} className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
 
-                       <Selectbox modelName="to_process_id" label="To Process" className="col-md-6" options={this.state.process} value={this.state.formData.to_process_id}  ></Selectbox>
+                    <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
+
+                   </div>
+                   <div className="row">
+                       <Selectbox modelName="from_process_id" label="From Process" className="col-md-4" options={this.state.process} value={this.state.formData.from_process_id}  ></Selectbox>
+
+                       <Selectbox modelName="to_process_id" label="To Process" className="col-md-4" options={this.state.process} value={this.state.formData.to_process_id}  ></Selectbox>
+                     <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                        
                    </div>
-                   <div className="row">
-                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
-                       <Textbox modelName="mobile" disabled label="Mobile" className="col-md-6" required="false"></Textbox>
-                   </div>
-                    
-                   <div className="row">
-                       <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
-                       <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-6"></Textbox>
-
-                   </div>
-
-                   <div className="row">
-                     <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
-
-                   </div>
-
-                   
-
-                  
                     <br/>
                     <div className="row">
 
-                        <div className="col-md-7 table-scroll">
+                        <div className="col-md-12 table-scroll">
                         <Divider orientation="left" plain> Inventory</Divider>
 
                             <table id="dynamic-table" className="table table-bordered table-scroll">
@@ -796,7 +789,13 @@ class AddJobworkOutward extends PureComponent{
                                     </tbody>
                                 </table>
                         </div>
-                        <div className="col-md-5">
+                        
+                    </div>
+                    <br/>
+                   
+                       
+                        <div className="row">
+                        <div className="col-md-6">
                                 <Divider plain orientation="left">Accessories</Divider>
                                 <table id="dynamic-table" className="table table-bordered" width="100%">
                                 <thead >
@@ -831,12 +830,6 @@ class AddJobworkOutward extends PureComponent{
                                 </tbody>
                                 </table>
                                 </div>
-                    </div>
-                    <br/>
-                   
-                       
-                        <div className="row">
-                             
                          </div>
                          <br/>
 

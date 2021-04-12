@@ -483,33 +483,23 @@ class AddGarmentsReceiptNote extends PureComponent{
                     >
                         
                     <div className="row">
-                     <Selectbox modelName="order_id" label="Order No"  className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerID}></Selectbox>
+                      <Textbox label="Mobile" disabled modelName="mobile" required="false"  className="col-md-4"></Textbox>
+                       <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
 
-                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerID}></Selectbox>
                    </div>
 
                    <div className="row">
-                      <Textbox label="Mobile" disabled modelName="mobile" required="false"  className="col-md-6"></Textbox>
+                   <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
+                     <Selectbox modelName="order_id" label="Order No"  className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                   <Selectbox modelName="marketing_user_id"  label="Marketed By" className="col-md-4" options={this.state.user_data} value={this.state.formData.marketing_user_id} ></Selectbox>
 
-                       <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
                    </div>
-                   <div className="row">
-                   <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-6"></Textbox>
-                   <Selectbox modelName="marketing_user_id"  label="Marketed By" className="col-md-6" options={this.state.user_data} value={this.state.formData.marketing_user_id} ></Selectbox>
-                   </div>
-
-
-                   
-                    
-                   <div className="row">
-                     <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
+                    <div className="row">
+                     <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                        
                    </div>
-
-                   
-
-                  
-                          <Divider orientation="left" plain> Inventory</Divider>
+                   <Divider orientation="left" plain> Inventory</Divider>
                     <br/>
                     <div className="row">
                         <div className="col-md-12 table-scroll">

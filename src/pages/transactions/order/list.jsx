@@ -59,11 +59,11 @@ class ListOrderProgram extends PureComponent {
 
   editOrderProgram = (id) => {
     console.log(id);
-    this.props.history.push('/transactions/edit_orderprogram/' + id)
+    this.props.history.push('/transactions/edit_order_program/' + id)
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/orderProgram?id=' + id).then(data => {
+    deleteRequest('transactions/order_program?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -89,7 +89,7 @@ class ListOrderProgram extends PureComponent {
       title: 'List Order Program',
       metaDescription: 'List Order Program'
     });
-    getRequest('transactions/orderProgram').then(data => {
+    getRequest('transactions/order_program').then(data => {
       if (data.status === "success") {
         var newData = [];
         // data.data.map(dt => {
@@ -123,7 +123,7 @@ class ListOrderProgram extends PureComponent {
         <div className="row">
           <div className="col-md-10"></div>
           <div className="col-md-2" align="right">
-            <Button type="primary" onClick={() => { this.props.history.push("/transactions/add_orderprogram") }}> Add </Button>
+            <Button type="primary" onClick={() => { this.props.history.push("/transactions/add_order_program") }}> Add </Button>
           </div>
           <br />
           <br />

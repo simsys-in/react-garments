@@ -341,23 +341,22 @@ class AddFabricInward extends PureComponent{
                         
                     <div className="row">
                        
-                        <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
-                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
+                        <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
+                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
 
+                       <Textbox label="Vou No" modelName="vouno"  className="col-md-4"></Textbox>
                     
                     </div>
                     <div className="row">
-                       <Textbox label="Vou No" modelName="vouno"  className="col-md-6"></Textbox>
-                        <Selectbox modelName="order_id" label="Order No" className="col-md-6" onChange={this.getProcessSBForOrderID} options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                        <Selectbox modelName="order_id" label="Order No" className="col-md-4" onChange={this.getProcessSBForOrderID} options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                        <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
+                        <Textbox label="Ref No" modelName="refno"  className="col-md-4"></Textbox>
                     </div>
                     
-                    <div className="row">
-                        <Selectbox modelName="process_id" label="Process" className="col-md-6" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
-                        <Textbox label="Ref No" modelName="refno"  className="col-md-6"></Textbox>
-                    </div>
+                    
                     <div className="row">
                        
-                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
+                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
 
                     </div>
                     <div className="row">

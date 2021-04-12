@@ -353,21 +353,20 @@ class AddFabricOutward extends PureComponent{
                         
                     <div className="row">
                        
-                       <Selectbox modelName="ledger_id" autoFocus label="Ledger Name" className="col-md-6" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
-                       <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-6"></Datebox>
+                       <Selectbox modelName="ledger_id" autoFocus label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
+                       <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
+                        <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
                    </div>
                     
                    <div className="row">
-                        <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-6"></Textbox>
-                        <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
+                        <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID} className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
+                       <Selectbox modelName="from_process_id" label="From Process" className="col-md-4" options={this.state.process} value={this.state.formData.from_process_id}  ></Selectbox>
+                       <Selectbox modelName="to_process_id" label="To Process" className="col-md-4" options={this.state.process} value={this.state.formData.to_process_id}  ></Selectbox>
                    </div>
 
+                  
                    <div className="row">
-                       <Selectbox modelName="from_process_id" label="From Process" className="col-md-6" options={this.state.process} value={this.state.formData.from_process_id}  ></Selectbox>
-                       <Selectbox modelName="to_process_id" label="To Process" className="col-md-6" options={this.state.process} value={this.state.formData.to_process_id}  ></Selectbox>
-                   </div>
-                   <div className="row">
-                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-6"></Textbox>
+                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                    </div>
 
                    <div className="row">

@@ -141,6 +141,8 @@ class AddJobwork_Inward  extends PureComponent{
                     newArr.map(obj => {
                         if(obj.color_id === item.color_id)
                         {
+                            // item.selected = true;
+                            obj = Object.assign({},  item);
                             obj.selected = true;
                         }
                     })
@@ -588,7 +590,7 @@ class AddJobwork_Inward  extends PureComponent{
                    
                         <Selectbox label="Product" modelName="product_id" required="false" className="col-md-4"  options={this.state.product} value={ this.state.formData.product}  ></Selectbox>  
                         <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
-                        <Form.Item name="adas" className="col-md-6" label="Adas" 
+                        <Form.Item name="adas" className="col-md-4" label="Adas" 
                         rules={[
                             {
                                 required : false
@@ -613,8 +615,8 @@ class AddJobwork_Inward  extends PureComponent{
 
                                         <th width="150px"> <b> Color</b></th>
                                            
-                                           { this.state.size_data_for_order.map((item) => 
-                                               item !== "" && <th width="100px"> <b> {item}</b></th>
+                                           { this.state.size_data_for_order.map((item, index) => 
+                                               item !== "" && <th key={index} width="100px"> <b> {item}</b></th>
                                            ) }
 
                                            <th width="100px"> <b> Qty</b></th>
@@ -646,8 +648,8 @@ class AddJobwork_Inward  extends PureComponent{
                                                 <Selectbox noPlaceholder withoutMargin showLabel={false} required="false" className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={field.color_id} options={this.state.color} label="Color"></Selectbox>
                                                 </td>
                                                 {
-                                                                    this.state.size_data_for_order.map((item, index) => 
-                                                                    item !== "" && <td>
+                                                                    this.state.size_data_for_order.map((item, ind) => 
+                                                                    item !== "" && <td key={ind}>
                                                                         <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(index) + 1)]} value={[field.name, 'size' + Number(Number(index) + 1)]} noPlaceholder withoutMargin onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                     </td>
                                                                     )
