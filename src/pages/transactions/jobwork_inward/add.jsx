@@ -133,38 +133,41 @@ class AddJobwork_Inward  extends PureComponent{
         })
     }
     getJobworkOutwardColorDetails = (order_id) => {
-        getRequest('transactions/getJobworkOutwardColorDetails?order_id=' +order_id).then(data => {
-            if(data.status === "info")
-            {
-                var newArr = data.data;
-                this.state.formData.jobwork_inward_inventory.map((item) => {
-                    newArr.map(obj => {
-                        if(obj.color_id === item.color_id)
-                        {
-                            // item.selected = true;
-                            obj = Object.assign({},  item);
-                            obj.selected = true;
-                        }
-                    })
-                })
-                // newArr.map(item => {
-                //     item.selected = true;
-                // })
+        if(!this.id){
 
-                this.setState({
-                    ...this.state,
-                    formData : {
-                        ...this.state.formData,
-                        jobwork_inward_inventory : newArr
-                    },
-                },()=>{
-                    this.formRef.current.setFieldsValue({
-                        jobwork_inward_inventory : this.state.formData.jobwork_inward_inventory
+            getRequest('transactions/getJobworkOutwardColorDetails?order_id=' +order_id).then(data => {
+                if(data.status === "info")
+                {
+                    var newArr = data.data;
+                    this.state.formData.jobwork_inward_inventory.map((item) => {
+                        newArr.map(obj => {
+                            if(obj.color_id === item.color_id)
+                            {
+                                // item.selected = true;
+                                obj = Object.assign({},  item);
+                                obj.selected = true;
+                            }
+                        })
                     })
-                    this.setTOTAL()
-                })
-            }
-        })
+                    // newArr.map(item => {
+                    //     item.selected = true;
+                    // })
+    
+                    this.setState({
+                        ...this.state,
+                        formData : {
+                            ...this.state.formData,
+                            jobwork_inward_inventory : newArr
+                        },
+                    },()=>{
+                        this.formRef.current.setFieldsValue({
+                            jobwork_inward_inventory : this.state.formData.jobwork_inward_inventory
+                        })
+                        this.setTOTAL()
+                    })
+                }
+            })
+        }
     }
     getColorSB = () => {
         
@@ -385,7 +388,7 @@ class AddJobwork_Inward  extends PureComponent{
                         ...this.state,
                         formData : {
                             ...this.state.formData,
-                            ledger_id : data.data[0].ledger_id
+                            ledger_id : data.data && data.data.length ? data.data[0].ledger_id : null
                                             },
                     },() => {
                         this.formRef.current.setFieldsValue({

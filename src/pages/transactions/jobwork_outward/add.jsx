@@ -126,36 +126,40 @@ class AddJobworkOutward extends PureComponent{
     }
 
     getCuttingProgramColorDetails = (order_id) => {
-        getRequest('transactions/getCuttingProgramColorDetails?order_id=' +order_id).then(data => {
-            if(data.status === "info")
-            {
-                var newArr = data.data;
-                this.state.formData.jobwork_outward_inventory.map((item) => {
-                    newArr.map(obj => {
-                        if(obj.color_id === item.color_id)
-                        {
-                            obj.selected = true;
-                        }
-                    })
-                })
-                // newArr.map(item => {
-                //     item.selected = true;
-                // })
+        if(!this.id)
+        {
+                getRequest('transactions/getCuttingProgramColorDetails?order_id=' +order_id).then(data => {
+                    if(data.status === "info")
+                    {
+                        var newArr = data.data;
+                        this.state.formData.jobwork_outward_inventory.map((item) => {
+                            newArr.map(obj => {
+                                if(obj.color_id === item.color_id)
+                                {
+                                    
+                                    obj.selected = true;
+                                }
+                            })
+                        })
+                        // newArr.map(item => {
+                        //     item.selected = true;
+                        // })
 
-                this.setState({
-                    ...this.state,
-                    formData : {
-                        ...this.state.formData,
-                        jobwork_outward_inventory : newArr
-                    },
-                },()=>{
-                    this.formRef.current.setFieldsValue({
-                        jobwork_outward_inventory : this.state.formData.jobwork_outward_inventory
-                    })
-                    this.setTOTAL()
+                        this.setState({
+                            ...this.state,
+                            formData : {
+                                ...this.state.formData,
+                                jobwork_outward_inventory : newArr
+                            },
+                        },()=>{
+                            this.formRef.current.setFieldsValue({
+                                jobwork_outward_inventory : this.state.formData.jobwork_outward_inventory
+                            })
+                            this.setTOTAL()
+                        })
+                    }
                 })
             }
-        })
     }
 
     
