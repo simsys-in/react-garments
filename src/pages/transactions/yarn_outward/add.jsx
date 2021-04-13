@@ -65,18 +65,18 @@ class AddYarn_Outward extends PureComponent{
         })
     }
 
-    // getProcessSB = () => {
+    getProcessSB = () => {
         
-    //     getRequest('masters/getProcessSB').then(data => {
-    //         if(data.status === "info")
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 process : data.data
-    //             })
-    //         }
-    //     })
-    // }
+        getRequest('masters/getAllProcessSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    process : data.data
+                })
+            }
+        })
+    }
 
     getFabricsSB = () => {
         
@@ -172,7 +172,7 @@ class AddYarn_Outward extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
-        // this.getProcessSB();
+        this.getProcessSB();
         this.getFabricsSB();
         this.getYarn_Outward();
         interval = setInterval(() => {

@@ -143,7 +143,7 @@ class Report extends PureComponent {
     }
 
     componentDidMount = () => {
-        getRequest('transactions/getYarnInvoiceReport?id=' + this.props.itemId).then(data => {
+        getRequest('transactions/getYarnOutwardReport?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
                 // var size1_total = 0;
@@ -195,9 +195,9 @@ class Report extends PureComponent {
         return(
             <Fragment>
                 { this.state.show_details &&
-                <div className="row print-area" id="printableArea" border={"light gray"} style={{border:"1px solid black"}}>
-                        <br></br><br></br>
-                    <div className="col-md-12">
+                <div className="row print-area" id="printableArea" border={"light gray"} style={{border:"1px  gray"}} >
+                    <br></br><br></br>
+                    <div className="col-md-12" style={{border:"1px solid gray"}}>
                         <div >
                         <div className="row flex-nowrap" >
                             <div className="col-md-8" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5 }}>
@@ -220,11 +220,11 @@ class Report extends PureComponent {
                                 </div>
                             {/* </div> */}
                             </div>
-                            <div className="col-md-4" style={{ padding : 0,border : '1px solid gray' }}>
+                            <div className="col-md-4" style={{ padding : 0, border : '1px  black' }}>
 
-                                <table width={"100%"} style={{border:"light gray", margin : 0, padding : 0}} border="1">
+                                <table width={"100%"} style={{border:"gray", margin : 0, padding : 0}} border="1">
                                         <tr> 
-                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px lightgray' }}> <h5>DELIVERY NOTE </h5> </td>
+                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px lightgray' }}> <h5> DELIVERY NOTE </h5> </td>
                                         </tr>
                                         <tr>
                                             <th> DC No </th>
@@ -242,8 +242,8 @@ class Report extends PureComponent {
                                             <th> Order No </th>
                                             <td style={{fontWeight:"bold"}}> {report_details.order_no}</td>
                                         
-                                            <th></th>
-                                            <td></td>
+                                            <th> Vehicle</th>
+                                            <td style={{fontWeight:"bold"}}> {report_details.vehicle_no}</td>
                                         </tr>
                                         
                                        
@@ -254,20 +254,21 @@ class Report extends PureComponent {
                         
                         <div className="row">
                             <div className="col-md-12" style={{ padding : 0 }}>
-                                <table  width="100%" style={{border:"lightgray"}} border={1} >
+                                <table  width="100%" style={{border:" gray"}} border={1} >
                                     <thead>
                                         <tr  style={{ backgroundColor : 'lightgray' }}>
                                           
                                             <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>FABRIC</th>
                                             <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>GSM</th>
                                             <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>Counts</th>
+                                            <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>Qty Per</th>
+                                            <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>Qty Bag</th>
                                             <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>Qty Kg </th>
                                            
-                                            <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>Rate</th>
-                                            <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>Amount</th>
+                                           
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody style={{maxHeight:"300px"}}>
                                     { report_details.inventory.map(item => 
                                             <tr border={1}>
 
@@ -276,19 +277,22 @@ class Report extends PureComponent {
                                                 <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.product }</td>
                                                 <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.gsm }</td>
                                                 <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.counts }</td>
+                                                <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.qtybag_per }</td>
+                                                <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.qty_bag }</td>
                                                 <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.qty_kg }</td>
-                                                <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.rate }</td>
-                                                <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.amount }</td>
+                                                
                                             </tr>
                                         )}
 
                                         <tr>
-                                            <td style={{fontWeight:"bold"}}>GRAND TOTAL</td>
+                                            <td style={{fontWeight:"bold"}} colSpan={5}>GRAND TOTAL</td>
+                                            {/* <td></td>
                                             <td></td>
                                             <td></td>
+                                            <td></td> */}
                                             <td style={{fontWeight:"bold"}}>{report_details.inventorytotal[0].inventory_qty_kg_total}</td>
-                                            <td></td>
-                                            <td style={{fontWeight:"bold"}}>{report_details.inventorytotal[0].inventory_amount_total}</td>
+                                            {/* <td></td>
+                                            <td>{report_details.inventorytotal[0].inventory_amount_total}</td> */}
                                             
                                         </tr>
                                          </tbody>
@@ -303,6 +307,7 @@ class Report extends PureComponent {
                             </div>
                             <div className="col-md-3" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5}}>
                                 <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
+                                    <br></br>
                                     Receiver's Seal Signature
                                 </div>
                             </div>

@@ -67,18 +67,18 @@ class AddYarn_Invoice extends PureComponent{
         })
     }
 
-    // getProcessSB = () => {
+    getProcessSB = () => {
         
-    //     getRequest('masters/getProcessSB').then(data => {
-    //         if(data.status === "info")
-    //         {
-    //             this.setState({
-    //                 ...this.state,
-    //                 process : data.data
-    //             })
-    //         }
-    //     })
-    // }
+        getRequest('masters/getAllProcessSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    process : data.data
+                })
+            }
+        })
+    }
 
     getFabricsSB = () => {
         
@@ -188,7 +188,7 @@ class AddYarn_Invoice extends PureComponent{
     componentDidMount() {
         this.getOrderSB();
         this.getLedgerNameSB();
-        // this.getProcessSB();
+        this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
         this.getYarn_Invoice();
