@@ -54,7 +54,7 @@ class AddYarn_Outward extends PureComponent{
       };
 
       getLedgerNameSB = () => {
-        getRequest('masters/getAllLedgerSB').then(data => {
+        getRequest('garments/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -67,7 +67,7 @@ class AddYarn_Outward extends PureComponent{
 
     getProcessSB = () => {
         
-        getRequest('masters/getAllProcessSB').then(data => {
+        getRequest('garments/getAllProcessSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -80,7 +80,7 @@ class AddYarn_Outward extends PureComponent{
 
     getFabricsSB = () => {
         
-        getRequest('masters/getFabricsSB').then(data => {
+        getRequest('garments/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -93,7 +93,7 @@ class AddYarn_Outward extends PureComponent{
 
     getOrderSB = () => {
 
-        getRequest('transactions/getOrderSB').then(data => {
+        getRequest('garments/getOrderSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -123,7 +123,7 @@ class AddYarn_Outward extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("transactions/yarn_outward?id=" + this.id).then(data => {
+            getRequest("garments/yarn_outward?id=" + this.id).then(data => {
                 data.data.dob = moment(data.data.dob)
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
@@ -139,7 +139,7 @@ class AddYarn_Outward extends PureComponent{
     }
 
     getNextYarnOutwardVouNo = () => {
-        getRequest('transactions/getNextYarnOutwardVouNo').then(data => {
+        getRequest('garments/getNextYarnOutwardVouNo').then(data => {
             console.log(data);
             if(data.status === "info")
             {
@@ -159,7 +159,7 @@ class AddYarn_Outward extends PureComponent{
     }
 
     getProcessSBForOrderID = (order_id) => {
-        getRequest('masters/getProcessSBForOrderID?order_id=' + order_id).then(data => {
+        getRequest('garments/getProcessSBForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -205,7 +205,7 @@ class AddYarn_Outward extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/yarn_outward?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/yarn_outward?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_yarn_outward')

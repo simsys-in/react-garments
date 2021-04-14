@@ -63,7 +63,7 @@ class ListOrderProgram extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/order_program?id=' + id).then(data => {
+    deleteRequest('garments/order_program?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -89,7 +89,7 @@ class ListOrderProgram extends PureComponent {
       title: 'List Order Program',
       metaDescription: 'List Order Program'
     });
-    getRequest('transactions/order_program').then(data => {
+    getRequest('garments/order_program').then(data => {
       if (data.status === "success") {
         var newData = [];
         // data.data.map(dt => {

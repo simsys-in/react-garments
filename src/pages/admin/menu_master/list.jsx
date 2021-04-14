@@ -87,7 +87,7 @@ class ListMenumaster extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('user/menu_master?id=' + id).then(data => {
+    deleteRequest('core/menu_master?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -113,7 +113,7 @@ class ListMenumaster extends PureComponent {
       title: 'List Menu Master',
       metaDescription: 'List Menu Master'
     });
-    getRequest('user/menu_master').then(data => {
+    getRequest('core/menu_master').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

@@ -55,7 +55,7 @@ class ListLedgerCategory extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/ledger_category?id=' + id).then(data => {
+    deleteRequest('garments/ledger_category?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -81,7 +81,7 @@ class ListLedgerCategory extends PureComponent {
       title: 'List Ledger Category',
       metaDescription: 'List Ledger Category'
     });
-    getRequest('masters/ledger_category').then(data => {
+    getRequest('garments/ledger_category').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

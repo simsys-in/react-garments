@@ -68,7 +68,7 @@ class AddJobworkInvoice extends PureComponent{
       };
 
       getLedgerNameSB = () => {
-        getRequest('masters/getAllLedgerSB').then(data => {
+        getRequest('garments/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -83,7 +83,7 @@ class AddJobworkInvoice extends PureComponent{
    
     getProcessSB = (order_id = null) => {
         
-        getRequest('masters/getAllProcessSB').then(data => {
+        getRequest('garments/getAllProcessSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -98,7 +98,7 @@ class AddJobworkInvoice extends PureComponent{
    
     getProductSB = (order_id = null) => {
         
-        getRequest('masters/getAllProductSB').then(data => {
+        getRequest('garments/getAllProductSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -112,7 +112,7 @@ class AddJobworkInvoice extends PureComponent{
    
     getSizeSB = (order_id = null) => {
         
-        getRequest('masters/getAllSizeSB').then(data => {
+        getRequest('garments/getAllSizeSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -125,7 +125,7 @@ class AddJobworkInvoice extends PureComponent{
 
     getJobworkOutwardColorDetails = (order_id) => {
         if(!this.id){
-            getRequest('transactions/getJobworkOutwardColorDetails?order_id=' +order_id).then(data => {
+            getRequest('garments/getJobworkOutwardColorDetails?order_id=' +order_id).then(data => {
                 if(data.status === "info")
                 {
                     var newArr = data.data;
@@ -161,7 +161,7 @@ class AddJobworkInvoice extends PureComponent{
     
 
     getAccountsLedger = () => {
-        getRequest('masters/getAccountsLedger').then(data => {
+        getRequest('garments/getAccountsLedger').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -176,7 +176,7 @@ class AddJobworkInvoice extends PureComponent{
 
     getOrderSB = () => {
 
-        getRequest('transactions/getOrderSB').then(data => {
+        getRequest('garments/getOrderSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -258,7 +258,7 @@ class AddJobworkInvoice extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("transactions/jobworkInvoice?id=" + this.id).then(data => {
+            getRequest("garments/jobworkInvoice?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
@@ -277,7 +277,7 @@ class AddJobworkInvoice extends PureComponent{
     }
 
     getNextJobworkInvoiceVouNo = () => {
-        getRequest('transactions/getNextJobworkInvoiceVouNo').then(data => {
+        getRequest('garments/getNextJobworkInvoiceVouNo').then(data => {
             // console.log(data.max_vou_no);
             if(data.status === "info")
             {
@@ -300,7 +300,7 @@ class AddJobworkInvoice extends PureComponent{
     
 
     getProductAndSizeSBForOrderID = (order_id,index) => {
-        getRequest('transactions/getProductAndSizeSBForOrderID?order_id=' + order_id).then(data => {
+        getRequest('garments/getProductAndSizeSBForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 var formData = this.formRef.current.getFieldsValue();
@@ -361,7 +361,7 @@ class AddJobworkInvoice extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/jobworkInvoice?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/jobworkInvoice?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_jobwork_invoice')
@@ -387,7 +387,7 @@ class AddJobworkInvoice extends PureComponent{
 
 
     getMobileForLedgerId = (ledger_id) => {
-        getRequest('masters/getMobileForLedgerID?ledger_id=' + ledger_id).then(data => {
+        getRequest('garments/getMobileForLedgerID?ledger_id=' + ledger_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -470,7 +470,7 @@ class AddJobworkInvoice extends PureComponent{
     }
 
     getOrdersForLedgerAndProcess = (ledger,process) => {
-        getRequest('transactions/getOrdersForLedgerAndProcess?ledger=' + ledger + '&process=' + process).then(data => {
+        getRequest('garments/getOrdersForLedgerAndProcess?ledger=' + ledger + '&process=' + process).then(data => {
             if(data.status === "info")
             // {
             //     data.data.map((item, index) => {

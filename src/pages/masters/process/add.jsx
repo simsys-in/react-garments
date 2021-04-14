@@ -51,7 +51,7 @@ class AddProcess extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("masters/process?id=" + this.id).then(data => {
+            getRequest("garments/process?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
@@ -96,7 +96,7 @@ class AddProcess extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('masters/process?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/process?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_process')

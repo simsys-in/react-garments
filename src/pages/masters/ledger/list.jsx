@@ -106,7 +106,7 @@ class ListLedger extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/ledger?id=' + id).then(data => {
+    deleteRequest('garments/ledger?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -132,7 +132,7 @@ class ListLedger extends PureComponent {
       title: 'List Ledger',
       metaDescription: 'List Ledger'
     });
-    getRequest('masters/ledger').then(data => {
+    getRequest('garments/ledger').then(data => {
       if (data.status === "success") {
         var newData = [];
 

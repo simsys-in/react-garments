@@ -62,7 +62,7 @@ class ListLedgerGroup extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/ledger_group?id=' + id).then(data => {
+    deleteRequest('garments/ledger_group?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -88,7 +88,7 @@ class ListLedgerGroup extends PureComponent {
       title: 'List Ledger Group',
       metaDescription: 'List Ledger Group'
     });
-    getRequest('masters/ledger_group').then(data => {
+    getRequest('garments/ledger_group').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

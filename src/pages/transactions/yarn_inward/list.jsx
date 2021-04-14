@@ -76,7 +76,7 @@ class ListYarnInward extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/yarn_inward?id=' + id).then(data => {
+    deleteRequest('garments/yarn_inward?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -102,7 +102,7 @@ class ListYarnInward extends PureComponent {
       title: 'List Yarn Inward',
       metaDescription: 'List Yarn Inward'
     });
-    getRequest('transactions/yarn_inward').then(data => {
+    getRequest('garments/yarn_inward').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

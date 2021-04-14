@@ -51,7 +51,7 @@ class ListEmployeecategory extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/employee_category?id=' + id).then(data => {
+    deleteRequest('garments/employee_category?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -77,7 +77,7 @@ class ListEmployeecategory extends PureComponent {
       title: 'List Employee category',
       metaDescription: 'List Employee category'
     });
-    getRequest('masters/employee_category').then(data => {
+    getRequest('garments/employee_category').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

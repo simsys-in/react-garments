@@ -83,7 +83,7 @@ class ListJobworkinword  extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/jobwork_inward?id=' + id).then(data => {
+    deleteRequest('garments/jobwork_inward?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -109,7 +109,7 @@ class ListJobworkinword  extends PureComponent {
       title: 'List Jobwork Inward ',
       metaDescription: 'List Jobwork Inward '
     });
-    getRequest('transactions/jobwork_inward').then(data => {
+    getRequest('garments/jobwork_inward').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

@@ -56,7 +56,7 @@ class AddFabricOutward extends PureComponent{
       };
 
       getAllLedgerSB = () => {
-        getRequest('masters/getAllLedgerSB').then(data => {
+        getRequest('garments/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -69,7 +69,7 @@ class AddFabricOutward extends PureComponent{
 
     getProcessSB = (order_id = null) => {
         
-        getRequest('masters/getAllProcessSB').then(data => {
+        getRequest('garments/getAllProcessSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -82,7 +82,7 @@ class AddFabricOutward extends PureComponent{
 
     getColorSB = () => {
         
-        getRequest('masters/getAllColorSB').then(data => {
+        getRequest('garments/getAllColorSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -96,7 +96,7 @@ class AddFabricOutward extends PureComponent{
 
     getFabricsSB = () => {
         
-        getRequest('masters/getFabricsSB').then(data => {
+        getRequest('garments/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -109,7 +109,7 @@ class AddFabricOutward extends PureComponent{
 
     getOrderSB = () => {
 
-        getRequest('transactions/getOrderSB').then(data => {
+        getRequest('garments/getOrderSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -169,7 +169,7 @@ class AddFabricOutward extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("transactions/fabricOutward?id=" + this.id).then(data => {
+            getRequest("garments/fabricOutward?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
@@ -184,7 +184,7 @@ class AddFabricOutward extends PureComponent{
     }
 
     getProcessSBForOrderID = (order_id) => {
-        getRequest('masters/getProcessSBForOrderID?order_id=' + order_id).then(data => {
+        getRequest('garments/getProcessSBForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -196,7 +196,7 @@ class AddFabricOutward extends PureComponent{
     }
 
     getNextFabricOutwardVouNo = () => {
-        getRequest('transactions/getNextFabricOutwardVouNo').then(data => {
+        getRequest('garments/getNextFabricOutwardVouNo').then(data => {
             console.log(data);
             if(data.status === "info")
             {
@@ -254,7 +254,7 @@ class AddFabricOutward extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/fabricOutward?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/fabricOutward?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_fabric_outward')

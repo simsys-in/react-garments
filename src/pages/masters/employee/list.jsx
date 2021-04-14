@@ -68,7 +68,7 @@ class ListEmployee extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/employee?id=' + id).then(data => {
+    deleteRequest('garments/employee?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -94,7 +94,7 @@ class ListEmployee extends PureComponent {
       title: 'List Employee',
       metaDescription: 'List Employee'
     });
-    getRequest('masters/employee').then(data => {
+    getRequest('garments/employee').then(data => {
       if (data.status === "success") {
         var newData = [];
 

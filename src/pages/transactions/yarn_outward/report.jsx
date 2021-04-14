@@ -14,7 +14,7 @@
 //     }
 
 //     componentDidMount = () => {
-//         getRequest('transactions/getJobworkInvoiceReport?id=' + this.props.itemId).then(data => {
+//         getRequest('garments/getJobworkInvoiceReport?id=' + this.props.itemId).then(data => {
 //             if(data.status === "info")
 //             {
 //                 this.setState({
@@ -143,7 +143,7 @@ class Report extends PureComponent {
     }
 
     componentDidMount = () => {
-        getRequest('transactions/getYarnOutwardReport?id=' + this.props.itemId).then(data => {
+        getRequest('garments/getYarnOutwardReport?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
                 // var size1_total = 0;

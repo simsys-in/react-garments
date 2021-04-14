@@ -51,7 +51,7 @@ class ListBank extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/bank?id=' + id).then(data => {
+    deleteRequest('garments/bank?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -77,7 +77,7 @@ class ListBank extends PureComponent {
       title: 'List Bank',
       metaDescription: 'List Bank'
     });
-    getRequest('masters/bank').then(data => {
+    getRequest('garments/bank').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

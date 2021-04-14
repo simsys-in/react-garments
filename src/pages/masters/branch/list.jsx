@@ -51,7 +51,7 @@ class ListBranch extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/branch?id=' + id).then(data => {
+    deleteRequest('garments/branch?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -77,7 +77,7 @@ class ListBranch extends PureComponent {
       title: 'List Branch',
       metaDescription: 'List Branch'
     });
-    getRequest('masters/branch').then(data => {
+    getRequest('garments/branch').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

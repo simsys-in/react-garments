@@ -92,7 +92,7 @@ class AddCuttingProgram extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("transactions/cuttingProgram?id=" + this.id).then(data => {
+            getRequest("garments/cuttingProgram?id=" + this.id).then(data => {
                
                 data.data[0].voudate = moment(data.data[0].voudate)
                 console.log(data.data)
@@ -109,7 +109,7 @@ class AddCuttingProgram extends PureComponent{
     }
 
     getSizeSB = () => {
-        getRequest('transactions/getSizeSB').then(data => {
+        getRequest('garments/getSizeSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -121,7 +121,7 @@ class AddCuttingProgram extends PureComponent{
     }
 
     getColorSB = () => {
-        getRequest('masters/getAllColorSB').then(data => {
+        getRequest('garments/getAllColorSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -133,7 +133,7 @@ class AddCuttingProgram extends PureComponent{
     }
 
     getCuttingMasterSB = () => {
-        getRequest('masters/getAllCuttingMasterSB').then(data => {
+        getRequest('garments/getAllCuttingMasterSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -145,7 +145,7 @@ class AddCuttingProgram extends PureComponent{
     }
 
     getLedgerNameSB = () => {
-        getRequest('masters/getAllLedgerSB').then(data => {
+        getRequest('garments/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -158,7 +158,7 @@ class AddCuttingProgram extends PureComponent{
 
     getProcessSB = () => {
         
-        getRequest('masters/getAllProcessSB').then(data => {
+        getRequest('garments/getAllProcessSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -171,7 +171,7 @@ class AddCuttingProgram extends PureComponent{
 
     
     getStyleSB = () => {
-        getRequest('transactions/getStyleSB').then(data => {
+        getRequest('garments/getStyleSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -183,7 +183,7 @@ class AddCuttingProgram extends PureComponent{
     }
     
     getFabricSB = () => {
-        getRequest('masters/getFabricsSB').then(data => {
+        getRequest('garments/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -197,7 +197,7 @@ class AddCuttingProgram extends PureComponent{
     getNextCuttingProgramLotNo = () => {
         if(!issetNotEmpty(this.state.formData.lotno))
         {
-            getRequest('transactions/getNextCuttingProgLotNo').then(data => {
+            getRequest('garments/getNextCuttingProgLotNo').then(data => {
                 
                 if(data.status === "info")
                 {
@@ -263,7 +263,7 @@ class AddCuttingProgram extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/cuttingProgram?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/cuttingProgram?id=' + this.id, this.state.formData).then(data => {
                 console.log(values)
                 if(data.status === "success")
                 {
@@ -372,7 +372,7 @@ class AddCuttingProgram extends PureComponent{
 
 
     getOrderSB = () => {
-        getRequest('transactions/getOrderSB').then(data => {
+        getRequest('garments/getOrderSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -384,7 +384,7 @@ class AddCuttingProgram extends PureComponent{
     }
 
     getSizesForOrderID = (order_id) => {
-        getRequest('transactions/getSizesForOrderID?order_id=' + order_id).then(data => {
+        getRequest('garments/getSizesForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 var items = _.remove(data.data, (currentObject) => {
@@ -400,7 +400,7 @@ class AddCuttingProgram extends PureComponent{
     }
 
     getFabricsForOrderID = (order_id) => {
-        getRequest('transactions/getFabricsForOrderID?order_id=' + order_id).then(data => {
+        getRequest('garments/getFabricsForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -419,7 +419,7 @@ class AddCuttingProgram extends PureComponent{
     }
 
     getStyleForOrderID = (order_id) => {
-        getRequest('transactions/getStyleForOrderId?order_id=' + order_id).then(data => {
+        getRequest('garments/getStyleForOrderId?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -549,7 +549,7 @@ class AddCuttingProgram extends PureComponent{
         var fabrics = formData.fabrics;
         var currentItem = fabrics[index];
 
-        getRequest('transactions/getFabricDetailForOrder?order_id=' + formData.order_id + "&fabric_id=" + fabric_id).then(data => {
+        getRequest('garments/getFabricDetailForOrder?order_id=' + formData.order_id + "&fabric_id=" + fabric_id).then(data => {
             if(data.status === "info")
             {
                 currentItem.dia = data.data[0].dia;
@@ -569,7 +569,7 @@ class AddCuttingProgram extends PureComponent{
     }
     
     getProcessSBForOrderID = (order_id) => {
-        getRequest('masters/getProcessSBForOrderID?order_id=' + order_id).then(data => {
+        getRequest('garments/getProcessSBForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({

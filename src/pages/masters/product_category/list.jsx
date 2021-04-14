@@ -50,7 +50,7 @@ class ListProductCategory extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/product_category?id=' + id).then(data => {
+    deleteRequest('garments/product_category?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -76,7 +76,7 @@ class ListProductCategory extends PureComponent {
       title: 'List Product Category',
       metaDescription: 'List Product Category'
     });
-    getRequest('masters/product_category').then(data => {
+    getRequest('garments/product_category').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

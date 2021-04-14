@@ -87,7 +87,7 @@ class ListYarninvoice extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/yarn_invoice?id=' + id).then(data => {
+    deleteRequest('garments/yarn_invoice?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -133,7 +133,7 @@ class ListYarninvoice extends PureComponent {
       title: 'List Yarn Invoice',
       metaDescription: 'List Yarn Invoice'
     });
-    getRequest('transactions/yarn_invoice').then(data => {
+    getRequest('garments/yarn_invoice').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

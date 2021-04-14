@@ -68,7 +68,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
       };
 
       getAllLedgerSB = () => {
-        getRequest('masters/getAllLedgerSB').then(data => {
+        getRequest('garments/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -82,7 +82,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
    
     getOrderSB = () => {
 
-        getRequest('transactions/getOrderSB').then(data => {
+        getRequest('garments/getOrderSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -95,7 +95,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
 
     getProductSB = () => {
 
-        getRequest('transactions/getProductSB').then(data => {
+        getRequest('garments/getProductSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -108,7 +108,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
 
     getColorSB = () => {
         
-        getRequest('masters/getAllColorSB').then(data => {
+        getRequest('garments/getAllColorSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -121,7 +121,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
 
 
     getUnitSB = () => {
-        getRequest('masters/getUnitSB').then(data => {
+        getRequest('garments/getUnitSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -133,7 +133,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
     }
 
     getUnitForProductId = (product_id, index) => {
-        getRequest('masters/getUnitForProductID?product_id=' + product_id).then(data => {
+        getRequest('garments/getUnitForProductID?product_id=' + product_id).then(data => {
             if(data.status === "info")
             {
                 var garments_delivery_note_inventory = this.state.formData.garments_delivery_note_inventory;
@@ -159,7 +159,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
 
     getMarketingUserSB = () => {
 
-        getRequest('transactions/getMarketingUserSB').then(data => {
+        getRequest('garments/getMarketingUserSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -263,7 +263,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("transactions/garmentsDeliveryNote?id=" + this.id).then(data => {
+            getRequest("garments/garmentsDeliveryNote?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
@@ -281,7 +281,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
     }
 
     getNextGarmentsDeliveryNoteVouNo = () => {
-        getRequest('transactions/getNextGarmentsDeliveryNoteVouNo').then(data => {
+        getRequest('garments/getNextGarmentsDeliveryNoteVouNo').then(data => {
             // console.log(data.max_vou_no);
             if(data.status === "info")
             {
@@ -301,7 +301,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
     }
     
     getMobileForLedgerID = (ledger_id) => {
-        getRequest('masters/getMobileForLedgerID?ledger_id=' + ledger_id).then(data => {
+        getRequest('garments/getMobileForLedgerID?ledger_id=' + ledger_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -361,7 +361,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/garmentsDeliveryNote?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/garmentsDeliveryNote?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_garments_delivery_note')

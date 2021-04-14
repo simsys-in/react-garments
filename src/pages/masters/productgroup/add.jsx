@@ -97,7 +97,7 @@ class AddProductGroup extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("masters/product_group?id=" + this.id).then(data => {
+            getRequest("garments/product_group?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
@@ -142,7 +142,7 @@ class AddProductGroup extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('masters/product_group?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/product_group?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_product_group')

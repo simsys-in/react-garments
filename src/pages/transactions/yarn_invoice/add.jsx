@@ -56,7 +56,7 @@ class AddYarn_Invoice extends PureComponent{
       };
 
       getLedgerNameSB = () => {
-        getRequest('masters/getAllLedgerSB').then(data => {
+        getRequest('garments/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -69,7 +69,7 @@ class AddYarn_Invoice extends PureComponent{
 
     getProcessSB = () => {
         
-        getRequest('masters/getAllProcessSB').then(data => {
+        getRequest('garments/getAllProcessSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -82,7 +82,7 @@ class AddYarn_Invoice extends PureComponent{
 
     getFabricsSB = () => {
         
-        getRequest('masters/getFabricsSB').then(data => {
+        getRequest('garments/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -94,7 +94,7 @@ class AddYarn_Invoice extends PureComponent{
     }
     getColorSB = () => {
         
-        getRequest('masters/getAllColorSB').then(data => {
+        getRequest('garments/getAllColorSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -107,7 +107,7 @@ class AddYarn_Invoice extends PureComponent{
 
     getOrderSB = () => {
 
-        getRequest('transactions/getOrderSB').then(data => {
+        getRequest('garments/getOrderSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -137,7 +137,7 @@ class AddYarn_Invoice extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("transactions/yarn_invoice?id=" + this.id).then(data => {
+            getRequest("garments/yarn_invoice?id=" + this.id).then(data => {
                 data.data.date = moment(data.data.date)
                 console.log(data.data)
                 data.data.vou_date = moment(data.data.vou_date)
@@ -153,7 +153,7 @@ class AddYarn_Invoice extends PureComponent{
     }
 
     getNextYarnInvoiceVouNo = () => {
-        getRequest('transactions/getNextYarnInvoiceVouNo').then(data => {
+        getRequest('garments/getNextYarnInvoiceVouNo').then(data => {
             console.log(data);
             if(data.status === "info")
             {
@@ -173,7 +173,7 @@ class AddYarn_Invoice extends PureComponent{
     }
 
     getProcessSBForOrderID = (order_id) => {
-        getRequest('masters/getProcessSBForOrderID?order_id=' + order_id).then(data => {
+        getRequest('garments/getProcessSBForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -222,7 +222,7 @@ class AddYarn_Invoice extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/yarn_invoice?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/yarn_invoice?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_yarn_invoice')

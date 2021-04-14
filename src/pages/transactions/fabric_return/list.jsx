@@ -64,7 +64,7 @@ class ListFabricReturn extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/fabricReturn?id=' + id).then(data => {
+    deleteRequest('garments/fabricReturn?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -90,7 +90,7 @@ class ListFabricReturn extends PureComponent {
       title: 'List Fabric Return',
       metaDescription: 'List Fabric Return'
     });
-    getRequest('transactions/fabricReturn').then(data => {
+    getRequest('garments/fabricReturn').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

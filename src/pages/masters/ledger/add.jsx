@@ -81,7 +81,7 @@ class AddLedger extends PureComponent{
       };
 
       getLedgerCategorySB = () => {
-        getRequest('masters/getLedgerCategorySB').then(data => {
+        getRequest('garments/getLedgerCategorySB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -94,7 +94,7 @@ class AddLedger extends PureComponent{
 
     getLedgerGroupSB = () => {
         
-        getRequest('masters/getLedgerGroupSB').then(data => {
+        getRequest('garments/getLedgerGroupSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -124,7 +124,7 @@ class AddLedger extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("masters/ledger?id=" + this.id).then(data => {
+            getRequest("garments/ledger?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
@@ -172,7 +172,7 @@ class AddLedger extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('masters/ledger?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/ledger?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_ledger')

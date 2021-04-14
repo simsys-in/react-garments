@@ -86,7 +86,7 @@ class ListProduct extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/product?id=' + id).then(data => {
+    deleteRequest('garments/product?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -112,7 +112,7 @@ class ListProduct extends PureComponent {
       title: 'List Product',
       metaDescription: 'List Product'
     });
-    getRequest('masters/product').then(data => {
+    getRequest('garments/product').then(data => {
       if (data.status === "success") {
         var newData = [];
         // data.data.map(dt => {

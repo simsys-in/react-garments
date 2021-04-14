@@ -83,7 +83,7 @@ class ListYarnreturn  extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/yarn_return?id=' + id).then(data => {
+    deleteRequest('garments/yarn_return?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -109,7 +109,7 @@ class ListYarnreturn  extends PureComponent {
       title: 'List Yarn Return ',
       metaDescription: 'List Yarn Return '
     });
-    getRequest('transactions/yarn_return').then(data => {
+    getRequest('garments/yarn_return').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

@@ -64,7 +64,7 @@ class Login extends PureComponent {
             ...this.state,
             buttonLoading : true
         },() => {
-            postRequestWithoutAuth('user/login',values).then((data) => {
+            postRequestWithoutAuth('core/login',values).then((data) => {
                 if(data.status === "success")
                 {
                     console.log(data.data)

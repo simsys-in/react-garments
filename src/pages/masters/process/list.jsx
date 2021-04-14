@@ -54,7 +54,7 @@ class ListProcess extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/process?id=' + id).then(data => {
+    deleteRequest('garments/process?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -80,7 +80,7 @@ class ListProcess extends PureComponent {
       title: 'List Process',
       metaDescription: 'List Process'
     });
-    getRequest('masters/process').then(data => {
+    getRequest('garments/process').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

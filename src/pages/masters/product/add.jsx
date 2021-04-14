@@ -36,7 +36,7 @@ class AddProduct extends PureComponent{
     };
 
     getUnitSB = () => {
-        getRequest('masters/getUnitSB').then(data => {
+        getRequest('garments/getUnitSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -48,7 +48,7 @@ class AddProduct extends PureComponent{
     }
     
     getProductGroupSB =() => {
-        getRequest('masters/getProductGroupSB').then(data => {
+        getRequest('garments/getProductGroupSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -60,7 +60,7 @@ class AddProduct extends PureComponent{
     }
 
     getProductCategorySB = () => {
-        getRequest('masters/getProductCategorySB').then(data => {
+        getRequest('garments/getProductCategorySB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -90,7 +90,7 @@ class AddProduct extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("masters/product?id=" + this.id).then(data => {
+            getRequest("garments/product?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
@@ -138,7 +138,7 @@ class AddProduct extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('masters/product?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/product?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_product')

@@ -87,7 +87,7 @@ class ListAddLess extends PureComponent{
     }
 
     confirmDelete = (id) => {
-      getRequest('masters/deleteAddLess?id=' + id).then(data => {
+      getRequest('garments/deleteAddLess?id=' + id).then(data => {
         if(data.status === "info")
         {
           this.props.history.go(0)
@@ -114,7 +114,7 @@ class ListAddLess extends PureComponent{
           title: 'List Add Less',
           metaDescription: 'List Add Less'
         });
-        getRequest('masters/getAllAddLesss').then(data => {
+        getRequest('garments/getAllAddLesss').then(data => {
           if(data.status === "success")
           {
             this.setState({

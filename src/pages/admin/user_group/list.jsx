@@ -57,7 +57,7 @@ class ListUsergroup extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('user/user_group?id=' + id).then(data => {
+    deleteRequest('core/user_group?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -83,7 +83,7 @@ class ListUsergroup extends PureComponent {
       title: 'List User Group',
       metaDescription: 'List User Group'
     });
-    getRequest('user/user_group').then(data => {
+    getRequest('core/user_group').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

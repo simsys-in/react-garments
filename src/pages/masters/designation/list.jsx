@@ -52,7 +52,7 @@ class ListDesignation extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/designation?id=' + id).then(data => {
+    deleteRequest('garments/designation?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -78,7 +78,7 @@ class ListDesignation extends PureComponent {
       title: 'List Designation',
       metaDescription: 'List Designation'
     });
-    getRequest('masters/designation').then(data => {
+    getRequest('garments/designation').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

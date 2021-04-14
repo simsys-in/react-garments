@@ -60,7 +60,7 @@ class ListCuttingProgram extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/CuttingProgram?id=' + id).then(data => {
+    deleteRequest('garments/CuttingProgram?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -86,7 +86,7 @@ class ListCuttingProgram extends PureComponent {
       title: 'List Cutting Program',
       metaDescription: 'List Cutting Program'
     });
-    getRequest('transactions/cuttingProgram').then(data => {
+    getRequest('garments/cuttingProgram').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

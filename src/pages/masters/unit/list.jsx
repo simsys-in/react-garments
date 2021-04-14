@@ -70,7 +70,7 @@ class ListUnit extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/unit?id=' + id).then(data => {
+    deleteRequest('garments/unit?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -96,7 +96,7 @@ class ListUnit extends PureComponent {
       title: 'List Unit',
       metaDescription: 'List Unit'
     });
-    getRequest('masters/unit').then(data => {
+    getRequest('garments/unit').then(data => {
       if (data.status === "success") {
         var newData = [];
         // data.data.map(dt => {

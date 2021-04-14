@@ -71,7 +71,7 @@ class ListGarmentsInvoice extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/garmentsInvoice?id=' + id).then(data => {
+    deleteRequest('garments/garmentsInvoice?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -119,7 +119,7 @@ class ListGarmentsInvoice extends PureComponent {
       title: 'List Garments Invoice',
       metaDescription: 'List Garments Invoice'
     });
-    getRequest('transactions/garmentsInvoice').then(data => {
+    getRequest('garments/garmentsInvoice').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

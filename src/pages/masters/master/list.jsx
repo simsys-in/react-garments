@@ -70,7 +70,7 @@ class ListMaster extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/master?id=' + id).then(data => {
+    deleteRequest('garments/master?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -96,7 +96,7 @@ class ListMaster extends PureComponent {
       title: 'List Master',
       metaDescription: 'List Master'
     });
-    getRequest('masters/master').then(data => {
+    getRequest('garments/master').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

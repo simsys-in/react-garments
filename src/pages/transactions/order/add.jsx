@@ -83,7 +83,7 @@ class AddOrderProgram extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("transactions/order_program?id=" + this.id).then(data => {
+            getRequest("garments/order_program?id=" + this.id).then(data => {
                
                 data.data.orderDate = moment(data.data.orderDate)
                 data.data.due_date = moment(data.data.due_date)
@@ -99,7 +99,7 @@ class AddOrderProgram extends PureComponent{
     }
 
     getSizeSB = () => {
-        getRequest('transactions/getSizeSB').then(data => {
+        getRequest('garments/getSizeSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -111,7 +111,7 @@ class AddOrderProgram extends PureComponent{
     }
 
     getLedgerNameSB = () => {
-        getRequest('masters/getAllLedgerSB').then(data => {
+        getRequest('garments/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -124,7 +124,7 @@ class AddOrderProgram extends PureComponent{
 
     getProcessSB = () => {
         
-        getRequest('masters/getAllProcessSB').then(data => {
+        getRequest('garments/getAllProcessSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -137,7 +137,7 @@ class AddOrderProgram extends PureComponent{
 
     
     getStyleSB = () => {
-        getRequest('transactions/getStyleSB').then(data => {
+        getRequest('garments/getStyleSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -149,7 +149,7 @@ class AddOrderProgram extends PureComponent{
     }
     
     getFabricSB = () => {
-        getRequest('masters/getFabricsSB').then(data => {
+        getRequest('garments/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -161,7 +161,7 @@ class AddOrderProgram extends PureComponent{
     }
 
     getNextOrderNo = () => {
-        getRequest('transactions/getNextOrderNo').then(data => {
+        getRequest('garments/getNextOrderNo').then(data => {
             
             if(data.status === "info")
             {
@@ -220,7 +220,7 @@ class AddOrderProgram extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/order_program?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/order_program?id=' + this.id, this.state.formData).then(data => {
                 console.log(values)
                 if(data.status === "success")
                 {

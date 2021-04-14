@@ -57,7 +57,7 @@ class ListColor extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/color?id=' + id).then(data => {
+    deleteRequest('garments/color?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -83,7 +83,7 @@ class ListColor extends PureComponent {
       title: 'List Color',
       metaDescription: 'List Color'
     });
-    getRequest('masters/color').then(data => {
+    getRequest('garments/color').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

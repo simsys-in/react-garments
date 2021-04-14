@@ -71,7 +71,7 @@ class ListGarmentsDeliveryNote extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/garmentsDeliveryNote?id=' + id).then(data => {
+    deleteRequest('garments/garmentsDeliveryNote?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -119,7 +119,7 @@ class ListGarmentsDeliveryNote extends PureComponent {
       title: 'List Garments Delivery Note',
       metaDescription: 'List Garments Delivery Note'
     });
-    getRequest('transactions/garmentsDeliveryNote').then(data => {
+    getRequest('garments/garmentsDeliveryNote').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

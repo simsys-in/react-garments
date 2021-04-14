@@ -73,7 +73,7 @@ class ListJobworkInvoice extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/jobworkInvoice?id=' + id).then(data => {
+    deleteRequest('garments/jobworkInvoice?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -117,7 +117,7 @@ class ListJobworkInvoice extends PureComponent {
       title: 'List Job Work Invoice',
       metaDescription: 'List Job Work Invoice'
     });
-    getRequest('transactions/jobworkInvoice').then(data => {
+    getRequest('garments/jobworkInvoice').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

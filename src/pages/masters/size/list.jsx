@@ -127,7 +127,7 @@ class ListSize extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/size?id=' + id).then(data => {
+    deleteRequest('garments/size?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -153,7 +153,7 @@ class ListSize extends PureComponent {
       title: 'List Size',
       metaDescription: 'List Size'
     });
-    getRequest('masters/size').then(data => {
+    getRequest('garments/size').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

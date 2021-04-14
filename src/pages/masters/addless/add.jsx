@@ -73,7 +73,7 @@ class AddAddLess extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("masters/getAddLess?id=" + this.id).then(data => {
+            getRequest("garments/getAddLess?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
@@ -118,7 +118,7 @@ class AddAddLess extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            postRequest('masters/saveAddLess?id=' + this.id, this.state.formData).then(data => {
+            postRequest('garments/saveAddLess?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_addless')

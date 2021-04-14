@@ -77,7 +77,7 @@ class AddJobworkOutward extends PureComponent{
       };
 
       getAllLedgerSB = () => {
-        getRequest('masters/getAllLedgerSB').then(data => {
+        getRequest('garments/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -89,7 +89,7 @@ class AddJobworkOutward extends PureComponent{
     }
 
     getStyleSB = () => {
-        getRequest('transactions/getStyleSB').then(data => {
+        getRequest('garments/getStyleSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -101,7 +101,7 @@ class AddJobworkOutward extends PureComponent{
     }
 
     getUnitSB = () => {
-        getRequest('masters/getUnitSB').then(data => {
+        getRequest('garments/getUnitSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -114,7 +114,7 @@ class AddJobworkOutward extends PureComponent{
 
     getProcessSB = (order_id = null) => {
         
-        getRequest('masters/getAllProcessSB').then(data => {
+        getRequest('garments/getAllProcessSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -128,7 +128,7 @@ class AddJobworkOutward extends PureComponent{
     getCuttingProgramColorDetails = (order_id) => {
         if(!this.id)
         {
-                getRequest('transactions/getCuttingProgramColorDetails?order_id=' +order_id).then(data => {
+                getRequest('garments/getCuttingProgramColorDetails?order_id=' +order_id).then(data => {
                     if(data.status === "info")
                     {
                         var newArr = data.data;
@@ -166,7 +166,7 @@ class AddJobworkOutward extends PureComponent{
 
     getColorSB = () => {
         
-        getRequest('masters/getAllColorSB').then(data => {
+        getRequest('garments/getAllColorSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -180,7 +180,7 @@ class AddJobworkOutward extends PureComponent{
 
     getFabricsSB = () => {
         
-        getRequest('masters/getFabricsSB').then(data => {
+        getRequest('garments/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -193,7 +193,7 @@ class AddJobworkOutward extends PureComponent{
 
     getOrderSB = () => {
 
-        getRequest('transactions/getOrderSB').then(data => {
+        getRequest('garments/getOrderSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -206,7 +206,7 @@ class AddJobworkOutward extends PureComponent{
 
     getProductSB = () => {
 
-        getRequest('masters/getAllProductSB').then(data => {
+        getRequest('garments/getAllProductSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -334,7 +334,7 @@ class AddJobworkOutward extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("transactions/jobworkOutward?id=" + this.id).then(data => {
+            getRequest("garments/jobworkOutward?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
@@ -350,7 +350,7 @@ class AddJobworkOutward extends PureComponent{
     }
 
     getProcessSBForOrderID = (order_id) => {
-        getRequest('masters/getProcessSBForOrderID?order_id=' + order_id).then(data => {
+        getRequest('garments/getProcessSBForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -405,7 +405,7 @@ class AddJobworkOutward extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/jobworkOutward?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/jobworkOutward?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_jobwork_outward')
@@ -454,7 +454,7 @@ class AddJobworkOutward extends PureComponent{
     }
     
     getStyleForOrderID = (order_id) => {
-        getRequest('transactions/getStyleForOrderId?order_id=' + order_id).then(data => {
+        getRequest('garments/getStyleForOrderId?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -473,7 +473,7 @@ class AddJobworkOutward extends PureComponent{
 
 
     getMobileForLedgerId = (ledger_id) => {
-        getRequest('masters/getMobileForLedgerID?ledger_id=' + ledger_id).then(data => {
+        getRequest('garments/getMobileForLedgerID?ledger_id=' + ledger_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -495,7 +495,7 @@ class AddJobworkOutward extends PureComponent{
         console.log(issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(process_id), this.state.formData.order_id ,process_id)
         if(issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(process_id))
         {
-            getRequest('transactions/getLedgerForOrderAndProcessID?order_id=' + this.state.formData.order_id + "&process_id=" + process_id).then(data => {
+            getRequest('garments/getLedgerForOrderAndProcessID?order_id=' + this.state.formData.order_id + "&process_id=" + process_id).then(data => {
                 if(data.status === "info")
                 {
                     this.setState({
@@ -516,7 +516,7 @@ class AddJobworkOutward extends PureComponent{
 
 
     getUnitForProductId = (product_id, index) => {
-        getRequest('masters/getUnitForProductID?product_id=' + product_id).then(data => {
+        getRequest('garments/getUnitForProductID?product_id=' + product_id).then(data => {
             if(data.status === "info")
             {
                 var jobwork_outward_product = this.state.formData.jobwork_outward_product;
@@ -539,7 +539,7 @@ class AddJobworkOutward extends PureComponent{
     }
 
     getNextJobworkOutwardVouNo = () => {
-        getRequest('transactions/getNextJobworkOutwardVouNo').then(data => {
+        getRequest('garments/getNextJobworkOutwardVouNo').then(data => {
             console.log(data);
             if(data.status === "info")
             {
@@ -631,7 +631,7 @@ class AddJobworkOutward extends PureComponent{
     }
 
     getSizesForOrderID = (order_id) => {
-        getRequest('transactions/getSizesForOrderID?order_id=' + order_id).then(data => {
+        getRequest('garments/getSizesForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 var items = _.remove(data.data, (currentObject) => {

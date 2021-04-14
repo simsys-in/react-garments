@@ -18,7 +18,7 @@ class Report extends PureComponent {
     }
 
     componentDidMount = () => {
-        getRequest('transactions/getFabricOutwardReport?id=' + this.props.itemId).then(data => {
+        getRequest('garments/getFabricOutwardReport?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
                 

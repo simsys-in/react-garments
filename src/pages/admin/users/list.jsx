@@ -75,7 +75,7 @@ class ListUser extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('user/user?id=' + id).then(data => {
+    deleteRequest('core/user?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -101,7 +101,7 @@ class ListUser extends PureComponent {
       title: 'List User',
       metaDescription: 'List User'
     });
-    getRequest('user/user').then(data => {
+    getRequest('core/user').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

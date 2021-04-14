@@ -79,7 +79,7 @@ class AddGarmentsInvoice extends PureComponent{
       };
 
       getAllLedgerSB = () => {
-        getRequest('masters/getAllLedgerSB').then(data => {
+        getRequest('garments/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -93,7 +93,7 @@ class AddGarmentsInvoice extends PureComponent{
    
     getOrderSB = () => {
 
-        getRequest('transactions/getOrderSB').then(data => {
+        getRequest('garments/getOrderSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -106,7 +106,7 @@ class AddGarmentsInvoice extends PureComponent{
 
     getProductSB = () => {
 
-        getRequest('transactions/getProductSB').then(data => {
+        getRequest('garments/getProductSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -119,7 +119,7 @@ class AddGarmentsInvoice extends PureComponent{
 
     getMarketingUserSB = () => {
 
-        getRequest('transactions/getMarketingUserSB').then(data => {
+        getRequest('garments/getMarketingUserSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -260,7 +260,7 @@ class AddGarmentsInvoice extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("transactions/garmentsInvoice?id=" + this.id).then(data => {
+            getRequest("garments/garmentsInvoice?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
@@ -276,7 +276,7 @@ class AddGarmentsInvoice extends PureComponent{
     }
 
     getNextGarmentsInvoiceVouNo = () => {
-        getRequest('transactions/getNextGarmentsInvoiceVouNo').then(data => {
+        getRequest('garments/getNextGarmentsInvoiceVouNo').then(data => {
             // console.log(data.max_vou_no);
             if(data.status === "info")
             {
@@ -335,7 +335,7 @@ class AddGarmentsInvoice extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/garmentsInvoice?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/garmentsInvoice?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_garments_invoice')

@@ -54,7 +54,7 @@ class ListMasterGroup extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/master_group?id=' + id).then(data => {
+    deleteRequest('garments/master_group?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -80,7 +80,7 @@ class ListMasterGroup extends PureComponent {
       title: 'List Master Group',
       metaDescription: 'List Master Group'
     });
-    getRequest('masters/master_group').then(data => {
+    getRequest('garments/master_group').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

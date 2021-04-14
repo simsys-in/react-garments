@@ -61,7 +61,7 @@ class ListProductGroup extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/product_group?id=' + id).then(data => {
+    deleteRequest('garments/product_group?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -87,7 +87,7 @@ class ListProductGroup extends PureComponent {
       title: 'List Product Group',
       metaDescription: 'List Product Group'
     });
-    getRequest('masters/product_group').then(data => {
+    getRequest('garments/product_group').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

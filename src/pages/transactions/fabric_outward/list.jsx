@@ -66,7 +66,7 @@ class ListFabricOutward extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/fabricoutward?id=' + id).then(data => {
+    deleteRequest('garments/fabricoutward?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -112,7 +112,7 @@ class ListFabricOutward extends PureComponent {
       title: 'List Fabric Outward',
       metaDescription: 'List Fabric Outward'
     });
-    getRequest('transactions/fabricOutward').then(data => {
+    getRequest('garments/fabricOutward').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

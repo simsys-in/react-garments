@@ -42,7 +42,7 @@ class Sidebar extends PureComponent {
     };
 
     onLogoutClick = () => {
-        // getRequest('user/logout').then(response => {
+        // getRequest('core/logout').then(response => {
         //     if(response.status === "success")
         //     {
                 this.props.onLogOut();
@@ -79,11 +79,11 @@ class Sidebar extends PureComponent {
                         menu.children && menu.children.length > 0 ?
                             <SubMenu key={ index } icon={ <i className={"fa fa-lg fa-" + menu.icon} aria-hidden="true" /> } title={ menu.name }>
                                 { menu.children.map((child, key) =>
-                                    <Menu.Item icon={ <i className={"fa fa-" + child.icon  } /> } onClick={ () => this.navigateURL(child.url,index.toString() +  key.toString() ) } key={ index.toString() +  key.toString() }>{ child.name }</Menu.Item>
+                                    <Menu.Item icon={ <i className={"fa fa-" + child.icon  } /> } onClick={ () => this.navigateURL(child.route,index.toString() +  key.toString() ) } key={ index.toString() +  key.toString() }>{ child.menu }</Menu.Item>
                                 )}
                             </SubMenu>
                             :
-                            <Menu.Item icon={ <i className={"fa fa-" + menu.icon  } /> } onClick={ () => this.navigateURL(menu.url,index.toString() +  menu.toString() ) } key={ index.toString() +  menu.toString() }>{ menu.name }</Menu.Item>
+                            <Menu.Item icon={ <i className={"fa fa-" + menu.icon  } /> } onClick={ () => this.navigateURL(menu.route,index.toString() +  menu.toString() ) } key={ index.toString() +  menu.toString() }>{ menu.menu }</Menu.Item>
                             : null
                         ) }
                     </Menu>

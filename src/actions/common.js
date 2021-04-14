@@ -54,7 +54,7 @@ export function requestCurrentState() {
 export function verifyLogin(){
     return (dispatch) => {
         dispatch(requestCurrentState());
-        // return postRequest("user/verifyLogin").then((data) => {
+        // return postRequest("core/verifyLogin").then((data) => {
         //     if (data.type === "success") {
         //         console.log(data)
         //     }

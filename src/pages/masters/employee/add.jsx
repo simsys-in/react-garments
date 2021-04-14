@@ -83,7 +83,7 @@ class AddEmployee extends PureComponent{
       };
 
       getEmployeeCategorySB = () => {
-        getRequest('masters/getEmployeeCategorySB').then(data => {
+        getRequest('garments/getEmployeeCategorySB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -94,7 +94,7 @@ class AddEmployee extends PureComponent{
         })
     }
       getShiftSB = () => {
-        getRequest('masters/getShiftSB').then(data => {
+        getRequest('garments/getShiftSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -105,7 +105,7 @@ class AddEmployee extends PureComponent{
         })
     }
       getDesignationSB = () => {
-        getRequest('masters/getDesignationSB').then(data => {
+        getRequest('garments/getDesignationSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -116,7 +116,7 @@ class AddEmployee extends PureComponent{
         })
     }
       getDepartmentSB = () => {
-        getRequest('masters/getDepartmentSB').then(data => {
+        getRequest('garments/getDepartmentSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -127,7 +127,7 @@ class AddEmployee extends PureComponent{
         })
     }
       getBranchSB = () => {
-        getRequest('masters/getBranchSB').then(data => {
+        getRequest('garments/getBranchSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -138,7 +138,7 @@ class AddEmployee extends PureComponent{
         })
     }
       getBankSB = () => {
-        getRequest('masters/getBankSB').then(data => {
+        getRequest('garments/getBankSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -151,7 +151,7 @@ class AddEmployee extends PureComponent{
 
     // getEmployeeGroupSB = () => {
         
-    //     getRequest('masters/getEmployeeGroupSB').then(data => {
+    //     getRequest('garments/getEmployeeGroupSB').then(data => {
     //         if(data.status === "info")
     //         {
     //             this.setState({
@@ -181,7 +181,7 @@ class AddEmployee extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("masters/employee?id=" + this.id).then(data => {
+            getRequest("garments/employee?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 data.data[0].joined = moment(data.data[0].joined)
                 data.data[0].resign_date = moment(data.data[0].resign_date)
@@ -236,7 +236,7 @@ class AddEmployee extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('masters/employee?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/employee?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_employee')

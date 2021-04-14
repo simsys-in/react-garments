@@ -124,7 +124,7 @@ class AddUser_Group extends PureComponent{
     
 
       getMenuList = () => {
-          getRequest('user/getAllMenusForUserPermission?user_group_id=' + this.id).then(data => {
+          getRequest('core/getAllMenusForUserPermission?user_group_id=' + this.id).then(data => {
               if(data.status === "info")
               {
                   this.setState({
@@ -139,7 +139,7 @@ class AddUser_Group extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("user/user_group?id=" + this.id).then(data => {
+            getRequest("core/user_group?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
@@ -186,7 +186,7 @@ class AddUser_Group extends PureComponent{
             buttonLoading : true
         },() => {
             values.menuList = this.state.dataSource;
-            putRequest('user/user_group?id=' + this.id, this.state.formData).then(data => {
+            putRequest('core/user_group?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/user/list_user_group')

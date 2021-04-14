@@ -308,7 +308,7 @@ class App extends React.PureComponent
 
   componentDidMount = () => {
     interval = setInterval(() => {
-      postRequest('user/verifyLogin').then(function(data){
+      postRequest('core/verifyLogin').then(function(data){
         if(data.type === "unauthorized")
         {
           message.error(data.message);
@@ -317,7 +317,7 @@ class App extends React.PureComponent
     }, 10000);
     localStorage.setItem("api", api);
     
-    postRequest('user/verifyLogin').then(function(data){
+    postRequest('core/verifyLogin').then(function(data){
       if(data.type === "unauthorized")
       {
         message.error(data.message);

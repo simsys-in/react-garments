@@ -37,7 +37,7 @@ class AddUser extends PureComponent{
 
 
       getUserGroupSB = () => {
-        getRequest('user/getUserGroupSB').then(data => {
+        getRequest('core/getUserGroupSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -66,7 +66,7 @@ class AddUser extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("user/user?id=" + this.id).then(data => {
+            getRequest("core/user?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
@@ -112,7 +112,7 @@ class AddUser extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('user/user?id=' + this.id, this.state.formData).then(data => {
+            putRequest('core/user?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/user/list_user')

@@ -56,7 +56,7 @@ class AddFabricReturn extends PureComponent{
       };
 
       getLedgerNameSB = () => {
-        getRequest('masters/getAllLedgerSB').then(data => {
+        getRequest('garments/getAllLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -68,7 +68,7 @@ class AddFabricReturn extends PureComponent{
     }
 
     getProcessSBForOrderID = (order_id) => {
-        getRequest('masters/getProcessSBForOrderID?order_id=' + order_id).then(data => {
+        getRequest('garments/getProcessSBForOrderID?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -82,7 +82,7 @@ class AddFabricReturn extends PureComponent{
 
     getProcessSB = () => {
         
-        getRequest('masters/getAllProcessSB').then(data => {
+        getRequest('garments/getAllProcessSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -95,7 +95,7 @@ class AddFabricReturn extends PureComponent{
 
     getColorSB = () => {
         
-        getRequest('masters/getAllColorSB').then(data => {
+        getRequest('garments/getAllColorSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -109,7 +109,7 @@ class AddFabricReturn extends PureComponent{
 
     getFabricsSB = () => {
         
-        getRequest('masters/getFabricsSB').then(data => {
+        getRequest('garments/getFabricsSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -122,7 +122,7 @@ class AddFabricReturn extends PureComponent{
 
     getOrderSB = () => {
 
-        getRequest('transactions/getOrderSB').then(data => {
+        getRequest('garments/getOrderSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -181,7 +181,7 @@ class AddFabricReturn extends PureComponent{
         console.log(this.id)
         if(this.id)
         {
-            getRequest("transactions/fabricReturn?id=" + this.id).then(data => {
+            getRequest("garments/fabricReturn?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
@@ -233,7 +233,7 @@ class AddFabricReturn extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('transactions/fabricReturn?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/fabricReturn?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_fabric_return')
@@ -252,7 +252,7 @@ class AddFabricReturn extends PureComponent{
     };
 
     getNextFabricReturnVouNo = () => {
-        getRequest('transactions/getNextFabricReturnVouNo').then(data => {
+        getRequest('garments/getNextFabricReturnVouNo').then(data => {
             // console.log(data.max_vou_no);
             if(data.status === "info")
             {

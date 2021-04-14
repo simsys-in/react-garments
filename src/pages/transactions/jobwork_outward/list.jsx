@@ -77,7 +77,7 @@ class ListJobworkOutward extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('transactions/jobworkOutward?id=' + id).then(data => {
+    deleteRequest('garments/jobworkOutward?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -125,7 +125,7 @@ class ListJobworkOutward extends PureComponent {
       title: 'List Job Work Outward',
       metaDescription: 'List Job Work Outward'
     });
-    getRequest('transactions/jobworkOutward').then(data => {
+    getRequest('garments/jobworkOutward').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{

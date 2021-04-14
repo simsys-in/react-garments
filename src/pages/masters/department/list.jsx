@@ -51,7 +51,7 @@ class ListDepartment extends PureComponent {
   }
 
   confirmDelete = (id) => {
-    deleteRequest('masters/department?id=' + id).then(data => {
+    deleteRequest('garments/department?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -77,7 +77,7 @@ class ListDepartment extends PureComponent {
       title: 'List Department',
       metaDescription: 'List Department'
     });
-    getRequest('masters/department').then(data => {
+    getRequest('garments/department').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{
