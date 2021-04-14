@@ -123,37 +123,39 @@ class AddJobworkInvoice extends PureComponent{
         })
     }
 
-    getCuttingProgramColorDetails = (order_id) => {
-        getRequest('transactions/getCuttingProgramColorDetails?order_id=' +order_id).then(data => {
-            if(data.status === "info")
-            {
-                var newArr = data.data;
-                this.state.formData.jobwork_outward_inventory.map((item) => {
-                    newArr.map(obj => {
-                        if(obj.color_id === item.color_id)
-                        {
-                            obj.selected = true;
-                        }
+    getJobworkOutwardColorDetails = (order_id) => {
+        if(!this.id){
+            getRequest('transactions/getJobworkOutwardColorDetails?order_id=' +order_id).then(data => {
+                if(data.status === "info")
+                {
+                    var newArr = data.data;
+                    this.state.formData.jobwork_inward_inventory.map((item) => {
+                        newArr.map(obj => {
+                            if(obj.color_id === item.color_id)
+                            {
+                                obj.selected = true;
+                            }
+                        })
                     })
-                })
-                // newArr.map(item => {
-                //     item.selected = true;
-                // })
+                    // newArr.map(item => {
+                    //     item.selected = true;
+                    // })
 
-                this.setState({
-                    ...this.state,
-                    formData : {
-                        ...this.state.formData,
-                        jobwork_outward_inventory : newArr
-                    },
-                },()=>{
-                    this.formRef.current.setFieldsValue({
-                        jobwork_outward_inventory : this.state.formData.jobwork_outward_inventory
+                    this.setState({
+                        ...this.state,
+                        formData : {
+                            ...this.state.formData,
+                            jobwork_inward_inventory : newArr
+                        },
+                    },()=>{
+                        this.formRef.current.setFieldsValue({
+                            jobwork_inward_inventory : this.state.formData.jobwork_inward_inventory
+                        })
+                        this.setTOTAL()
                     })
-                    this.setTOTAL()
-                })
-            }
-        })
+                }
+            })
+       }
     }
 
     
@@ -260,8 +262,11 @@ class AddJobworkInvoice extends PureComponent{
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
-                this.getProductAndSizeSBForOrderID(data.data.order_id);
                 this.getMobileForLedgerId(data.data.ledger_id)
+                // this.getOrdersForLedgerAndProcess(data.data.ledger_id, data.data.process_id)
+                data.data.jobwork_invoice_inventory.map((item,index) => {
+                    this.getProductAndSizeSBForOrderID(item.order_id, index);
+                })
             })
 
         }
@@ -467,19 +472,32 @@ class AddJobworkInvoice extends PureComponent{
     getOrdersForLedgerAndProcess = (ledger,process) => {
         getRequest('transactions/getOrdersForLedgerAndProcess?ledger=' + ledger + '&process=' + process).then(data => {
             if(data.status === "info")
-            {
-                console.log(data.data);
-                this.setState({
-                    ...this.state,
-                    formData : {
-                        ...this.state.formData,
-                        jobwork_invoice_inventory : data.data
-                    }
-                }, () => {
-                    this.formRef.current.setFieldsValue(this.state.formData);
-                    this.setTOTAL()
-                })
-            }
+            // {
+            //     data.data.map((item, index) => {
+            //         this.state.formData.jobwork_invoice_inventory.map((savedItem, key) => {
+                        // if(Number(savedItem.order_id) === Number(item.order_id) && Number(item.product_id) === Number(savedItem.product_id) && Number(item.size_id) === Number(savedItem.size_id))
+                        // {
+                        //     item = savedItem;
+                        //     item.selected = true;
+                        // }
+                        // console.log(index, data.data.length-1, key, this.state.formData.jobwork_invoice_inventory.length-1)
+                        // if(index === data.data.length -1 && key === this.state.formData.jobwork_invoice_inventory.length - 1)
+                        {
+                            this.setState({
+                                ...this.state,
+                                formData : {
+                                    ...this.state.formData,
+                                    jobwork_invoice_inventory : data.data
+                                }
+                            }, () => {
+                                this.formRef.current.setFieldsValue(this.state.formData);
+                                this.setTOTAL()
+                            })
+                        }
+            //         })
+            //     })
+
+            // }
         })
     }
 
