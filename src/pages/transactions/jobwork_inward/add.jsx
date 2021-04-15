@@ -57,7 +57,8 @@ class AddJobwork_Inward  extends PureComponent{
             order_no : [],
             fabric : [],
             color : [],
-            product : []
+            style_data : [],
+
         }
         this.id = this.props.match.params.id;
     }
@@ -78,7 +79,19 @@ class AddJobwork_Inward  extends PureComponent{
         })
     }
 
-    
+    getStyleSB = () => {
+        getRequest('garments/getStyleSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    style_data : data.data
+                })
+            }
+        })
+    }
+
+
     getProcessSB = (order_id = null) => {
         
         getRequest('garments/getAllProcessSB').then(data => {
@@ -106,19 +119,7 @@ class AddJobwork_Inward  extends PureComponent{
         })
     }
 
-    getProductSB = (order_id = null) => {
-        
-        getRequest('garments/getAllProductSB').then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    product : data.data
-                })
-            }
-        })
-    }
-
+   
 
     getOrderSB = () => {
 
@@ -353,8 +354,26 @@ class AddJobwork_Inward  extends PureComponent{
         this.getSizesForOrderID(order_id);
         this.getJobworkOutwardColorDetails(order_id);
         this.getLedgerForOrderAndProcessID(this.state.formData.process_id)
+        this.getStyleForOrderID(order_id);
 
         
+    }
+
+    getStyleForOrderID = (order_id) => {
+        getRequest('garments/getStyleForOrderId?order_id=' + order_id).then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        style_id : Number(data.data)
+                    }
+                }, () => {
+                    this.formRef.current.setFieldsValue(this.state.formData);
+                })
+            }
+        })
     }
 
 
@@ -407,7 +426,8 @@ class AddJobwork_Inward  extends PureComponent{
         this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
-        this.getProductSB();
+        this.getStyleSB();
+
         
         this.getJobwork_Inward();
         this.setTOTAL();
@@ -592,7 +612,7 @@ class AddJobwork_Inward  extends PureComponent{
                    
                     <div className="row">
                    
-                        <Selectbox label="Product" modelName="product_id" required="false" className="col-md-4"  options={this.state.product} value={ this.state.formData.product}  ></Selectbox>  
+                    <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
                         <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                         <Form.Item name="adas" className="col-md-4" label="Adas" 
                         rules={[

@@ -275,6 +275,8 @@ class AddGarmentsReceiptNote extends PureComponent{
 
         }
         else{
+
+            this.getNextGarmentsReceiptNoteVouNo();
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
         }
@@ -329,7 +331,6 @@ class AddGarmentsReceiptNote extends PureComponent{
         this.getProductSB();
         this.getColorSB();
         this.getUnitSB();
-        this.getNextGarmentsReceiptNoteVouNo();
         this.setTOTAL();
         this.getGarmentsReceiptNote();
         interval = setInterval(() => {

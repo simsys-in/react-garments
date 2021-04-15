@@ -206,7 +206,7 @@ class AddJobworkOutward extends PureComponent{
 
     getProductSB = () => {
 
-        getRequest('garments/getAllProductSB').then(data => {
+        getRequest('garments/getAllProductAccessoriesSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -340,10 +340,15 @@ class AddJobworkOutward extends PureComponent{
                 this.formRef.current.setFieldsValue(data.data);
                 this.onOrderIDChange(data.data.order_id)
                 this.getMobileForLedgerId(data.data.ledger_id)
+                data.data.jobwork_outward_product.map((item,index) => {
+                    this.getUnitForProductId(item.product_id, index)
+                })
             })
 
         }
         else{
+
+            this.getNextJobworkOutwardVouNo();
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
         }
@@ -369,7 +374,6 @@ class AddJobworkOutward extends PureComponent{
         this.getProcessSB();
         this.getFabricsSB();
         this.getStyleSB();
-        this.getNextJobworkOutwardVouNo();
         this.getUnitSB();
         this.getProductSB();
         this.getColorSB();
@@ -836,7 +840,7 @@ class AddJobworkOutward extends PureComponent{
                                 <table id="dynamic-table" className="table table-bordered" width="100%">
                                 <thead >
                                     <tr>
-                                        <th>Product</th>
+                                        <th>Accessories</th>
                                         <th width="170px">Qty</th>
                                         <th>Unit</th>
                                         
@@ -848,7 +852,7 @@ class AddJobworkOutward extends PureComponent{
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
                                             <tr>
-                                                <td> <Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} modelName={[field.name, 'product_id']}  label="Product" value={[field.name, 'product_id']} options={this.state.product_data} onChange={(product_id) => this.getUnitForProductId(product_id, index)} onBlur={(product_id) => this.getUnitForProductId(product_id, index)} noPlaceholder withoutMargin  ></Selectbox></td>
+                                                <td> <Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} modelName={[field.name, 'product_id']}  label="Accessories" value={[field.name, 'product_id']} options={this.state.product_data} onChange={(product_id) => this.getUnitForProductId(product_id, index)} onBlur={(product_id) => this.getUnitForProductId(product_id, index)} noPlaceholder withoutMargin  ></Selectbox></td>
 
                                                 <td> <Numberbox className="col-md-12" required="false" showLabel={false} label="Qty" min={0} field={field} fieldKey={[ field.fieldKey, 'qty' ]} modelName={[field.name, 'qty']} value={[field.name, 'qty']} noPlaceholder withoutMargin ></Numberbox></td>
 

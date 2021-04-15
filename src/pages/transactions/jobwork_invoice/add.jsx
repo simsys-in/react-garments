@@ -271,6 +271,8 @@ class AddJobworkInvoice extends PureComponent{
 
         }
         else{
+
+            this.getNextJobworkInvoiceVouNo();
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
         }
@@ -328,7 +330,6 @@ class AddJobworkInvoice extends PureComponent{
         this.getProductSB();
         this.getSizeSB();
         this.getAccountsLedger();
-        this.getNextJobworkInvoiceVouNo();
         this.setTOTAL();
         this.getJobworkInvoice();
         interval = setInterval(() => {

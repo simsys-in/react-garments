@@ -189,6 +189,8 @@ class AddFabricReturn extends PureComponent{
 
         }
         else{
+
+            this.getNextFabricReturnVouNo();
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
         }
@@ -200,7 +202,6 @@ class AddFabricReturn extends PureComponent{
         this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
-        this.getNextFabricReturnVouNo();
         this.setTOTAL();
         this.getFabricReturn();
         interval = setInterval(() => {
