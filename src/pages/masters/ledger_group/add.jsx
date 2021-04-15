@@ -67,7 +67,7 @@ class AddLedger_Group extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active'
+                // status : 'active'
             },
             companiesList : []
         }
@@ -98,7 +98,7 @@ class AddLedger_Group extends PureComponent{
         if(this.id)
         {
             getRequest("garments/ledger_group?id=" + this.id).then(data => {
-                data.data[0].dob = moment(data.data[0].dob)
+                // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })

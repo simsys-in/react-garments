@@ -22,7 +22,7 @@ class AddSize extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active'
+                // status : 'active'
             },
             companiesList : []
         }
@@ -53,7 +53,7 @@ class AddSize extends PureComponent{
         if(this.id)
         {
             getRequest("garments/size?id=" + this.id).then(data => {
-                data.data[0].dob = moment(data.data[0].dob)
+                // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
@@ -157,6 +157,7 @@ class AddSize extends PureComponent{
                     <Textbox label="Size9" required="false" modelName="size9" className="col-md-4"></Textbox>
 
                     </div>
+                    <br />
 
                     <div className="row">
                         <div className="col-md-12">

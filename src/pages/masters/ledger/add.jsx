@@ -67,7 +67,7 @@ class AddLedger extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active'
+                status_id  : 1
             },
             companiesList : [],
             ledger_category : [],
@@ -125,7 +125,7 @@ class AddLedger extends PureComponent{
         if(this.id)
         {
             getRequest("garments/ledger?id=" + this.id).then(data => {
-                data.data[0].dob = moment(data.data[0].dob)
+                // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
@@ -268,6 +268,7 @@ class AddLedger extends PureComponent{
 
                             </div>
                         </div>
+                        <br />
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>

@@ -121,7 +121,7 @@ class ListYarninvoice extends PureComponent {
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
-      content: 'Are you sure want to delete ?' ,
+      content: 'Are you sure want to delete' + name + " ?" ,
       okText: 'Yes',
       cancelText: 'No',
       onOk: () => this.confirmDelete(id)

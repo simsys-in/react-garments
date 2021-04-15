@@ -67,7 +67,7 @@ class AddProduct_Category extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active'
+                
             },
             companiesList : []
         }
@@ -98,7 +98,7 @@ class AddProduct_Category extends PureComponent{
         if(this.id)
         {
             getRequest("garments/product_category?id=" + this.id).then(data => {
-                data.data[0].dob = moment(data.data[0].dob)
+                // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
@@ -185,7 +185,7 @@ class AddProduct_Category extends PureComponent{
                     <div className="row">
                         <Textbox label="Product Category" autoFocus modelName="product_category" className="col-md-4"></Textbox>
                     </div>
-
+                    <br></br>
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>

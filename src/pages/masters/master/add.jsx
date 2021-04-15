@@ -23,7 +23,7 @@ class AddMaster extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active'
+                // status : 'active'
             },
             companiesList : [],
             master_group_data : []
@@ -67,7 +67,7 @@ class AddMaster extends PureComponent{
         if(this.id)
         {
             getRequest("garments/master?id=" + this.id).then(data => {
-                data.data[0].dob = moment(data.data[0].dob)
+                // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
