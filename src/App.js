@@ -232,7 +232,7 @@ import ListGarmentsReceiptNote from './pages/transactions/garments_receipt_note/
 
 //product_details
 import AddProductDetails  from './pages/masters/product_details/add'
-// import ListDesignation from './pages/masters/designation/list'
+import ListProductDetails from './pages/masters/product_details/list'
 
 ///// Kowsalya Workspace //////
 ///// Kowsalya Workspace //////
@@ -598,8 +598,8 @@ class App extends React.PureComponent
                            
                               {/* jobwork receipt note */}
                               <Route exact path="/masters/add_product_details" component={AddProductDetails} />
-                              {/* <Route exact path="/masters/edit_product_details/:id" component={AddProductDetails} />
-                              <Route exact path="/masters/list_product_details" component={ListProductAddProductDetails} /> */}
+                              <Route exact path="/masters/edit_product_details/:id" component={AddProductDetails} />
+                              <Route exact path="/masters/list_product_details" component={ListProductDetails} />
 
 
 
