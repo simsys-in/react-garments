@@ -185,7 +185,8 @@ import ListDesignation from './pages/masters/designation/list'
 ///// Boopathi Workspace //////
 ///// Boopathi Workspace //////
 ///// Boopathi Workspace //////
-
+import AddDYEINGPROGRAM  from './pages/transactions/dyeing_program/add'
+import ListDYEINGPROGRAM from './pages/transactions/dyeing_program/list'
 
 
 
@@ -545,6 +546,9 @@ class App extends React.PureComponent
                             {/* Boopathi Workspace */}
                             {/* Boopathi Workspace */}
 
+                            <Route exact path="/transactions/add_dyeing_program" component={AddDYEINGPROGRAM} />
+                              <Route exact path="/transactions/edit_dyeing_program/:id" component={AddDYEINGPROGRAM} />
+                              <Route exact path="/transactions/list_dyeing_program" component={ListDYEINGPROGRAM} />
 
 
 
