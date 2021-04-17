@@ -64,7 +64,7 @@ class AddEmployee extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active'
+                // status : 'active'
             },
             companiesList : [],
             employee_category : [],

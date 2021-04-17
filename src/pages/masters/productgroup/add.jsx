@@ -13,50 +13,7 @@ import Address_Template from '../../../components/Templates/Address_Template';
 
 let interval;
 
-// const calculateTypes = [
-//     {
-//         name : "Flat Amount",
-//         value : 'flat'
-//     },
-//     {
-//         name : "Percentage",
-//         value : 'percent'
-//     },
-// ]
 
-// const types = [
-//     {
-//         name : "Add",
-//         value : 'add'
-//     },
-//     {
-//         name : "Less",
-//         value : 'less'
-//     },
-// ]
-
-// const formulae = [
-//     {
-//         name : "IGST",
-//         value : 'igst'
-//     },
-//     {
-//         name : "SGST",
-//         value : 'sgst'
-//     },
-//     {
-//         name : "CGST",
-//         value : 'cgst'
-//     },
-//     {
-//         name : "Round Off",
-//         value : 'roundoff'
-//     },
-//     {
-//         name : "Discount",
-//         value : 'discount'
-//     }
-// ]
 
 class AddProductGroup extends PureComponent{
     formRef = React.createRef();
@@ -67,7 +24,7 @@ class AddProductGroup extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active'
+                // status : 'active'
             },
             companiesList : []
         }
@@ -98,7 +55,7 @@ class AddProductGroup extends PureComponent{
         if(this.id)
         {
             getRequest("garments/product_group?id=" + this.id).then(data => {
-                data.data[0].dob = moment(data.data[0].dob)
+                // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
@@ -187,6 +144,7 @@ class AddProductGroup extends PureComponent{
                         <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                         {/* <Selectbox modelName="ledger_group_id" label="Ledger Group" className="col-md-4" options={calculateTypes} value={this.state.formData.ledger_group_id}  ></Selectbox> */}
                     </div>
+                    <br />
 
                     
                     <div className="row">

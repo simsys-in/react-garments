@@ -67,7 +67,7 @@ class AddUnit extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active'
+                // status : 'active'
             },
             companiesList : []
         }
@@ -98,7 +98,7 @@ class AddUnit extends PureComponent{
         if(this.id)
         {
             getRequest("garments/unit?id=" + this.id).then(data => {
-                data.data[0].dob = moment(data.data[0].dob)
+                // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
@@ -188,6 +188,7 @@ class AddUnit extends PureComponent{
                         <Textbox label="Narration" required="false" modelName="narration" required="false" className="col-md-4"></Textbox>
                        
                     </div>
+                    <br />
 
                     
                     <div className="row">

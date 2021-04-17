@@ -8,58 +8,38 @@ import DataTable from '../../../components/Datatable';
 import Report from './report';
 
 
-class ListYarninvoice extends PureComponent {
+class ListDyeingProgram extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       showPrint : false,
       selectedItem : {},
       columns: [
-      
+
+        
         {
           label: 'S.No',
           field: 'sno',
           width: "10vw",
-         
-        },
-        {
-          label: 'Vou Date',
-          field: 'vou_date',
-          width: "30vw",
-        },
-        {
-          label: 'Vou No',
-          field: 'vouno',
-          width: "30vw",
+          defaultSortOrder: 'ascend',
+          
         },
         {
           label: 'Ledger Name',
           field: 'ledger',
           width: "10vw",
         },
-        // {
-        //   label: 'Narration',
-        //   field: 'narration',
-        //   width: "30vw",
-        // },
-        // {
-        //   label: 'Vou Date',
-        //   field: 'vou_date',
-        //   width: "30vw",
-        // },
-       
-        // {
-        //   label: 'Process',
-        //   field: 'process',
-        //   width: "30vw",
-        // },
-        
-        // {
-        //   label: 'Ref No',
-        //   field: 'refno',
-        //   width: "30vw",
-        // },
+        {
+          label: 'Vou Date',
+          field: 'vou_date',
+          width: "30vw",
+        },
       
+        {
+          label: 'Vou No',
+          field: 'vouno',
+          width: "30vw",
+        },
        
        
         {
@@ -70,8 +50,8 @@ class ListYarninvoice extends PureComponent {
           defaultSortOrder: 'ascend',
           render: (text, record) => (
             <Space size="middle">
-              <Button type="primary" onClick={() => this.editYarn_Invoice(record.id)} icon={<EditOutlined />} size="middle" />
-              <Button type="default" color="error" danger onClick={() => this.deleteYarn_Invoice(record)} icon={<DeleteOutlined />} size="middle" />
+              <Button type="primary" onClick={() => this.editDyeingProgram(record.id)} icon={<EditOutlined />} size="middle" />
+              <Button type="default" color="error" danger onClick={() => this.deleteDyeingProgram(record)} icon={<DeleteOutlined />} size="middle" />
             </Space>
           ),
         },
@@ -81,13 +61,13 @@ class ListYarninvoice extends PureComponent {
     }
   }
 
-  editYarn_Invoice = (id) => {
+  editDyeingProgram = (id) => {
     console.log(id);
-    this.props.history.push('/transactions/edit_yarn_invoice/' + id)
+    this.props.history.push('/transactions/edit_dyeing_program/' + id)
   }
 
   confirmDelete = (id) => {
-    deleteRequest('garments/yarn_invoice?id=' + id).then(data => {
+    deleteRequest('garments/DyeingProgram?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -114,14 +94,14 @@ class ListYarninvoice extends PureComponent {
   }
 
 
-  deleteYarn_Invoice = (user) => {
+  deleteDyeingProgram = (user) => {
     const id = user.id
     console.log(id);
     const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',
       icon: <ExclamationCircleOutlined />,
-      content: 'Are you sure want to delete' + name + " ?" ,
+      content: 'Are you sure want to delete ' + name + " ?",
       okText: 'Yes',
       cancelText: 'No',
       onOk: () => this.confirmDelete(id)
@@ -130,20 +110,20 @@ class ListYarninvoice extends PureComponent {
 
   componentDidMount = () => {
     seo({
-      title: 'List Yarn Invoice',
-      metaDescription: 'List Yarn Invoice'
+      title: 'List Dyeing Program',
+      metaDescription: 'List Dyeing Program'
     });
-    getRequest('garments/yarn_invoice').then(data => {
+    getRequest('garments/DyeingProgram').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{
           item.sno = index +1;
           item.action =  <Space size="middle">
-          <Button type="primary" onClick={() => this.editYarn_Invoice(item.id)} icon={<EditOutlined />} size="middle" />
-          <Button type="default" color="error" danger onClick={() => this.deleteYarn_Invoice(item)} icon={<DeleteOutlined />} size="middle" />
+          <Button type="primary" onClick={() => this.editDyeingProgram(item.id)} icon={<EditOutlined />} size="middle" />
+          <Button type="default" color="error" danger onClick={() => this.deleteDyeingProgram(item)} icon={<DeleteOutlined />} size="middle" />
           <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" />
-
         </Space>
+
 
         newData.push(item)
         })
@@ -170,21 +150,25 @@ class ListYarninvoice extends PureComponent {
      window.location.reload();
   }
 
+
+
+
   render() {
     return (
       <Fragment>
         <div className="row">
           <div className="col-md-10"></div>
           <div className="col-md-2" align="right">
-            <Button type="primary" onClick={() => { this.props.history.push("/transactions/add_yarn_invoice") }}> Add </Button>
+            <Button type="primary" onClick={() => { this.props.history.push("/transactions/add_dyeing_program") }}> Add </Button>
           </div>
           <br />
           <br />
         </div>
         {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
         <DataTable data={this.state} ></DataTable>
+
         <Modal
-          title="Yarn Invoice"
+          title="Dyeing Program"
           centered
           width={1000}
           visible={this.state.showPrint}
@@ -200,4 +184,4 @@ class ListYarninvoice extends PureComponent {
 }
 
 
-export default withRouter(ListYarninvoice);
+export default withRouter(ListDyeingProgram);

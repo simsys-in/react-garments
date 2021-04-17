@@ -21,7 +21,7 @@ class AddMasterGroup extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active'
+                // status : 'active'
             },
             companiesList : []
         }
@@ -52,7 +52,7 @@ class AddMasterGroup extends PureComponent{
         if(this.id)
         {
             getRequest("garments/master_group?id=" + this.id).then(data => {
-                data.data[0].dob = moment(data.data[0].dob)
+                // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
@@ -139,6 +139,7 @@ class AddMasterGroup extends PureComponent{
                     <div className="row">
                         <Textbox label="Master Group" autoFocus modelName="master_group" className="col-md-4"></Textbox>
                     </div>
+                    <br />
 
                     <div className="row">
                         <div className="col-md-12">

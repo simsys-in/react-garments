@@ -200,7 +200,7 @@ class Report extends PureComponent {
                     <div className="col-md-12" style={{border:"1px solid gray"}}>
                         <div >
                         <div className="row flex-nowrap" >
-                            <div className="col-md-8" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-6" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5 }}>
 
                                 <h6 style={{fontWeight:"bold"}}>   { report_details.company_details.company } </h6>
                                 <div style={{ marginLeft : 15 }}>
@@ -220,7 +220,7 @@ class Report extends PureComponent {
                                 </div>
                             {/* </div> */}
                             </div>
-                            <div className="col-md-4" style={{ padding : 0, border : '1px  black' }}>
+                            <div className="col-md-6" style={{ padding : 0, border : '1px  black' }}>
 
                                 <table width={"100%"} style={{border:"gray", margin : 0, padding : 0}} border="1">
                                         <tr> 
@@ -268,7 +268,7 @@ class Report extends PureComponent {
                                            
                                         </tr>
                                     </thead>
-                                    <tbody style={{maxHeight:"300px"}}>
+                                    <tbody style={{minHeight:300}}>
                                     { report_details.inventory.map(item => 
                                             <tr border={1}>
 
