@@ -113,7 +113,12 @@ class AddDyeingProgram extends PureComponent{
             {
                 this.setState({
                     ...this.state,
-                    process : data.data
+                    formData : {
+                        ...this.state.formData,
+                        dyeing_program_inventory : data.data
+                    }
+                }, () => {
+                    this.formRef.current.setFieldsValue(this.state.formData)
                 })
             }
         })
@@ -379,13 +384,21 @@ class AddDyeingProgram extends PureComponent{
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
                                     <tr>
+
                                         <td>   <Selectbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} options={this.state.fabric} label="Fabric"></Selectbox></td>
+
                                         <td> <Selectbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox></td>
+
                                         <td> <Numberbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={[field.name, 'gsm']} label="Gsm"></Numberbox></td>
+
                                         <td>  <Numberbox noPlaceholder withoutMargin required="false" className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} required = 'false' modelName={[field.name, 'dia']} value={[field.name, 'dia']} label="Dia"></Numberbox></td>
+
                                         <td> <Numberbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'rolls' ]}  modelName={[field.name, 'rolls']} value={[field.name, 'rolls']} label="Roll" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox></td>
+
                                         <td><Numberbox noPlaceholder withoutMargin required="false" className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} label="Weight" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox></td>
+
                                         <td> { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeDyeingProgramInventory(index)} type="primary"> <FontAwesomeIcon  icon={faTimes} /> </Button>}</td>
+                                        
                                     </tr>
                                     )
                                             
