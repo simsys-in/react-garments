@@ -29,6 +29,57 @@ class Report extends PureComponent {
         getRequest('garments/getGarmentsInvoicePrint?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
+                if(data.data.inventories.length < 7)
+                {
+                    var item = {
+                        product : '',
+                        hsnasc : '',
+                        gst : '',
+                        size1 : '',
+                        size2 : '',
+                        size3 : '',
+                        size4 : '',
+                        size5 : '',
+                        size6 : '',
+                        size7 : '',
+                        size8 : '',
+                        size9 : '',
+                        qty : '',
+                        unit : '',
+                       amount : '',
+                       size_data : [ ]
+                    }
+                    // var size_obj = {
+                    //     size_name : "",
+                    //     qty : "",
+                    //     rate : "",
+                    // }
+                    // for(i=item.size_data.length; i < 9; i++)
+                    // {
+                    //     item.size_data.push(size_obj);
+                    // }
+
+                    for(var i=data.data.inventories.length; i < 7; i++ )
+                    {
+                        data.data.inventories.push(item);
+                        if(i === 6)
+                        {
+                            this.setState({
+                                ...this.state,
+                                report_details : data.data,
+                                show_details : true,
+                            })
+
+                        }
+                    }
+                }
+                else{
+                    this.setState({
+                        ...this.state,
+                        report_details : data.data,
+                        show_details : true,
+                    })
+                }
                 this.setState({
                     ...this.state,
                     report_details : data.data,
@@ -150,92 +201,112 @@ class Report extends PureComponent {
                         <div className="row flex-nowrap">
                             <div className="col-md-12" style={{ padding : 0 }}>
                                     {/* <div style={{ display : 'block', minHeight : '800px', border : '1px solid grey' }}> */}
-                                <table  width="100%" border={1} >
+                                <table  width="100%"  >
                                     <thead>
-                                        <tr>
-                                            <th row flex-nowrapSpan={2}> <b> #Style </b></th>
-                                            <th row flex-nowrapSpan={2}> <b> #HSN </b></th>
-                                            <th row flex-nowrapSpan={2}> <b> GST </b></th>
-                                            <th>
+                                        <tr >
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> #Style </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> #HSN </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> GST </b></th>
+
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
                                                 <b >Qty</b> <br/>
                                                  <b > Rate </b>
                                             </th>
-                                            <th>
+
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
                                                 <b >Qty</b> <br/>
                                                  <b > Rate </b>
                                             </th>
-                                            <th>
+
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
                                                 <b >Qty</b> <br/>
                                                  <b > Rate </b>
                                             </th>
-                                            <th>
+
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
                                                 <b >Qty</b> <br/>
                                                  <b > Rate </b>
                                             </th>
-                                            <th>
+
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
                                                 <b >Qty</b> <br/>
                                                  <b > Rate </b>
                                             </th>
-                                            <th>
+
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
                                                 <b >Qty</b> <br/>
                                                  <b > Rate </b>
                                             </th>
-                                            <th>
+
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
                                                 <b >Qty</b> <br/>
                                                  <b > Rate </b>
                                             </th>
-                                            <th>
+
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
                                                 <b >Qty</b> <br/>
                                                  <b > Rate </b>
                                             </th>
-                                            <th>
+
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
                                                 <b >Qty</b> <br/>
                                                  <b > Rate </b>
                                             </th>
-                                            <th row flex-nowrapSpan={2}> <b> Qty </b></th>
-                                            <th row flex-nowrapSpan={2}> <b> Disc % </b></th>
-                                            <th row flex-nowrapSpan={2}> <b> Unit </b></th>
-                                            <th row flex-nowrapSpan={2}> <b> Amount </b></th>
+
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Disc % </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Unit </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Amount </b></th>
                                         </tr>
                                     </thead>
+
                                         <tbody >
                                             { report_details.inventories.map((item, ind) => 
                                                 <tr key={ind}>
-                                                    <td >{item.product}</td>
-                                                    <td >{item.hsnsac}</td>
-                                                    <td >{item.gst}</td>
+                                                    <td  style={{ paddingTop: item.product === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}} >{item.product}</td>
+
+                                                    <td  style={{ paddingTop: item.hsnasc === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}} >{item.hsnsac}</td>
+                                                    
+                                                    <td style={{ paddingTop: item.gst === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >{item.gst}</td>
+
+
                                                     { item.size_data.map((size, index) => 
-                                                        <td key={index}>
-                                                            <b style={{ textAlign :'center' }}>{size !== "''" ? size : Number(item['size' + Number(Number(index) + 1) + "_qty"]) > 0 ? 'Size ' + Number(Number(index) + 1) : ""}</b>  <br/>
+                                                        <td key={index} style={{borderRight:'1px solid grey', borderLeft:'1px solid grey', paddingTop: item['size' + Number(Number(index) + 1)] === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >
+                                                            <b style={{ textAlign :'center' }} >{size !== "''" ? size : Number(item['size' + Number(Number(index) + 1) + "_qty"]) > 0 ? 'Size ' + Number(Number(index) + 1) : ""}</b>  <br/>
                                                             <p style={{ textAlign : 'left' }}> { Number(item['size' + Number(Number(index) + 1) + "_qty"]) !== 0 ? item['size' + Number(Number(index) + 1) + "_qty"] : "" } </p> <br/>
                                                             <p style={{ textAlign : 'right' }}> { Number(item['size' + Number(Number(index) + 1) + "_rate"]) !== 0 ? item['size' + Number(Number(index) + 1) + "_rate"] : ''  } </p> <br/>
                                                         </td>
                                                     )}
-                                                    <td >{item.qty}</td>
-                                                    <td >{Number(item.disc_percentage) !== 0 ? item.disc_percentage : ''}</td>
-                                                    <td >{item.unit}</td>
-                                                    <td style={{ textAlign : 'right' }}>{  Number(item.amount).toFixed(2)}</td>
+
+
+                                                    <td style={{ paddingTop: item.qty === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >{item.qty}</td>
+
+                                                    <td style={{ paddingTop: item.disc_percentage === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >{Number(item.disc_percentage) !== 0 ? item.disc_percentage : ''}</td>
+
+                                                    <td style={{ paddingTop: item.unit === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >{item.unit}</td>
+
+                                                    <td style={{ paddingTop: item.amount === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px', borderRight : '1px solid grey'}}>{  Number(item.amount).toFixed(2)}</td>
                                                 </tr>
                                             ) }
                                         </tbody>
                                         <tfoot style={{ marginBottom : '0' }}>
-                                            <tr>
-                                                <td colSpan={3}>
+                                            <tr style={{border:'1px solid grey'}}>
+                                                <td colSpan={3} style={{borderLeft:'1px solid grey'}}>
                                                     <b> Net Total</b>
                                                 </td>
-                                                <td> {report_details.size1_qty_total} </td>
-                                                <td> {report_details.size2_qty_total} </td>
-                                                <td> {report_details.size3_qty_total} </td>
-                                                <td> {report_details.size4_qty_total} </td>
-                                                <td> {report_details.size5_qty_total} </td>
-                                                <td> {report_details.size6_qty_total} </td>
-                                                <td> {report_details.size7_qty_total} </td>
-                                                <td> {report_details.size8_qty_total} </td>
-                                                <td> {report_details.size9_qty_total} </td>
-                                                <td> {report_details.inventory_qty_total} </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td style={{ textAlign : 'right' }}> { Number(report_details.inventory_amount_total).toFixed(2) } </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size1_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size2_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size3_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size4_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size5_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size6_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size7_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size8_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size9_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.inventory_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey', borderRight:'1px solid grey'}}></td>
+                                                <td style={{borderRight:'1px solid grey'}}></td>
+                                                <td style={{ textAlign : 'right', borderLeft:'1 px solid grey' }}> { Number(report_details.inventory_amount_total).toFixed(2) } </td>
                                             </tr>
                                             <tr>
                                                 <td colSpan={12} style={{ textAlign : 'right' }}> <h6> CGST</h6></td>
