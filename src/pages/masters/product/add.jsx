@@ -20,7 +20,7 @@ class AddProduct extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active',
+                status_id  : 1
               
             },
             unit_data : [],
@@ -91,7 +91,7 @@ class AddProduct extends PureComponent{
         if(this.id)
         {
             getRequest("garments/product?id=" + this.id).then(data => {
-                data.data[0].dob = moment(data.data[0].dob)
+                // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
@@ -259,7 +259,7 @@ class AddProduct extends PureComponent{
 
                     
                     
-                         
+                         <br />
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>

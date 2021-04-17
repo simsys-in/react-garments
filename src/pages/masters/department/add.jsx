@@ -23,7 +23,7 @@ class AddDepartment extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active'
+                // status : 'active'
             },
             companiesList : []
         }
@@ -54,7 +54,7 @@ class AddDepartment extends PureComponent{
         if(this.id)
         {
             getRequest("garments/department?id=" + this.id).then(data => {
-                data.data[0].dob = moment(data.data[0].dob)
+                // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
@@ -141,6 +141,7 @@ class AddDepartment extends PureComponent{
                     <div className="row">
                         <Textbox label="Department" autoFocus modelName="department" className="col-md-4"></Textbox>
                     </div>
+                    <br></br>
 
                     <div className="row">
                         <div className="col-md-12">
