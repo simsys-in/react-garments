@@ -177,7 +177,8 @@ class AddFabricOutward extends PureComponent{
 
         }
         else{
-           
+            
+            this.getNextFabricOutwardVouNo();
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
         }
@@ -221,7 +222,6 @@ class AddFabricOutward extends PureComponent{
         this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
-        this.getNextFabricOutwardVouNo();
         this.setTOTAL();
         this.getFabricOutward();
         interval = setInterval(() => {

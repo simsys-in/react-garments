@@ -211,8 +211,10 @@ class AddFabricInward extends PureComponent{
 
         }
         else{
+            this.getNextFabricInwardVouNo();
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
+
         }
     }
 
@@ -223,7 +225,6 @@ class AddFabricInward extends PureComponent{
         this.getFabricsSB();
         this.getColorSB();
         this.setTOTAL();
-        this.getNextFabricInwardVouNo();
         
         this.getFabricInward();
 

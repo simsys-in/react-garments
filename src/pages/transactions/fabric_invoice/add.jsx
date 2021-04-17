@@ -194,6 +194,8 @@ class AddFabricInvoice extends PureComponent{
 
         }
         else{
+
+            this.getNextFabricInvoiceVouNo();
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
         }
@@ -226,7 +228,6 @@ class AddFabricInvoice extends PureComponent{
         this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
-        this.getNextFabricInvoiceVouNo();
         this.setTOTAL();
         this.getFabricInvoice();
         interval = setInterval(() => {

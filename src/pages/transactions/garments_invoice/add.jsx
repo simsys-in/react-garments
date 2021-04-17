@@ -270,8 +270,10 @@ class AddGarmentsInvoice extends PureComponent{
 
         }
         else{
+            this.getNextGarmentsInvoiceVouNo();
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
+
         }
     }
 
@@ -302,7 +304,6 @@ class AddGarmentsInvoice extends PureComponent{
         this.getAllLedgerSB();
         this.getMarketingUserSB();
         this.getProductSB();
-        this.getNextGarmentsInvoiceVouNo();
         this.setTOTAL();
         this.getGarmentsInvoice();
         interval = setInterval(() => {

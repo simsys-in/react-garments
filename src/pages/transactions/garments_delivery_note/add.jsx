@@ -275,6 +275,8 @@ class AddGarmentsDeliveryNote extends PureComponent{
 
         }
         else{
+
+            this.getNextGarmentsDeliveryNoteVouNo();
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
         }
@@ -328,7 +330,6 @@ class AddGarmentsDeliveryNote extends PureComponent{
         this.getProductSB();
         this.getColorSB();
         this.getUnitSB();
-        this.getNextGarmentsDeliveryNoteVouNo();
         this.setTOTAL();
         this.getGarmentsDeliveryNote();
         interval = setInterval(() => {
