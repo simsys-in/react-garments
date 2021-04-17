@@ -37,7 +37,7 @@ class Report extends PureComponent {
         return(
             <Fragment>
                 { this.state.show_details &&
-                <div className="row print-area" id="printableArea" border={"light gray"}>
+                <div className="row print-area" id="printableArea" border={1}>
                     <br></br><br></br>                  
                       <div className="col-md-12">
                         <div >

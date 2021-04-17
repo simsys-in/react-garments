@@ -85,7 +85,7 @@ class ListGarmentsInvoice extends PureComponent {
       showPrint : false,
       selectedItem : {}
     }, () => {
-      // window.location.reload();
+      window.location.reload();
     })
   }
 
@@ -145,7 +145,7 @@ class ListGarmentsInvoice extends PureComponent {
 
   
   printDiv = () => {
-    var printContents = document.getElementById('printable-area').innerHTML;
+    var printContents = document.getElementById('printableArea').innerHTML;
      var originalContents = document.body.innerHTML;
 
      document.body.innerHTML = printContents;
@@ -179,7 +179,7 @@ class ListGarmentsInvoice extends PureComponent {
           okText="Print"
           onCancel={() => this.hideMoal(false)}
         >
-          <Report itemId={this.state.selectedItem.id} id="printable-area" />
+          <Report itemId={this.state.selectedItem.id} id="printableArea" />
         </Modal>
 
       </Fragment>

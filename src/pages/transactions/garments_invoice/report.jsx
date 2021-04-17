@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { getRequest } from '../../../helpers/apihelper';
 import { getStandardDate } from '../../../helpers/timer';
+import { humanize } from '../../../helpers/amount';
 
 
 class Report extends PureComponent {
@@ -25,131 +26,273 @@ class Report extends PureComponent {
     }
 
     componentDidMount = () => {
+        getRequest('garments/getGarmentsInvoicePrint?id=' + this.props.itemId).then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    report_details : data.data,
+                    show_details : true
+                })
+            }
+        })
     }
 
+    getTaxValue = (perc, amount) => {
+        return Number((Number(perc) / 100) * Number(amount));
+    }
+
+    getRoundOffValue = (perc,amount) => {
+        var sgst = this.getTaxValue(perc,amount)
+        var cgst = this.getTaxValue(perc,amount)
+        var finalValue = amount + sgst + cgst;
+        var roundValue = Math.round(finalValue);
+        return finalValue - roundValue;
+    }
+
+    getFinalValue = (perc,amount) => {
+        var sgst = this.getTaxValue(perc,amount)
+        var cgst = this.getTaxValue(perc,amount)
+        var finalValue = amount + sgst + cgst;
+        var roundValue = Math.round(finalValue);
+        return roundValue;
+    }
 
     render(){
         const { report_details } = this.state;
+        const cgst = this.getTaxValue(2.5, report_details.inventory_amount_total)
+        const sgst = this.getTaxValue(2.5, report_details.inventory_amount_total)
+        const roundOff = this.getRoundOffValue(2.5, report_details.inventory_amount_total)
+        const finalValue = this.getFinalValue(2.5, report_details.inventory_amount_total)
         return(
             <Fragment>
-                {/* { this.state.show_details &&
-                <div className="row print-area" id="printableArea">
+                { this.state.show_details &&
+                <div className="row print-area" id="printableArea" >
                     <div className="col-md-12">
                         <div >
-                        <div className="row" >
-                            <div className="col-md-6" style={{ border : '1px solid black', padding : 0, paddingLeft : 5 }}>
-                                <h6 style={{fontWeight:"bold"}}>   { report_details.company_details.company } </h6>
-                                <p style={{ whiteSpace : 'pre-wrap' }}> Address :  { report_details.company_details.address } </p>
-                                <p> Phone :  { report_details.company_details.phone } </p>
-                                <p> Mail :  { report_details.company_details.email } </p>
-                                <p> GSTIN :  <b style={{fontWeight:"bold"}}> { report_details.company_details.gstno } </b> </p>
-                            </div>
-                            <div className="col-md-6" style={{ padding : 0,border : '1px solid black' }}>
-
-                                <table width={"100%"} style={{border:"lightgray", margin : 0, padding : 0}}>
-                                        <tr> 
-                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid black' }}> <h5> DELIVERY NOTE </h5> </td>
-                                        </tr>
-                                        <tr>
-                                            <th> DC No </th>
-                                            <td style={{fontWeight:"bold"}}> { report_details.dcno }</td>
-                                            <th> Dated </th>
-                                            <td style={{fontWeight:"bold"}}> { getStandardDate(report_details.vou_date)} </td>
-                                        </tr>
-                                        <tr>
-                                            <th> Process </th>
-                                            <td style={{fontWeight:"bold"}}> { report_details.process }</td>
-                                            <th> HSN Code </th>
-                                            <td style={{fontWeight:"bold"}}> {report_details.hsnsac} </td>
-                                        </tr>
-                                        <tr>
-                                            <th> Order No </th>
-                                            <td style={{fontWeight:"bold"}}> { report_details.order_no }</td>
-                                            <th> Vehicle No </th>
-                                            <td style={{fontWeight:"bold"}}> {report_details.vehicle_no} </td>
-                                        </tr>
-                                        <tr>
-                                            <th> Product </th>
-                                            <td style={{fontWeight:"bold"}}> { report_details.product }</td>
-                                            <th>  </th>
-                                            <td>  </td>
-                                        </tr>
+                            <div className="row flex-nowrap">
+                                <div className="col-md-4" style={{ border : '1px solid grey' }}>
+                                    <h4>{ report_details.company_details.company }</h4>
+                                    <b>GSTIN : {report_details.company_details.gstno}</b>
+                                </div>
+                                <div className="col-md-4" style={{ border : '1px solid grey' }}></div>
+                                <div className="col-md-4" style={{ padding : 0 }}>
+                                    <table width="100%" border={1} style={{ padding : 0, margin : 0 }}>
+                                        <thead>
+                                            <tr>
+                                                <th colSpan={4} style={{ textAlign :'center' }} >
+                                                    <b >TAX INVOICE</b>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Invoice No
+                                                </td>
+                                                <td width={40}> {report_details.vouno} </td>
+                                                <td> Invoice Date </td>
+                                                <td> { getStandardDate(report_details.vou_date) } </td>
+                                            </tr>
+                                            <tr>
+                                                <td> Credit Days </td>
+                                                <td></td>
+                                                <td> Transport Name </td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-md-6" style={{ border : '1px solid black', padding : 0, paddingLeft : 5 }}>
-                                <b>Delivery to</b>
-                                <div style={{ marginLeft : 15 }}>
-                                    <p><b>{ report_details.ledger_details.ledger } , </b></p> 
-                                    <p>Address : { report_details.ledger_details.delivery_address }</p>
-                                    <p> Contact :{ report_details.ledger_details.mobile} </p>
-                                    <p><b> GSTIN :{ report_details.ledger_details.gstno} </b></p>
+                            </div>
+                            <div className="row flex-nowrap">
+                                <div className="col-md-4" style={{ border : '1px solid grey' }}>
+                                    <p>Invoice to</p>
+                                    <b>{ report_details.ledger_details.ledger }</b>
+                                    <p> Address : { report_details.ledger_details.address }</p>
+                                    <p> Mobile No : { report_details.ledger_details.mobile }</p>
+                                    <p> E-Mail : { report_details.ledger_details.email }</p>
+                                    <b> GST No : { report_details.ledger_details.gstno }</b>
+                                </div>
+                                <div className="col-md-4" style={{ border : '1px solid grey' }}>
+                                    <p>Delivery to</p>
+                                    <b>{ report_details.ledger_details.ledger }</b>
+                                    <p> {report_details.delivery_address} </p>
+
+                                </div>
+                                <div className="col-md-4" style={{ border : '1px solid grey' }}>
+                                    <div className="row flex-nowrap">
+                                        <p className="col-md-4" align="right"> Account Name </p>
+                                        <p className="col-md-1">: </p>
+                                        <p className="col-md-6" align="left" > {report_details.company_details.company} </p>
+                                    </div>
+                                    <div className="row flex-nowrap">
+                                        <p className="col-md-4" align="right">  Bank Name </p>
+                                        <p className="col-md-1"> : </p>
+                                        <p className="col-md-6" align="left" > {report_details.company_details.bankname} </p>
+                                    </div>
+                                    <div className="row flex-nowrap">
+                                        <p className="col-md-4" align="right">  A/c No </p> 
+                                        <p className="col-md-1"> : </p> 
+                                        <p className="col-md-6" align="left" > {report_details.company_details.bankacno} </p>
+                                    </div>
+                                    <div className="row flex-nowrap">
+                                        <p className="col-md-4" align="right">  Branch </p> 
+                                        <p className="col-md-1"> : </p> 
+                                        <p className="col-md-6" align="left" > {report_details.company_details.bankbranch} </p>
+                                    </div>
+                                    <div className="row flex-nowrap">
+                                        <p className="col-md-4" align="right">  IFSC Code </p>
+                                        <p className="col-md-1"> : </p>
+                                        <p className="col-md-6" align="left" > {report_details.company_details.ifsc} </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="col-md-6" style={{ border : '1px solid black', padding : 0}}>
-                                <b style={{fontWeight:"bold", marginLeft : 5}}>ACCESSORIES</b>
-                                <table border={1} width="100%" style={{border:"lightgray"}}>
-                                    <thead>
-                                        <tr style={{ backgroundColor : 'lightgray' }}>
-                                            <th> <b> Accessories</b></th>
-                                            <th> <b> Qty</b></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        { report_details.accessories.map(item => 
-                                            <tr>
-                                                <td>  { item.product }</td>
-                                                <td>  { item.qty }
-                                                    { " " + item.unit } </td>    
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                    
-                                </table>
-                            </div>
-                        </div>
-                        <div className="row">
+                        <div className="row flex-nowrap">
                             <div className="col-md-12" style={{ padding : 0 }}>
-                                <table  width="100%" >
+                                    {/* <div style={{ display : 'block', minHeight : '800px', border : '1px solid grey' }}> */}
+                                <table  width="100%" border={1} >
                                     <thead>
-                                        <tr  style={{ backgroundColor : 'lightgray' }}>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>Color</th>
-                                            { report_details.color_size_details.map((size,index) => 
-                                            size !== "" &&
-                                                    <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>{ size }</th>
-                                                ) }
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>Qty</th>
+                                        <tr>
+                                            <th row flex-nowrapSpan={2}> <b> #Style </b></th>
+                                            <th row flex-nowrapSpan={2}> <b> #HSN </b></th>
+                                            <th row flex-nowrapSpan={2}> <b> GST </b></th>
+                                            <th>
+                                                <b >Qty</b> <br/>
+                                                 <b > Rate </b>
+                                            </th>
+                                            <th>
+                                                <b >Qty</b> <br/>
+                                                 <b > Rate </b>
+                                            </th>
+                                            <th>
+                                                <b >Qty</b> <br/>
+                                                 <b > Rate </b>
+                                            </th>
+                                            <th>
+                                                <b >Qty</b> <br/>
+                                                 <b > Rate </b>
+                                            </th>
+                                            <th>
+                                                <b >Qty</b> <br/>
+                                                 <b > Rate </b>
+                                            </th>
+                                            <th>
+                                                <b >Qty</b> <br/>
+                                                 <b > Rate </b>
+                                            </th>
+                                            <th>
+                                                <b >Qty</b> <br/>
+                                                 <b > Rate </b>
+                                            </th>
+                                            <th>
+                                                <b >Qty</b> <br/>
+                                                 <b > Rate </b>
+                                            </th>
+                                            <th>
+                                                <b >Qty</b> <br/>
+                                                 <b > Rate </b>
+                                            </th>
+                                            <th row flex-nowrapSpan={2}> <b> Qty </b></th>
+                                            <th row flex-nowrapSpan={2}> <b> Disc % </b></th>
+                                            <th row flex-nowrapSpan={2}> <b> Unit </b></th>
+                                            <th row flex-nowrapSpan={2}> <b> Amount </b></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        
-                                        { report_details.color_details.map(item => 
-                                            <tr border={1}>
-
-                                                <td style={{border : '1px solid gray', paddingLeft : '5px'}}>{ item.color }</td>
-                                                { report_details.color_size_details.map((size,index) => 
-                                                    size !== "" && <td style={{border : '1px solid gray', paddingLeft : '5px'}}>{ item["size" + Number(Number(index) + 1)] }</td>
-                                                ) }
-                                                <td style={{border : '1px solid gray', paddingLeft : '5px'}}>{ item.qty }</td>
+                                        <tbody >
+                                            { report_details.inventories.map((item, ind) => 
+                                                <tr key={ind}>
+                                                    <td >{item.product}</td>
+                                                    <td >{item.hsnsac}</td>
+                                                    <td >{item.gst}</td>
+                                                    { item.size_data.map((size, index) => 
+                                                        <td key={index}>
+                                                            <b style={{ textAlign :'center' }}>{size !== "''" ? size : Number(item['size' + Number(Number(index) + 1) + "_qty"]) > 0 ? 'Size ' + Number(Number(index) + 1) : ""}</b>  <br/>
+                                                            <p style={{ textAlign : 'left' }}> { Number(item['size' + Number(Number(index) + 1) + "_qty"]) !== 0 ? item['size' + Number(Number(index) + 1) + "_qty"] : "" } </p> <br/>
+                                                            <p style={{ textAlign : 'right' }}> { Number(item['size' + Number(Number(index) + 1) + "_rate"]) !== 0 ? item['size' + Number(Number(index) + 1) + "_rate"] : ''  } </p> <br/>
+                                                        </td>
+                                                    )}
+                                                    <td >{item.qty}</td>
+                                                    <td >{Number(item.disc_percentage) !== 0 ? item.disc_percentage : ''}</td>
+                                                    <td >{item.unit}</td>
+                                                    <td style={{ textAlign : 'right' }}>{  Number(item.amount).toFixed(2)}</td>
+                                                </tr>
+                                            ) }
+                                        </tbody>
+                                        <tfoot style={{ marginBottom : '0' }}>
+                                            <tr>
+                                                <td colSpan={3}>
+                                                    <b> Net Total</b>
+                                                </td>
+                                                <td> {report_details.size1_qty_total} </td>
+                                                <td> {report_details.size2_qty_total} </td>
+                                                <td> {report_details.size3_qty_total} </td>
+                                                <td> {report_details.size4_qty_total} </td>
+                                                <td> {report_details.size5_qty_total} </td>
+                                                <td> {report_details.size6_qty_total} </td>
+                                                <td> {report_details.size7_qty_total} </td>
+                                                <td> {report_details.size8_qty_total} </td>
+                                                <td> {report_details.size9_qty_total} </td>
+                                                <td> {report_details.inventory_qty_total} </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style={{ textAlign : 'right' }}> { Number(report_details.inventory_amount_total).toFixed(2) } </td>
                                             </tr>
-                                        )}
-                                        <tr>
-                                            <td style={{border : '1px solid gray', paddingLeft : '5px'}}> Grand Total</td>
-                                            { report_details.color_size_details.map((size,index) => 
-                                            size !== "" &&
-                                                    <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>{ this.state["size" + Number(Number(index) + 1) + "_total"] }</td>
-                                                ) }
-                                            <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>{this.state.qty_total}</td>
-                                        </tr>
-                                    </tbody>
+                                            <tr>
+                                                <td colSpan={12} style={{ textAlign : 'right' }}> <h6> CGST</h6></td>
+                                                <td ></td>
+                                                <td ></td>
+                                                <td >2.5%</td>
+                                                <td style={{ textAlign : 'right' }}> { Number(cgst).toFixed(2) } </td>
+                                            </tr>
+                                            <tr>
+                                                <td colSpan={12} style={{ textAlign : 'right' }}> <h6> SGST</h6></td>
+                                                <td ></td>
+                                                <td ></td>
+                                                <td >2.5%</td>
+                                                <td style={{ textAlign : 'right' }}> { Number(sgst).toFixed(2) } </td>
+                                            </tr>
+                                            <tr>
+                                                <td colSpan={12} style={{ textAlign : 'right' }}> <h6> Round Off </h6></td>
+                                                <td ></td>
+                                                <td ></td>
+                                                <td ></td>
+                                                {/* <td >2.5%</td> */}
+                                                <td style={{ textAlign : 'right' }}> { Number(roundOff).toFixed(2) } </td>
+                                            </tr>
+                                            <tr>
+                                                <td colSpan={12} style={{ textAlign : 'right' }}> <h6> Grand Total </h6></td>
+                                                <td ></td>
+                                                <td ></td>
+                                                <td ></td>
+                                                {/* <td >2.5%</td> */}
+                                                <td style={{ textAlign : 'right' }}> { Number(finalValue).toFixed(2) } </td>
+                                            </tr>
+                                            <tr>
+                                                <td colSpan={16}> Amount in words :  { humanize(finalValue)} </td>
+                                            </tr>
+                                        </tfoot>
                                 </table>
+                                {/* </div> */}
+                                {/* <table border={1} width="100%">
+                                    
+                                </table> */}
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row flex-nowrap">
                             <div className="col-md-6" style={{ border : '1px solid black', padding : 0, paddingLeft : 5 }}>
                                 <p style={{textDecorationLine: 'underline'}}>Terms</p>
-                                <p style={{ whiteSpace : 'pre-line' }}>  Any discrepancy found in this invoice should be notified imediately Subject to "Tirupur Jurisdiction only.</p>
+                                <ul>
+                                    <li>
+                                    (10% PA Interest will be charged for delayed payment.)
+                                    </li>
+                                    <li>
+                                    ((2% Discount for Paying within 2 Days.)
+                                    </li>
+                                    <li>
+                                    (Credits will only be authorized under the desecration of the Management.)
+                                    </li>
+                                </ul>
+                                {/* <p style={{ whiteSpace : 'pre-line' }}>  Any discrepancy found in this invoice should be notified imediately Subject to "Tirupur Jurisdiction only.</p> */}
                             </div>
                             <div className="col-md-3" style={{ border : '1px solid black', padding : 0, paddingLeft : 5}}>
                                 <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
@@ -167,7 +310,7 @@ class Report extends PureComponent {
                     </div>
                 </div>
 
-                } */}
+                }
             </Fragment>
         )
     }
