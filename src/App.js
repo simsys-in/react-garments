@@ -187,6 +187,12 @@ import ListDesignation from './pages/masters/designation/list'
 ///// Boopathi Workspace //////
 import AddDYEINGPROGRAM  from './pages/transactions/dyeing_program/add'
 import ListDYEINGPROGRAM from './pages/transactions/dyeing_program/list'
+//Company
+import AddCompany from './pages/masters/company/add'
+import ListCompany from './pages/masters/company/list'
+//shortcut
+import AddShortcut from './pages/masters/shortcut/add'
+import ListShortcut from './pages/masters/shortcut/list'
 
 
 
@@ -555,9 +561,21 @@ class App extends React.PureComponent
                             {/* Boopathi Workspace */}
                             {/* Boopathi Workspace */}
 
+                            {/* Dyeing Program */}
                             <Route exact path="/transactions/add_dyeing_program" component={AddDYEINGPROGRAM} />
                               <Route exact path="/transactions/edit_dyeing_program/:id" component={AddDYEINGPROGRAM} />
                               <Route exact path="/transactions/list_dyeing_program" component={ListDYEINGPROGRAM} />
+
+                              {/* Company */}
+                              <Route exact path="/masters/add_company" component={AddCompany} />
+                              <Route exact path="/masters/edit_company/:id" component={AddCompany} />
+                              <Route exact path="/masters/list_company" component={ListCompany} />
+                                {/* shortcut */}
+                              <Route exact path="/masters/add_shortcut" component={AddShortcut} />
+                              <Route exact path="/masters/edit_shortcut/:id" component={AddShortcut} />
+                              <Route exact path="/masters/list_shortcut" component={ListShortcut} />
+
+                          
 
 
 

@@ -20,6 +20,37 @@ class Report extends PureComponent {
         getRequest('garments/getJobworkInvoiceReport?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
+                if(data.data.inventory.length < 7)
+                {
+                    var item = {
+                       order_no :'',
+                        product : '',
+                        size : '',
+                        qty : '',
+                        rate : '',
+                        amount : '',
+                    }
+                    for(var i=data.data.inventory.length; i < 7; i++ )
+                    {
+                        data.data.inventory.push(item);
+                        if(i === 6)
+                        {
+                            this.setState({
+                                ...this.state,
+                                report_details : data.data,
+                                show_details : true,
+                            })
+
+                        }
+                    }
+                }
+                else{
+                    this.setState({
+                        ...this.state,
+                        report_details : data.data,
+                        show_details : true,
+                    })
+                }
                 
                 this.setState({
                     ...this.state,
@@ -89,7 +120,7 @@ class Report extends PureComponent {
                         
                         <div className="row">
                             <div className="col-md-12" style={{ padding : 0 }}>
-                                <table  width="100%" style={{border:"lightgray"}} border={1} >
+                                <table  width="100%"  >
                                     <thead>
                                         <tr  style={{ backgroundColor : 'lightgray' }}>
                                           
@@ -104,26 +135,30 @@ class Report extends PureComponent {
                                     </thead>
                                     <tbody>
                                     { report_details.inventory.map(item => 
-                                            <tr border={1}>
+                                            <tr>
 
                                     {/* <td style={{border : '1px lightgray', paddingLeft : '5px'}}>{ item.size_id }</td> */}
                                                
-                                                <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.order_no }</td>
-                                                <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.product }</td>
-                                                <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.size }</td>
-                                                <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.qty }</td>
-                                                <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.rate }</td>
-                                                <td style={{border : '1px light gray', paddingLeft : '5px'}}>{ item.amount }</td>
+                                                <td style={{paddingTop: item.order_no === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.order_no }</td>
+
+                                                <td style={{paddingTop: item.product === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.product }</td>
+
+                                                <td style={{paddingTop: item.size === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.size }</td>
+
+                                                <td style={{paddingTop: item.qty === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey',  textAlign : 'right', paddingRight:'5px'}}>{ item.qty }</td>
+
+                                                <td style={{paddingTop: item.rate === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey',  textAlign : 'right', paddingRight:'5px'}}>{ item.rate }</td>
+
+                                                <td style={{paddingTop: item.amount === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey',  textAlign : 'right', paddingRight:'5px',  borderRight  : '1px solid grey'}}>{ item.amount !=="" && Number(item.amount).toFixed(2) }</td>
                                             </tr>
                                         )}
 
                                         <tr>
-                                            <td style={{fontWeight:"bold"}}>GRAND TOTAL</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td style={{fontWeight:"bold"}}>{report_details.inventorytotal[0].inventory_qty_total}</td>
-                                            <td></td>
-                                            <td style={{fontWeight:"bold"}}>{report_details.inventorytotal[0].inventory_amount_total}</td>
+                                            <td style={{border : '1px solid gray', paddingLeft : '5px',textAlign:'right', paddingRight:'5px'}} colSpan={3}>GRAND TOTAL</td>
+                                           
+                                            <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px',textAlign:'right', paddingRight:'5px'}}>{report_details.inventorytotal[0].inventory_qty_total}</td>
+                                            <td style={{border:'1px solid grey'}}></td>
+                                            <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px',textAlign:'right', paddingRight:'5px'}}>{report_details.inventorytotal[0].inventory_amount_total !=="" && Number(report_details.inventorytotal[0].inventory_amount_total).toFixed(2)}</td>
                                             
                                         </tr>
                                          </tbody>
