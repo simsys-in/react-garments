@@ -6,6 +6,7 @@ import { getRequest, postRequest, putRequest } from '../../../helpers/apihelper'
 import { withRouter } from 'react-router';
 import Selectbox from '../../../components/Inputs/Selectbox';
 import Numberbox from '../../../components/Inputs/Numberbox';
+import { issetNotEmpty } from '../../../helpers/formhelpers';
 
 
 
@@ -111,16 +112,21 @@ class AddProductDetails extends PureComponent{
         if(this.id)
         {
             getRequest("garments/productDetails?id=" + this.id).then(data => {
-                
-    
-                this.formRef.current.setFieldsValue(data.data);
-               
+                this.setState({
+                    ...this.state,
+                    formData : data.data[0]
+                }, () => {
+                    this.formRef.current.setFieldsValue(data.data[0]);
+                    if(issetNotEmpty(this.state.formData.size_id))
+                    {
+                        this.onSizeChange(this.state.formData.size_id)
+                    }
+                })
+   
             })
 
         }
         else{
-
-    
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
         }
@@ -167,7 +173,7 @@ class AddProductDetails extends PureComponent{
             putRequest('garments/productDetails?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
-                    this.props.history.push('/transactions/list_product_details')
+                    this.props.history.push('/masters/list_product_details')
                     console.log(data) 
                 }
             })
@@ -221,12 +227,29 @@ class AddProductDetails extends PureComponent{
 
     }
 
+    onProductChange =(product_id) => {
+        getRequest('garments/getPrefilledProductDetails?product_id=' + product_id).then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    formData : data.data
+                }, () => {
+                    this.id = this.state.formData.id;
+                    this.formRef.current.setFieldsValue(this.state.formData);
+                    this.onSizeChange(this.state.formData.size_id)
+                })
+            }
+        })
+    }
+    
+    
     render(){
         return(
             <Fragment>
                 <div className="row">
                     <div className="col-md-12" align="right">
-                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/transactions/list_product_details') } }>
+                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/masters/list_product_details') } }>
                             { this.id ? "Back" : 'List'}
                         </Button>
                     </div>
@@ -243,7 +266,7 @@ class AddProductDetails extends PureComponent{
                    
 
                    <div className="row">
-                       <Selectbox modelName="product_id" label="Product" className="col-md-6" autoFocus required='false' options={this.state.product_data} value={this.state.formData.product_id}  ></Selectbox>
+                       <Selectbox modelName="product_id" label="Product" className="col-md-6" autoFocus options={this.state.product_data} onChange={this.onProductChange} value={this.state.formData.product_id}  ></Selectbox>
 
                        <Selectbox modelName="size_id" label="Size" className="col-md-6" required='true' options={this.state.size_data} value={this.state.formData.size_id} onChange={this.onSizeChange} ></Selectbox>
 

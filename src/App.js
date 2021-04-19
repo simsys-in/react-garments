@@ -233,7 +233,12 @@ import ListGarmentsReceiptNote from './pages/transactions/garments_receipt_note/
 
 //product_details
 import AddProductDetails  from './pages/masters/product_details/add'
-// import ListDesignation from './pages/masters/designation/list'
+import ListProductDetails from './pages/masters/product_details/list'
+
+//product_details
+import AddKnittingProgram  from './pages/transactions/knitting_program/add'
+import ListKnittingProgram from './pages/transactions/knitting_program/list'
+
 
 ///// Kowsalya Workspace //////
 ///// Kowsalya Workspace //////
@@ -600,10 +605,16 @@ class App extends React.PureComponent
                               <Route exact path="/transactions/list_garments_receipt_note" component={ListGarmentsReceiptNote} />
                            
                            
-                              {/* jobwork receipt note */}
+                              {/* product details */}
                               <Route exact path="/masters/add_product_details" component={AddProductDetails} />
-                              {/* <Route exact path="/masters/edit_product_details/:id" component={AddProductDetails} />
-                              <Route exact path="/masters/list_product_details" component={ListProductAddProductDetails} /> */}
+                              <Route exact path="/masters/edit_product_details/:id" component={AddProductDetails} />
+                              <Route exact path="/masters/list_product_details" component={ListProductDetails} />
+
+
+                              {/* product details */}
+                              <Route exact path="/transactions/add_knitting_program" component={AddKnittingProgram} />
+                              <Route exact path="/transactions/edit_knitting_program/:id" component={AddKnittingProgram} />
+                              <Route exact path="/transactions/list_knitting_program" component={ListKnittingProgram} />
 
 
 
