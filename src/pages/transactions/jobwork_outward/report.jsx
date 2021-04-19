@@ -95,7 +95,7 @@ class Report extends PureComponent {
 
                                 <table width={"100%"} style={{border:"lightgray", margin : 0, padding : 0}}>
                                         <tr> 
-                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid gray' }}> <h5> JOBWORK OUTWARD DELIVERY NOTE </h5> </td>
+                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid gray' }}> <h5> JOBWORK DELIVERY NOTE </h5> </td>
                                         </tr>
                                         <tr>
                                             <th> DC No </th>
