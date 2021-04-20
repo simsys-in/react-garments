@@ -413,7 +413,7 @@ class AddFabricInvoice extends PureComponent{
 
                                             <td><Numberbox withoutMargin showLabel={false} className="col-md-12" modelName='inventory_weight_total' value={this.state.formData.total_weight} disabled label='Total Weight'></Numberbox></td>
                                             <td></td>
-                                            <td > <Numberbox withoutMargin showLabel={false} className="col-md-12" modelName='inventory_amount_total' value={this.state.formData.total_weight} disabled label='Total Amount'></Numberbox></td>
+                                            <td > <Numberbox withoutMargin showLabel={false} className="col-md-12" modelName='inventory_amount_total' value={this.state.formData.total_amount} disabled label='Total Amount'></Numberbox></td>
 
                                        </tr>
                                 </tbody>

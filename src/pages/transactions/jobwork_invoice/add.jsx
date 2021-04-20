@@ -123,9 +123,9 @@ class AddJobworkInvoice extends PureComponent{
         })
     }
 
-    getJobworkOutwardColorDetails = (order_id) => {
+    getJobworkInwardColorDetails = (order_id) => {
         if(!this.id){
-            getRequest('garments/getJobworkOutwardColorDetails?order_id=' +order_id).then(data => {
+            getRequest('garments/getJobworkInwardColorDetails?order_id=' +order_id).then(data => {
                 if(data.status === "info")
                 {
                     var newArr = data.data;

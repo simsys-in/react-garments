@@ -245,6 +245,14 @@ import ListProductDetails from './pages/masters/product_details/list'
 import AddKnittingProgram  from './pages/transactions/knitting_program/add'
 import ListKnittingProgram from './pages/transactions/knitting_program/list'
 
+//product_details
+import AddVoucher  from './pages/masters/voucher/add'
+import ListVoucher from './pages/masters/voucher/list'
+
+
+//product_details
+import AddReport  from './pages/masters/report/add'
+import ListReport from './pages/masters/report/list'
 
 ///// Kowsalya Workspace //////
 ///// Kowsalya Workspace //////
@@ -629,12 +637,22 @@ class App extends React.PureComponent
                               <Route exact path="/masters/list_product_details" component={ListProductDetails} />
 
 
-                              {/* product details */}
+                              {/* knitting Program */}
                               <Route exact path="/transactions/add_knitting_program" component={AddKnittingProgram} />
                               <Route exact path="/transactions/edit_knitting_program/:id" component={AddKnittingProgram} />
                               <Route exact path="/transactions/list_knitting_program" component={ListKnittingProgram} />
 
+                             
+                              {/* Voucher */}
+                              <Route exact path="/masters/add_voucher" component={AddVoucher} />
+                              <Route exact path="/masters/edit_voucher/:id" component={AddVoucher} />
+                              <Route exact path="/masters/list_voucher" component={ListVoucher} />
 
+
+                              {/* report */}
+                              <Route exact path="/masters/add_report" component={AddReport} />
+                              <Route exact path="/masters/edit_report/:id" component={AddReport} />
+                              <Route exact path="/masters/list_report" component={ListReport} />
 
                             {/* Kowsalya Workspace */}
                             {/* Kowsalya Workspace */}
