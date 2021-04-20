@@ -11,6 +11,7 @@ import Numberbox from '../../../components/Inputs/Numberbox';
 import Datebox from '../../../components/Inputs/Datebox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
+import Checkbox from 'antd/lib/checkbox/Checkbox';
 
 
 let interval;
@@ -28,6 +29,7 @@ class AddFabricInvoice extends PureComponent{
                 status : 'active',
                 vou_date : moment(),
                 narration : "",
+                order_id: 0,
                 fabric_invoice_inventory : [
                     {  
                         fabric_id : '',
@@ -141,13 +143,32 @@ class AddFabricInvoice extends PureComponent{
         var total_weight = 0;
         var total_amount = 0;
         fabric_invoice_inventory.map((item, index) => {
-            total_roll += Number(item.roll);
-            total_weight += Number(item.weight);
-            item.amount = Number(item.rate) * Number(item.weight);
-            total_amount += Number(item.amount);
+            if(item.selected){
 
-            if(index === fabric_invoice_inventory.length - 1)
-            {
+                total_roll += Number(item.roll);
+                total_weight += Number(item.weight);
+                item.amount = Number(item.rate) * Number(item.weight);
+                total_amount += Number(item.amount);
+    
+                if(index === fabric_invoice_inventory.length - 1)
+                {
+                    this.setState({
+                        ...this.state,
+                        formData : {
+                            ...this.state.formData,
+                            inventory_roll_total : total_roll,
+                            inventory_weight_total : total_weight,
+                            inventory_amount_total : total_amount
+                        }
+                    }, () => {
+                        this.formRef.current.setFieldsValue({
+                            inventory_roll_total : total_roll,
+                            inventory_weight_total : total_weight,
+                            inventory_amount_total : total_amount
+                        })
+                    })
+                }
+            }else{
                 this.setState({
                     ...this.state,
                     formData : {
@@ -190,6 +211,8 @@ class AddFabricInvoice extends PureComponent{
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
+                this.getFabricInwardInventoryDetails(data.data.ledger_id)
+
             })
 
         }
@@ -220,6 +243,44 @@ class AddFabricInvoice extends PureComponent{
                 })
             }
         })
+    }
+
+    getFabricInwardInventoryDetails = (ledger_id) =>{
+        if(!this.id){
+
+            getRequest('garments/getFabricInwardInventoryDetails?ledger_id=' +ledger_id).then(data => {
+                if(data.status === "info")
+                {
+                    var newArr = data.data;
+                    this.state.formData.fabric_invoice_inventory.map((item) => {
+                        newArr.map(obj => {
+                            if(obj.fabric_id === item.fabric_id)
+                            {
+                                // item.selected = true;
+                                obj = Object.assign({},  item);
+                                obj.selected = true;
+                            }
+                        })
+                    })
+                    // newArr.map(item => {
+                    //     item.selected = true;
+                    // })
+    
+                    this.setState({
+                        ...this.state,
+                        formData : {
+                            ...this.state.formData,
+                            fabric_invoice_inventory : newArr
+                        },
+                    },()=>{
+                        this.formRef.current.setFieldsValue({
+                            fabric_invoice_inventory : this.state.formData.fabric_invoice_inventory
+                        })
+                        this.setTOTAL()
+                    })
+                }
+            })
+        }
     }
 
     componentDidMount() {
@@ -320,7 +381,28 @@ class AddFabricInvoice extends PureComponent{
         this.setTOTAL();
     }
 
-    
+    checkAllItems = (ev) => {
+        var checked = ev.target.checked;
+        var formData = this.state.formData;
+        var inventories = formData.fabric_invoice_inventory;
+        console.log(checked);
+        inventories.map((item, index) => {
+            item.selected = checked;
+            if(index === inventories.length - 1)
+            {
+                console.log(formData);
+                this.setState({
+                    ...this.state,
+                    formData : formData
+                }, () => {
+                    this.formRef.current.setFieldsValue(formData);
+                    this.setTOTAL()
+                })
+            }
+        })
+
+    }
+
 
     render(){
         return(
@@ -343,7 +425,7 @@ class AddFabricInvoice extends PureComponent{
                         
                         <div className="row">
                        
-                            <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
+                            <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getFabricInwardInventoryDetails} ></Selectbox>
                             <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
                         <Textbox label="Vou No" modelName="vouno"  className="col-md-4"></Textbox>
                        </div>
@@ -368,6 +450,8 @@ class AddFabricInvoice extends PureComponent{
                             <table id="dynamic-table" className="table table-bordered">
                              <thead >
                                     <tr>
+
+                                        <th width="100px"> <Checkbox onChange={this.checkAllItems} /></th>
                                         <th width="200px">Fabric </th>
                                         <th width="200px">Color</th>
                                         <th>GSM</th>
@@ -383,7 +467,21 @@ class AddFabricInvoice extends PureComponent{
                                 <Form.List name="fabric_invoice_inventory">
                                    { (fields, { add, remove } )=> (
                                        fields.map((field, index) => (
-                                           <tr>
+                                        <tr key={index}>
+                                        <td style={{ textAlign : 'center' }}>
+                                                                    <Form.Item
+                                                                    valuePropName="checked"
+                                                                    name={[field.name, "selected"]}
+                                                                    fieldKey={[field.fieldKey, "selected"]}
+                                                                    // initialValue={false}
+                                                                    >
+                                                                        <Checkbox onChange={this.setTOTAL}></Checkbox>
+                                                                    </Form.Item>
+
+
+                                                                    {/* <Checkbox field={field} fieldKey={[ field.fieldKey, 'selected' ]} modelName={[field.name, 'selected']} checked={[field.name, 'selected']} value={[field.name, 'selected']} /> */}
+                                                                </td>
+                                            
                                                <td>  <Selectbox withoutMargin required="false" noPlaceholder className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} options={this.state.fabric} label="Fabric"></Selectbox></td>
 
                                                <td> <Selectbox withoutMargin required="false" noPlaceholder className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox></td>

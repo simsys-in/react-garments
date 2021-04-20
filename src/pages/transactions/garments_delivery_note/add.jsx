@@ -35,6 +35,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
                         color_id : null,
                         vou_id : null,
                         color : null,
+                        size_details : [],
                         size1_qty : '',
                         size2_qty : '',
                         size3_qty :'' ,
@@ -305,20 +306,24 @@ class AddGarmentsDeliveryNote extends PureComponent{
         })
     }
 
-    getSizeForProductId = (product_id) => {
+    getSizeForProductId = (product_id,index) => {
         getRequest('garments/getSizeForProductID?product_id=' + product_id).then(data => {
             if(data.status === "info")
             {
+                var formData = JSON.parse(JSON.stringify(this.state.formData));
+                var  garments_delivery_note_inventory = formData.garments_delivery_note_inventory;
+                var currentItem = garments_delivery_note_inventory[index];
+                currentItem.product_id = product_id;
+                currentItem.size_details = data.data;
+                
                 this.setState({
-                    ...this.state,
-                    formData : {
-                        ...this.state.formData,
-                        size_details : data.data
-                    },
+                        ...this.state,
+                        formData : {
+                            ...this.state.formData,
+                            garments_delivery_note_inventory : garments_delivery_note_inventory
+                        }
                 },()=>{
-                    this.formRef.current.setFieldsValue({
-                        size_details : this.state.formData.size_details
-                    })
+                    this.formRef.current.setFieldsValue(this.state.formData)
                 })
             }
         })
@@ -422,6 +427,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
                         color : null,
                         size1_qty : '',
                         size2_qty : '',
+                        size_details : [],
                         size3_qty :'' ,
                         size4_qty : '',
                         size5_qty : '',
@@ -603,65 +609,65 @@ class AddGarmentsDeliveryNote extends PureComponent{
                                                                 <td><Textbox className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} field={field} fieldKey={[ field.fieldKey, 'description' ]} modelName={[field.name, 'description']}  label="Description"></Textbox></td>
                                                                 
                                                                 <td>
-                                                                <Textbox key={this.state.formData.size_details[0]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.size_details[0]}  label="Size1 Name"></Textbox>
+                                                                <Textbox key={this.state.formData.garments_delivery_note_inventory[index].size_details[0]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_delivery_note_inventory[index].size_details[0]}  label="Size1 Name"></Textbox>
 
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size1_qty' ]}  disabled={this.state.formData.size_details[0] === ""} modelName={[field.name, 'size1_qty']} value={[field.name, 'size1_qty']} label="Size1 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size1_qty' ]}  disabled={this.state.formData.garments_delivery_note_inventory[index].size_details[0] === ""} modelName={[field.name, 'size1_qty']} value={[field.name, 'size1_qty']} label="Size1 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                
                                                                 </td>
 
                                                                 <td>
-                                                                <Textbox key={this.state.formData.size_details[1]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.size_details[1]}  label="Size2 Name"></Textbox>
+                                                                <Textbox key={this.state.formData.garments_delivery_note_inventory[index].size_details[1]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_delivery_note_inventory[index].size_details[1]}  label="Size2 Name"></Textbox>
 
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size2_qty' ]}  disabled={this.state.formData.size_details[1] === ""} modelName={[field.name, 'size2_qty']} value={[field.name, 'size2_qty']} label="Size2 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size2_qty' ]}  disabled={this.state.formData.garments_delivery_note_inventory[index].size_details[1] === ""} modelName={[field.name, 'size2_qty']} value={[field.name, 'size2_qty']} label="Size2 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                
                                                                 </td>
 
                                                                 <td>
-                                                                <Textbox key={this.state.formData.size_details[2]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.size_details[2]}  label="Size3 Name"></Textbox>
+                                                                <Textbox key={this.state.formData.garments_delivery_note_inventory[index].size_details[2]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_delivery_note_inventory[index].size_details[2]}  label="Size3 Name"></Textbox>
 
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size3_qty' ]}  disabled={this.state.formData.size_details[2] === ""} modelName={[field.name, 'size3_qty']} value={[field.name, 'size3_qty']} label="Size3 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size3_qty' ]}  disabled={this.state.formData.garments_delivery_note_inventory[index].size_details[2] === ""} modelName={[field.name, 'size3_qty']} value={[field.name, 'size3_qty']} label="Size3 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                 
                                                                 </td>
 
                                                                 <td>
-                                                                <Textbox key={this.state.formData.size_details[3]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.size_details[3]}  label="Size4 Name"></Textbox>
+                                                                <Textbox key={this.state.formData.garments_delivery_note_inventory[index].size_details[3]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_delivery_note_inventory[index].size_details[3]}  label="Size4 Name"></Textbox>
 
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size4_qty' ]}  disabled={this.state.formData.size_details[3] === ""} modelName={[field.name, 'size4_qty']} value={[field.name, 'size4_qty']} label="Size4 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size4_qty' ]}  disabled={this.state.formData.garments_delivery_note_inventory[index].size_details[3] === ""} modelName={[field.name, 'size4_qty']} value={[field.name, 'size4_qty']} label="Size4 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                 
                                                                 </td>
 
                                                                 <td>
-                                                                <Textbox key={this.state.formData.size_details[4]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.size_details[4]}  label="Size5 Name"></Textbox>
+                                                                <Textbox key={this.state.formData.garments_delivery_note_inventory[index].size_details[4]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_delivery_note_inventory[index].size_details[4]}  label="Size5 Name"></Textbox>
 
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size5_qty' ]}  disabled={this.state.formData.size_details[4] === ""}  modelName={[field.name, 'size5_qty']} value={[field.name, 'size5_qty']} label="Size5 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size5_qty' ]}  disabled={this.state.formData.garments_delivery_note_inventory[index].size_details[4] === ""}  modelName={[field.name, 'size5_qty']} value={[field.name, 'size5_qty']} label="Size5 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                
                                                                 </td>
 
                                                                 <td>
-                                                                <Textbox key={this.state.formData.size_details[5]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.size_details[5]}  label="Size6 Name"></Textbox>
+                                                                <Textbox key={this.state.formData.garments_delivery_note_inventory[index].size_details[5]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_delivery_note_inventory[index].size_details[5]}  label="Size6 Name"></Textbox>
   
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size6_qty' ]}  disabled={this.state.formData.size_details[5] === ""} modelName={[field.name, 'size6_qty']} value={[field.name, 'size6_qty']} label="Size6 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size6_qty' ]}  disabled={this.state.formData.garments_delivery_note_inventory[index].size_details[5] === ""} modelName={[field.name, 'size6_qty']} value={[field.name, 'size6_qty']} label="Size6 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                
                                                                 </td>
 
                                                                 <td>
-                                                                <Textbox key={this.state.formData.size_details[6]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.size_details[6]}  label="Size7 Name"></Textbox>
+                                                                <Textbox key={this.state.formData.garments_delivery_note_inventory[index].size_details[6]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_delivery_note_inventory[index].size_details[6]}  label="Size7 Name"></Textbox>
 
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size7_qty' ]}  disabled={this.state.formData.size_details[6] === ""} modelName={[field.name, 'size7_qty']} value={[field.name, 'size7_qty']} label="Size7 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size7_qty' ]}  disabled={this.state.formData.garments_delivery_note_inventory[index].size_details[6] === ""} modelName={[field.name, 'size7_qty']} value={[field.name, 'size7_qty']} label="Size7 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                 
                                                                 </td>
 
                                                                 <td>
-                                                                <Textbox key={this.state.formData.size_details[7]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.size_details[7]}  label="Size8 Name"></Textbox>
+                                                                <Textbox key={this.state.formData.garments_delivery_note_inventory[index].size_details[7]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_delivery_note_inventory[index].size_details[7]}  label="Size8 Name"></Textbox>
 
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size8_qty' ]}  disabled={this.state.formData.size_details[7] === ""} modelName={[field.name, 'size8_qty']} value={[field.name, 'size8_qty']} label="Size8 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size8_qty' ]}  disabled={this.state.formData.garments_delivery_note_inventory[index].size_details[7] === ""} modelName={[field.name, 'size8_qty']} value={[field.name, 'size8_qty']} label="Size8 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                
                                                                 </td>
 
                                                                 <td>
-                                                                <Textbox key={this.state.formData.size_details[8]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.size_details[8]}  label="Size9 Name"></Textbox>
+                                                                <Textbox key={this.state.formData.garments_delivery_note_inventory[index].size_details[8]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_delivery_note_inventory[index].size_details[8]}  label="Size9 Name"></Textbox>
 
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size9_qty' ]}  disabled={this.state.formData.size_details[8] === ""} modelName={[field.name, 'size9_qty']} value={[field.name, 'size9_qty']} label="Size9 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size9_qty' ]}  disabled={this.state.formData.garments_delivery_note_inventory[index].size_details[8] === ""} modelName={[field.name, 'size9_qty']} value={[field.name, 'size9_qty']} label="Size9 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
 
                                                                 </td>
                                                                

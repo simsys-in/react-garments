@@ -5,7 +5,7 @@ import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
 import DataTable from '../../../components/Datatable';
-// import Report from './report';
+import Report from './report';
 
 class ListGarmentsReceiptNote extends PureComponent {
   constructor(props) {
@@ -85,7 +85,7 @@ class ListGarmentsReceiptNote extends PureComponent {
       showPrint : false,
       selectedItem : {}
     }, () => {
-      // window.location.reload();
+      window.location.reload();
     })
   }
 
@@ -127,7 +127,7 @@ class ListGarmentsReceiptNote extends PureComponent {
           item.action =  <Space size="middle">
           <Button type="primary" onClick={() => this.editGarmentsReceiptNote(item.id)} icon={<EditOutlined />} size="middle" />
           <Button type="default" color="error" danger onClick={() => this.deleteGarmentsReceiptNote(item)} icon={<DeleteOutlined />} size="middle" />
-          {/* <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" /> */}
+          <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" />
         </Space>
 
         newData.push(item)
@@ -144,17 +144,17 @@ class ListGarmentsReceiptNote extends PureComponent {
   }
 
   
-//   printDiv = () => {
-//     var printContents = document.getElementById('printable-area').innerHTML;
-//      var originalContents = document.body.innerHTML;
+  printDiv = () => {
+    var printContents = document.getElementById('printable-area').innerHTML;
+     var originalContents = document.body.innerHTML;
 
-//      document.body.innerHTML = printContents;
+     document.body.innerHTML = printContents;
 
-//      window.print();
+     window.print();
 
-//      document.body.innerHTML = originalContents;
-//      window.location.reload();
-//   }
+     document.body.innerHTML = originalContents;
+     window.location.reload();
+  }
 
 
   render() {
@@ -170,8 +170,8 @@ class ListGarmentsReceiptNote extends PureComponent {
         </div>
         <DataTable data={this.state} ></DataTable>
 
-        {/* <Modal
-          title="Garments Delivery Note"
+        <Modal
+          title="Garments Receipt Note"
           centered
           width={1000}
           visible={this.state.showPrint}
@@ -180,7 +180,7 @@ class ListGarmentsReceiptNote extends PureComponent {
           onCancel={() => this.hideMoal(false)}
         >
           <Report itemId={this.state.selectedItem.id} id="printable-area" />
-        </Modal> */}
+        </Modal>
 
       </Fragment>
     )

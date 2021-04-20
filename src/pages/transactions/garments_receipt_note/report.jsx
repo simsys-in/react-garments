@@ -26,13 +26,14 @@ class Report extends PureComponent {
     }
 
     componentDidMount = () => {
-        getRequest('garments/getGarmentsInvoicePrint?id=' + this.props.itemId).then(data => {
+        getRequest('garments/getGarmentsReceiptNotePrint?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
                 if(data.data.inventories.length < 7)
                 {
                     var item = {
                         product : '',
+                        color : '',
                         hsnasc : '',
                         gst : '',
                         size1 : '',
@@ -45,9 +46,10 @@ class Report extends PureComponent {
                         size8 : '',
                         size9 : '',
                         qty : '',
-                        unit : '',
-                       amount : '',
-                       size_data : [ "","","","","","","","",""]
+                        
+                       
+                       size_data : [ "","","","","","","","","" ],
+                       unit : '',
                     }
                     // var size_obj = {
                     //     size_name : "",
@@ -205,58 +207,32 @@ class Report extends PureComponent {
                                     <thead>
                                         <tr >
                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> #Style </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Color </b></th>
                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> #HSN </b></th>
                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> GST </b></th>
 
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
-                                                <b >Qty</b> <br/>
-                                                 <b > Rate </b>
-                                            </th>
-
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
-                                                <b >Qty</b> <br/>
-                                                 <b > Rate </b>
-                                            </th>
-
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
-                                                <b >Qty</b> <br/>
-                                                 <b > Rate </b>
-                                            </th>
-
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
-                                                <b >Qty</b> <br/>
-                                                 <b > Rate </b>
-                                            </th>
-
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
-                                                <b >Qty</b> <br/>
-                                                 <b > Rate </b>
-                                            </th>
-
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
-                                                <b >Qty</b> <br/>
-                                                 <b > Rate </b>
-                                            </th>
-
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
-                                                <b >Qty</b> <br/>
-                                                 <b > Rate </b>
-                                            </th>
-
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
-                                                <b >Qty</b> <br/>
-                                                 <b > Rate </b>
-                                            </th>
-
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}>
-                                                <b >Qty</b> <br/>
-                                                 <b > Rate </b>
-                                            </th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
 
                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Disc % </b></th>
+
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+
+                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+
+                                           <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+
+                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+
+                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+
+                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+
+                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                            
                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Unit </b></th>
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Amount </b></th>
+                                           
                                         </tr>
                                     </thead>
 
@@ -264,6 +240,8 @@ class Report extends PureComponent {
                                             { report_details.inventories.map((item, ind) => 
                                                 <tr key={ind}>
                                                     <td  style={{ paddingTop: item.product === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}} >{item.product}</td>
+
+                                                    <td  style={{ paddingTop: item.product === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}} >{item.color}</td>
 
                                                     <td  style={{ paddingTop: item.hsnasc === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}} >{item.hsnsac}</td>
                                                     
@@ -281,11 +259,10 @@ class Report extends PureComponent {
 
                                                     <td style={{ paddingTop: item.qty === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >{item.qty}</td>
 
-                                                    <td style={{ paddingTop: item.disc_percentage === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >{Number(item.disc_percentage) !== 0 ? item.disc_percentage : ''}</td>
+                                                   
+                                                    <td style={{ paddingTop: item.unit === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px',borderRight : '1px solid grey'}} >{item.unit}</td>
 
-                                                    <td style={{ paddingTop: item.unit === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >{item.unit}</td>
-
-                                                    <td style={{ paddingTop: item.amount === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px', borderRight : '1px solid grey'}}>{  Number(item.amount)  !== 0 && Number(item.amount).toFixed(2)}</td>
+                                                   
                                                 </tr>
                                             ) }
                                         </tbody>
@@ -303,12 +280,13 @@ class Report extends PureComponent {
                                                 <td style={{borderLeft:'1px solid grey'}}> {report_details.size7_qty_total} </td>
                                                 <td style={{borderLeft:'1px solid grey'}}> {report_details.size8_qty_total} </td>
                                                 <td style={{borderLeft:'1px solid grey'}}> {report_details.size9_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size9_qty_total} </td>
                                                 <td style={{borderLeft:'1px solid grey'}}> {report_details.inventory_qty_total} </td>
                                                 <td style={{borderLeft:'1px solid grey', borderRight:'1px solid grey'}}></td>
-                                                <td style={{borderRight:'1px solid grey'}}></td>
-                                                <td style={{ textAlign : 'right', borderLeft:'1 px solid grey' }}> { Number(report_details.inventory_amount_total).toFixed(2) } </td>
+                                                {/* <td style={{borderRight:'1px solid grey'}}></td> */}
+                                               
                                             </tr>
-                                            <tr>
+                                            {/* <tr>
                                                 <td colSpan={12} style={{ textAlign : 'right' }}> <h6> CGST</h6></td>
                                                 <td ></td>
                                                 <td ></td>
@@ -326,21 +304,21 @@ class Report extends PureComponent {
                                                 <td colSpan={12} style={{ textAlign : 'right' }}> <h6> Round Off </h6></td>
                                                 <td ></td>
                                                 <td ></td>
-                                                <td ></td>
+                                                <td ></td> */}
                                                 {/* <td >2.5%</td> */}
-                                                <td style={{ textAlign : 'right' }}> { Number(roundOff).toFixed(2) } </td>
-                                            </tr>
-                                            <tr>
+                                                {/* <td style={{ textAlign : 'right' }}> { Number(roundOff).toFixed(2) } </td>
+                                            </tr> */}
+                                            {/* <tr>
                                                 <td colSpan={12} style={{ textAlign : 'right' }}> <h6> Grand Total </h6></td>
                                                 <td ></td>
                                                 <td ></td>
-                                                <td ></td>
+                                                <td ></td> */}
                                                 {/* <td >2.5%</td> */}
-                                                <td style={{ textAlign : 'right' }}> { Number(finalValue).toFixed(2) } </td>
-                                            </tr>
-                                            <tr>
+                                                {/* <td style={{ textAlign : 'right' }}> { Number(finalValue).toFixed(2) } </td>
+                                            </tr> */}
+                                            {/* <tr>
                                                 <td colSpan={16}> Amount in words :  { humanize(finalValue)} </td>
-                                            </tr>
+                                            </tr> */}
                                         </tfoot>
                                 </table>
                                 {/* </div> */}

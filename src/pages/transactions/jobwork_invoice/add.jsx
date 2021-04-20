@@ -129,7 +129,7 @@ class AddJobworkInvoice extends PureComponent{
                 if(data.status === "info")
                 {
                     var newArr = data.data;
-                    this.state.formData.jobwork_inward_inventory.map((item) => {
+                    this.state.formData.jobwork_invoice_inventory.map((item) => {
                         newArr.map(obj => {
                             if(obj.color_id === item.color_id)
                             {
@@ -145,11 +145,11 @@ class AddJobworkInvoice extends PureComponent{
                         ...this.state,
                         formData : {
                             ...this.state.formData,
-                            jobwork_inward_inventory : newArr
+                            jobwork_invoice_inventory : newArr
                         },
                     },()=>{
                         this.formRef.current.setFieldsValue({
-                            jobwork_inward_inventory : this.state.formData.jobwork_inward_inventory
+                            jobwork_invoice_inventory : this.state.formData.jobwork_invoice_inventory
                         })
                         this.setTOTAL()
                     })
@@ -263,6 +263,8 @@ class AddJobworkInvoice extends PureComponent{
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
                 this.getMobileForLedgerId(data.data.ledger_id)
+                this.getJobworkInwardColorDetails(data.data.order_id);
+
                 // this.getOrdersForLedgerAndProcess(data.data.ledger_id, data.data.process_id)
                 data.data.jobwork_invoice_inventory.map((item,index) => {
                     this.getProductAndSizeSBForOrderID(item.order_id, index);

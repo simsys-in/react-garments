@@ -12,6 +12,7 @@ import Numberbox from '../../../components/Inputs/Numberbox';
 import Datebox from '../../../components/Inputs/Datebox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
+import Checkbox from 'antd/lib/checkbox/Checkbox';
 
 
 let interval;
@@ -28,6 +29,7 @@ class AddYarn_Invoice extends PureComponent{
             formData : {
                 status : 'active',
                 vou_date : moment(),
+                order_id : 0,
                 yarn_invoice_inventory : [
                     {  
                         fabrics : '',
@@ -143,6 +145,9 @@ class AddYarn_Invoice extends PureComponent{
                 console.log(data.data)
                 data.data.vou_date = moment(data.data.vou_date)
                 this.formRef.current.setFieldsValue(data.data);
+                this.getYarnInwardInventoryDetails(data.data.ledger_id)
+                this.setTotal();
+
             })
 
         }
@@ -183,6 +188,44 @@ class AddYarn_Invoice extends PureComponent{
                 })
             }
         })
+    }
+
+    getYarnInwardInventoryDetails = (ledger_id) =>{
+        if(!this.id){
+
+            getRequest('garments/getYarnInwardInventoryDetails?ledger_id=' +ledger_id).then(data => {
+                if(data.status === "info")
+                {
+                    var newArr = data.data;
+                    this.state.formData.yarn_invoice_inventory.map((item) => {
+                        newArr.map(obj => {
+                            if(obj.fabric_id === item.fabric_id)
+                            {
+                                // item.selected = true;
+                                obj = Object.assign({},  item);
+                                obj.selected = true;
+                            }
+                        })
+                    })
+                    // newArr.map(item => {
+                    //     item.selected = true;
+                    // })
+    
+                    this.setState({
+                        ...this.state,
+                        formData : {
+                            ...this.state.formData,
+                            yarn_invoice_inventory : newArr
+                        },
+                    },()=>{
+                        this.formRef.current.setFieldsValue({
+                            yarn_invoice_inventory : this.state.formData.yarn_invoice_inventory
+                        })
+                        this.setTotal()
+                    })
+                }
+            })
+        }
     }
 
 
@@ -268,133 +311,176 @@ class AddYarn_Invoice extends PureComponent{
     }
     //total of answer+answer=answer
 
-    setTotalKgs = () =>{
-        var values = this.formRef.current.getFieldValue();
-        var yarn_invoice_inventory = values.yarn_invoice_inventory;
-        var total_kg = 0;
-        yarn_invoice_inventory.map((item, index) => {
-            total_kg += item.qty_kg;
+    // setTotalKgs = () =>{
+    //     var values = this.formRef.current.getFieldValue();
+    //     var yarn_invoice_inventory = values.yarn_invoice_inventory;
+    //     var total_kg = 0;
+    //     yarn_invoice_inventory.map((item, index) => {
+    //         total_kg += item.qty_kg;
 
-            if(index === yarn_invoice_inventory.length - 1)
-            {
-                this.setState({
-                    ...this.state,
-                    formData : {
-                        ...this.state.formData,
-                        inventory_qty_kg_total : total_kg
-                    }
-                }, () => {
-                    this.formRef.current.setFieldsValue({
-                        inventory_qty_kg_total : total_kg
-                    })
-                })
-            }
+    //         if(index === yarn_invoice_inventory.length - 1)
+    //         {
+    //             this.setState({
+    //                 ...this.state,
+    //                 formData : {
+    //                     ...this.state.formData,
+    //                     inventory_qty_kg_total : total_kg
+    //                 }
+    //             }, () => {
+    //                 this.formRef.current.setFieldsValue({
+    //                     inventory_qty_kg_total : total_kg
+    //                 })
+    //             })
+    //         }
 
-        })
-    }
-    setTotalAmounts = () =>{
-        var values = this.formRef.current.getFieldValue();
-        var yarn_invoice_inventory = values.yarn_invoice_inventory;
-        var total_amount = 0;
-        yarn_invoice_inventory.map((item, index) => {
-            total_amount += Number(item.amount);
+    //     })
+    // }
+    // // setTotalAmounts = () =>{
+    //     var values = this.formRef.current.getFieldValue();
+    //     var yarn_invoice_inventory = values.yarn_invoice_inventory;
+    //     var total_amount = 0;
+    //     yarn_invoice_inventory.map((item, index) => {
+    //         total_amount += Number(item.amount);
 
-            if(index === yarn_invoice_inventory.length - 1)
-            {
-                this.setState({
-                    ...this.state,
-                    formData : {
-                        ...this.state.formData,
-                        inventory_amount_total : total_amount
-                    }
-                }, () => {
-                    this.formRef.current.setFieldsValue({
-                        inventory_amount_total : total_amount
-                    })
-                })
-            }
+    //         if(index === yarn_invoice_inventory.length - 1)
+    //         {
+    //             this.setState({
+    //                 ...this.state,
+    //                 formData : {
+    //                     ...this.state.formData,
+    //                     inventory_amount_total : total_amount
+    //                 }
+    //             }, () => {
+    //                 this.formRef.current.setFieldsValue({
+    //                     inventory_amount_total : total_amount
+    //                 })
+    //             })
+    //         }
 
-        })
-    }
+    //     })
+    // }
 
     //total of bags answer+answer+answer
-    setTotalBags = () =>{
+    setTotal = () =>{
         var values = this.formRef.current.getFieldValue();
         var yarn_invoice_inventory = values.yarn_invoice_inventory;
-        var total_bag = 0;
+    
+        var total_kg = 0;
+        var total_bags = 0;
+        var total_bags_per = 0;
+        var total_amount = 0;
+       
         yarn_invoice_inventory.map((item, index) => {
-            total_bag += Number(item.qty_bag);
+            if(item.selected){
+                total_bags += item.qty_bag;
+                total_bags_per += item.qtybag_per;
+                item.qty_kg = Number(item.qty_bag) * Number(item.qtybag_per);
+                total_kg += item.qty_kg;
+                item.amount = Number(item.rate) * Number(item.qty_kg);
+                total_amount += Number(item.amount);
+        
 
-            if(index === yarn_invoice_inventory.length - 1)
-            {
+    
+                if(index === yarn_invoice_inventory.length - 1)
+                {
+                    this.setState({
+                        ...this.state,
+                        formData : {
+                            ...this.state.formData,
+                            inventory_qty_bag_total : total_bags,
+                            inventory_qty_kg_total : total_kg,
+                            inventory_amount_total : total_amount,
+                            inventory_qtybag_per_total : total_bags_per
+    
+    
+                        }
+                    }, () => {
+                        this.formRef.current.setFieldsValue({
+                            inventory_qty_bag_total : total_bags,
+                            inventory_qty_kg_total : total_kg,
+                            inventory_amount_total : total_amount,
+                            inventory_qtybag_per_total : total_bags_per
+                        })
+                    })
+                }
+            }else{
                 this.setState({
                     ...this.state,
                     formData : {
                         ...this.state.formData,
-                        inventory_qty_bag_total : total_bag
+                        inventory_qty_bag_total : total_bags,
+                        inventory_qty_kg_total : total_kg,
+                        inventory_amount_total : total_amount,
+                        inventory_qtybag_per_total : total_bags_per
+
+
                     }
                 }, () => {
                     this.formRef.current.setFieldsValue({
-                        inventory_qty_bag_total : total_bag
+                        inventory_qty_bag_total : total_bags,
+                        inventory_qty_kg_total : total_kg,
+                        inventory_amount_total : total_amount,
+                        inventory_qtybag_per_total : total_bags_per
                     })
                 })
             }
 
         })
+    
     }
 
     //total of multiplication example 20*4=80
 
-    setQTYKG = (ev, index) => {
-        var values = this.formRef.current.getFieldValue();
-        var fabric = values.yarn_invoice_inventory;
-        var currentFabric = fabric[index] ;
-        currentFabric.qty_kg = currentFabric.qtybag_per * currentFabric.qty_bag;
+    // setQTYKG = (ev, index) => {
+    //     var values = this.formRef.current.getFieldValue();
+    //     var fabric = values.yarn_invoice_inventory;
+    //     var currentFabric = fabric[index] ;
+    //     currentFabric.qty_kg = currentFabric.qtybag_per * currentFabric.qty_bag;
 
-        values.yarn_invoice_inventory.splice(index, 1, currentFabric);
+    //     values.yarn_invoice_inventory.splice(index, 1, currentFabric);
 
-        this.setState({
-            ...this.state,
-            formData : {
-                ...this.state.formData,
-                yarn_invoice_inventory : values.yarn_invoice_inventory
-            }
-        }, () => {
-            // var data = this.formRef.current.getFieldValue();
-            // var qty_kg = Number(data.qtybag_per) + Number(data.qty_bag)
-            this.formRef.current.setFieldsValue(values);
-            // this.setTotalKgs();
-            // this.setTotalBags();
-            // this.setTotalAmounts();
+    //     this.setState({
+    //         ...this.state,
+    //         formData : {
+    //             ...this.state.formData,
+    //             yarn_invoice_inventory : values.yarn_invoice_inventory
+    //         }
+    //     }, () => {
+    //         // var data = this.formRef.current.getFieldValue();
+    //         // var qty_kg = Number(data.qtybag_per) + Number(data.qty_bag)
+    //         this.formRef.current.setFieldsValue(values);
+    //         // this.setTotalKgs();
+    //         // this.setTotalBags();
+    //         // this.setTotalAmounts();
 
-        })
-    }
+    //     })
+    // }
 
-    //multiplication function example var * var = answer
-    setAMOUNT = (ev, index) => {
-        var values = this.formRef.current.getFieldValue();
-        var fabric = values.yarn_invoice_inventory;
-        var currentFabric = fabric[index] ;
-        currentFabric.amount = currentFabric.qty_kg * currentFabric.rate;
+    // //multiplication function example var * var = answer
+    // setAMOUNT = (ev, index) => {
+    //     var values = this.formRef.current.getFieldValue();
+    //     var fabric = values.yarn_invoice_inventory;
+    //     var currentFabric = fabric[index] ;
+    //     currentFabric.amount = currentFabric.qty_kg * currentFabric.rate;
 
-        values.yarn_invoice_inventory.splice(index, 1, currentFabric);
+    //     values.yarn_invoice_inventory.splice(index, 1, currentFabric);
 
-        this.setState({
-            ...this.state,
-            formData : {
-                ...this.state.formData,
-                yarn_invoice_inventory : values.yarn_invoice_inventory
-            }
-        }, () => {
-            // var data = this.formRef.current.getFieldValue();
-            // var qty_kg = Number(data.qtybag_per) + Number(data.qty_bag)
-            this.formRef.current.setFieldsValue(values);
-            this.setTotalKgs();
-            this.setTotalBags();
-            this.setTotalAmounts();
+    //     this.setState({
+    //         ...this.state,
+    //         formData : {
+    //             ...this.state.formData,
+    //             yarn_invoice_inventory : values.yarn_invoice_inventory
+    //         }
+    //     }, () => {
+    //         // var data = this.formRef.current.getFieldValue();
+    //         // var qty_kg = Number(data.qtybag_per) + Number(data.qty_bag)
+    //         this.formRef.current.setFieldsValue(values);
+    //         this.setTotalKgs();
+    //         this.setTotalBags();
+    //         this.setTotalAmounts();
 
-        })
-    }
+    //     })
+    // }
     removeYarn_invoice_inventory = (index) => {
         var oldYarn_invoice_inventoryArray = this.state.formData.yarn_invoice_inventory;
 
@@ -407,12 +493,34 @@ class AddYarn_Invoice extends PureComponent{
                 yarn_invoice_inventory : oldYarn_invoice_inventoryArray
             }
         })
-        this.setTotalAmounts();
-        this.setTotalBags();
-        this.setTotalKgs();
+        this.setTotal();
     }
 
     // getOrderNos = (ledger_id)
+
+
+    checkAllItems = (ev) => {
+        var checked = ev.target.checked;
+        var formData = this.state.formData;
+        var inventories = formData.yarn_invoice_inventory;
+        console.log(checked);
+        inventories.map((item, index) => {
+            item.selected = checked;
+            if(index === inventories.length - 1)
+            {
+                console.log(formData);
+                this.setState({
+                    ...this.state,
+                    formData : formData
+                }, () => {
+                    this.formRef.current.setFieldsValue(formData);
+                    this.setTotal()
+                })
+            }
+        })
+
+    }
+
 
     render(){
         return(
@@ -435,7 +543,7 @@ class AddYarn_Invoice extends PureComponent{
                         
                     <div className="row">
                        
-                        <Selectbox modelName="ledger_id" label="Ledger Name" autoFocus className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
+                        <Selectbox modelName="ledger_id" label="Ledger Name" autoFocus required="true" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getYarnInwardInventoryDetails} ></Selectbox>
                         <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
                     <Textbox label="Vou No" modelName="vouno"  className="col-md-4"></Textbox>
 
@@ -443,7 +551,7 @@ class AddYarn_Invoice extends PureComponent{
                     <div className="row">
                         <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID}  className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
                         {/* <Textbox label="Id" modelName="order_id"  className="col-md-4"></Textbox> */}
-                        <Selectbox modelName="process_id" label="Process"  className="col-md-4" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
+                        <Selectbox modelName="process_id" label="Process" required="true" className="col-md-4" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
                         <Textbox label="Ref No" modelName="refno" required="false" className="col-md-4"></Textbox>
 
                     </div>
@@ -462,6 +570,8 @@ class AddYarn_Invoice extends PureComponent{
                              <table id="dynamic-table" className="table table-bordered" width="100%">
                                 <thead >
                                     <tr>
+
+                                        <th width="100px"> <Checkbox onChange={this.checkAllItems} /></th>
                                         <th width="200px">Fabric </th>
                                         <th>GSM</th>
                                         <th>Count</th>
@@ -477,25 +587,39 @@ class AddYarn_Invoice extends PureComponent{
                                 <Form.List name="yarn_invoice_inventory">
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
-                                    <tr>
+                                            <tr key={index}>
+                                            <td style={{ textAlign : 'center' }}>
+                                                                        <Form.Item
+                                                                        valuePropName="checked"
+                                                                        name={[field.name, "selected"]}
+                                                                        fieldKey={[field.fieldKey, "selected"]}
+                                                                        // initialValue={false}
+                                                                        >
+                                                                            <Checkbox onChange={this.setTotal}></Checkbox>
+                                                                        </Form.Item>
+    
+    
+                                                                        {/* <Checkbox field={field} fieldKey={[ field.fieldKey, 'selected' ]} modelName={[field.name, 'selected']} checked={[field.name, 'selected']} value={[field.name, 'selected']} /> */}
+                                                                    </td>
+                                           
                                         <td> <Selectbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={field.name,'fabric_id'} required="false" options={this.state.fabric} label="Fabric"></Selectbox></td>
 
                                         <td> <Numberbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={field.gsm} label="Gsm"></Numberbox></td>
 
                                         <td> <Numberbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'counts' ]} required = 'false' modelName={[field.name, 'counts']} value={field.counts} label="Counts"></Numberbox></td>
 
-                                        <td> <Numberbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'qtybag_per' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qtybag_per']} value={field.qtybag_per} label="Qty per"></Numberbox></td>
+                                        <td> <Numberbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'qtybag_per' ]} onChange={ (ev) => this.setTotal(ev, field.fieldKey) } modelName={[field.name, 'qtybag_per']} value={field.qtybag_per} label="Qty per"></Numberbox></td>
 
 
-                                        <td><Numberbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'qty_bag' ]} onChange={ (ev) => this.setQTYKG(ev, field.fieldKey) } modelName={[field.name, 'qty_bag']} value={field.qty_bag} label="Qty Bags"></Numberbox></td>
+                                        <td><Numberbox required='false' noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'qty_bag' ]} onChange={ (ev) => this.setTotal(ev, field.fieldKey) } modelName={[field.name, 'qty_bag']} value={field.qty_bag} label="Qty Bags"></Numberbox></td>
 
-                                        <td> <Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'qty_kg' ]} disabled required = 'false' onChange={(ev)=> this.setAMOUNT(ev,field.fieldKey)}modelName={[field.name, 'qty_kg']} value={field.qty_kg} label="Qty Kg"></Numberbox></td>
-
-
-                                        <td>  <Numberbox required="false" noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'rate' ]} onChange={(ev)=> this.setAMOUNT(ev,field.fieldKey)} modelName={[field.name, 'rate']} value={field.rate} label="Rate"></Numberbox></td>
+                                        <td> <Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'qty_kg' ]} disabled required = 'false' onChange={(ev)=> this.setTotal(ev,field.fieldKey)}modelName={[field.name, 'qty_kg']} value={field.qty_kg} label="Qty Kg"></Numberbox></td>
 
 
-                                        <td><Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'amount' ]} disabled required = 'false' modelName={[field.name, 'amount']} value={field.amount} label="Amount"></Numberbox></td>
+                                        <td>  <Numberbox required="false" noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'rate' ]} onChange={(ev)=> this.setTotal(ev,field.fieldKey)} modelName={[field.name, 'rate']} value={field.rate} label="Rate"></Numberbox></td>
+
+
+                                        <td><Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'amount' ]} disabled required = 'false' modelName={[field.name, 'amount']} onChange={(ev)=> this.setTotal(ev,field.fieldKey)} value={field.amount} label="Amount"></Numberbox></td>
 
                                         
                                         <td>  { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeYarn_invoice_inventory(index)}> <FontAwesomeIcon  icon={faTimes} />   </Button>}</td>

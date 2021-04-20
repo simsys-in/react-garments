@@ -40,7 +40,7 @@ class AddOrderProgram extends PureComponent{
                         waste : ''
                     }
                 ],
-                order_fabrics : [
+                order_fabric : [
                     {
                         fabric_id : '',
                         gsm : '',
@@ -284,7 +284,7 @@ class AddOrderProgram extends PureComponent{
             gsm : ''
         }
 
-        var oldOrderFabricsArray = this.state.formData.order_fabrics;
+        var oldOrderFabricsArray = this.state.formData.order_fabric;
 
         oldOrderFabricsArray.push(newOrderFabrics);
 
@@ -292,14 +292,14 @@ class AddOrderProgram extends PureComponent{
             ...this.state,
             formData : {
                 ...this.state.formData,
-                order_fabrics : oldOrderFabricsArray
+                order_fabric : oldOrderFabricsArray
             }
         })
     }
 
 
     removeOrderFabrics = (index) => {
-        var oldOrderFabricsArray = this.state.formData.order_fabrics;
+        var oldOrderFabricsArray = this.state.formData.order_fabric;
 
         oldOrderFabricsArray.splice(index, 1);
         
@@ -307,7 +307,7 @@ class AddOrderProgram extends PureComponent{
             ...this.state,
             formData : {
                 ...this.state.formData,
-                order_fabrics : oldOrderFabricsArray
+                order_fabric : oldOrderFabricsArray
             }
         })
         // this.setTOTAL();
@@ -369,7 +369,7 @@ class AddOrderProgram extends PureComponent{
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <Form.List name="order_fabrics">
+                                <Form.List name="order_fabric">
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
                                             <tr>

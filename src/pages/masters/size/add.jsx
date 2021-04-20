@@ -141,17 +141,17 @@ class AddSize extends PureComponent{
                         <Textbox label="Size" autoFocus modelName="size" className="col-md-4"></Textbox>
                         <Textbox label="Size1"  modelName="size1" className="col-md-4"></Textbox>
                         <Textbox label="Size2" required="false" modelName="size2" className="col-md-4"></Textbox>
-                    </div>
+                    </div><br/>
                     <div className="row">
                         <Textbox label="Size3" required="false" modelName="size3" className="col-md-4"></Textbox>
                         <Textbox label="Size4" required="false" modelName="size4" className="col-md-4"></Textbox>
                         <Textbox label="Size5" required="false" modelName="size5" className="col-md-4"></Textbox>
-                    </div>
+                    </div><br/>
                     <div className="row">
                         <Textbox label="Size6" required="false" modelName="size6" className="col-md-4"></Textbox>
                         <Textbox label="Size7" required="false" modelName="size7" className="col-md-4"></Textbox>
                         <Textbox label="Size8" required="false" modelName="size8" className="col-md-4"></Textbox>
-                    </div>
+                    </div><br/>
 
                     <div className="row">
                     <Textbox label="Size9" required="false" modelName="size9" className="col-md-4"></Textbox>

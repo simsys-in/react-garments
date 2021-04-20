@@ -10,7 +10,9 @@ import Selectbox from '../../../components/Inputs/Selectbox';
 import Numberbox from '../../../components/Inputs/Numberbox';
 import Datebox from '../../../components/Inputs/Datebox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import Checkbox from 'antd/lib/checkbox/Checkbox';
+
 
 
 
@@ -28,6 +30,7 @@ class AddFabricInward extends PureComponent{
             formData : {
                 status : 'active',
                 vou_date : moment(),
+                order_id : 0,
                 fabric_inward_inventory : [
                     {  
                         fabrics_id : '',
@@ -159,6 +162,7 @@ class AddFabricInward extends PureComponent{
         var fabric_inward_inventory = values.fabric_inward_inventory;
         var total_roll = 0;
         var total_weight = 0;
+       
         fabric_inward_inventory.map((item, index) => {
             total_roll += Number(item.roll);
             total_weight += Number(item.weight);
@@ -207,6 +211,7 @@ class AddFabricInward extends PureComponent{
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
+                this.getFabricOutwardInventoryDetails(data.data.ledger_id)
             })
 
         }
@@ -215,6 +220,44 @@ class AddFabricInward extends PureComponent{
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
 
+        }
+    }
+
+    getFabricOutwardInventoryDetails = (ledger_id) =>{
+        if(!this.id){
+
+            getRequest('garments/getFabricOutwardInventoryDetails?ledger_id=' +ledger_id).then(data => {
+                if(data.status === "info")
+                {
+                    var newArr = data.data;
+                    this.state.formData.fabric_inward_inventory.map((item) => {
+                        newArr.map(obj => {
+                            if(obj.fabric_id === item.fabric_id)
+                            {
+                                // item.selected = true;
+                                obj = Object.assign({},  item);
+                                obj.selected = true;
+                            }
+                        })
+                    })
+                    // newArr.map(item => {
+                    //     item.selected = true;
+                    // })
+    
+                    this.setState({
+                        ...this.state,
+                        formData : {
+                            ...this.state.formData,
+                            fabric_inward_inventory : newArr
+                        },
+                    },()=>{
+                        this.formRef.current.setFieldsValue({
+                            fabric_inward_inventory : this.state.formData.fabric_inward_inventory
+                        })
+                        this.setTOTAL()
+                    })
+                }
+            })
         }
     }
 
@@ -319,6 +362,28 @@ class AddFabricInward extends PureComponent{
         this.setTOTAL();
     }
 
+    checkAllItems = (ev) => {
+        var checked = ev.target.checked;
+        var formData = this.state.formData;
+        var inventories = formData.fabric_inward_inventory;
+        console.log(checked);
+        inventories.map((item, index) => {
+            item.selected = checked;
+            if(index === inventories.length - 1)
+            {
+                console.log(formData);
+                this.setState({
+                    ...this.state,
+                    formData : formData
+                }, () => {
+                    this.formRef.current.setFieldsValue(formData);
+                    this.setTOTAL()
+                })
+            }
+        })
+
+    }
+
     
 
     render(){
@@ -342,7 +407,7 @@ class AddFabricInward extends PureComponent{
                         
                     <div className="row">
                        
-                        <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
+                        <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-4" required="true" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getFabricOutwardInventoryDetails} ></Selectbox>
                         <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
 
                        <Textbox label="Vou No" modelName="vouno"  className="col-md-4"></Textbox>
@@ -350,7 +415,7 @@ class AddFabricInward extends PureComponent{
                     </div>
                     <div className="row">
                         <Selectbox modelName="order_id" label="Order No" className="col-md-4" onChange={this.getProcessSBForOrderID} options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
-                        <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
+                        <Selectbox modelName="process_id" label="Process" required="true" className="col-md-4" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
                         <Textbox label="Ref No" modelName="refno"  className="col-md-4"></Textbox>
                     </div>
                     
@@ -366,6 +431,8 @@ class AddFabricInward extends PureComponent{
                              <table id="dynamic-table" className="table table-bordered">
                              <thead >
                                     <tr>
+
+                                       <th width="100px"> <Checkbox onChange={this.checkAllItems} /></th>
                                         <th width="200px">Fabric </th>
                                         <th width="200px">Color</th>
                                         <th>GSM</th>
@@ -379,7 +446,22 @@ class AddFabricInward extends PureComponent{
                                 <tbody>  <Form.List name="fabric_inward_inventory">
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
-                                    <tr>
+
+                                            <tr key={index}>
+                                        <td style={{ textAlign : 'center' }}>
+                                                                    <Form.Item
+                                                                    valuePropName="checked"
+                                                                    name={[field.name, "selected"]}
+                                                                    fieldKey={[field.fieldKey, "selected"]}
+                                                                    // initialValue={false}
+                                                                    >
+                                                                        <Checkbox onChange={this.setTOTAL}></Checkbox>
+                                                                    </Form.Item>
+
+
+                                                                    {/* <Checkbox field={field} fieldKey={[ field.fieldKey, 'selected' ]} modelName={[field.name, 'selected']} checked={[field.name, 'selected']} value={[field.name, 'selected']} /> */}
+                                                                </td>
+                                                                
                                         <td>   <Selectbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} options={this.state.fabric} label="Fabric"></Selectbox></td>
                                         <td> <Selectbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox></td>
                                         <td> <Numberbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={[field.name, 'gsm']} label="Gsm"></Numberbox></td>

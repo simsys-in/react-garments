@@ -614,15 +614,20 @@ class AddJobwork_Inward  extends PureComponent{
                    
                     <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
                         <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
-                        <Form.Item name="adas" className="col-md-4" label="Adas" 
-                        rules={[
-                            {
-                                required : false
-                            }
-                        ]}>
-                            <Checkbox onChange={this.onAdasChange} checked={this.state.formData.adas}></Checkbox>
-                        </Form.Item>
+                        <Textbox label="Vehicle No" modelName="vehicle_no"  className="col-md-4"></Textbox>
 
+
+                    </div>
+
+                    <div className="row">
+                        <Form.Item name="adas" className="col-md-4" label="Adas" 
+                            rules={[
+                                {
+                                    required : false
+                                }
+                            ]}>
+                                <Checkbox onChange={this.onAdasChange} checked={this.state.formData.adas}></Checkbox>
+                        </Form.Item>
 
                     </div>
                    
