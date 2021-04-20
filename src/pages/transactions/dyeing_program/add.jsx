@@ -9,6 +9,7 @@ import Textbox from '../../../components/Inputs/Textbox';
 import Selectbox from '../../../components/Inputs/Selectbox';
 import Numberbox from '../../../components/Inputs/Numberbox';
 import Datebox from '../../../components/Inputs/Datebox';
+import Checkbox from 'antd/lib/checkbox/Checkbox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 
@@ -32,6 +33,7 @@ class AddDyeingProgram extends PureComponent{
                     {  
                         fabrics_id : '',
                         color_id : '',
+                        narration : '',
                         gsm : '',
                         dia : '',
                         rolls :'' ,
@@ -120,6 +122,7 @@ class AddDyeingProgram extends PureComponent{
                 }, () => {
                     this.formRef.current.setFieldsValue(this.state.formData)
                 })
+                // this.setTOTAL()
             }
         })
     }
@@ -165,9 +168,11 @@ class AddDyeingProgram extends PureComponent{
         var total_rolls = 0;
         var total_weight = 0;
         dyeing_program_inventory.map((item, index) => {
-            total_rolls += Number(item.rolls);
-            total_weight += Number(item.weight);
-
+            if(item.selected)
+            {
+                total_rolls += Number(item.rolls);
+                total_weight += Number(item.weight);
+            }
             if(index === dyeing_program_inventory.length - 1)
             {
                 this.setState({
@@ -227,10 +232,10 @@ class AddDyeingProgram extends PureComponent{
         this.getProcessSB();
         this.getFabricsSB();
         this.getColorSB();
-        this.setTOTAL();
         this.getNextDyeingProgramVouNo();
         
         this.getDyeingProgram();
+        this.setTOTAL();
 
         interval = setInterval(() => {
             this.validate()
@@ -279,6 +284,27 @@ class AddDyeingProgram extends PureComponent{
             })
         })
     };
+    checkAllItems = (ev) => {
+        var checked = ev.target.checked;
+        var formData = this.state.formData;
+        var inventories = formData.dyeing_program_inventory;
+        console.log(checked);
+        inventories.map((item, index) => {
+            item.selected = checked;
+            if(index === inventories.length - 1)
+            {
+                console.log(formData);
+                this.setState({
+                    ...this.state,
+                    formData : formData
+                }, () => {
+                    this.formRef.current.setFieldsValue(formData);
+                    this.setTOTAL()
+                })
+            }
+        })
+
+    }
 
    
 
@@ -286,6 +312,7 @@ class AddDyeingProgram extends PureComponent{
         var newDyeingProgramInventory = {
             fabrics_id : '',
             color_id : '',
+            narration : '',
             gsm : '',
             dia : '',
             rolls :'' ,
@@ -370,8 +397,10 @@ class AddDyeingProgram extends PureComponent{
                              <table id="dynamic-table" className="table table-bordered">
                              <thead >
                                     <tr>
-                                        <th width="200px">Fabric </th>
+                                    <th width="50px"> <Checkbox onChange={this.checkAllItems} /></th>
+                                     <th width="200px">Fabric </th>
                                         <th width="200px">Color</th>
+                                        <th width="200px">Narraion</th>
                                         <th>GSM</th>
                                         <th>Dia</th>
                                         <th>Roll</th>
@@ -383,11 +412,26 @@ class AddDyeingProgram extends PureComponent{
                                 <tbody>  <Form.List name="dyeing_program_inventory">
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
-                                    <tr>
+                                    <tr key={index}>
+                                         <td style={{ textAlign : 'center' }}>
+                                                                    <Form.Item
+                                                                    valuePropName="checked"
+                                                                    name={[field.name, "selected"]}
+                                                                    fieldKey={[field.fieldKey, "selected"]}
+                                                                    // initialValue={false}
+                                                                    >
+                                                                        <Checkbox onChange={this.setTOTAL}></Checkbox>
+                                                                    </Form.Item>
+
+
+                                                                    {/* <Checkbox field={field} fieldKey={[ field.fieldKey, 'selected' ]} modelName={[field.name, 'selected']} checked={[field.name, 'selected']} value={[field.name, 'selected']} /> */}
+                                                                </td>
 
                                         <td>   <Selectbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']} value={[field.name, 'fabric_id']} options={this.state.fabric} label="Fabric"></Selectbox></td>
 
                                         <td> <Selectbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]} modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox></td>
+
+                                        <td> <Textbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'narration' ]} modelName={[field.name, 'narration']} value={[field.name, 'narration']} label="Narration"></Textbox></td>
 
                                         <td> <Numberbox noPlaceholder withoutMargin required="false" className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={[field.name, 'gsm']} label="Gsm"></Numberbox></td>
 
@@ -406,7 +450,7 @@ class AddDyeingProgram extends PureComponent{
                                 ) }
                                </Form.List>
                                <tr>
-                               <td colSpan={4} style={{textAlign:'right'}}> <h6> Total</h6></td>
+                               <td colSpan={6} style={{textAlign:'right'}}> <h6> Total</h6></td>
                                 <td> <Numberbox withoutMargin showLabel={false} className="col-md-12"  modelName='inventory_rolls_total' value={this.state.formData.total_rolls} disabled label='Total Roll'></Numberbox></td>
                                 <td> <Numberbox withoutMargin showLabel={false} className="col-md-12" modelName='inventory_weight_total' value={this.state.formData.total_weight} disabled label='Total Weight'></Numberbox></td>
                                </tr>

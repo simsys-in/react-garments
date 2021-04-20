@@ -21,6 +21,42 @@ class Report extends PureComponent {
         getRequest('garments/getFabricInwardReport?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
+
+                if(data.data.color_details.length < 7)
+                {
+                    var item = {
+                       color :'',
+                        gsm : '',
+                        fabric : '',
+                        dia : '',
+                        roll : '',
+                        weight : ''
+                    }
+                    for(var i=data.data.color_details.length; i < 7; i++ )
+                    {
+                        data.data.color_details.push(item);
+                        if(i === 6)
+                        {
+                            this.setState({
+                                ...this.state,
+                                report_details : data.data,
+                                show_details : true,
+                                inventory_roll_total : total_roll,
+                                inventory_weight_total : total_weight
+                            })
+
+                        }
+                    }
+                }
+                else{
+                    this.setState({
+                        ...this.state,
+                        report_details : data.data,
+                        show_details : true,
+                        inventory_roll_total : total_roll,
+                        inventory_weight_total : total_weight
+                    })
+                }
                 
                 var total_roll = 0;
                 var total_weight = 0;
@@ -52,18 +88,18 @@ class Report extends PureComponent {
                     <div className="col-md-12">
                         <div >
                         <div className="row flex-nowrap" >
-                            <div className="col-md-6" style={{ border : '1px solid black', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-6" style={{ border : '1px solid grey', padding : 0, paddingLeft : 5 }}>
                                 <h6 style={{fontWeight:"bold"}}>   { report_details.company_details.company } </h6>
                                 <p style={{ whiteSpace : 'pre-wrap' }}> Address :  { report_details.company_details.address } </p>
                                 <p> Phone :  { report_details.company_details.phone } </p>
                                 <p> Mail :  { report_details.company_details.email } </p>
                                 <p> GSTIN :  <b style={{fontWeight:"bold"}}> { report_details.company_details.gstno } </b> </p>
                             </div>
-                            <div className="col-md-6" style={{ padding : 0,border : '1px solid black' }}>
+                            <div className="col-md-6" style={{ padding : 0,border : '1px solid grey' }}>
 
                                 <table width={"100%"} style={{border:"lightgray", margin : 0, padding : 0}}>
                                         <tr> 
-                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid black' }}> <h5> DELIVERY NOTE </h5> </td>
+                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid grey' }}> <h5> DELIVERY NOTE </h5> </td>
                                         </tr>
                                         <tr>
                                             <th> DC No </th>
@@ -93,7 +129,7 @@ class Report extends PureComponent {
                                 </div>
                         </div>
                         <div className="row flex-nowrap">
-                            <div className="col-md-12" style={{ border : '1px solid black', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-12" style={{ border : '1px solid grey', padding : 0, paddingLeft : 5 }}>
                                 <b>Delivery to</b>
                                 <div style={{ marginLeft : 15 }}>
                                     <p><b>{ report_details.ledger_details.ledger } , </b></p> 
@@ -102,7 +138,7 @@ class Report extends PureComponent {
                                     <p><b> GSTIN :{ report_details.ledger_details.gstno} </b></p>
                                 </div>
                             </div>
-                            {/* <div className="col-md-6" style={{ border : '1px solid black', padding : 0}}>
+                            {/* <div className="col-md-6" style={{ border : '1px solid grey', padding : 0}}>
                                 <b style={{fontWeight:"bold", marginLeft : 5}}>ACCESSORIES</b>
                                 <table border={1} width="100%" style={{border:"lightgray"}}>
                                     <thead>
@@ -142,37 +178,42 @@ class Report extends PureComponent {
                                         { report_details.color_details.map(item => 
                                             <tr border={1}>
 
-                                                <td style={{border : '1px solid gray', paddingLeft : '5px'}}>{ item.fabric }</td>
+                                                <td style={{paddingTop: item.fabric === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.fabric }</td>
 
-                                                <td style={{border : '1px solid gray', paddingLeft : '5px'}}>{ item.color }</td>
-                                                <td style={{border : '1px solid gray', paddingLeft : '5px'}}>{ item.gsm }</td>
-                                                <td style={{border : '1px solid gray', paddingLeft : '5px'}}>{ item.dia }</td>
-                                                <td style={{border : '1px solid gray', paddingLeft : '5px'}}>{ item.roll }</td>
+                                                <td style={{paddingTop: item.color === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.color }</td>
+
+                                                <td style={{paddingTop: item.gsm === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey',  textAlign : 'right', paddingRight:'5px'}}>{ item.gsm }</td>
+
+                                                <td style={{paddingTop: item.dia === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey',  textAlign : 'right', paddingRight:'5px'}}>{ item.dia }</td>
+
+                                                <td style={{paddingTop: item.roll === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey',  textAlign : 'right', paddingRight:'5px'}}>{ item.roll }</td>
                                                
-                                                <td style={{border : '1px solid gray', paddingLeft : '5px'}}>{ item.weight }</td>
+                                                <td style={{paddingTop: item.weight === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', borderRight  : '1px solid grey',  textAlign : 'right', paddingRight:'5px'}}>{ item.weight !=="" && Number(item.weight).toFixed(3)}</td>
                                             </tr>
                                         )}
+
                                         <tr>
-                                            <td colSpan={4} style={{border : '1px solid gray', paddingLeft : '5px'}}> Grand Total</td>
+
+                                            <td colSpan={4} style={{border : '1px solid gray', paddingLeft : '5px',textAlign:'right', paddingRight:'5px'}}> Grand Total</td>
                                             
-                                            <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>{this.state.inventory_roll_total}</td>
-                                            <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>{this.state.inventory_weight_total}</td>
+                                            <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px',textAlign:'right', paddingRight:'5px' }}>{this.state.inventory_roll_total}</td>
+                                            <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:'right', paddingRight:'5px'}}>{this.state.inventory_weight_total !=="" && Number(this.state.inventory_weight_total).toFixed(3)}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div className="row flex-nowrap">
-                            <div className="col-md-6" style={{ border : '1px solid black', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-6" style={{ border : '1px solid grey', padding : 0, paddingLeft : 5 }}>
                                 <p style={{textDecorationLine: 'underline'}}>Terms</p>
                                 <p style={{ whiteSpace : 'pre-line' }}>  Any discrepancy found in this invoice should be notified imediately Subject to "Tirupur Jurisdiction only.</p>
                             </div>
-                            <div className="col-md-3" style={{ border : '1px solid black', padding : 0, paddingLeft : 5}}>
+                            <div className="col-md-3" style={{ border : '1px solid grey', padding : 0, paddingLeft : 5}}>
                                 <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
                                     Receiver's Seal Signature
                                 </div>
                             </div>
-                            <div className="col-md-3" style={{ border : '1px solid black', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-3" style={{ border : '1px solid grey', padding : 0, paddingLeft : 5 }}>
                                 <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
                                     {/* Receiver's Seal Signature */}
                                     For  <b style={{fontWeight:"bold"}}>{ report_details.company_details.company }</b>
