@@ -3,7 +3,7 @@ import { Layout, Menu, Button, Divider } from 'antd';
 import { connect } from 'react-redux';
 import { onLogOut, toggleSiderCollapse } from '../actions/login'
 import { getRequest } from '../helpers/apihelper'
-import Logo from '../assets/images/logo.svg';
+import Logo from '../assets/images/logo.png';
 import menuTree from './Menutree'
 
 
@@ -69,7 +69,7 @@ class Sidebar extends PureComponent {
                         <Button type="dashed" onClick={ this.props.onLogOut }>Logout</Button>
                     </div>
                   </div>
-                <Divider />
+                <Divider style={{ margin : 5 }} />
                 <div >
                     <Menu theme={ theme.theme } defaultSelectedKeys={[this.state.activeKey]} mode="inline" >
                         { this.props.store.login.userData && this.props.store.login.userData.menuList && this.props.store.login.userData.menuList.length > 0 &&

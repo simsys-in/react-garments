@@ -140,7 +140,7 @@ class AddUser_Group extends PureComponent{
         if(this.id)
         {
             getRequest("core/user_group?id=" + this.id).then(data => {
-                data.data[0].dob = moment(data.data[0].dob)
+                // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
@@ -186,7 +186,7 @@ class AddUser_Group extends PureComponent{
             buttonLoading : true
         },() => {
             values.menuList = this.state.dataSource;
-            putRequest('core/user_group?id=' + this.id, this.state.formData).then(data => {
+            putRequest('core/user_group?id=' + this.id, {...this.state.formData, menuList : this.state.dataSource}).then(data => {
                 if(data.status === "success")
                 {
                     this.props.history.push('/user/list_user_group')

@@ -36,7 +36,7 @@ class AddMenu_Master extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status : 'active'
+                sts : 'active'
             },
             companiesList : []
         }
@@ -67,7 +67,7 @@ class AddMenu_Master extends PureComponent{
         if(this.id)
         {
             getRequest("core/menu_master?id=" + this.id).then(data => {
-                data.data[0].dob = moment(data.data[0].dob)
+                // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
@@ -165,7 +165,7 @@ class AddMenu_Master extends PureComponent{
                     <Textbox label="Method" required="false" modelName="method" className="col-md-4"></Textbox>
                     <Textbox label="Icon"  modelName="icon" className="col-md-4"></Textbox>
 
-                    <Selectbox label="Status"  modelName="sts" options={status} value={this.state.formData.status} className="col-md-4"></Selectbox>
+                    <Selectbox label="Status"  modelName="sts" options={status} value={this.state.formData.sts} className="col-md-4"></Selectbox>
 
                     </div>
 

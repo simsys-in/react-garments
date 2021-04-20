@@ -74,7 +74,7 @@ class AddAddLess extends PureComponent{
         if(this.id)
         {
             getRequest("garments/getAddLess?id=" + this.id).then(data => {
-                data.data[0].dob = moment(data.data[0].dob)
+                // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })

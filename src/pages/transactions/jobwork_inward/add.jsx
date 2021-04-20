@@ -306,7 +306,6 @@ class AddJobwork_Inward  extends PureComponent{
                 this.formRef.current.setFieldsValue(data.data);
                 this.onOrderIDChange(data.data.order_id)
                 this.formRef.current.setFieldsValue(data.data);
-                this.getMobileForLedgerID(data.data.ledger_id)
             })
 
         }
@@ -410,6 +409,7 @@ class AddJobwork_Inward  extends PureComponent{
                             ledger_id : data.data && data.data.length ? data.data[0].ledger_id : null
                                             },
                     },() => {
+                        this.getMobileForLedgerID(this.state.formData.ledger_id)
                         this.formRef.current.setFieldsValue({
                             ledger_id : this.state.formData.ledger_id
                         })

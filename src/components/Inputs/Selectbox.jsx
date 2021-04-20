@@ -36,16 +36,16 @@ class Selectbox extends PureComponent {
                     
                         { showLabel ? 
                             <Form.Item
-                            validateStatus={ this.props.value || !checkBoolean(this.props.required, true) ? "success" : "error" }
-                            help={ this.props.value || !checkBoolean(this.props.required, true) || this.props.withoutMargin ? "" : "  Please  Select " } >
-                                <Input disabled className="no-border select-search" value={ this.props.label } style={{ color: this.props.value || !checkBoolean(this.props.required, true) ? 'rgba(0, 0, 0, 0.65)' : 'red', cursor: 'auto' }} />
+                            validateStatus={ this.props.value !== "" || !checkBoolean(this.props.required, true) ? "success" : "error" }
+                            help={ this.props.value !== "" || !checkBoolean(this.props.required, true) || this.props.withoutMargin ? "" : "  Please  Select " } >
+                                <Input disabled className="no-border select-search" value={ this.props.label } style={{ color: this.props.value !== "" || !checkBoolean(this.props.required, true) ? 'rgba(0, 0, 0, 0.65)' : 'red', cursor: 'auto' }} />
                             </Form.Item>
                         : null}
                         <Form.Item
                             className={ showLabel ? "compound-select" : "select"}
                             name={this.props.modelName}
-                            validateStatus={ this.props.value || !checkBoolean(this.props.required, true) ? "success" : "error" }
-                            help={ this.props.value || !checkBoolean(this.props.required, true) || this.props.withoutMargin ? null :  this.props.label }
+                            validateStatus={ this.props.value !== "" || !checkBoolean(this.props.required, true) ? "success" : "error" }
+                            help={ this.props.value !== "" || !checkBoolean(this.props.required, true) || this.props.withoutMargin ? null :  this.props.label }
                             rules={[
                             {
                                 required: checkBoolean(this.props.required, true),
