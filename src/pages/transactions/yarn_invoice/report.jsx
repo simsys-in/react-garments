@@ -81,7 +81,7 @@ class Report extends PureComponent {
                                 <b>Delivery to</b>
                                 <div style={{ marginLeft : 15 }}>
                                     <p><b>{ report_details.ledger_details.ledger } , </b></p> 
-                                    <p>Address : { report_details.ledger_details.delivery_address }</p>
+                                    <p>Address : { report_details.ledger_details.address }</p>
                                     <p> Contact :{ report_details.ledger_details.mobile} </p>
                                     <p><b> GSTIN :{ report_details.ledger_details.gstno} </b></p>
                                 </div>

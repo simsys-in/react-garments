@@ -167,7 +167,7 @@ class Report extends PureComponent {
                                 <div className="col-md-4" style={{ border : '1px solid grey' }}>
                                     <p>Delivery to</p>
                                     <b>{ report_details.ledger_details.ledger }</b>
-                                    <p> {report_details.delivery_address} </p>
+                                    <p> {report_details.address} </p>
 
                                 </div>
                                 <div className="col-md-4" style={{ border : '1px solid grey' }}>
