@@ -305,6 +305,7 @@ class AddJobwork_Inward  extends PureComponent{
                 data.data.vou_date = moment(data.data.vou_date)
                 this.formRef.current.setFieldsValue(data.data);
                 this.onOrderIDChange(data.data.order_id)
+                this.getMobileForLedgerID(data.data.ledger_id)
                 this.formRef.current.setFieldsValue(data.data);
             })
 
@@ -614,7 +615,7 @@ class AddJobwork_Inward  extends PureComponent{
                    
                     <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
                         <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
-                        <Textbox label="Vehicle No" modelName="vehicle_no"  className="col-md-4"></Textbox>
+                        <Textbox label="Vehicle No" required="false" modelName="vehicle_no"  className="col-md-4"></Textbox>
 
 
                     </div>

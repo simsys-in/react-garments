@@ -435,7 +435,7 @@ class AddFabricInvoice extends PureComponent{
                    <div className="row">
                        <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID} className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
                        <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
-                       <Textbox label="Ref No" modelName="refno"  className="col-md-4"></Textbox>
+                       <Textbox label="Ref No" required="false" modelName="refno"  className="col-md-4"></Textbox>
                    </div>
 
                   
@@ -505,7 +505,7 @@ class AddFabricInvoice extends PureComponent{
                                         ) }
                                        </Form.List> 
                                        <tr>
-                                            <td colSpan={4} style={{textAlign:'right'}}> <h6> Total</h6></td>
+                                            <td colSpan={5} style={{textAlign:'right'}}> <h6> Total</h6></td>
 
                                             <td> <Numberbox withoutMargin showLabel={false} className="col-md-12" modelName='inventory_roll_total' value={this.state.formData.total_roll} disabled label='Total Roll'></Numberbox></td>
 

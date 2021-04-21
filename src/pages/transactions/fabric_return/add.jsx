@@ -346,7 +346,7 @@ class AddFabricReturn extends PureComponent{
                    <div className="row">
                         <Selectbox modelName="order_id" onChange={this.getProcessSBForOrderID} label="Order No" className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
                         <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
-                       <Textbox label="Ref No" modelName="refno"  className="col-md-4"></Textbox>
+                       <Textbox label="Ref No" required="false" modelName="refno"  className="col-md-4"></Textbox>
                    </div>
 
                    
