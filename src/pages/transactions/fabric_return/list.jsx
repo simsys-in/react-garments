@@ -1,15 +1,19 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Table, Tag, Space, Button, Modal } from 'antd';
-import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined, PrinterOutlined } from '@ant-design/icons';
 import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
 import DataTable from '../../../components/Datatable';
+import Report from './report';
+
 
 class ListFabricReturn extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      showPrint : false,
+      selectedItem : {},
       columns: [
       
         {
@@ -71,6 +75,27 @@ class ListFabricReturn extends PureComponent {
     })
   }
 
+  hideMoal = () => {
+    this.setState({
+      ...this.state,
+      showPrint : false,
+      selectedItem : {}
+    }, () => {
+      window.location.reload();
+    })
+  }
+
+  showPrint = (record) => {
+
+    this.setState({
+      ...this.state,
+      showPrint : true,
+      selectedItem : record
+    })
+  }
+
+
+
   deleteFabricReturn = (user) => {
     const id = user.id
     console.log(id);
@@ -98,6 +123,8 @@ class ListFabricReturn extends PureComponent {
           item.action =  <Space size="middle">
           <Button type="primary" onClick={() => this.editFabricReturn(item.id)} icon={<EditOutlined />} size="middle" />
           <Button type="default" color="error" danger onClick={() => this.deleteFabricReturn(item)} icon={<DeleteOutlined />} size="middle" />
+          <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" />
+
         </Space>
 
         newData.push(item)
@@ -112,6 +139,19 @@ class ListFabricReturn extends PureComponent {
     })
     // }
   }
+  printDiv = () => {
+    var printContents = document.getElementById('printableArea').innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+     window.location.reload();
+  }
+
+
 
   render() {
     return (
@@ -126,6 +166,17 @@ class ListFabricReturn extends PureComponent {
         </div>
         {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
         <DataTable data={this.state} ></DataTable>
+        <Modal
+          title="Fabric Return"
+          centered
+          width={1000}
+          visible={this.state.showPrint}
+          onOk={() => this.printDiv()}
+          okText="Print"
+          onCancel={() => this.hideMoal(false)}
+        >
+          <Report itemId={this.state.selectedItem.id} id="printableArea" />
+        </Modal>
       </Fragment>
     )
   }
