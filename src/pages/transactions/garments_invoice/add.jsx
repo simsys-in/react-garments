@@ -293,9 +293,7 @@ class AddGarmentsInvoice extends PureComponent{
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
-                data.data.garments_invoice_inventory.map((item, index) => {
-                    this.getSizeForProductId(item.product_id, index)
-                })
+                this.getGarmentsDeliveryNoteInventoryDetails(data.data.ledger_id)
 
             
             })
@@ -386,7 +384,39 @@ class AddGarmentsInvoice extends PureComponent{
         })
     };
 
-   
+    getGarmentsDeliveryNoteInventoryDetails = (ledger_id) =>{
+        if(!this.id){
+
+            getRequest('garments/getGarmentsDeliveryNoteInventoryDetails?ledger_id=' +ledger_id).then(data => {
+                if(data.status === "info")
+                {
+                    var newArr = data.data;
+                    newArr.map((obj, index) => {
+                        obj.size_details = [];
+                        
+                        this.getSizeForProductId(obj.product_id, index);
+                        if(index === newArr.length -1)
+                        {
+                            this.setState({
+                                ...this.state,
+                                formData : {
+                                    ...this.state.formData,
+                                    garments_invoice_inventory : newArr
+                                },
+                            },()=>{
+                                this.formRef.current.setFieldsValue({
+                                    garments_invoice_inventory : this.state.formData.garments_invoice_inventory
+                                })
+                                this.setTOTAL()
+                            })
+                        }
+                    })
+    
+                }
+            })
+        }
+    }
+
     
 
     
@@ -501,7 +531,7 @@ class AddGarmentsInvoice extends PureComponent{
                     >
                         
                     <div className="row">
-                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
+                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getGarmentsDeliveryNoteInventoryDetails} ></Selectbox>
                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
                    <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
                    </div>
@@ -580,7 +610,8 @@ class AddGarmentsInvoice extends PureComponent{
                                                                 <td><Textbox className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} field={field} fieldKey={[ field.fieldKey, 'description' ]} modelName={[field.name, 'description']}  label="Description"></Textbox></td>
                                                                 
                                                                 <td>
-                                                                <Textbox key={this.state.formData.garments_invoice_inventory[index].size_details[0]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_invoice_inventory[index].size_details[0]}  label="Size1 Name"></Textbox>
+                                                                    { console.log(this.state.formData.garments_invoice_inventory[index], index, this.state.formData.garments_invoice_inventory) }
+                                                                    <Textbox key={this.state.formData.garments_invoice_inventory[index].size_details[0]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_invoice_inventory[index].size_details[0]}  label="Size1 Name"></Textbox>
 
                                                                 <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12" disabled={this.state.formData.garments_invoice_inventory[index].size_details[0] === ""} showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size1_qty' ]}  modelName={[field.name, 'size1_qty']} value={[field.name, 'size1_qty']} label="Size1 Qty" onChange={this.setTOTAL}></Numberbox>
 
