@@ -400,7 +400,7 @@ class AddCuttingProgram extends PureComponent{
     }
 
     getFabricsForOrderID = (order_id) => {
-        getRequest('garments/getFabricsForOrderID?order_id=' + order_id).then(data => {
+        getRequest('garments/getFabricsForOrderIDForCuttingProgram?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
