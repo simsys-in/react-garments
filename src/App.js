@@ -245,14 +245,19 @@ import ListProductDetails from './pages/masters/product_details/list'
 import AddKnittingProgram  from './pages/transactions/knitting_program/add'
 import ListKnittingProgram from './pages/transactions/knitting_program/list'
 
-//product_details
+//voucher
 import AddVoucher  from './pages/masters/voucher/add'
 import ListVoucher from './pages/masters/voucher/list'
 
 
-//product_details
+//report
 import AddReport  from './pages/masters/report/add'
 import ListReport from './pages/masters/report/list'
+
+//report
+import AddPurchaseOrder  from './pages/transactions/purchase_order/add'
+import ListPurchaseOrder from './pages/transactions/purchase_order/list'
+
 
 ///// Kowsalya Workspace //////
 ///// Kowsalya Workspace //////
@@ -653,6 +658,14 @@ class App extends React.PureComponent
                               <Route exact path="/masters/add_report" component={AddReport} />
                               <Route exact path="/masters/edit_report/:id" component={AddReport} />
                               <Route exact path="/masters/list_report" component={ListReport} />
+
+
+                              {/* purchase order */}
+                              <Route exact path="/transactions/add_yarn_purchase_order" component={AddPurchaseOrder} />
+                              <Route exact path="/transactions/edit_yarn_purchase_order/:id" component={AddPurchaseOrder} />
+                              <Route exact path="/transactions/list_yarn_purchase_order" component={ListPurchaseOrder} />
+
+                             
 
                             {/* Kowsalya Workspace */}
                             {/* Kowsalya Workspace */}

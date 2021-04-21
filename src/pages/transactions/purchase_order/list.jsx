@@ -1,13 +1,14 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Table, Tag, Space, Button, Modal } from 'antd';
-import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined, PrinterOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined ,PrinterOutlined } from '@ant-design/icons';
 import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
 import DataTable from '../../../components/Datatable';
-import Report from './report';
+// import Report from './report';
 
-class ListGarmentsReceiptNote extends PureComponent {
+
+class ListPurchaseOrder extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +33,8 @@ class ListGarmentsReceiptNote extends PureComponent {
             field: 'vouno',
             width: "30vw",
           },
-  
+         
+        
         {
           label: 'Ledger ',
           field: 'ledger',
@@ -54,8 +56,8 @@ class ListGarmentsReceiptNote extends PureComponent {
           defaultSortOrder: 'ascend',
           render: (text, record) => (
             <Space size="middle">
-              <Button type="primary" onClick={() => this.editGarmentsReceiptNote(record.id)} icon={<EditOutlined />} size="middle" />
-              <Button type="default" color="error" danger onClick={() => this.deleteGarmentsReceiptNote(record)} icon={<DeleteOutlined />} size="middle" />
+              <Button type="primary" onClick={() => this.editPurchaseOrder(record.id)} icon={<EditOutlined />} size="middle" />
+              <Button type="default" color="error" danger onClick={() => this.deletePurchaseOrder(record)} icon={<DeleteOutlined />} size="middle" />
             </Space>
           ),
         },
@@ -65,20 +67,18 @@ class ListGarmentsReceiptNote extends PureComponent {
     }
   }
 
-  editGarmentsReceiptNote = (id) => {
+  editPurchaseOrder = (id) => {
     console.log(id);
-    this.props.history.push('/transactions/edit_garments_receipt_note/' + id)
+    this.props.history.push('/transactions/edit_yarn_purchase_order/' + id)
   }
 
   confirmDelete = (id) => {
-    deleteRequest('garments/garmentsReceiptNote?id=' + id).then(data => {
+    deleteRequest('garments/PurchaseOrder?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
     })
   }
-
-  
   hideMoal = () => {
     this.setState({
       ...this.state,
@@ -98,9 +98,7 @@ class ListGarmentsReceiptNote extends PureComponent {
     })
   }
 
-
-
-  deleteGarmentsReceiptNote = (user) => {
+  deletePurchaseOrder = (user) => {
     const id = user.id
     console.log(id);
     const name = user.vouno;
@@ -116,18 +114,19 @@ class ListGarmentsReceiptNote extends PureComponent {
 
   componentDidMount = () => {
     seo({
-      title: 'List Garments Receipt Note',
-      metaDescription: 'List Garments Receipt Note'
+      title: 'List Purchase Order',
+      metaDescription: 'List Purchase Order'
     });
-    getRequest('garments/garmentsReceiptNote').then(data => {
+    getRequest('garments/purchaseOrder').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{
           item.sno = index +1;
           item.action =  <Space size="middle">
-          <Button type="primary" onClick={() => this.editGarmentsReceiptNote(item.id)} icon={<EditOutlined />} size="middle" />
-          <Button type="default" color="error" danger onClick={() => this.deleteGarmentsReceiptNote(item)} icon={<DeleteOutlined />} size="middle" />
-          <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" />
+          <Button type="primary" onClick={() => this.editPurchaseOrder(item.id)} icon={<EditOutlined />} size="middle" />
+          <Button type="default" color="error" danger onClick={() => this.deletePurchaseOrder(item)} icon={<DeleteOutlined />} size="middle" />
+          {/* <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" /> */}
+
         </Space>
 
         newData.push(item)
@@ -143,7 +142,6 @@ class ListGarmentsReceiptNote extends PureComponent {
     // }
   }
 
-  
   printDiv = () => {
     var printContents = document.getElementById('printableArea').innerHTML;
      var originalContents = document.body.innerHTML;
@@ -156,23 +154,21 @@ class ListGarmentsReceiptNote extends PureComponent {
      window.location.reload();
   }
 
-
-
   render() {
     return (
       <Fragment>
         <div className="row">
           <div className="col-md-10"></div>
           <div className="col-md-2" align="right">
-            <Button type="primary" onClick={() => { this.props.history.push("/transactions/add_garments_receipt_note") }}> Add </Button>
+            <Button type="primary" onClick={() => { this.props.history.push("/transactions/add_yarn_purchase_order") }}> Add </Button>
           </div>
           <br />
           <br />
         </div>
+        {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
         <DataTable data={this.state} ></DataTable>
-
-        <Modal
-          title="Garments Delivery Note"
+        {/* <Modal
+          title="Yarn Purchase Order"
           centered
           width={1000}
           visible={this.state.showPrint}
@@ -181,12 +177,11 @@ class ListGarmentsReceiptNote extends PureComponent {
           onCancel={() => this.hideMoal(false)}
         >
           <Report itemId={this.state.selectedItem.id} id="printableArea" />
-        </Modal> 
-
+        </Modal> */}
       </Fragment>
     )
   }
 }
 
 
-export default withRouter(ListGarmentsReceiptNote);
+export default withRouter(ListPurchaseOrder);

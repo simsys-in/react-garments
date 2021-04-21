@@ -294,8 +294,9 @@ class AddGarmentsInvoice extends PureComponent{
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
                 this.getGarmentsDeliveryNoteInventoryDetails(data.data.ledger_id)
-
-            
+                data.data.garments_invoice_inventory.map((item, index) => {
+                    this.getSizeForProductId(item.product_id,index)
+                })            
             })
 
         }
