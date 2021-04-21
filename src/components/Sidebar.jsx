@@ -53,11 +53,11 @@ class Sidebar extends PureComponent {
     render(){
         const { theme } = this.props.store;
         return(
-            <Sider theme={ theme.theme } breakpoint="md" style={{
+            <Sider theme={ theme.theme } breakpoint="xxl" style={{
                 overflow: 'auto',
                 height: '100vh',
                 position: 'fixed',
-                width : '80px',
+                // width : '80px',
                 left: 0,
               }} collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} >
                   <div>
