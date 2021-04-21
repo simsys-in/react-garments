@@ -5,7 +5,7 @@ import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
 import DataTable from '../../../components/Datatable';
-// import Report from './report';
+import Report from './report';
 
 
 class ListPurchaseOrder extends PureComponent {
@@ -125,7 +125,7 @@ class ListPurchaseOrder extends PureComponent {
           item.action =  <Space size="middle">
           <Button type="primary" onClick={() => this.editPurchaseOrder(item.id)} icon={<EditOutlined />} size="middle" />
           <Button type="default" color="error" danger onClick={() => this.deletePurchaseOrder(item)} icon={<DeleteOutlined />} size="middle" />
-          {/* <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" /> */}
+          <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" />
 
         </Space>
 
@@ -167,7 +167,7 @@ class ListPurchaseOrder extends PureComponent {
         </div>
         {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
         <DataTable data={this.state} ></DataTable>
-        {/* <Modal
+        <Modal
           title="Yarn Purchase Order"
           centered
           width={1000}
@@ -177,7 +177,7 @@ class ListPurchaseOrder extends PureComponent {
           onCancel={() => this.hideMoal(false)}
         >
           <Report itemId={this.state.selectedItem.id} id="printableArea" />
-        </Modal> */}
+        </Modal>
       </Fragment>
     )
   }

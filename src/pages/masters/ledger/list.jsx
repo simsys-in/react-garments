@@ -29,7 +29,7 @@ class ListLedger extends PureComponent {
         },
         {
           label: 'Address',
-          field: 'Address',
+          field: 'address',
           width: "300px",
           key: 'Address',
           defaultSortOrder: 'ascend',

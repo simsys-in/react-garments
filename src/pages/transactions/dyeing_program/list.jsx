@@ -121,7 +121,7 @@ class ListDyeingProgram extends PureComponent {
           item.action =  <Space size="middle">
           <Button type="primary" onClick={() => this.editDyeingProgram(item.id)} icon={<EditOutlined />} size="middle" />
           <Button type="default" color="error" danger onClick={() => this.deleteDyeingProgram(item)} icon={<DeleteOutlined />} size="middle" />
-          <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" />
+          {/* <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" /> */}
         </Space>
 
 
