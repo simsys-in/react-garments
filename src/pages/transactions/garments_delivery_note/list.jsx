@@ -145,7 +145,7 @@ class ListGarmentsDeliveryNote extends PureComponent {
 
   
   printDiv = () => {
-    var printContents = document.getElementById('printable-area').innerHTML;
+    var printContents = document.getElementById('printableArea').innerHTML;
      var originalContents = document.body.innerHTML;
 
      document.body.innerHTML = printContents;
@@ -179,8 +179,8 @@ class ListGarmentsDeliveryNote extends PureComponent {
           okText="Print"
           onCancel={() => this.hideMoal(false)}
         >
-          <Report itemId={this.state.selectedItem.id} id="printable-area" />
-        </Modal>
+          <Report itemId={this.state.selectedItem.id} id="printableArea" />
+        </Modal> 
 
       </Fragment>
     )

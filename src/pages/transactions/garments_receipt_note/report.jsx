@@ -29,7 +29,7 @@ class Report extends PureComponent {
         getRequest('garments/getGarmentsReceiptNotePrint?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
-                if(data.data.inventories.length < 7)
+                if(data.data.inventories.length < 4)
                 {
                     var item = {
                         product : '',
@@ -61,10 +61,10 @@ class Report extends PureComponent {
                     //     item.size_data.push(size_obj);
                     // }
 
-                    for(var i=data.data.inventories.length; i < 7; i++ )
+                    for(var i=data.data.inventories.length; i < 4; i++ )
                     {
                         data.data.inventories.push(item);
-                        if(i === 6)
+                        if(i === 3)
                         {
                             this.setState({
                                 ...this.state,
