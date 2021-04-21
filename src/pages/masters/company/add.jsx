@@ -150,7 +150,7 @@ class AddCompany extends PureComponent{
                             </div>
                             
                             <div className="row">
-                                <Textbox required="true" label="Currency"  modelName="currency_code" className="col-md-12"></Textbox>
+                                <Textbox required="false" label="Currency"  modelName="currency_code" className="col-md-12"></Textbox>
                                 {/* <Datebox label="Date Of Birth" value={this.state.formData.dob}  modelName="dob" className="col-md-6"></Datebox> */}
                             </div>
                             <div className="row">
@@ -158,11 +158,11 @@ class AddCompany extends PureComponent{
                             </div>
                             <div className="row">
 
-                            <Textbox required="true" modelName="apikey" label="API Key" className="col-md-12" options={this.state.shift} value={this.state.formData.shift_id} ></Textbox> 
+                            <Textbox required="false" modelName="apikey" label="API Key" className="col-md-12" options={this.state.shift} value={this.state.formData.shift_id} ></Textbox> 
 
                              </div>
                             <div className="row">
-                                <Textbox label="E Mail" required="true" modelName="email" className="col-md-12"></Textbox>
+                                <Textbox label="E Mail" required="false" modelName="email" className="col-md-12"></Textbox>
                             </div>
 
 
@@ -170,25 +170,25 @@ class AddCompany extends PureComponent{
 
 
                             <div className="row">
-                                <Textbox label="Tin" required="true" modelName="tin" className="col-md-12"></Textbox>
+                                <Textbox label="Tin" required="false" modelName="tin" className="col-md-12"></Textbox>
                             </div>
                             <div className="row">
                                 <Datebox label="Acc Start Date" required="false" modelName="acc_start_date" value={this.state.formData.acc_start_date} className="col-md-12"></Datebox>
                             </div>
                             <div className="row">
-                                <Textbox label="Inventory Decimal" required="true" modelName="inventory_decimal" className="col-md-12"></Textbox>
+                                <Textbox label="Inventory Decimal" required="false" modelName="inventory_decimal" className="col-md-12"></Textbox>
                             </div>
                             <div className="row">
-                                <Textbox label="GST No" required="true" modelName="gstno" className="col-md-12" ></Textbox>
+                                <Textbox label="GST No" required="false" modelName="gstno" className="col-md-12" ></Textbox>
                             </div>
                             <div className="row">
-                                <Textbox label="Week Start Day" required="true" modelName="week_start_day" className="col-md-12" ></Textbox>
+                                <Textbox label="Week Start Day" required="false" modelName="week_start_day" className="col-md-12" ></Textbox>
                             </div>
                             <div className="row">
-                                <Textbox label="CST" required="true" modelName="cst" className="col-md-12" ></Textbox>
+                                <Textbox label="CST" required="false" modelName="cst" className="col-md-12" ></Textbox>
                             </div>
                             <div className="row">
-                                <Textbox label="Currency Decimal" required="true" modelName="currency_decimal" className="col-md-12"></Textbox>
+                                <Textbox label="Currency Decimal" required="false" modelName="currency_decimal" className="col-md-12"></Textbox>
                             </div>
                             </div>
                         <div className="col-md-6">
@@ -198,7 +198,7 @@ class AddCompany extends PureComponent{
 
 
                             <div className="row">
-                                <Textbox label="Address" required="true" modelName="address" className="col-md-12"></Textbox>
+                                <Textbox label="Address" required="false" modelName="address" className="col-md-12"></Textbox>
                             </div>
 
 

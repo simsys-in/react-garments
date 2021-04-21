@@ -630,7 +630,7 @@ class AddYarn_Invoice extends PureComponent{
                                    ) }
                                   </Form.List>
                                   <tr>
-                                  <td colSpan={4} style={{textAlign:'right'}}> <h6> Total</h6></td>   
+                                  <td colSpan={5} style={{textAlign:'right'}}> <h6> Total</h6></td>   
 
                                         <td><Numberbox noPlaceholder required="false" withoutMargin showLabel={false} className="col-md-12" modelName="inventory_qty_bag_total" value={this.state.formData.inventory_qty_bag_total} disabled label="Total Bags" ></Numberbox></td>
 
