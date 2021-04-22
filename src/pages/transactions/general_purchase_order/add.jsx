@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Form, Button, Divider, message  } from 'antd';
+import { Form, Button, Divider, message, Input  } from 'antd';
 import { connect } from 'react-redux';
 import { seo } from '../../../helpers/default';
 import { getRequest, postRequest, putRequest } from '../../../helpers/apihelper';
@@ -18,8 +18,24 @@ import { issetNotEmpty } from '../../../helpers/formhelpers';
 
 let interval;
 
+const paymentMode = [
+    {
+        name : "Cash",
+        value : 'cash'
+    },
+    {
+        name : "Cheque",
+        value : 'cheque'
+    },
+    {
+        name : "Internet Banking",
+        value : "internet_banking"
+    }
+]
 
-class AddPurchaseOrder extends PureComponent{
+
+
+class AddGeneralPurchaseOrder extends PureComponent{
     formRef = React.createRef();
     constructor(props){
         super(props);
@@ -30,7 +46,13 @@ class AddPurchaseOrder extends PureComponent{
             formData : {
                 status : 'active',
                 vou_date : moment(),
-                purchase_order_inventory : [
+                ledger_id : '',
+                delivery_address : '',
+                vouno : '',
+                narration: '',
+                payment_mode : '',
+                payment_terms_conditions : '',
+                general_purchase_order_inventory : [
                     {  
                         
                         
@@ -51,6 +73,7 @@ class AddPurchaseOrder extends PureComponent{
             yarn_data : [],
             unit_data: [],
             order_no : [],
+            product : []
            
         }
         this.id = this.props.match.params.id;
@@ -79,19 +102,20 @@ class AddPurchaseOrder extends PureComponent{
    
   
 
-    getYarnSB = () => {
-
-        getRequest('garments/getYarnSB').then(data => {
+    getAllProductSB = (order_id = null) => {
+        
+        getRequest('garments/getAllProductSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
                     ...this.state,
-                    yarn_data : data.data
+                    product : data.data
                 })
             }
         })
     }
 
+   
     getUnitSB = () => {
         getRequest('garments/getUnitSB').then(data => {
             if(data.status === "info")
@@ -109,17 +133,17 @@ class AddPurchaseOrder extends PureComponent{
 
     setTOTAL =() => {
         var values =  this.formRef.current.getFieldValue();
-        var purchase_order_inventory = values.purchase_order_inventory;
+        var general_purchase_order_inventory = values.general_purchase_order_inventory;
         var total_qty = 0;
         var total_amount = 0;
-        purchase_order_inventory.map((item, index) => {
+        general_purchase_order_inventory.map((item, index) => {
             // console.log(item);
             item.amount = item.qty *item.rate; 
         
                 total_qty += Number(item.qty)
                 total_amount += Number(item.amount)
 
-                if(index === purchase_order_inventory.length - 1)
+                if(index === general_purchase_order_inventory.length - 1)
                 {
                     this.setState({
                         ...this.state,
@@ -157,19 +181,19 @@ class AddPurchaseOrder extends PureComponent{
         }
     }
 
-    getPurchaseOrder = () => {
+    getGeneralPurchaseOrder = () => {
         console.log(this.id)
         if(this.id)
         {
-            getRequest("garments/purchaseOrder?id=" + this.id).then(data => {
+            getRequest("garments/generalPurchaseOrder?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
                 this.getMobileForLedgerId(data.data.ledger_id);
                 
 
-                data.data.purchase_order_inventory.map((item,index) => {
-                    this.getHsnAndRateForProductId(item.yarn_id, index)
+                data.data.general_purchase_order_inventory.map((item,index) => {
+                    this.getHsnAndRateForProductId(item.product_id, index)
                 })
 
                 
@@ -179,14 +203,14 @@ class AddPurchaseOrder extends PureComponent{
         }
         else{
 
-            this.getNextPurchaseOrderVouNo();
+            this.getNextGeneralPurchaseOrderVouNo();
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
         }
     }
 
-    getNextPurchaseOrderVouNo = () => {
-        getRequest('garments/getNextPurchaseOrderVouNo').then(data => {
+    getNextGeneralPurchaseOrderVouNo = () => {
+        getRequest('garments/getNextGeneralPurchaseOrderVouNo').then(data => {
             // console.log(data.max_vou_no);
             if(data.status === "info")
             {
@@ -208,10 +232,10 @@ class AddPurchaseOrder extends PureComponent{
     
  componentDidMount() {
         this.getLedgerNameSB();
-        this.getYarnSB();
+        this.getAllProductSB();
         this.getUnitSB();
         this.setTOTAL();
-        this.getPurchaseOrder();
+        this.getGeneralPurchaseOrder();
         interval = setInterval(() => {
             this.validate()
         }, 100);
@@ -224,15 +248,15 @@ class AddPurchaseOrder extends PureComponent{
 
     componentWillMount = () => {
         seo({
-            title: 'Add Purchase Order',
-            metaDescription: 'Add Purchase Order'
+            title: 'Add  Purchase Order',
+            metaDescription: 'Add  Purchase Order'
           });
 
           if(this.id)
           {
             seo({
-                title: 'Edit Purchase Order',
-                metaDescription: 'Edit Purchase Order'
+                title: 'Edit  Purchase Order',
+                metaDescription: 'Edit  Purchase Order'
               });
               console.log("Edit Page");
             }
@@ -243,10 +267,10 @@ class AddPurchaseOrder extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('garments/purchaseOrder?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/generalPurchaseOrder?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
-                    this.props.history.push('/transactions/list_yarn_purchase_order')
+                    this.props.history.push('/transactions/list_purchase_order')
                     console.log(data) 
                 }
             })
@@ -262,21 +286,21 @@ class AddPurchaseOrder extends PureComponent{
     };
 
     
-    getHsnAndRateForProductId = (yarn_id, index) => {
-        getRequest('garments/getHsnAndRateForProductId?product_id=' + yarn_id).then(data => {
+    getHsnAndRateForProductId = (product_id, index) => {
+        getRequest('garments/getHsnAndRateForProductId?product_id=' + product_id).then(data => {
             if(data.status === "info")
             {
-                var purchase_order_inventory = this.state.formData.purchase_order_inventory;
-                var currentItem = purchase_order_inventory[index];
+                var general_purchase_order_inventory = this.state.formData.general_purchase_order_inventory;
+                var currentItem = general_purchase_order_inventory[index];
                 currentItem.unit_id = data.data.unit_id;
                 currentItem.hsnsac = data.data.hsnsac;
                 currentItem.rate = data.data.purchase_amount;
-                currentItem.yarn_id = yarn_id;
+                currentItem.product_id = product_id;
                 this.setState({
                     ...this.state,
                     formData : {
                         ...this.state.formData,
-                        purchase_order_inventory : purchase_order_inventory
+                        general_purchase_order_inventory : general_purchase_order_inventory
                     },
                 },()=>{
                     this.formRef.current.setFieldsValue(this.state.formData)
@@ -309,10 +333,10 @@ class AddPurchaseOrder extends PureComponent{
     }
 
 
-    addPurchaseOrderInventory = () => {
-        var newPurchaseOrderInventory = {
+    addGeneralPurchaseOrderInventory = () => {
+        var newGeneralPurchaseOrderInventory = {
         
-            yarn_id : null,
+            product_id : null,
             unit_id: null,
             hsnsac : null,
             qty : 0,
@@ -321,31 +345,31 @@ class AddPurchaseOrder extends PureComponent{
             
         }
 
-        var oldPurchaseOrderInventoryArray = this.state.formData.purchase_order_inventory;
+        var oldGeneralPurchaseOrderInventoryArray = this.state.formData.general_purchase_order_inventory;
 
-        oldPurchaseOrderInventoryArray.push(newPurchaseOrderInventory);
+        oldGeneralPurchaseOrderInventoryArray.push(newGeneralPurchaseOrderInventory);
 
         this.setState({
             ...this.state,
             formData : {
                 ...this.state.formData,
-                purchase_order_inventory : oldPurchaseOrderInventoryArray
+                general_purchase_order_inventory : oldGeneralPurchaseOrderInventoryArray
 
             }
         })
     }
 
    
-    removePurchaseOrderInventory = (index) => {
-        var oldPurchaseOrderInventoryArray = this.state.formData.purchase_order_inventory;
+    removeGeneralPurchaseOrderInventory = (index) => {
+        var oldGeneralPurchaseOrderInventoryArray = this.state.formData.general_purchase_order_inventory;
 
-        oldPurchaseOrderInventoryArray.splice(index, 1);
+        oldGeneralPurchaseOrderInventoryArray.splice(index, 1);
         
         this.setState({
             ...this.state,
             formData : {
                 ...this.state.formData,
-                purchase_order_inventory : oldPurchaseOrderInventoryArray
+                general_purchase_order_inventory : oldGeneralPurchaseOrderInventoryArray
             }
         })
         this.setTOTAL();
@@ -362,7 +386,7 @@ class AddPurchaseOrder extends PureComponent{
             <Fragment>
                 <div className="row">
                     <div className="col-md-12" align="right">
-                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/transactions/list_yarn_purchase_order') } }>
+                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/transactions/list_purchase_order') } }>
                             { this.id ? "Back" : 'List'}
                         </Button>
                     </div>
@@ -378,7 +402,7 @@ class AddPurchaseOrder extends PureComponent{
                         
                    
                    <div className="row">
-                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
+                       <Selectbox modelName="ledger_id" autoFocus label="Ledger Name" required="true" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
                        <Textbox modelName="mobile" disabled label="Mobile" className="col-md-4" required="false"></Textbox>
                        <Textbox modelName="delivery_address"  label="Delivery Address" className="col-md-4" required="false"></Textbox>
 
@@ -390,7 +414,13 @@ class AddPurchaseOrder extends PureComponent{
 
                    </div>
                     
-                  
+                  <div className="row">
+                       <Selectbox modelName="payment_mode"  label="Payment Mode" className="col-md-4" options={paymentMode} value={this.state.formData.payment_mode} ></Selectbox>
+                      <Form.Item name={'payment_terms_conditions'} label="Terms And Conditions" className="col-md-8">
+                                            <Input.TextArea addonBefore="Terms and Conditions"  />
+                    </Form.Item>
+
+                  </div>
                   
                   
 
@@ -407,7 +437,7 @@ class AddPurchaseOrder extends PureComponent{
                                     </thead> */}
                                     <thead>
                                         <tr>
-                                            <th width="300px"> <b> Yarn</b></th>
+                                            <th width="300px"> <b> Product</b></th>
                                             <th width="300px"> <b> Unit</b></th>
 
                                             <th width="250px"> <b> HSN/SAC</b></th>
@@ -415,20 +445,20 @@ class AddPurchaseOrder extends PureComponent{
                                             <th width="200px"> <b> Rate</b></th>
                                             <th width="200px"> <b> Amount</b></th>
                                             <th width="100px">
-                                                <Button type="primary"  onClick={this.addPurchaseOrderInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
+                                                <Button type="primary"  onClick={this.addGeneralPurchaseOrderInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {/* {this.state.formData.fabrics.map((row, index) => {
                                             return ( */}
-                                                <Form.List name="purchase_order_inventory">
+                                                <Form.List name="general_purchase_order_inventory">
                                                         { (fields, { add, remove } )=> (
                                                             fields.map((field, index) => (
                                                                 <tr key={index}>
                                                                 
                                                                 <td>
-                                                                <Selectbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'yarn_id' ]}  modelName={[field.name, 'yarn_id']} value={[field.name, 'yarn_id']} onChange={(product_id) => this.getHsnAndRateForProductId(product_id, index)} options={this.state.yarn_data} label="Yarn"></Selectbox>
+                                                                <Selectbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'product_id' ]}  modelName={[field.name, 'product_id']} value={[field.name, 'product_id']} onChange={(product_id) => this.getHsnAndRateForProductId(product_id, index)} options={this.state.product} label="Product"></Selectbox>
                                                                 </td>
 
                                                                 <td><Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'unit_id' ]} disabled modelName={[field.name, 'unit_id']}  label="Unit" value={[field.name, 'unit_id']} options={this.state.unit_data} noPlaceholder withoutMargin ></Selectbox></td>
@@ -444,7 +474,7 @@ class AddPurchaseOrder extends PureComponent{
  
                                                                 </td>
                                                                 <td>
-                                                                <Numberbox noPlaceholder  required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'rate' ]}  modelName={[field.name, 'rate']} value={[field.name, 'rate']} label="Rate"></Numberbox>
+                                                                <Numberbox noPlaceholder  required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'rate' ]}  modelName={[field.name, 'rate']} onChange={(ev) => this.setTOTAL(ev,field.fieldKey)} value={[field.name, 'rate']} label="Rate"></Numberbox>
  
                                                                 </td>
                                                                 <td>
@@ -452,7 +482,7 @@ class AddPurchaseOrder extends PureComponent{
  
                                                                 </td>
                                                                 <td>
-                                                                    { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removePurchaseOrderInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
+                                                                    { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeGeneralPurchaseOrderInventory(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}
                                                                 </td>
                                                                 {/* </Fragment> */}
                                                                 </tr>
@@ -518,4 +548,4 @@ const mapDispatchToProps = {
     
   }
   
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddPurchaseOrder));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddGeneralPurchaseOrder));

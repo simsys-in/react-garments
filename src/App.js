@@ -254,10 +254,13 @@ import ListVoucher from './pages/masters/voucher/list'
 import AddReport  from './pages/masters/report/add'
 import ListReport from './pages/masters/report/list'
 
-//report
-import AddPurchaseOrder  from './pages/transactions/purchase_order/add'
-import ListPurchaseOrder from './pages/transactions/purchase_order/list'
+//purchase order
+import AddYarnPurchaseOrder  from './pages/transactions/yarn_purchase_order/add'
+import ListYarnPurchaseOrder from './pages/transactions/yarn_purchase_order/list'
 
+//general purchase order
+import AddGeneralPurchaseOrder  from './pages/transactions/general_purchase_order/add'
+import ListGeneralPurchaseOrder from './pages/transactions/general_purchase_order/list'
 
 ///// Kowsalya Workspace //////
 ///// Kowsalya Workspace //////
@@ -661,9 +664,14 @@ class App extends React.PureComponent
 
 
                               {/* purchase order */}
-                              <Route exact path="/transactions/add_yarn_purchase_order" component={AddPurchaseOrder} />
-                              <Route exact path="/transactions/edit_yarn_purchase_order/:id" component={AddPurchaseOrder} />
-                              <Route exact path="/transactions/list_yarn_purchase_order" component={ListPurchaseOrder} />
+                              <Route exact path="/transactions/add_yarn_purchase_order" component={AddYarnPurchaseOrder} />
+                              <Route exact path="/transactions/edit_yarn_purchase_order/:id" component={AddYarnPurchaseOrder} />
+                              <Route exact path="/transactions/list_yarn_purchase_order" component={ListYarnPurchaseOrder} />
+
+                              {/* General purchase order */}
+                              <Route exact path="/transactions/add_purchase_order" component={AddGeneralPurchaseOrder} />
+                              <Route exact path="/transactions/edit_purchase_order/:id" component={AddGeneralPurchaseOrder} />
+                              <Route exact path="/transactions/list_purchase_order" component={ListGeneralPurchaseOrder} />
 
                              
 

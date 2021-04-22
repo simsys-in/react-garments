@@ -8,7 +8,7 @@ import DataTable from '../../../components/Datatable';
 import Report from './report';
 
 
-class ListPurchaseOrder extends PureComponent {
+class ListYarnPurchaseOrder extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,8 +56,8 @@ class ListPurchaseOrder extends PureComponent {
           defaultSortOrder: 'ascend',
           render: (text, record) => (
             <Space size="middle">
-              <Button type="primary" onClick={() => this.editPurchaseOrder(record.id)} icon={<EditOutlined />} size="middle" />
-              <Button type="default" color="error" danger onClick={() => this.deletePurchaseOrder(record)} icon={<DeleteOutlined />} size="middle" />
+              <Button type="primary" onClick={() => this.editYarnPurchaseOrder(record.id)} icon={<EditOutlined />} size="middle" />
+              <Button type="default" color="error" danger onClick={() => this.deleteYarnPurchaseOrder(record)} icon={<DeleteOutlined />} size="middle" />
             </Space>
           ),
         },
@@ -67,13 +67,13 @@ class ListPurchaseOrder extends PureComponent {
     }
   }
 
-  editPurchaseOrder = (id) => {
+  editYarnPurchaseOrder = (id) => {
     console.log(id);
     this.props.history.push('/transactions/edit_yarn_purchase_order/' + id)
   }
 
   confirmDelete = (id) => {
-    deleteRequest('garments/PurchaseOrder?id=' + id).then(data => {
+    deleteRequest('garments/yarnPurchaseOrder?id=' + id).then(data => {
       if (data.status === "info") {
         this.props.history.go(0)
       }
@@ -98,7 +98,7 @@ class ListPurchaseOrder extends PureComponent {
     })
   }
 
-  deletePurchaseOrder = (user) => {
+  deleteYarnPurchaseOrder = (user) => {
     const id = user.id
     console.log(id);
     const name = user.vouno;
@@ -114,17 +114,17 @@ class ListPurchaseOrder extends PureComponent {
 
   componentDidMount = () => {
     seo({
-      title: 'List Purchase Order',
-      metaDescription: 'List Purchase Order'
+      title: 'List Yarn Purchase Order',
+      metaDescription: 'List Yarn Purchase Order'
     });
-    getRequest('garments/purchaseOrder').then(data => {
+    getRequest('garments/YarnPurchaseOrder').then(data => {
       if (data.status === "success") {
         var newData = [];
         data.data.map((item, index) =>{
           item.sno = index +1;
           item.action =  <Space size="middle">
-          <Button type="primary" onClick={() => this.editPurchaseOrder(item.id)} icon={<EditOutlined />} size="middle" />
-          <Button type="default" color="error" danger onClick={() => this.deletePurchaseOrder(item)} icon={<DeleteOutlined />} size="middle" />
+          <Button type="primary" onClick={() => this.editYarnPurchaseOrder(item.id)} icon={<EditOutlined />} size="middle" />
+          <Button type="default" color="error" danger onClick={() => this.deleteYarnPurchaseOrder(item)} icon={<DeleteOutlined />} size="middle" />
           <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" />
 
         </Space>
@@ -184,4 +184,4 @@ class ListPurchaseOrder extends PureComponent {
 }
 
 
-export default withRouter(ListPurchaseOrder);
+export default withRouter(ListYarnPurchaseOrder);
