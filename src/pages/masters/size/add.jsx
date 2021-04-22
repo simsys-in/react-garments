@@ -23,6 +23,16 @@ class AddSize extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 // status : 'active'
+                size : "",
+                size1 : "",
+                size2 : "",
+                size3 : "",
+                size4 : "",
+                size5 : "",
+                size6 : "",
+                size7 : "",
+                size8 : "",
+                size9 : "",
             },
             companiesList : []
         }

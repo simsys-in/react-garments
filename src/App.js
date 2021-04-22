@@ -193,6 +193,9 @@ import ListCompany from './pages/masters/company/list'
 //shortcut
 import AddShortcut from './pages/masters/shortcut/add'
 import ListShortcut from './pages/masters/shortcut/list'
+//shift
+import AddShift from './pages/masters/shift/add'
+import ListShift from './pages/masters/shift/list'
 
 
 
@@ -588,6 +591,10 @@ class App extends React.PureComponent
                               <Route exact path="/masters/edit_shortcut/:id" component={AddShortcut} />
                               <Route exact path="/masters/list_shortcut" component={ListShortcut} />
 
+                              {/* shift */}
+                              <Route exact path="/masters/add_shift" component={AddShift} />
+                              <Route exact path="/masters/edit_shift/:id" component={AddShift} />
+                              <Route exact path="/masters/list_shift" component={ListShift} />
                           
 
 

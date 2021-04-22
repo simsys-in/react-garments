@@ -24,6 +24,8 @@ class AddEmployee_Category extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 // status : 'active'
+                employee_category : "",
+
             },
             companiesList : []
         }

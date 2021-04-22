@@ -22,6 +22,7 @@ class AddMasterGroup extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 // status : 'active'
+                master_group : "",
             },
             companiesList : []
         }

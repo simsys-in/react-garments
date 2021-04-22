@@ -30,6 +30,8 @@ class AddCuttingProgram extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                style_id :"",
+                narration : "",
                 status : 'active',
                 voudate : moment(),
                 fabrics : [

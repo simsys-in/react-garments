@@ -22,6 +22,7 @@ class AddDesignation extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 // status : 'active'
+                designation : "",
             },
             companiesList : []
         }

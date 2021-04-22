@@ -67,6 +67,7 @@ class AddProduct_Category extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                product_category : "",
                 
             },
             companiesList : []

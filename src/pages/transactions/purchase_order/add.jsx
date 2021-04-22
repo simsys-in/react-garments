@@ -28,6 +28,9 @@ class AddPurchaseOrder extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                narration : "",
+                mobile : "",
+                delivery_address : "",
                 status : 'active',
                 vou_date : moment(),
                 purchase_order_inventory : [

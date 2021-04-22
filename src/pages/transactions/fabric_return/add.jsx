@@ -22,9 +22,12 @@ class AddFabricReturn extends PureComponent{
         super(props);
         this.tenant_id = this.props.match.params.tenant_id;
         this.state = {
+           
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                narration :"",
+                refno :"",
                 status : 'active',
                 vou_date : moment(),
                 narration : "",

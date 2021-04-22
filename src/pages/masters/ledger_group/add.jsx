@@ -67,6 +67,8 @@ class AddLedger_Group extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                ledger_group : "",
+                drcr : "",
                 // status : 'active'
             },
             companiesList : []

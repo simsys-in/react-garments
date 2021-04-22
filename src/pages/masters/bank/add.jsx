@@ -21,6 +21,7 @@ class AddBank extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                bank : "",
                 // status : 'active'
             },
             companiesList : []

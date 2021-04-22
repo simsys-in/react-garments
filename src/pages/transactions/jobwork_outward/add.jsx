@@ -29,6 +29,11 @@ class AddJobworkOutward extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                narration :"",
+                mobile :"",
+                vehicle_no : "",
+                style_id : "",
+                
                 status : 'active',
                 vou_date : moment(),
                 jobwork_outward_inventory : [

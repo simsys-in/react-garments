@@ -25,7 +25,24 @@ class AddCompany extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                
+                company : "",
+                currency_code : "",
+                phone : "",
+                apikey : "",
+                email : "",
+                tin : "",
+                acc_start_date : "",
+                gstno : "",
+                week_start_day : "",
+                cst : "",
+                address : "",
+                accounts_ledger : "",
+                bankacno : "",
+                bankname : "",
+                bankbranch : "",
+                ifsc : "",
+                currency_decimal: "",
+                inventory_decimal: "",
             },
             companiesList : []
         }

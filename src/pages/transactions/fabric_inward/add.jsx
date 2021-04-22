@@ -28,6 +28,8 @@ class AddFabricInward extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                narration :"",
+                refno :"",
                 status : 'active',
                 vou_date : moment(),
                 order_id : 0,

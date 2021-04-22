@@ -25,6 +25,9 @@ class AddProductGroup extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 // status : 'active'
+                product_group : "",
+                narration : "",
+
             },
             companiesList : []
         }

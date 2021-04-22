@@ -25,6 +25,8 @@ class AddYarn_Return  extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                refno : "",
+                narration : "",
                 status : 'active',
                 vou_date : moment(),
                 yarn_return_inventory : [

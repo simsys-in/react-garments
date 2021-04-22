@@ -28,6 +28,9 @@ class AddJobworkInvoice extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                narration :"",
+                mobile :"",
+                refno :"",
                 status : 'active',
                 vou_date : moment(),
                 jobwork_invoice_inventory : [

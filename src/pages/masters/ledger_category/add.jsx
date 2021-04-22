@@ -24,6 +24,7 @@ class AddLedger_Category extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 // status : 'active'
+                ledger_category : "",
             },
             companiesList : []
         }

@@ -24,6 +24,7 @@ class AddBranch extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 // status : 'active'
+                branch : "",
             },
             companiesList : []
         }

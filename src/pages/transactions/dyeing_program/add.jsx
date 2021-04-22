@@ -24,9 +24,11 @@ class AddDyeingProgram extends PureComponent{
         super(props);
         this.tenant_id = this.props.match.params.tenant_id;
         this.state = {
+           
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                narration : "",
                 status : 'active',
                 vou_date : moment(),
                 dyeing_program_inventory : [

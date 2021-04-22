@@ -20,7 +20,18 @@ class AddProduct extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status_id  : 1
+                status_id  : 1,
+                product : "",
+                product_group_id : "",
+                product_category_id : "",
+                qrcode : "",
+                // status_id : "",
+                hsnsac : "",
+                purchase_amount : "",
+                sales_amount : "",
+                unit_id : "",
+                unit2_id : "",
+                unit2_convert : "",
               
             },
             unit_data : [],

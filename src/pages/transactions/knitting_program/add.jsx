@@ -29,6 +29,7 @@ class AddKnittingProgram extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                narration : "",
                 order_id : null,
                 vou_date : moment(),
                 process_id : 11,
