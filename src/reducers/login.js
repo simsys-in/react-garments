@@ -3,11 +3,10 @@ const { SUCCESS_LOGIN, ON_LOGOUT, TOGGLE_SIDER } = require("../actionTypes");
 const initialState = {
     login: false,
     userData : {},
-    sider_collapsed : false
+    sider_collapsed : true
 }
 
 export default function Login(state=initialState, action){
-    console.log(action.payload)
     switch (action.type)
     {
         case SUCCESS_LOGIN : {
