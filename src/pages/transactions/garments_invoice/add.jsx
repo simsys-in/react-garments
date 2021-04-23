@@ -525,7 +525,7 @@ class AddGarmentsInvoice extends PureComponent{
         {
             var selectedItems = _.filter(FORMDATA.garments_invoice_inventory, (item) => {
                 console.log(item)
-                return item.selected && item.refno && item.product_id && ( item.size1_qty ||item.size2_qty ||item.size3_qty ||item.size4_qty ||item.size5_qty ||item.size6_qty || item.size7_qty ||item.size8_qty ||item.size9_qty ) && ( item.size1_rate ||item.size2_rate ||item.size3_rate ||item.size4_rate ||item.size5_rate ||item.size6_rate || item.size7_rate ||item.size8_rate ||item.size9_rate ) && item.qty && item.amount ;
+                return item.selected && item.refno && item.product_id && ( item.size1_qty ||item.size2_qty ||item.size3_qty ||item.size4_qty ||item.size5_qty ||item.size6_qty || item.size7_qty ||item.size8_qty ||item.size9_qty ) && ( item.size1_rate ||item.size2_rate ||item.size3_rate ||item.size4_rate ||item.size5_rate ||item.size6_rate || item.size7_rate ||item.size8_rate ||item.size9_rate ) && item.qty ;
             });
 
             if(selectedItems.length > 0)
