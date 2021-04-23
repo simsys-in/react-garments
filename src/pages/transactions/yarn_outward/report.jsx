@@ -88,24 +88,24 @@ class Report extends PureComponent {
                             </div>
                             <div className="col-md-6" style={{ padding : 0, border : '1px  black' }}>
 
-                                <table width={"100%"} style={{border:"gray", margin : 0, padding : 0}} border="1">
+                                <table width={"100%"} style={{border:"gray", margin : 0, padding : 0}} >
                                         <tr> 
                                             <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px lightgray' }}> <h5>YARN DELIVERY NOTE</h5> </td>
                                         </tr>
                                         <tr>
-                                            <th> DC No </th>
+                                            <th style={{paddingLeft : '5px'}}> DC No </th>
                                             <td style={{fontWeight:"bold"}}> { report_details.vouno } </td>
                                             <th> Dated </th>
                                             <td style={{fontWeight:"bold"}}> { getStandardDate(report_details.vou_date)} </td>
                                         </tr>
                                         <tr>
-                                            <th> Process </th>
+                                            <th style={{paddingLeft : '5px'}}> Process </th>
                                             <td style={{fontWeight:"bold"}}> { report_details.process } </td>
                                             <th> HSN Code </th>
                                             <td style={{fontWeight:"bold"}}> {report_details.hsnsac}</td>
                                         </tr>
                                         <tr>
-                                            <th> Order No </th>
+                                            <th style={{paddingLeft : '5px'}}> Order No </th>
                                             <td style={{fontWeight:"bold"}}> {report_details.order_no}</td>
                                         
                                             <th> Vehicle</th>
@@ -124,12 +124,12 @@ class Report extends PureComponent {
                                     <thead>
                                         <tr  style={{ backgroundColor : 'lightgray' }}>
                                           
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}} >FABRIC</th>
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}} >GSM</th>
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}} >Counts</th>
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}} >Qty Per</th>
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}} >Qty Bag</th>
-                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}} >Qty Kg </th>
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >FABRIC</th>
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >GSM</th>
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >Counts</th>
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >Qty Per</th>
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >Qty Bag</th>
+                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >Qty Kg </th>
                                            
                                            
                                         </tr>

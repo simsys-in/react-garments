@@ -206,32 +206,32 @@ class Report extends PureComponent {
                                 <table  width="100%"  >
                                     <thead>
                                         <tr >
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> #Style </b></th>
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Color </b></th>
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> #HSN </b></th>
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> GST </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> #Style </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Color </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> #HSN </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> GST </b></th>
 
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
 
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
 
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
 
-                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
 
-                                           <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                           <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
 
-                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
 
-                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
 
-                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
 
-                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
 
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
                                             
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Unit </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Unit </b></th>
                                            
                                         </tr>
                                     </thead>

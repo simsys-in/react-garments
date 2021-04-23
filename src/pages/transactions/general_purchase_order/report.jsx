@@ -16,23 +16,25 @@ class Report extends PureComponent {
     }
 
     componentDidMount = () => {
-        getRequest('garments/getYarnInvoiceReport?id=' + this.props.itemId).then(data => {
+        getRequest('garments/getGeneralPurchaseOrderReport?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
-                if(data.data.inventory.length < 14)
+                if(data.data.inventory.length < 7)
                 {
                     var item = {
-                        fabric_id : '',
+                        yarn_id : '',
+                        hsnasc : '',
+                        count : '',
                         gsm : '',
-                        // counts : '',
                         amount : '',
                         rate : '',
-                        qty_kg : '',
+                        unit_id : '',
+                        qty : '',
                     }
-                    for(var i=data.data.inventory.length; i < 14; i++ )
+                    for(var i=data.data.inventory.length; i < 7; i++ )
                     {
                         data.data.inventory.push(item);
-                        if(i === 13)
+                        if(i === 6)
                         {
                             this.setState({
                                 ...this.state,
@@ -78,7 +80,7 @@ class Report extends PureComponent {
                                 </div>
                                 <hr></hr>
                                 {/* <div className="col-md-6" style={{ border : '1px lightgray', padding : 0, paddingLeft : 5 }}> */}
-                                <b>Delivery to</b>
+                                <b>Consignee</b>
                                 <div style={{ marginLeft : 15 }}>
                                     <p><b>{ report_details.ledger_details.ledger } , </b></p> 
                                     <p>Address : { report_details.ledger_details.address }</p>
@@ -91,27 +93,33 @@ class Report extends PureComponent {
 
                                 <table width={"100%"} style={{border:"light gray", margin : 0, padding : 0}} >
                                         <tr> 
-                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px lightgray' }}> <h5>DELIVERY NOTE </h5> </td>
+                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px lightgray' }}> <h5>PURCHASE ORDER </h5> </td>
                                         </tr>
                                         <tr>
-                                            <th style={{paddingLeft : '5px'}}> DC No </th>
+                                            <th style={{paddingLeft : '5px'}}>  P.O No </th>
                                             <td style={{fontWeight:"bold"}}> { report_details.vouno } </td>
-                                            <th> Dated </th>
+                                            <th style={{paddingLeft : '5px'}}> P.O Dated </th>
                                             <td style={{fontWeight:"bold"}}> { getStandardDate(report_details.vou_date)} </td>
                                         </tr>
+                                        <tr></tr>
+                                        <tr></tr>
                                         <tr>
-                                            <th style={{paddingLeft : '5px'}}> Process </th>
+                                            <th style={{paddingLeft : '5px'}}>Payment Mode</th>
+                                            <td style={{fontWeight:"bold"}}> {report_details.payment_mode}</td>
+                                        </tr>
+                                        {/* <tr>
+                                            <th> Process </th>
                                             <td style={{fontWeight:"bold"}}> { report_details.process } </td>
                                             <th> HSN Code </th>
                                             <td style={{fontWeight:"bold"}}> {report_details.hsnsac}</td>
                                         </tr>
                                         <tr>
-                                            <th style={{paddingLeft : '5px'}}> Order No </th>
+                                            <th> Order No </th>
                                             <td style={{fontWeight:"bold"}}> {report_details.order_no}</td>
                                         
                                             <th></th>
                                             <td></td>
-                                        </tr>
+                                        </tr> */}
                                         
                                        
                                         
@@ -125,13 +133,14 @@ class Report extends PureComponent {
                                     <thead>
                                         <tr  style={{ backgroundColor : 'lightgray' }}>
                                           
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', textAlign:"center", paddingLeft : '5px'}}>FABRIC</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', textAlign:"center", paddingLeft : '5px'}}>GSM</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', textAlign:"center", paddingLeft : '5px'}}>Counts</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', textAlign:"center", paddingLeft : '5px'}}>Qty Kg </th>
-                                           
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', textAlign:"center", paddingLeft : '5px'}}>Rate</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', textAlign:"center", paddingLeft : '5px'}}>Amount</th>
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 350 , textAlign:"center"}}>PRODUCT</th>
+                                            {/* <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100}}>Count</th>
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100}}>GSM</th> */}
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100, textAlign:"center"}}>HSN/SAC</th>
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100, textAlign:"center"}}>Qty / Unit</th>
+                                            {/* <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100}}>UNIT</th> */}
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100, textAlign:"center"}}>Rate</th>
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100, textAlign:"center"}}>Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -142,26 +151,30 @@ class Report extends PureComponent {
                                                
                                                 <td style={{ paddingTop: item.product === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', borderRight : '1px solid grey'}}>{ item.product }</td>
 
-                                                <td style={{paddingTop: item.gsm === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.gsm }</td>
+                                                {/* <td style={{ paddingTop: item.count === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', borderRight : '1px solid grey'}}>{ item.count }</td>
+                                                <td style={{ paddingTop: item.gsm === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', borderRight : '1px solid grey'}}>{ item.gsm }</td> */}
 
-                                                <td style={{paddingTop: item.counts === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.counts }</td>
+                                                <td style={{paddingTop: item.hsnsac === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.hsnsac }</td>
 
-                                                <td style={{paddingTop: item.qty_kg === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.qty_kg !=="" && Number(item.qty_kg ).toFixed(3) }</td>
+                                                <td style={{paddingTop: item.qty === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.qty !=="" && Number(item.qty).toFixed(3) + " " + item.unit }</td>
+                                                {/* <td style={{paddingTop: item.unit === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.unit }</td> */}
 
-                                                <td style={{paddingTop: item.rate === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.rate }</td>
+
+                                                <td style={{paddingTop: item.rate === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.rate !=="" && Number(item.rate).toFixed(2) }</td>
 
                                                 <td style={{paddingTop: item.amount === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px', borderRight : '1px solid grey'}}>{ item.amount !=="" && Number(item.amount).toFixed(2) }</td>
                                             </tr>
                                         )}
 
                                         <tr>
-                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}} colSpan={3}>GRAND TOTAL</td>
+                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}} colSpan={2}>GRAND TOTAL</td>
                                            
-                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}>{report_details.inventorytotal[0].inventory_qty_kg_total !== "" && Number(report_details.inventorytotal[0].inventory_qty_kg_total).toFixed(3)}</td>
+                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}>{report_details.inventory_qty_total !== "" && Number(report_details.inventory_qty_total).toFixed(3)}</td>
 
+                                            {/* <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}></td> */}
                                             <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}></td>
                                             
-                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}>{report_details.inventorytotal[0].inventory_amount_total !== "" && Number(report_details.inventorytotal[0].inventory_amount_total).toFixed(2)}</td>
+                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}>{report_details.inventory_amount_total !== "" && Number(report_details.inventory_amount_total).toFixed(2)}</td>
                                             
                                         </tr>
                                          </tbody>
@@ -172,10 +185,11 @@ class Report extends PureComponent {
                             <div className="col-md-6" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5 }}>
                                 <p style={{textDecorationLine: 'underline'}}>Terms</p>
                                 {/* <p style={{ whiteSpace : 'pre-line' }}> Payment should be made by DD/pay order/Cheque or  RTGS in favour of "<b style={{fontWeight:"bold"}}>{ report_details.company_details.company }</b>"</p> */}
-                                <p style={{ whiteSpace : 'pre-line' }}>  Any discrepancy found in this invoice should be notified imediately Subject to "Tirupur Jurisdiction only".</p>
+                                <p style={{ whiteSpace : 'pre-line' }}>{ report_details.payment_terms_conditions}</p>
                             </div>
                             <div className="col-md-3" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5}}>
                                 <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
+                                    <br />
                                     Receiver's Seal Signature
                                 </div>
                             </div>
