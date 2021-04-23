@@ -195,9 +195,9 @@ class AddGeneralPurchaseOrder extends PureComponent{
                 this.getMobileForLedgerId(data.data.ledger_id);
                 
 
-                data.data.general_purchase_order_inventory.map((item,index) => {
-                    this.getHsnAndRateForProductId(item.product_id, index)
-                })
+                // data.data.general_purchase_order_inventory.map((item,index) => {
+                //     this.getHsnAndRateForProductId(item.product_id, index)
+                // })
 
                 
                
@@ -463,10 +463,10 @@ class AddGeneralPurchaseOrder extends PureComponent{
                                     <thead>
                                         <tr>
                                             <th width="300px"> <b> Product</b></th>
-                                            <th width="300px"> <b> Unit</b></th>
 
                                             <th width="250px"> <b> HSN/SAC</b></th>
                                             <th width="200px"> <b> Qty</b></th>
+                                            <th width="300px"> <b> Unit</b></th>
                                             <th width="200px"> <b> Rate</b></th>
                                             <th width="200px"> <b> Amount</b></th>
                                             <th width="100px">
@@ -486,7 +486,7 @@ class AddGeneralPurchaseOrder extends PureComponent{
                                                                 <Selectbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'product_id' ]}  modelName={[field.name, 'product_id']} value={[field.name, 'product_id']} onChange={(product_id) => this.getHsnAndRateForProductId(product_id, index)} options={this.state.product} label="Product"></Selectbox>
                                                                 </td>
 
-                                                                <td><Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'unit_id' ]} disabled modelName={[field.name, 'unit_id']}  label="Unit" value={[field.name, 'unit_id']} options={this.state.unit_data} noPlaceholder withoutMargin ></Selectbox></td>
+                                                               
 
                                                                 <td>
                                                                 <Textbox label="HSN/SAC"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'hsnsac' ]} disabled modelName={[field.name, 'hsnsac']} value={[field.name, 'hsnsac']}  ></Textbox>  
@@ -498,6 +498,7 @@ class AddGeneralPurchaseOrder extends PureComponent{
                                                                 <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']}   label="Qty" onChange={this.setTOTAL}></Numberbox>
  
                                                                 </td>
+                                                                <td><Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'unit_id' ]} disabled modelName={[field.name, 'unit_id']}  label="Unit" value={[field.name, 'unit_id']} options={this.state.unit_data} noPlaceholder withoutMargin ></Selectbox></td>
                                                                 <td>
                                                                 <Numberbox noPlaceholder  required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'rate' ]}  modelName={[field.name, 'rate']} onChange={(ev) => this.setTOTAL(ev,field.fieldKey)} value={[field.name, 'rate']} label="Rate"></Numberbox>
  
@@ -515,11 +516,13 @@ class AddGeneralPurchaseOrder extends PureComponent{
                                                         )}
                                                     </Form.List>
                                                     <tr style={{ backgroundColor : 'lightgray', textAlign : 'right' }}>
-                                            <td colSpan={3}> <h6> Total</h6></td>
+                                            <td colSpan={2}> <h6> Total</h6></td>
 
                                             <td > <h6> { this.state.formData.inventory_qty_total }</h6></td>
                                            
                                             <td></td>
+                                            <td></td>
+
                                             <td > <h6> { this.state.formData.inventory_amount_total }</h6></td>
                                             
                                         </tr>

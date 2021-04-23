@@ -263,7 +263,7 @@ import ListYarnPurchaseOrder from './pages/transactions/yarn_purchase_order/list
 
 //general purchase order
 import AddGeneralPurchaseOrder  from './pages/transactions/general_purchase_order/add'
-import ListGeneralPurchaseOrder from './pages/transactions/general_purchase_order/list'
+import ListGeneralPurchaseOrder from './pages/transactions/general_purchase_order/list' 
 
 ///// Kowsalya Workspace //////
 ///// Kowsalya Workspace //////

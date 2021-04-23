@@ -165,12 +165,12 @@ class Report extends PureComponent {
                                 <table  width="100%" >
                                     <thead>
                                         <tr  style={{ backgroundColor : 'lightgray' }}>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>Fabric</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>Color</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>GSM</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>Dia</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>Roll</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>Weight</th>
+                                            <th style={{fontWeight:"bold",textAlign:"center", border : '1px solid gray', paddingLeft : '5px'}}>Fabric</th>
+                                            <th style={{fontWeight:"bold",textAlign:"center", border : '1px solid gray', paddingLeft : '5px'}}>Color</th>
+                                            <th style={{fontWeight:"bold",textAlign:"center", border : '1px solid gray', paddingLeft : '5px'}}>GSM</th>
+                                            <th style={{fontWeight:"bold",textAlign:"center", border : '1px solid gray', paddingLeft : '5px'}}>Dia</th>
+                                            <th style={{fontWeight:"bold",textAlign:"center", border : '1px solid gray', paddingLeft : '5px'}}>Roll</th>
+                                            <th style={{fontWeight:"bold",textAlign:"center", border : '1px solid gray', paddingLeft : '5px'}}>Weight</th>
                                         </tr>
                                     </thead>
                                     <tbody>

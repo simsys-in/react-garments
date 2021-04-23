@@ -73,7 +73,7 @@ class Report extends PureComponent {
                       <div className="col-md-12">
                         <div >
                         <div className="row flex-nowrap" >
-                            <div className="col-md-8" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-6" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5 }}>
 
                                 <h6 style={{fontWeight:"bold"}}>   { report_details.company_details.company } </h6>
                                 <div style={{ marginLeft : 15 }}>
@@ -93,20 +93,20 @@ class Report extends PureComponent {
                                 </div>
                             {/* </div> */}
                             </div>
-                            <div className="col-md-4" style={{ padding : 0,border : '1px solid gray' }}>
+                            <div className="col-md-6" style={{ padding : 0,border : '1px solid gray' ,textAlign:"center"}}>
 
-                                <table width={"100%"} style={{border:"lightgray", margin : 0, padding : 0}} border="1">
+                                <table width={"100%"} style={{border:"lightgray",textAlign:"center", margin : 0, padding : 0}} border="1">
                                         <tr> 
-                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px lightgray' }}> <h5> Jobwork Invoice </h5> </td>
+                                            <td colSpan={4} style={{ backgroundColor : 'lightgray',textAlign:"center", textAlign: 'center', border : '1px lightgray' }}> <h5> Jobwork Invoice </h5> </td>
                                         </tr>
                                         <tr>
-                                            <th> DC No <br />
+                                            <th  style={{paddingLeft : '5px'}}> DC No <br />
                                             <p style={{fontWeight:"bold"}}> { report_details.vouno }</p></th>
                                             <th> Dated <br />
                                             <p style={{fontWeight:"bold"}}> { getStandardDate(report_details.vou_date)} </p></th>
                                         </tr>
                                         <tr>
-                                            <th> HSN Code <br />
+                                            <th  style={{paddingLeft : '5px'}}> HSN Code <br />
                                             <p style={{fontWeight:"bold"}}> {report_details.hsnsac} </p></th>
                                         
                                             <th></th>
@@ -124,13 +124,13 @@ class Report extends PureComponent {
                                     <thead>
                                         <tr  style={{ backgroundColor : 'lightgray' }}>
                                           
-                                            <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>ORDER NO</th>
-                                            <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>PRODUCT</th>
-                                            <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>SIZE</th>
-                                            <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>QTY </th>
+                                            <th style={{fontWeight:"bold",border : '1px solid gray', textAlign:"center",  paddingLeft : '5px'}}>ORDER NO</th>
+                                            <th style={{fontWeight:"bold",border : '1px solid gray', textAlign:"center",  paddingLeft : '5px'}}>PRODUCT</th>
+                                            <th style={{fontWeight:"bold",border : '1px solid gray', textAlign:"center",  paddingLeft : '5px'}}>SIZE</th>
+                                            <th style={{fontWeight:"bold",border : '1px solid gray', textAlign:"center",  paddingLeft : '5px'}}>QTY </th>
                                            
-                                            <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>RATE</th>
-                                            <th style={{fontWeight:"bold", border : '1px light gray', paddingLeft : '5px'}}>AMOUNT</th>
+                                            <th style={{fontWeight:"bold",border : '1px solid gray', textAlign:"center",  paddingLeft : '5px'}}>RATE</th>
+                                            <th style={{fontWeight:"bold",border : '1px solid gray', textAlign:"center",  paddingLeft : '5px'}}>AMOUNT</th>
                                         </tr>
                                     </thead>
                                     <tbody>

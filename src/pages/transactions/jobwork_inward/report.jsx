@@ -98,25 +98,25 @@ class Report extends PureComponent {
                                             <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid gray' }}> <h5> JOBWORK DELIVERY NOTE </h5> </td>
                                         </tr>
                                         <tr>
-                                            <th> DC No </th>
+                                            <th  style={{paddingLeft : '5px'}}> DC No </th>
                                             <td style={{fontWeight:"bold"}}> { report_details.dcno }</td>
                                             <th> Dated </th>
                                             <td style={{fontWeight:"bold"}}> { getStandardDate(report_details.vou_date)} </td>
                                         </tr>
                                         <tr>
-                                            <th> Process </th>
+                                            <th  style={{paddingLeft : '5px'}}> Process </th>
                                             <td style={{fontWeight:"bold"}}> { report_details.process }</td>
                                             <th> HSN Code </th>
                                             <td style={{fontWeight:"bold"}}> {report_details.hsnsac} </td>
                                         </tr>
                                         <tr>
-                                            <th> Order No </th>
+                                            <th  style={{paddingLeft : '5px'}}> Order No </th>
                                             <td style={{fontWeight:"bold"}}> { report_details.order_no }</td>
                                             <th> Vehicle No </th>
                                             <td style={{fontWeight:"bold"}}> {report_details.vehicle_no} </td>
                                         </tr>
                                         <tr>
-                                            <th> Product </th>
+                                            <th  style={{paddingLeft : '5px'}}> Product </th>
                                             <td style={{fontWeight:"bold"}}> { report_details.product }</td>
                                             <th>  </th>
                                             <td>  </td>
@@ -161,12 +161,12 @@ class Report extends PureComponent {
                                 <table  width="100%" >
                                     <thead>
                                         <tr  style={{ backgroundColor : 'lightgray' }}>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>Color</th>
+                                            <th style={{fontWeight:"bold", border : '1px solid gray',textAlign:"center" ,paddingLeft : '5px'}}>Color</th>
                                             { report_details.color_size_details.map((size,index) => 
                                             size !== "" &&
-                                                    <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>{ size }</th>
+                                                    <th style={{fontWeight:"bold", border : '1px solid gray',textAlign:"center" ,paddingLeft : '5px'}}>{ size }</th>
                                                 ) }
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px'}}>Qty</th>
+                                            <th style={{fontWeight:"bold", border : '1px solid gray',textAlign:"center" ,paddingLeft : '5px'}}>Qty</th>
                                         </tr>
                                     </thead>
                                     <tbody>
