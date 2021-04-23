@@ -23,7 +23,12 @@ class Report extends PureComponent {
         getRequest('garments/getDyeingProgramReport?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
-
+                var total_rolls = 0;
+                var total_weight = 0;
+                data.data.color_details.map(item => {
+                    total_rolls += item.rolls;
+                    total_weight += item.weight;
+                })
                 if(data.data.color_details.length < 7)
                 {
                     var item = {
