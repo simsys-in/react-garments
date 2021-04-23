@@ -13,6 +13,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes, faTintSlash } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash';
 import Checkbox from 'antd/lib/checkbox/Checkbox';
+import { issetNotEmpty } from '../../../helpers/formhelpers';
+
 
 
 let interval;
@@ -498,7 +500,30 @@ class AddGarmentsDeliveryNote extends PureComponent{
 
     // }
 
+    checkButtonDisabled = () => {
+        const FORMDATA = this.state.formData;
+
+        if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.marketing_user_id)) 
+        {
+            var selectedItems = _.filter(FORMDATA.garments_delivery_note_inventory, (item) => {
+                console.log(item)
+                return  item.product_id && item.color_id &&  item.unit_id &&( item.size1_qty ||item.size2_qty ||item.size3_qty ||item.size4_qty ||item.size5_qty ||item.size6_qty || item.size7_qty ||item.size8_qty ||item.size9_qty )  && item.qty  ;
+            });
+
+            if(selectedItems.length > 0)
+            {
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        else{
+            return true;
+        }
+    }
    
+
   
 
     render(){
@@ -726,7 +751,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
                    <div className="row">
                        <div className="col-md-12">
                            <Form.Item>
-                               <Button type="primary" disabled={ this.state.buttonDisabled }  htmlType="button" onClick={this.onFinish} loading={this.state.buttonLoading}>
+                               <Button type="primary" disabled={ this.checkButtonDisabled()}  htmlType="button" onClick={this.onFinish} loading={this.state.buttonLoading}>
                                { this.id ? "Update" : 'Submit'}
                                </Button>
                            </Form.Item>

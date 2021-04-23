@@ -12,6 +12,8 @@ import Datebox from '../../../components/Inputs/Datebox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import Checkbox from 'antd/lib/checkbox/Checkbox';
+import { issetNotEmpty } from '../../../helpers/formhelpers';
+import _ from 'lodash';
 
 
 let interval;
@@ -405,7 +407,31 @@ class AddFabricInvoice extends PureComponent{
         })
 
     }
+    
+    checkButtonDisabled = () => {
+        const FORMDATA = this.state.formData;
 
+        if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.refno))
+        {
+            var selectedItems = _.filter(FORMDATA.fabric_invoice_inventory, (item) => {
+                console.log(item)
+                return item.selected && item.fabric_id && item.color_id && item.gsm && item.dia && item.roll &&item.weight &&item.rate &&item.amount ;
+            });
+
+            if(selectedItems.length > 0)
+            {
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        else{
+            return true;
+        }
+    }
+   
+  
 
     render(){
         return(
@@ -530,7 +556,7 @@ class AddFabricInvoice extends PureComponent{
                    <div className="row">
                        <div className="col-md-12">
                            <Form.Item>
-                               <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish}  htmlType="submit" loading={this.state.buttonLoading}>
+                               <Button type="primary" disabled={  this.checkButtonDisabled()  } onClick={this.onFinish}  htmlType="submit" loading={this.state.buttonLoading}>
                                { this.id ? "Update" : 'Submit'}
                                </Button>
                            </Form.Item>

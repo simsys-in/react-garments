@@ -13,6 +13,9 @@ import Address_Template from '../../../components/Templates/Address_Template';
 import { addDays, getCurrentDate } from '../../../helpers/timer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
+import _ from 'lodash';
+import { issetNotEmpty } from '../../../helpers/formhelpers';
+
 
 // import moment from 'moment'
 
@@ -312,6 +315,33 @@ class AddOrderProgram extends PureComponent{
         })
         // this.setTOTAL();
     }
+    checkButtonDisabled = () => {
+        const FORMDATA = this.state.formData;
+
+        if(issetNotEmpty(FORMDATA.order_no) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.orderDate) && issetNotEmpty(FORMDATA.due_date) && issetNotEmpty(FORMDATA.size_id)  && issetNotEmpty(FORMDATA.style_id)   )
+        {
+            var selectedItems = _.filter(FORMDATA.order_fabric, (item) => {
+                console.log(item)
+                return  item.fabric_id  &&item.gsm &&item.dia  ;
+            });
+
+            var selectedProcess = _.filter(FORMDATA.order_process, (item) => {
+                return  item.process_id;
+            });
+
+            if(selectedItems.length > 0 && selectedProcess.length > 0)
+            {
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        else{
+            return true;
+        }
+    }
+   
 
 
     render(){
@@ -375,9 +405,9 @@ class AddOrderProgram extends PureComponent{
                                             <tr>
                                                 <td>    <Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]} modelName={[field.name, 'fabric_id']}  label="Fabric"  options={this.state.fabric_data} value={this.state.formData.fabric_id} noPlaceholder withoutMargin ></Selectbox></td>
 
-                                                <td><Textbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} modelName={[field.name, 'dia']}  noPlaceholder withoutMargin label="Dia"  ></Textbox></td>
+                                                <td><Numberbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} modelName={[field.name, 'dia']}  noPlaceholder withoutMargin label="Dia"  ></Numberbox></td>
 
-                                                <td>  <Textbox  className="col-md-12" label="Gsm" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} noPlaceholder withoutMargin ></Textbox></td>
+                                                <td>  <Numberbox  className="col-md-12" label="Gsm" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} noPlaceholder withoutMargin ></Numberbox></td>
 
                                                 <td>  { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeOrderFabrics(index)} type="primary"><FontAwesomeIcon  icon={faTimes} /></Button>}</td>
                                             </tr>
@@ -434,7 +464,7 @@ class AddOrderProgram extends PureComponent{
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
-                                <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
+                                <Button type="primary" disabled={ this.checkButtonDisabled() } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                 { this.id ? "Update" : 'Submit'}
                                 </Button>
                             </Form.Item>

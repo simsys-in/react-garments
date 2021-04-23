@@ -562,7 +562,29 @@ class AddJobworkInvoice extends PureComponent{
     //     this.setTOTAL();
     // }
 
+    checkButtonDisabled = () => {
+        const FORMDATA = this.state.formData;
 
+        if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.ledger2_id) && issetNotEmpty(FORMDATA.refno))
+        {
+            var selectedItems = _.filter(FORMDATA.jobwork_invoice_inventory, (item) => {
+                console.log(item)
+                return item.selected && item.order_id && item.product_id && item.size_id && item.qty && item.rate &&item.amount  ;
+            });
+
+            if(selectedItems.length > 0)
+            {
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        else{
+            return true;
+        }
+    }
+   
     render(){
         return(
             <Fragment>
@@ -753,7 +775,7 @@ class AddJobworkInvoice extends PureComponent{
                    <div className="row">
                        <div className="col-md-12">
                            <Form.Item>
-                               <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish}  htmlType="submit" loading={this.state.buttonLoading}>
+                               <Button type="primary" disabled={ this.checkButtonDisabled() } onClick={this.onFinish}  htmlType="submit" loading={this.state.buttonLoading}>
                                { this.id ? "Update" : 'Submit'}
                                </Button>
                            </Form.Item>

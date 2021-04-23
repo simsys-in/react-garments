@@ -11,8 +11,8 @@ import Numberbox from '../../../components/Inputs/Numberbox';
 import Datebox from '../../../components/Inputs/Datebox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
-import _ from 'lodash';
 import Checkbox from 'antd/lib/checkbox/Checkbox';
+import _ from 'lodash';
 import { issetNotEmpty } from '../../../helpers/formhelpers';
 
 
@@ -437,7 +437,29 @@ class AddKnittingProgram extends PureComponent{
 
     }
 
-    
+    checkButtonDisabled = () => {
+        const FORMDATA = this.state.formData;
+
+        if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.order_id) )
+        {
+            var selectedItems = _.filter(FORMDATA.knitting_program_inventory, (item) => {
+                console.log(item)
+                return item.selected && item.yarn_id && item.counts && item.bag && item.bag_per && item.yarn_weight &&item.fabric_id &&item.dia &&item.gsm &&item.gg &&item.ll &&item.program_weight  ;
+            });
+
+            if(selectedItems.length > 0)
+            {
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        else{
+            return true;
+        }
+    }
+   
 
     
 
@@ -624,7 +646,7 @@ class AddKnittingProgram extends PureComponent{
                    <div className="row">
                        <div className="col-md-12">
                            <Form.Item>
-                               <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
+                               <Button type="primary" disabled={ this.checkButtonDisabled() } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                { this.id ? "Update" : 'Submit'}
                                </Button>
                            </Form.Item>

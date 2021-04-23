@@ -582,6 +582,31 @@ class AddCuttingProgram extends PureComponent{
         })
     }
 
+
+    checkButtonDisabled = () => {
+        const FORMDATA = this.state.formData;
+
+        if(issetNotEmpty(FORMDATA.order_id) && issetNotEmpty(FORMDATA.voudate) && issetNotEmpty(FORMDATA.lotno) && issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.style_id)) 
+        {
+            var selectedItems = _.filter(FORMDATA.fabrics, (item) => {
+                console.log(item)
+                return  item.fabric_id && item.color_id && ( item.size1 ||item.size2 ||item.size3 ||item.size4 ||item.size5 ||item.size6 || item.size7 ||item.size8 ||item.size9 )  &&item.fabric_qty && item.fabric_return_qty && item.qty_bundle && item.fabric_wastage && item.qty && item.employee_id && item.rate && item.amount ;
+            });
+
+            if(selectedItems.length > 0)
+            {
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        else{
+            return true;
+        }
+    }
+   
+
     render(){
         return(
             <Fragment>
@@ -609,7 +634,7 @@ class AddCuttingProgram extends PureComponent{
                             <div className="row">
                                 <Selectbox autoFocus modelName="order_id" label="Order No" className="col-md-4" onChange={this.onOrderIDChange} options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
                                 <Textbox className="col-md-4" label="Lot No" modelName="lotno" ></Textbox>
-                                <Datebox  className="col-md-4" label="Vou. Date" value={this.state.formData.voudate} modelName="voudate" ></Datebox>
+                                <Datebox  className="col-md-4" label="Vou Date" value={this.state.formData.voudate} modelName="voudate" ></Datebox>
                             </div>
                             
                             <div className="row">
@@ -762,7 +787,7 @@ class AddCuttingProgram extends PureComponent{
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
-                                <Button type="primary" disabled={ this.buttonDisabled() } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
+                                <Button type="primary" disabled={ this.checkButtonDisabled()} onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                 { this.id ? "Update" : 'Submit'}
                                 </Button>
                             </Form.Item>

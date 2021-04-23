@@ -692,7 +692,33 @@ class AddJobworkOutward extends PureComponent{
         })
         this.setTOTAL();
     }
+    checkButtonDisabled = () => {
+        const FORMDATA = this.state.formData;
 
+        if(issetNotEmpty(FORMDATA.order_id) && issetNotEmpty(FORMDATA.from_process_id) && issetNotEmpty(FORMDATA.to_process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.style_id)) 
+        {
+            var selectedItems = _.filter(FORMDATA.jobwork_outward_inventory, (item) => {
+                console.log(item)
+                return  item.selected && item.color_id  &&( item.size1 ||item.size2 ||item.size3 ||item.size4 ||item.size5 ||item.size6 || item.size7 ||item.size8 ||item.size9 )  && item.qty  ;
+            });
+            var selectedProduct = _.filter(FORMDATA.jobwork_outward_product, (item) => {
+                return  item.product_id;
+            });
+
+            if(selectedItems.length > 0 && selectedProduct.length > 0)
+            {
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        else{
+            return true;
+        }
+    }
+   
+   
 
     render(){
         return(
@@ -881,7 +907,7 @@ class AddJobworkOutward extends PureComponent{
                    <div className="row">
                        <div className="col-md-12">
                            <Form.Item>
-                               <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
+                               <Button type="primary" disabled={ this.checkButtonDisabled() } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                { this.id ? "Update" : 'Submit'}
                                </Button>
                            </Form.Item>

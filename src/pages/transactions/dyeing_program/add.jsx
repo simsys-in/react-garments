@@ -12,6 +12,8 @@ import Datebox from '../../../components/Inputs/Datebox';
 import Checkbox from 'antd/lib/checkbox/Checkbox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
+import _ from 'lodash';
+import { issetNotEmpty } from '../../../helpers/formhelpers';
 
 
 
@@ -119,6 +121,7 @@ class AddDyeingProgram extends PureComponent{
                     ...this.state,
                     formData : {
                         ...this.state.formData,
+                        order_id : order_id,
                         dyeing_program_inventory : data.data
                     }
                 }, () => {
@@ -352,7 +355,31 @@ class AddDyeingProgram extends PureComponent{
         this.setTOTAL();
     }
 
-    
+    checkButtonDisabled = () => {
+        const FORMDATA = this.state.formData;
+
+        if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno) && issetNotEmpty(FORMDATA.order_id))
+        {
+            var selectedItems = _.filter(FORMDATA.dyeing_program_inventory, (item) => {
+                console.log(item)
+                return item.selected && item.fabric_id && item.color_id && item.gsm && item.dia && item.rolls &&item.weight ;
+            });
+
+            if(selectedItems.length > 0)
+            {
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        else{
+            return true;
+        }
+    }
+   
+  
+
 
     render(){
         return(
@@ -471,7 +498,7 @@ class AddDyeingProgram extends PureComponent{
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
-                                <Button type="primary" disabled={ this.state.buttonDisabled } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
+                                <Button type="primary" disabled={  this.checkButtonDisabled() } onClick={this.onFinish} htmlType="submit" loading={this.state.buttonLoading}>
                                 { this.id ? "Update" : 'Submit'}
                                 </Button>
                             </Form.Item>
