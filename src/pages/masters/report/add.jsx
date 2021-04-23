@@ -25,6 +25,10 @@ class AddReport extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 // status : 'active'
+                menu : "",
+                report_route : "",
+                route : "",
+
             },
             companiesList : []
         }

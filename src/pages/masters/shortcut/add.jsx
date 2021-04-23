@@ -20,6 +20,9 @@ class AddShortcut extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                shortcut : "",
+                icon : "",
+                url : "",
                
               
             },

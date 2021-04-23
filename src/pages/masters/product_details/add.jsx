@@ -266,7 +266,7 @@ class AddProductDetails extends PureComponent{
                    
 
                    <div className="row">
-                       <Selectbox modelName="product_id" label="Product" className="col-md-6" autoFocus options={this.state.product_data} onChange={this.onProductChange} value={this.state.formData.product_id}  ></Selectbox>
+                       <Selectbox modelName="product_id" required='true' label="Product" className="col-md-6" autoFocus options={this.state.product_data} onChange={this.onProductChange} value={this.state.formData.product_id}  ></Selectbox>
 
                        <Selectbox modelName="size_id" label="Size" className="col-md-6" required='true' options={this.state.size_data} value={this.state.formData.size_id} onChange={this.onSizeChange} ></Selectbox>
 

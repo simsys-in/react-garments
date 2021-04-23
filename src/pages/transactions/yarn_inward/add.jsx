@@ -26,6 +26,8 @@ class AddYarn_Inward extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                refno : "",
+                narration : "",
                 status : 'active',
                 vou_date : moment(),
                 order_id: 0,

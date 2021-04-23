@@ -29,6 +29,10 @@ class AddJobwork_Inward  extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                narration :"",
+                mobile :"",
+                vehicle_no : "",
+                style_id : "",
                 status : 'active',
                 vou_date : moment(),
                 adas : 1,

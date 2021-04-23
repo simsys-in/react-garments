@@ -67,7 +67,28 @@ class AddLedger extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status_id  : 1
+                status_id  : 1,
+                ledger : "",
+                alias : "",
+                ledger_group_id : "",
+                ledger_category_id : "",
+                amount : "",
+                status : "",
+                formula : "",
+                price_group : "",
+                narration : "",
+                address : "",
+                mobile : "",
+                phone : "",
+                email : "",
+                state_id : "",
+                gstno : "",
+                credit_limit : "",
+                ledger : "",
+                value : "",
+                rule : "",
+
+
             },
             companiesList : [],
             ledger_category : [],
@@ -244,25 +265,30 @@ class AddLedger extends PureComponent{
                             </div>
 
                             <div className="row">
-                                <Textbox required="false"  label="Mail" modelName="email" type="email" ></Textbox>
-                                <Textbox required="false" label="Phone" modelName="phone" ></Textbox>
+                                <Textbox required="false"  className="col-md-6" label="Mail" modelName="email" type="email" ></Textbox>
+                                <Textbox required="false"className="col-md-6" label="Phone" modelName="phone" ></Textbox>
                             </div>
                             <div className="row">
-                                <Textbox label="Mobile" required="false" modelName="mobile"></Textbox>
-                                <Textbox modelName="state_id"  required="false"  label="State"></Textbox>
+                                <Textbox label="Mobile" className="col-md-6" required="false" modelName="mobile"></Textbox>
+                                <Textbox modelName="state_id" className="col-md-6" required="false"  label="State"></Textbox>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <Divider plain orientation="left" >Statury Info</Divider>
                             <div className="row">
-                                <Textbox required="false"  label="GST No" modelName="gstno" ></Textbox>
-                                <Numberbox required="false" label="Credit Limit" modelName="credit_limit" ></Numberbox>
+                                <Textbox required="false" className="col-md-6"  label="GST No" modelName="gstno" ></Textbox>
+                                <Numberbox required="false"className="col-md-6" label="Credit Limit" modelName="credit_limit" ></Numberbox>
                             </div>
 
                             <div className="row">
-                                <Textbox required="false" className="col-md-4" label="Ledger" modelName="ledger" ></Textbox>
-                                <Textbox required="false" className="col-md-4" label="Value" modelName="value" ></Textbox>
-                                <Textbox required="false" className="col-md-4" label="Rule" modelName="rule" ></Textbox>
+                                <Textbox required="false" className="col-md-6" label="Ledger" modelName="ledger" ></Textbox>
+                                <Textbox required="false" className="col-md-6" label="Value" modelName="value" ></Textbox>
+                                {/* <Textbox required="false" className="col-md-6" label="Rule" modelName="rule" ></Textbox> */}
+                            </div>
+                            <div className="row">
+                                {/* <Textbox required="false" className="col-md-6" label="Ledger" modelName="ledger" ></Textbox>
+                                <Textbox required="false" className="col-md-6" label="Value" modelName="value" ></Textbox> */}
+                                <Textbox required="false" className="col-md-6" label="Rule" modelName="rule" ></Textbox>
                             </div>
 
 

@@ -24,6 +24,7 @@ class AddDepartment extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 // status : 'active'
+                department : "",
             },
             companiesList : []
         }

@@ -24,6 +24,9 @@ class AddMaster extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 // status : 'active'
+                master : "",
+                master_group_id : "",
+                narration : "",
             },
             companiesList : [],
             master_group_data : []

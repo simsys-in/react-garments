@@ -1,18 +1,20 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Form, Button  } from 'antd';
+import { Form, Button, Divider  } from 'antd';
 import { connect } from 'react-redux';
 import { seo } from '../../../helpers/default';
-import { getRequest, putRequest } from '../../../helpers/apihelper';
+import { getRequest, postRequest, putRequest } from '../../../helpers/apihelper';
 import { withRouter } from 'react-router';
 import moment from 'moment';
 import Textbox from '../../../components/Inputs/Textbox';
-
+import Selectbox from '../../../components/Inputs/Selectbox';
+import Numberbox from '../../../components/Inputs/Numberbox';
+import Address_Template from '../../../components/Templates/Address_Template';
 
 
 let interval;
 
 
-class AddColor extends PureComponent{
+class AddShift extends PureComponent{
     formRef = React.createRef();
     constructor(props){
         super(props);
@@ -22,7 +24,7 @@ class AddColor extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 // status : 'active'
-                color : "",
+                shift : "",
             },
             companiesList : []
         }
@@ -48,11 +50,11 @@ class AddColor extends PureComponent{
         }
     }
 
-    getColor = () => {
+    getShift = () => {
         console.log(this.id)
         if(this.id)
         {
-            getRequest("garments/color?id=" + this.id).then(data => {
+            getRequest("garments/shift?id=" + this.id).then(data => {
                 // data.data[0].dob = moment(data.data[0].dob)
                 console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
@@ -66,7 +68,7 @@ class AddColor extends PureComponent{
     }
 
     componentDidMount() {
-        this.getColor();
+        this.getShift();
         interval = setInterval(() => {
             this.validate()
         }, 100);
@@ -78,15 +80,15 @@ class AddColor extends PureComponent{
 
     componentWillMount = () => {
         seo({
-            title: 'Add Color',
-            metaDescription: 'Add Color'
+            title: 'Add Shift',
+            metaDescription: 'Add Shift'
           });
 
           if(this.id)
           {
             seo({
-                title: 'Edit Color',
-                metaDescription: 'Edit Color'
+                title: 'Edit Shift',
+                metaDescription: 'Edit Shift'
               });
               console.log("Edit Page");
             }
@@ -97,10 +99,10 @@ class AddColor extends PureComponent{
             ...this.state,
             buttonLoading : true
         },() => {
-            putRequest('garments/color?id=' + this.id, this.state.formData).then(data => {
+            putRequest('garments/shift?id=' + this.id, this.state.formData).then(data => {
                 if(data.status === "success")
                 {
-                    this.props.history.push('/masters/list_color')
+                    this.props.history.push('/masters/list_shift')
                     console.log(data) 
                 }
             })
@@ -123,7 +125,7 @@ class AddColor extends PureComponent{
             <Fragment>
                 <div className="row">
                     <div className="col-md-12" align="right">
-                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/masters/list_color') } }>
+                        <Button type="default" htmlType="button" onClick={ () => { this.props.history.push('/masters/list_shift') } }>
                             { this.id ? "Back" : 'List'}
                         </Button>
                     </div>
@@ -138,9 +140,12 @@ class AddColor extends PureComponent{
                     >
                         
                     <div className="row">
-                        <Textbox label="Color" autoFocus modelName="color" className="col-md-4"></Textbox>
+                        <Textbox label="Shift" autoFocus modelName="shift" className="col-md-4"></Textbox>
+                        <Textbox label="Early Punch"  modelName="early_punch" className="col-md-4"></Textbox>
+                        <Textbox label="Late Punch"  modelName="late_punch" className="col-md-4"></Textbox>
+
                     </div>
-                <br></br>
+                    <br></br>
                     <div className="row">
                         <div className="col-md-12">
                             <Form.Item>
@@ -176,4 +181,4 @@ const mapDispatchToProps = {
     
   }
   
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddColor));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddShift));

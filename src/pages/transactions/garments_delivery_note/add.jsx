@@ -27,6 +27,10 @@ class AddGarmentsDeliveryNote extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                marketing_user_id : "",
+                narration :"",
+                mobile :"",
+                vehicle_no : "",
                 status : 'active',
                 vou_date : moment(),
                 size_details : [],
@@ -530,7 +534,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
 
                    </div>
                    <div className="row">
-                   <Textbox label="Vehicle No" modelName="vehicle_no"  className="col-md-4"></Textbox>
+                   <Textbox label="Vehicle No" modelName="vehicle_no" required="false"  className="col-md-4"></Textbox>
                      <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                        
                    </div>

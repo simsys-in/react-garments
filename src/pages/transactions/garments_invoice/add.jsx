@@ -27,6 +27,8 @@ class AddGarmentsInvoice extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                delivery_address : "",
+                narration : "",
                 size_details : [],
                 status : 'active',
                 vou_date : moment(),

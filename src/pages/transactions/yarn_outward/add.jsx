@@ -25,6 +25,10 @@ class AddYarn_Outward extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                refno : "",
+                vehicle_no : "",
+                narration : "",
+
                 status : 'active',
                 vou_date : moment(),
                 refno : "",

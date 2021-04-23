@@ -68,6 +68,9 @@ class AddUnit extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 // status : 'active'
+                unit : "",
+                decimal_digit : "",
+                narration : "",
             },
             companiesList : []
         }

@@ -44,6 +44,9 @@ class AddGeneralPurchaseOrder extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                narration : "",
+                mobile : "",
+                delivery_address : "",
                 status : 'active',
                 vou_date : moment(),
                 ledger_id : '',
