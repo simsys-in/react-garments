@@ -69,7 +69,7 @@ class Report extends PureComponent {
                     <div className="col-md-12">
                         <div >
                         <div className="row flex-nowrap" >
-                            <div className="col-md-8" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-6" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5 }}>
 
                                 <h6 style={{fontWeight:"bold"}}>   { report_details.company_details.company } </h6>
                                 <div style={{ marginLeft : 15 }}>
@@ -89,17 +89,28 @@ class Report extends PureComponent {
                                 </div>
                             {/* </div> */}
                             </div>
-                            <div className="col-md-4" style={{ padding : 0,border : '1px solid gray' }}>
+                            <div className="col-md-6" style={{ padding : 0,border : '1px solid gray' }}>
 
-                                <table width={"100%"} style={{border:"light gray", margin : 0, padding : 0}} border="1">
+                                <table width={"100%"} style={{border:"light gray", margin : 0, padding : 0}} >
                                         <tr> 
                                             <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px lightgray' }}> <h5>YARN PURCHASE ORDER </h5> </td>
                                         </tr>
                                         <tr>
-                                            <th> P.O No </th>
+                                            <th style={{paddingLeft : '5px'}}> P.O No </th>
                                             <td style={{fontWeight:"bold"}}> { report_details.vouno } </td>
-                                            <th> P.O Dated </th>
+                                            <th style={{paddingLeft : '5px'}}> P.O Dated </th>
                                             <td style={{fontWeight:"bold"}}> { getStandardDate(report_details.vou_date)} </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                        <tr></tr>
+                                        <tr>
+                                            <th style={{paddingLeft : '5px'}}>Payment Mode</th>
+                                            <td style={{fontWeight:"bold"}}> {report_details.payment_mode}</td>
                                         </tr>
                                         {/* <tr>
                                             <th> Process </th>
@@ -127,14 +138,14 @@ class Report extends PureComponent {
                                     <thead>
                                         <tr  style={{ backgroundColor : 'lightgray' }}>
                                           
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 250}}>YARN</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100}}>Count</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100}}>GSM</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100}}>HSN/SAC</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 200}}>Qty / Unit</th>
-                                            {/* <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100}}>UNIT</th> */}
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100}}>Rate</th>
-                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 200}}>Amount</th>
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 250, textAlign:"center"}}>YARN</th>
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100, textAlign:"center"}}>Count</th>
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100, textAlign:"center"}}>GSM</th>
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100, textAlign:"center"}}>HSN/SAC</th>
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 200, textAlign:"center"}}>Qty / Unit</th>
+                                            {/* <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100, textAlign:"center"}}>UNIT</th> */}
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 100, textAlign:"center"}}>Rate</th>
+                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', width : 200, textAlign:"center"}}>Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody>
