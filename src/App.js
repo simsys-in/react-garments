@@ -343,12 +343,16 @@ class App extends React.PureComponent
 
   componentDidMount = () => {
     interval = setInterval(() => {
-      postRequest('core/verifyLogin').then(function(data){
-        if(data.type === "unauthorized")
-        {
-          message.error(data.message);
-        }
-      })
+      if(this.props.store.login.login)
+      {
+
+        postRequest('core/verifyLogin').then(function(data){
+          if(data.type === "unauthorized")
+          {
+            message.error(data.message);
+          }
+        })
+      }
     }, 10000);
     localStorage.setItem("api", api);
     

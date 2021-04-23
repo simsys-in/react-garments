@@ -48,9 +48,7 @@ class AddYarnPurchaseOrder extends PureComponent{
                 payment_mode : '',
                 payment_terms_conditions : '',
                 yarn_purchase_order_inventory : [
-                    {  
-                        
-                        
+                    {
                         yarn_id : null,
                         hsnsac : null,
                         unit_id: null,
@@ -413,9 +411,9 @@ class AddYarnPurchaseOrder extends PureComponent{
                     
                    <div className="row">
                        <Selectbox modelName="payment_mode"  label="Payment Mode" className="col-md-4" options={paymentMode} value={this.state.formData.payment_mode} ></Selectbox>
-                      <Form.Item name={'payment_terms_conditions'} label="Terms And Conditions" className="col-md-8">
-                                            <Input.TextArea addonBefore="Terms and Conditions"  />
-                    </Form.Item>
+                        {/* <Form.Item name={'payment_terms_conditions'} label="Terms And Conditions" className="col-md-8">
+                            <Input.TextArea addonBefore="Terms and Conditions"  />
+                        </Form.Item> */}
 
                   </div>
                  
@@ -436,12 +434,11 @@ class AddYarnPurchaseOrder extends PureComponent{
                                     <thead>
                                         <tr>
                                             <th width="300px"> <b> Yarn</b></th>
-                                            <th width="300px"> <b> Unit</b></th>
-
-                                            <th width="250px"> <b> HSN/SAC</b></th>
                                             <th width="250px"> <b> GSM</b></th>
                                             <th width="250px"> <b> Count</b></th>
+                                            <th width="250px"> <b> HSN/SAC</b></th>
                                             <th width="200px"> <b> Qty</b></th>
+                                            <th width="300px"> <b> Unit</b></th>
                                             <th width="200px"> <b> Rate</b></th>
                                             <th width="200px"> <b> Amount</b></th>
                                             <th width="100px">
@@ -461,12 +458,6 @@ class AddYarnPurchaseOrder extends PureComponent{
                                                                 <Selectbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'yarn_id' ]}  modelName={[field.name, 'yarn_id']} value={[field.name, 'yarn_id']} onChange={(yarn_id) => this.getHsnAndRateForProductId(yarn_id, index)} options={this.state.yarn_data} label="Yarn"></Selectbox>
                                                                 </td>
 
-                                                                <td><Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'unit_id' ]} disabled modelName={[field.name, 'unit_id']}  label="Unit" value={[field.name, 'unit_id']} options={this.state.unit_data} noPlaceholder withoutMargin ></Selectbox></td>
-
-                                                                <td>
-                                                                <Textbox label="HSN/SAC"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'hsnsac' ]} disabled modelName={[field.name, 'hsnsac']} value={[field.name, 'hsnsac']}  ></Textbox>  
-                                                                </td>
-
                                                                 <td>
                                                                 <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'gsm' ]}  modelName={[field.name, 'gsm']} value={[field.name, 'gsm']}   label="GSM" ></Numberbox>
  
@@ -478,9 +469,15 @@ class AddYarnPurchaseOrder extends PureComponent{
                                                                 </td>
 
                                                                 <td>
+                                                                <Textbox label="HSN/SAC"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'hsnsac' ]} disabled modelName={[field.name, 'hsnsac']} value={[field.name, 'hsnsac']}  ></Textbox>  
+                                                                </td>
+
+
+                                                                <td>
                                                                 <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qty' ]}  modelName={[field.name, 'qty']} value={[field.name, 'qty']}   label="Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
  
                                                                 </td>
+                                                                <td><Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'unit_id' ]} disabled modelName={[field.name, 'unit_id']}  label="Unit" value={[field.name, 'unit_id']} options={this.state.unit_data} noPlaceholder withoutMargin ></Selectbox></td>
                                                                 <td>
                                                                 <Numberbox noPlaceholder  required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'rate' ]} onChange={(ev) => this.setTOTAL(ev,field.fieldKey)} modelName={[field.name, 'rate']} value={[field.name, 'rate']} label="Rate"></Numberbox>
  
