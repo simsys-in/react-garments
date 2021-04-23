@@ -34,6 +34,8 @@ class AddOrderProgram extends PureComponent{
             formData : {
                 status : 'active',
                 orderDate : moment(),
+                status_id : 1,
+
                 due_date : addDays(getCurrentDate(),7,'days'),
                 order_process : [
                     {

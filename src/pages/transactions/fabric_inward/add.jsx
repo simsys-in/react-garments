@@ -32,6 +32,7 @@ class AddFabricInward extends PureComponent{
             formData : {
                 narration :"",
                 refno :"",
+                vehicle_no: '',
                 status : 'active',
                 vou_date : moment(),
                 order_id : 0,
@@ -452,7 +453,8 @@ class AddFabricInward extends PureComponent{
                     
                     
                     <div className="row">
-                       
+                      {/* <Textbox label="Vehicle No" required="false" modelName="vehicle_no"  className="col-md-4"></Textbox> */}
+
                         <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
 
                     </div>
