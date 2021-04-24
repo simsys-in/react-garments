@@ -699,7 +699,7 @@ class AddGarmentsReceiptNote extends PureComponent{
                                                                 <td>
                                                                 <Textbox key={this.state.formData.garments_receipt_note_inventory[index].size_details[8]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_receipt_note_inventory[index].size_details[8]}  label="Size9 Name"></Textbox>
 
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  disabled={this.state.formData.garments_receipt_note_inventory[index].size_details[9] === ""} showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size9' ]}  modelName={[field.name, 'size9']} value={[field.name, 'size9']} label="Size9" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  disabled={this.state.formData.garments_receipt_note_inventory[index].size_details[8] === ""} showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size9' ]}  modelName={[field.name, 'size9']} value={[field.name, 'size9']} label="Size9" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
 
                                                                 </td>
                                                                
