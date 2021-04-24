@@ -134,7 +134,7 @@ class Report extends PureComponent {
                                         <thead>
                                             <tr>
                                                 <th colSpan={4} style={{ textAlign :'center' }} >
-                                                    <b >TAX INVOICE</b>
+                                                    <b >GARMENTS DELIVERY NOTE</b>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -211,23 +211,7 @@ class Report extends PureComponent {
                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> #HSN </b></th>
                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> GST </b></th>
 
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
-
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
-
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
-
-                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
-
-                                           <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
-
-                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
-
-                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
-
-                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
-
-                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                            <th row flex-nowrapSpan={2} colSpan={9} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Size </b></th>
 
                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
                                             
@@ -249,8 +233,8 @@ class Report extends PureComponent {
 
 
                                                     { item.size_data.map((size, index) => 
-                                                        <td key={index} style={{borderRight:'1px solid grey', borderLeft:'1px solid grey', paddingTop: item['size' + Number(Number(index) + 1)] === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >
-                                                            <b style={{ textAlign :'center' }} >{size !== "''" ? size : Number(item['size' + Number(Number(index) + 1) + "_qty"]) > 0 ? 'Size ' + Number(Number(index) + 1) : ""}</b>  <br/>
+                                                        <td key={index} style={{borderRight:'1px solid grey', borderLeft:'1px solid grey', paddingTop: item['size' + Number(Number(index) + 1)] === "" ? '27px' : 'auto', paddingLeft : '5px' , textAlign : 'right', paddingRight:'5px', minWidth : '50px'}} >
+                                                            <strong style={{ textAlign :'center', fontWeight : 600 }} >{size !== "''" ? size : Number(item['size' + Number(Number(index) + 1) + "_qty"]) > 0 ? 'Size ' + Number(Number(index) + 1) : ""}</strong>  <br/>
                                                             <p style={{ textAlign : 'left' }}> { Number(item['size' + Number(Number(index) + 1) + "_qty"]) !== 0 ? item['size' + Number(Number(index) + 1) + "_qty"] : "" } </p> <br/>
                                                             <p style={{ textAlign : 'right' }}> { Number(item['size' + Number(Number(index) + 1) + "_rate"]) !== 0 ? item['size' + Number(Number(index) + 1) + "_rate"] : ''  } </p> <br/>
                                                         </td>

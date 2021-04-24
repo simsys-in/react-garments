@@ -183,6 +183,27 @@ class AddGarmentsInvoice extends PureComponent{
             item.disc_percentage = item.disc_percentage ? Number(item.disc_percentage) : 0
             item.amount = item.amount ? Number(item.amount) : 0
             if(item.selected){
+                item.size1_qty = issetNotEmpty(item.size1_qty) ? Number(item.size1_qty) : 0;
+                item.size2_qty = issetNotEmpty(item.size2_qty) ? Number(item.size2_qty) : 0;
+                item.size3_qty = issetNotEmpty(item.size3_qty) ? Number(item.size3_qty) : 0;
+                item.size4_qty = issetNotEmpty(item.size4_qty) ? Number(item.size4_qty) : 0;
+                item.size5_qty = issetNotEmpty(item.size5_qty) ? Number(item.size5_qty) : 0;
+                item.size6_qty = issetNotEmpty(item.size6_qty) ? Number(item.size6_qty) : 0;
+                item.size7_qty = issetNotEmpty(item.size7_qty) ? Number(item.size7_qty) : 0;
+                item.size8_qty = issetNotEmpty(item.size8_qty) ? Number(item.size8_qty) : 0;
+                item.size9_qty = issetNotEmpty(item.size9_qty) ? Number(item.size9_qty) : 0;
+
+
+                item.size1_rate = issetNotEmpty(item.size1_rate) ? Number(item.size1_rate) : 0;
+                item.size2_rate = issetNotEmpty(item.size2_rate) ? Number(item.size2_rate) : 0;
+                item.size3_rate = issetNotEmpty(item.size3_rate) ? Number(item.size3_rate) : 0;
+                item.size4_rate = issetNotEmpty(item.size4_rate) ? Number(item.size4_rate) : 0;
+                item.size5_rate = issetNotEmpty(item.size5_rate) ? Number(item.size5_rate) : 0;
+                item.size6_rate = issetNotEmpty(item.size6_rate) ? Number(item.size6_rate) : 0;
+                item.size7_rate = issetNotEmpty(item.size7_rate) ? Number(item.size7_rate) : 0;
+                item.size8_rate = issetNotEmpty(item.size8_rate) ? Number(item.size8_rate) : 0;
+                item.size9_rate = issetNotEmpty(item.size9_rate) ? Number(item.size9_rate) : 0;
+
                 total_size1 += Number(item.size1_qty);
                 total_size2 += Number(item.size2_qty);
                 total_size3 += Number(item.size3_qty);
@@ -192,16 +213,52 @@ class AddGarmentsInvoice extends PureComponent{
                 total_size7 += Number(item.size7_qty);
                 total_size8 += Number(item.size8_qty);
                 total_size9 += Number(item.size9_qty);
-                total_qty += Number(item.size1_qty)+Number(item.size2_qty)+Number(item.size3_qty)+Number(item.size4_qty)+Number(item.size5_qty)+Number(item.size6_qty)+Number(item.size7_qty)+Number(item.size8_qty)+Number(item.size9_qty);
-                item.qty = Number(item.size1_qty)+Number(item.size2_qty)+Number(item.size3_qty)+Number(item.size4_qty)+Number(item.size5_qty)+Number(item.size6_qty)+Number(item.size7_qty)+Number(item.size8_qty)+Number(item.size9_qty);
 
-                total_amount_qty += Number((Number(item.size1_qty) * Number(item.size1_rate)))+Number((Number(item.size1_qty) * Number(item.size2_rate)))+Number((Number(item.size3_qty) * Number(item.size3_rate)))+Number((Number(item.size4_qty) * Number(item.size4_rate)))+Number((Number(item.size5_qty) * Number(item.size5_rate)))+Number((Number(item.size6_qty) * Number(item.size6_rate)))+Number((Number(item.size7_qty) * Number(item.size7_rate)))+Number((Number(item.size8_qty) * Number(item.size8_rate)))+Number((Number(item.size9_qty) * Number(item.size9_rate)));
+
+                total_qty += Number(item.size1_qty)
+                            +Number(item.size2_qty)
+                            +Number(item.size3_qty)
+                            +Number(item.size4_qty)
+                            +Number(item.size5_qty)
+                            +Number(item.size6_qty)
+                            +Number(item.size7_qty)
+                            +Number(item.size8_qty)
+                            +Number(item.size9_qty);
+                item.qty = Number(item.size1_qty)
+                            +Number(item.size2_qty)
+                            +Number(item.size3_qty)
+                            +Number(item.size4_qty)
+                            +Number(item.size5_qty)
+                            +Number(item.size6_qty)
+                            +Number(item.size7_qty)
+                            +Number(item.size8_qty)
+                            +Number(item.size9_qty);
+
+                // total_amount_qty += Number((Number(item.size1_qty) * Number(item.size1_rate)))
+                //             +Number((Number(item.size2_qty) * Number(item.size2_rate)))
+                //             +Number((Number(item.size3_qty) * Number(item.size3_rate)))
+                //             +Number((Number(item.size4_qty) * Number(item.size4_rate)))
+                //             +Number((Number(item.size5_qty) * Number(item.size5_rate)))
+                //             +Number((Number(item.size6_qty) * Number(item.size6_rate)))
+                //             +Number((Number(item.size7_qty) * Number(item.size7_rate)))
+                //             +Number((Number(item.size8_qty) * Number(item.size8_rate)))
+                //             +Number((Number(item.size9_qty) * Number(item.size9_rate)));
              
-                var amount = Number((Number(item.size1_qty) * Number(item.size1_rate)))+Number((Number(item.size1_qty) * Number(item.size2_rate)))+Number((Number(item.size3_qty) * Number(item.size3_rate)))+Number((Number(item.size4_qty) * Number(item.size4_rate)))+Number((Number(item.size5_qty) * Number(item.size5_rate)))+Number((Number(item.size6_qty) * Number(item.size6_rate)))+Number((Number(item.size7_qty) * Number(item.size7_rate)))+Number((Number(item.size8_qty) * Number(item.size8_rate)))+Number((Number(item.size9_qty) * Number(item.size9_rate)));
-                console.log(amount, item)
+                var amount = Number((Number(item.size1_qty) * Number(item.size1_rate)))
+                            +Number((Number(item.size2_qty) * Number(item.size2_rate)))
+                            +Number((Number(item.size3_qty) * Number(item.size3_rate)))
+                            +Number((Number(item.size4_qty) * Number(item.size4_rate)))
+                            +Number((Number(item.size5_qty) * Number(item.size5_rate)))
+                            +Number((Number(item.size6_qty) * Number(item.size6_rate)))
+                            +Number((Number(item.size7_qty) * Number(item.size7_rate)))
+                            +Number((Number(item.size8_qty) * Number(item.size8_rate)))
+                            +Number((Number(item.size9_qty) * Number(item.size9_rate)));
+                            
                 item.disc_value = Number(amount) * (Number(item.disc_percentage)/100);
                 
                 item.amount = amount - item.disc_value;
+                total_amount_qty += Number(item.amount);
+                console.log(amount, item)
 
                 if(index === garments_invoice_inventory.length - 1)
                 {
@@ -642,7 +699,6 @@ class AddGarmentsInvoice extends PureComponent{
                                                                 <td><Textbox className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} field={field} fieldKey={[ field.fieldKey, 'description' ]} modelName={[field.name, 'description']}  label="Description"></Textbox></td>
                                                                 
                                                                 <td>
-                                                                    { console.log(this.state.formData.garments_invoice_inventory[index], index, this.state.formData.garments_invoice_inventory) }
                                                                     <Textbox key={this.state.formData.garments_invoice_inventory[index].size_details[0]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_invoice_inventory[index].size_details[0]}  label="Size1 Name"></Textbox>
 
                                                                 <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12" disabled={this.state.formData.garments_invoice_inventory[index].size_details[0] === ""} showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size1_qty' ]}  modelName={[field.name, 'size1_qty']} value={[field.name, 'size1_qty']} label="Size1 Qty" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>

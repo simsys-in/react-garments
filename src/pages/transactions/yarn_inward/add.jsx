@@ -307,10 +307,10 @@ class AddYarn_Inward extends PureComponent{
         yarn_inward_inventory.map((item, index) => {
             if(item.selected){
                 
-                total_bags += item.qty_bag;
-                total_bags_per += item.qtybag_per;
+                total_bags += Number(item.qty_bag);
+                total_bags_per += Number(item.qtybag_per);
                 item.qty_kg = Number(item.qty_bag) * Number(item.qtybag_per);
-                total_kg += item.qty_kg;
+                total_kg += Number(item.qty_kg);
     
                 if(index === yarn_inward_inventory.length - 1)
                 {
@@ -420,7 +420,7 @@ class AddYarn_Inward extends PureComponent{
     checkButtonDisabled = () => {
         const FORMDATA = this.state.formData;
 
-        if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno) && issetNotEmpty(FORMDATA.refno)   )
+        if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno))
         {
             var selectedItems = _.filter(FORMDATA.yarn_inward_inventory, (item) => {
                 console.log(item)

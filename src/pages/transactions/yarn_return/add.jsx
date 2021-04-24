@@ -355,7 +355,7 @@ class AddYarn_Return  extends PureComponent{
     checkButtonDisabled = () => {
         const FORMDATA = this.state.formData;
 
-        if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno) && issetNotEmpty(FORMDATA.refno)  )
+        if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno) )
         {
             var selectedItems = _.filter(FORMDATA.yarn_return_inventory, (item) => {
                 console.log(item)

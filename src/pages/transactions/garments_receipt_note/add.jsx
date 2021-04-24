@@ -273,6 +273,10 @@ class AddGarmentsReceiptNote extends PureComponent{
             getRequest("garments/garmentsReceiptNote?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
                 console.log(data.data)
+                this.setState({
+                    ...this.state,
+                    formData : data.data
+                })
                 this.formRef.current.setFieldsValue(data.data);
                 this.getMobileForLedgerID(data.data.ledger_id)
                 data.data.garments_receipt_note_inventory.map((item,index) => {

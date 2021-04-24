@@ -134,7 +134,7 @@ class Report extends PureComponent {
                                         <thead>
                                             <tr>
                                                 <th colSpan={4} style={{ textAlign :'center' }} >
-                                                    <b >TAX INVOICE</b>
+                                                    <b >GARMENTS RECEIPT NOTE</b>
                                                 </th>
                                             </tr>
                                         </thead>

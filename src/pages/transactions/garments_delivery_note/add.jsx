@@ -269,12 +269,14 @@ class AddGarmentsDeliveryNote extends PureComponent{
     
 
     getGarmentsDeliveryNote = () => {
-        console.log(this.id)
         if(this.id)
         {
             getRequest("garments/garmentsDeliveryNote?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                this.setState({
+                    ...this.state,
+                    formData : data.data
+                })
                 this.formRef.current.setFieldsValue(data.data);
                 this.getMobileForLedgerID(data.data.ledger_id)
                 data.data.garments_delivery_note_inventory.map((item,index) => {
@@ -294,7 +296,6 @@ class AddGarmentsDeliveryNote extends PureComponent{
 
     getNextGarmentsDeliveryNoteVouNo = () => {
         getRequest('garments/getNextGarmentsDeliveryNoteVouNo').then(data => {
-            // console.log(data.max_vou_no);
             if(data.status === "info")
             {
                 this.setState({
