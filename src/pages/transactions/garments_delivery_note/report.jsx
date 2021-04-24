@@ -29,6 +29,10 @@ class Report extends PureComponent {
         getRequest('garments/getGarmentsDeliveryNotePrint?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
+                var total_qty = 0;
+                data.data.inventories.map(item=>{
+                    total_qty += Number(item.qty)
+                })
                 if(data.data.inventories.length < 4)
                 {
                     var item = {
@@ -70,6 +74,8 @@ class Report extends PureComponent {
                                 ...this.state,
                                 report_details : data.data,
                                 show_details : true,
+                                inventory_qty_total : total_qty
+
                             })
 
                         }
@@ -80,12 +86,16 @@ class Report extends PureComponent {
                         ...this.state,
                         report_details : data.data,
                         show_details : true,
+                        inventory_qty_total : total_qty
+
                     })
                 }
                 this.setState({
                     ...this.state,
                     report_details : data.data,
-                    show_details : true
+                    show_details : true,
+                    inventory_qty_total : total_qty
+
                 })
             }
         })
@@ -265,7 +275,7 @@ class Report extends PureComponent {
                                                 <td style={{borderLeft:'1px solid grey'}}> {report_details.size8_qty_total} </td>
                                                 <td style={{borderLeft:'1px solid grey'}}> {report_details.size9_qty_total} </td>
                                                 <td style={{borderLeft:'1px solid grey'}}> {report_details.size9_qty_total} </td>
-                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.inventory_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey',textAlign:'right',paddingRight:'5px'}}> {this.state.inventory_qty_total} </td>
                                                 <td style={{borderLeft:'1px solid grey', borderRight:'1px solid grey'}}></td>
                                                 {/* <td style={{borderRight:'1px solid grey'}}></td> */}
                                                

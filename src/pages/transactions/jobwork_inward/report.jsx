@@ -112,12 +112,12 @@ class Report extends PureComponent {
                                         <tr>
                                             <th  style={{paddingLeft : '5px'}}> Order No </th>
                                             <td style={{fontWeight:"bold"}}> { report_details.order_no }</td>
-                                            <th> Vehicle No </th>
-                                            <td style={{fontWeight:"bold"}}> {report_details.vehicle_no} </td>
-                                        </tr>
-                                        <tr>
+                                            {/* <th> Vehicle No </th>
+                                            <td style={{fontWeight:"bold"}}> {report_details.vehicle_no} </td> */}
                                             <th  style={{paddingLeft : '5px'}}> Product </th>
                                             <td style={{fontWeight:"bold"}}> { report_details.product }</td>
+                                        </tr>
+                                        <tr>
                                             <th>  </th>
                                             <td>  </td>
                                         </tr>
@@ -134,6 +134,10 @@ class Report extends PureComponent {
                                     <p><b> GSTIN :{ report_details.ledger_details.gstno} </b></p>
                                 </div>
                             </div>
+                            <div className="col-md-6" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5 }}>
+                                
+                            </div>
+
                             {/* <div className="col-md-6" style={{ border : '1px solid gray', padding : 0}}>
                                 <b style={{fontWeight:"bold", marginLeft : 5}}>ACCESSORIES</b>
                                 <table border={1} width="100%" style={{border:"lightgray"}}>

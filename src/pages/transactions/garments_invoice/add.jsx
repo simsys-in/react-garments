@@ -30,6 +30,7 @@ class AddGarmentsInvoice extends PureComponent{
             formData : {
                 delivery_address : "",
                 narration : "",
+                vehicle_no : "",
                 size_details : [],
                 status : 'active',
                 vou_date : moment(),
@@ -630,6 +631,9 @@ class AddGarmentsInvoice extends PureComponent{
                      <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                        
                    </div>
+                   <div className="row">
+                     <Textbox label="Vehicle No" modelName="vehicle_no" required="false" className="col-md-4"></Textbox>
+                    </div>
 
                    
 
