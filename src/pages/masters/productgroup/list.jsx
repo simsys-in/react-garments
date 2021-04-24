@@ -56,7 +56,7 @@ class ListProductGroup extends PureComponent {
   }
 
   editProductGroup = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_product_group/' + id)
   }
 
@@ -70,7 +70,7 @@ class ListProductGroup extends PureComponent {
 
   deleteProductGroup= (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.product_group;
     Modal.confirm({
       title: 'Confirm',

@@ -63,7 +63,7 @@ class ListReport extends PureComponent {
   }
 
   editReport = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_report/' + id)
   }
 
@@ -77,7 +77,7 @@ class ListReport extends PureComponent {
 
   deleteReport= (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.menu;
     Modal.confirm({
       title: 'Confirm',

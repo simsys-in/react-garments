@@ -63,7 +63,7 @@ class ListFabricReturn extends PureComponent {
   }
 
   editFabricReturn = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/transactions/edit_fabric_return/' + id)
   }
 
@@ -98,7 +98,7 @@ class ListFabricReturn extends PureComponent {
 
   deleteFabricReturn = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',

@@ -51,7 +51,7 @@ class ListShortcut extends PureComponent {
   }
 
   editShortcut = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_shortcut/' + id)
   }
 
@@ -65,7 +65,7 @@ class ListShortcut extends PureComponent {
 
   deleteShortcut = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.shortcut;
     Modal.confirm({
       title: 'Confirm',

@@ -31,7 +31,7 @@ class AddFabricOutward extends PureComponent{
             formData : {
                 vehicle_no : "",
                 narration : "",
-                status : 'active',
+                
                 vou_date : moment(),
                 fabric_outward_inventory : [
                     {  
@@ -172,12 +172,12 @@ class AddFabricOutward extends PureComponent{
     }
 
     getFabricOutward = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/fabricOutward?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
             })
 
@@ -204,7 +204,7 @@ class AddFabricOutward extends PureComponent{
 
     getNextFabricOutwardVouNo = () => {
         getRequest('garments/getNextFabricOutwardVouNo').then(data => {
-            console.log(data);
+            // console.log(data);
             if(data.status === "info")
             {
                 this.setState({
@@ -264,11 +264,11 @@ class AddFabricOutward extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_fabric_outward')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -345,7 +345,7 @@ class AddFabricOutward extends PureComponent{
         if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.from_process_id) && issetNotEmpty(FORMDATA.to_process_id))
         {
             var selectedItems = _.filter(FORMDATA.fabric_outward_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return  item.fabric_id && item.color_id && item.gsm && item.dia && item.roll &&item.weight  ;
             });
 

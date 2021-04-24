@@ -67,7 +67,7 @@ class AddLedger extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
-                status_id  : 1,
+                
                 ledger : "",
                 alias : "",
                 ledger_group_id : "",
@@ -75,7 +75,7 @@ class AddLedger extends PureComponent{
                 amount : "",
                 status : "",
                 formula : "",
-                price_group : "",
+                price_group_id : "",
                 narration : "",
                 address : "",
                 mobile : "",
@@ -142,12 +142,12 @@ class AddLedger extends PureComponent{
     }
 
     getLedger = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/ledger?id=" + this.id).then(data => {
                 // data.data[0].dob = moment(data.data[0].dob)
-                console.log(data.data[0])
+                // console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
 
@@ -197,11 +197,11 @@ class AddLedger extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_ledger')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -247,7 +247,7 @@ class AddLedger extends PureComponent{
 
                     <div className="row">
                         <Selectbox modelName="formula"  required="false"  label="Formula" options={formulae} value={this.state.formData.formula}  ></Selectbox>
-                        <Textbox label="Price Group"  required="false" modelName="price_group"></Textbox>
+                        <Textbox label="Price Group"  required="false" modelName="price_group_id"></Textbox>
                         {/* <Selectbox modelName="status" label="Status" value={this.state.formData.status} statusSelect ></Selectbox> */}
                     </div>
 

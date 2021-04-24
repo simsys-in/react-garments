@@ -32,7 +32,7 @@ class AddCuttingProgram extends PureComponent{
             formData : {
                 style_id :"",
                 narration : "",
-                status : 'active',
+            
                 voudate : moment(),
                 fabrics : [
                     {
@@ -91,13 +91,13 @@ class AddCuttingProgram extends PureComponent{
     }
 
     getCuttingProgram = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/cuttingProgram?id=" + this.id).then(data => {
                
                 data.data[0].voudate = moment(data.data[0].voudate)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data[0]);
                 this.onOrderIDChange(data.data[0].order_id);
                 this.calculateQty()
@@ -266,15 +266,15 @@ class AddCuttingProgram extends PureComponent{
             buttonLoading : true
         },() => {
             putRequest('garments/cuttingProgram?id=' + this.id, this.state.formData).then(data => {
-                console.log(values)
+                // console.log(values)
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_cutting_program')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -523,7 +523,7 @@ class AddCuttingProgram extends PureComponent{
                 var valid_entries = _.filter(FORM_DATA.fabrics, (fabric) => {
                     return issetNotEmpty(fabric.fabric_id) && issetNotEmpty(fabric.color_id) && issetNotEmpty(fabric.fabric_qty) && issetNotEmpty(fabric.qty_bundle) && issetNotEmpty(fabric.fabric_return_qty) && issetNotEmpty(fabric.fabric_wastage) && issetNotEmpty(fabric.employee_id) && issetNotEmpty(fabric.rate) && issetNotEmpty(fabric.amount) && issetNotEmpty(fabric.qty)
                 }).length;
-                console.log(valid_entries);
+                // console.log(valid_entries);
 
                 if(valid_entries > 0)
                 {
@@ -589,7 +589,7 @@ class AddCuttingProgram extends PureComponent{
         if(issetNotEmpty(FORMDATA.order_id) && issetNotEmpty(FORMDATA.voudate) && issetNotEmpty(FORMDATA.lotno) && issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.style_id)) 
         {
             var selectedItems = _.filter(FORMDATA.fabrics, (item) => {
-                console.log(item)
+                // console.log(item)
                 return  item.fabric_id && item.color_id && ( item.size1 ||item.size2 ||item.size3 ||item.size4 ||item.size5 ||item.size6 || item.size7 ||item.size8 ||item.size9 )  &&item.fabric_qty && item.fabric_return_qty && item.qty_bundle && item.fabric_wastage && item.qty && item.employee_id && item.rate && item.amount ;
             });
 

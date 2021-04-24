@@ -65,7 +65,7 @@ class ListMaster extends PureComponent {
   }
 
   editMaster = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_master/' + id)
   }
 
@@ -79,7 +79,7 @@ class ListMaster extends PureComponent {
 
   deleteMaster = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.master;
     Modal.confirm({
       title: 'Confirm',

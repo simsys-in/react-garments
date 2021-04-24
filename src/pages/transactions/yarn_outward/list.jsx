@@ -75,7 +75,7 @@ class ListYarnoutward extends PureComponent {
   }
 
   editYarn_Outward = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/transactions/edit_yarn_outward/' + id)
   }
 
@@ -109,7 +109,7 @@ class ListYarnoutward extends PureComponent {
 
   deleteYarn_Outward = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',

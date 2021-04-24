@@ -68,7 +68,7 @@ class ListYarnPurchaseOrder extends PureComponent {
   }
 
   editYarnPurchaseOrder = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/transactions/edit_yarn_purchase_order/' + id)
   }
 
@@ -100,7 +100,7 @@ class ListYarnPurchaseOrder extends PureComponent {
 
   deleteYarnPurchaseOrder = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',

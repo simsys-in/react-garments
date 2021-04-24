@@ -52,7 +52,7 @@ class ListColor extends PureComponent {
   }
 
   editColor = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_color/' + id)
   }
 
@@ -66,7 +66,7 @@ class ListColor extends PureComponent {
 
   deleteColor = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.color;
     Modal.confirm({
       title: 'Confirm',

@@ -68,7 +68,7 @@ class ListJobworkInvoice extends PureComponent {
   }
 
   editJobworkInvoice = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/transactions/edit_jobwork_invoice/' + id)
   }
 
@@ -100,7 +100,7 @@ class ListJobworkInvoice extends PureComponent {
 
   deleteJobworkInvoice = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',

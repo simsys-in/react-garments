@@ -82,7 +82,7 @@ class ListAddLess extends PureComponent{
     }
 
     editAddLess = (id)=> {
-      console.log(id);
+      // console.log(id);
       this.props.history.push('/masters/edit_addless/' + id)
     }
 
@@ -97,7 +97,7 @@ class ListAddLess extends PureComponent{
 
     deleteAddLess = (user)=> {
       const id = user.id
-      console.log(id);
+      // console.log(id);
       const name = user.name ;
       Modal.confirm({
         title: 'Confirm',

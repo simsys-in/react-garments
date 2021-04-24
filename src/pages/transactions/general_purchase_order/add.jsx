@@ -185,12 +185,12 @@ class AddGeneralPurchaseOrder extends PureComponent{
     }
 
     getGeneralPurchaseOrder = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/generalPurchaseOrder?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
                 this.getMobileForLedgerId(data.data.ledger_id);
                 
@@ -274,11 +274,11 @@ class AddGeneralPurchaseOrder extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_purchase_order')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -385,7 +385,7 @@ class AddGeneralPurchaseOrder extends PureComponent{
         if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno) && issetNotEmpty(FORMDATA.payment_mode))
         {
             var selectedItems = _.filter(FORMDATA.general_purchase_order_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return  item.product_id  && item.hsnsac && item.qty && item.rate && item.amount ;
             });
 

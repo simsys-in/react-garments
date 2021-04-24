@@ -85,14 +85,14 @@ class AddOrderProgram extends PureComponent{
     }
 
     getOrderProgram = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/order_program?id=" + this.id).then(data => {
                
                 data.data.orderDate = moment(data.data.orderDate)
                 data.data.due_date = moment(data.data.due_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
             })
 
@@ -226,15 +226,15 @@ class AddOrderProgram extends PureComponent{
             buttonLoading : true
         },() => {
             putRequest('garments/order_program?id=' + this.id, this.state.formData).then(data => {
-                console.log(values)
+                // console.log(values)
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_order_program')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -323,7 +323,7 @@ class AddOrderProgram extends PureComponent{
         if(issetNotEmpty(FORMDATA.order_no) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.orderDate) && issetNotEmpty(FORMDATA.due_date) && issetNotEmpty(FORMDATA.size_id)  && issetNotEmpty(FORMDATA.style_id)   )
         {
             var selectedItems = _.filter(FORMDATA.order_fabric, (item) => {
-                console.log(item)
+                // console.log(item)
                 return  item.fabric_id  &&item.gsm &&item.dia  ;
             });
 

@@ -213,12 +213,12 @@ class AddKnittingProgram extends PureComponent{
     }
 
     getKnittingProgram = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/knittingProgram?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
             
                
@@ -279,11 +279,11 @@ class AddKnittingProgram extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_knitting_program')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -318,7 +318,7 @@ class AddKnittingProgram extends PureComponent{
 
    
     getLedgerForOrderAndProcessID = (order_id) => {
-        console.log(issetNotEmpty(order_id) ,issetNotEmpty(this.state.formData.process_id))
+        // console.log(issetNotEmpty(order_id) ,issetNotEmpty(this.state.formData.process_id))
         if(issetNotEmpty(order_id) && issetNotEmpty(this.state.formData.process_id))
         {
             getRequest('garments/getLedgerForOrderAndProcessID?order_id=' + order_id + "&process_id=" + this.state.formData.process_id).then(data => {
@@ -346,7 +346,7 @@ class AddKnittingProgram extends PureComponent{
   
     getNextKnittingProgramVouNo = () => {
         getRequest('garments/getNextKnittingProgramVouNo').then(data => {
-            console.log(data);
+            // console.log(data);
             if(data.status === "info")
             {
                 this.setState({
@@ -419,12 +419,12 @@ class AddKnittingProgram extends PureComponent{
         var checked = ev.target.checked;
         var formData = this.state.formData;
         var inventories = formData.knitting_program_inventory;
-        console.log(checked);
+        // console.log(checked);
         inventories.map((item, index) => {
             item.selected = checked;
             if(index === inventories.length - 1)
             {
-                console.log(formData);
+                // console.log(formData);
                 this.setState({
                     ...this.state,
                     formData : formData
@@ -443,7 +443,7 @@ class AddKnittingProgram extends PureComponent{
         if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.order_id) )
         {
             var selectedItems = _.filter(FORMDATA.knitting_program_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return item.selected && item.yarn_id && item.counts && item.bag && item.bag_per && item.yarn_weight &&item.fabric_id &&item.dia &&item.gsm &&item.gg &&item.ll &&item.program_weight  ;
             });
 

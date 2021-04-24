@@ -65,7 +65,7 @@ class ListUnit extends PureComponent {
   }
 
   editUnit = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_unit/' + id)
   }
 
@@ -79,7 +79,7 @@ class ListUnit extends PureComponent {
 
   deleteUnit= (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.unit;
     Modal.confirm({
       title: 'Confirm',

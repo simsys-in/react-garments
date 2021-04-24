@@ -31,7 +31,7 @@ class AddDyeingProgram extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 narration : "",
-                status : 'active',
+            
                 vou_date : moment(),
                 dyeing_program_inventory : [
                     {  
@@ -215,12 +215,12 @@ class AddDyeingProgram extends PureComponent{
     }
 
     getDyeingProgram = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/DyeingProgram?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
             })
 
@@ -276,11 +276,11 @@ class AddDyeingProgram extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_dyeing_program')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -293,12 +293,12 @@ class AddDyeingProgram extends PureComponent{
         var checked = ev.target.checked;
         var formData = this.state.formData;
         var inventories = formData.dyeing_program_inventory;
-        console.log(checked);
+        // console.log(checked);
         inventories.map((item, index) => {
             item.selected = checked;
             if(index === inventories.length - 1)
             {
-                console.log(formData);
+                // console.log(formData);
                 this.setState({
                     ...this.state,
                     formData : formData
@@ -361,7 +361,7 @@ class AddDyeingProgram extends PureComponent{
         if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno) && issetNotEmpty(FORMDATA.order_id))
         {
             var selectedItems = _.filter(FORMDATA.dyeing_program_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return item.selected && item.fabric_id && item.color_id && item.gsm && item.dia && item.rolls &&item.weight ;
             });
 

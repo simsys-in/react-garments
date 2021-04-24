@@ -101,7 +101,7 @@ class ListLedger extends PureComponent {
   }
 
   editLedger = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_ledger/' + id)
   }
 
@@ -115,7 +115,7 @@ class ListLedger extends PureComponent {
 
   deleteLedger = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.ledger;
     Modal.confirm({
       title: 'Confirm',

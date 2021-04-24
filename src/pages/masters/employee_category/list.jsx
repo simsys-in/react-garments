@@ -46,7 +46,7 @@ class ListEmployeecategory extends PureComponent {
   }
 
   editEmployee_Category = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_employee_category/' + id)
   }
 
@@ -60,7 +60,7 @@ class ListEmployeecategory extends PureComponent {
 
   deleteEmployee_Category = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.employee_category;
     Modal.confirm({
       title: 'Confirm',

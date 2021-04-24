@@ -267,12 +267,12 @@ class AddGarmentsReceiptNote extends PureComponent{
     
 
     getGarmentsReceiptNote = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/garmentsReceiptNote?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.setState({
                     ...this.state,
                     formData : data.data
@@ -407,11 +407,11 @@ class AddGarmentsReceiptNote extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_garments_receipt_note')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -507,7 +507,7 @@ class AddGarmentsReceiptNote extends PureComponent{
         if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.marketing_user_id)) 
         {
             var selectedItems = _.filter(FORMDATA.garments_receipt_note_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return  item.product_id && item.color_id &&  item.unit_id &&( item.size1 ||item.size2 ||item.size3 ||item.size4 ||item.size5 ||item.size6 || item.size7 ||item.size8 ||item.size9 )  && item.qty  ;
             });
 

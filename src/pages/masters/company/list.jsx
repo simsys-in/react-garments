@@ -45,7 +45,7 @@ class ListCompany extends PureComponent {
   }
 
   editCompany = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_company/' + id)
   }
 
@@ -59,7 +59,7 @@ class ListCompany extends PureComponent {
 
   deleteCompany = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.company;
     Modal.confirm({
       title: 'Confirm',

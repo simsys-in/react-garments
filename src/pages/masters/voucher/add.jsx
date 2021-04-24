@@ -52,7 +52,7 @@ class AddVoucher extends PureComponent{
                 print_title : "",
                 terms_condition : "",
 
-                status : 'active',
+            
                 vou_date : moment(),
                 narration : "",
                 route_accounts : [
@@ -143,12 +143,12 @@ class AddVoucher extends PureComponent{
     }
 
     getVoucher = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/voucher?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
                 this.getLedgerForLedgerGroup(data.data.ledger2_id)
                 this.setTOTAL();
@@ -202,11 +202,11 @@ class AddVoucher extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_voucher')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false

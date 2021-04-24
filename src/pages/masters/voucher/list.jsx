@@ -58,7 +58,7 @@ class ListVoucher extends PureComponent {
   }
 
   editVoucher = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_voucher/' + id)
   }
 
@@ -93,7 +93,7 @@ class ListVoucher extends PureComponent {
 
   deleteVoucher = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.voutype;
     Modal.confirm({
       title: 'Confirm',

@@ -66,7 +66,7 @@ class ListGarmentsReceiptNote extends PureComponent {
   }
 
   editGarmentsReceiptNote = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/transactions/edit_garments_receipt_note/' + id)
   }
 
@@ -102,7 +102,7 @@ class ListGarmentsReceiptNote extends PureComponent {
 
   deleteGarmentsReceiptNote = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',

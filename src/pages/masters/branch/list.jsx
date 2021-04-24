@@ -46,7 +46,7 @@ class ListBranch extends PureComponent {
   }
 
   editBranch = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_branch/' + id)
   }
 
@@ -60,7 +60,7 @@ class ListBranch extends PureComponent {
 
   deleteBranch = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.branch;
     Modal.confirm({
       title: 'Confirm',

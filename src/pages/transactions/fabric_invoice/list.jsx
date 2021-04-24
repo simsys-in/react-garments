@@ -63,7 +63,7 @@ class ListFabricInvoice extends PureComponent {
   }
 
   editFabricInvoice = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/transactions/edit_fabric_invoice/' + id)
   }
 
@@ -98,7 +98,7 @@ class ListFabricInvoice extends PureComponent {
 
   deleteFabricInvoice = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',

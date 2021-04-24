@@ -175,12 +175,12 @@ class AddYarnPurchaseOrder extends PureComponent{
     }
 
     getYarnPurchaseOrder = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/yarnPurchaseOrder?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
                 this.getMobileForLedgerId(data.data.ledger_id);
                 
@@ -264,11 +264,11 @@ class AddYarnPurchaseOrder extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_yarn_purchase_order')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -376,7 +376,7 @@ class AddYarnPurchaseOrder extends PureComponent{
         if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno) && issetNotEmpty(FORMDATA.payment_mode))
         {
             var selectedItems = _.filter(FORMDATA.yarn_purchase_order_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return  item.yarn_id &&item.gsm &&item.count && item.hsnsac && item.qty && item.rate && item.amount ;
             });
 

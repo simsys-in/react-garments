@@ -258,12 +258,12 @@ class AddJobworkInvoice extends PureComponent{
     }
 
     getJobworkInvoice = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/jobworkInvoice?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
                 this.getMobileForLedgerId(data.data.ledger_id)
                 this.getJobworkInwardColorDetails(data.data.order_id);
@@ -371,11 +371,11 @@ class AddJobworkInvoice extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_jobwork_invoice')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -457,12 +457,12 @@ class AddJobworkInvoice extends PureComponent{
         var checked = ev.target.checked;
         var formData = this.state.formData;
         var inventories = formData.jobwork_invoice_inventory;
-        console.log(checked);
+        // console.log(checked);
         inventories.map((item, index) => {
             item.selected = checked;
             if(index === inventories.length - 1)
             {
-                console.log(formData);
+                // console.log(formData);
                 this.setState({
                     ...this.state,
                     formData : formData
@@ -568,7 +568,7 @@ class AddJobworkInvoice extends PureComponent{
         if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.ledger2_id) && issetNotEmpty(FORMDATA.refno))
         {
             var selectedItems = _.filter(FORMDATA.jobwork_invoice_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return item.selected && item.order_id && item.product_id && item.size_id && item.qty && item.rate &&item.amount  ;
             });
 

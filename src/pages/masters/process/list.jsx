@@ -49,7 +49,7 @@ class ListProcess extends PureComponent {
   }
 
   editProcess = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_process/' + id)
   }
 
@@ -63,7 +63,7 @@ class ListProcess extends PureComponent {
 
   deleteProcess = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.process;
     Modal.confirm({
       title: 'Confirm',

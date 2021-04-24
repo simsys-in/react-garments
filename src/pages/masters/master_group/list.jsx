@@ -49,7 +49,7 @@ class ListMasterGroup extends PureComponent {
   }
 
   editMasterGroup = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_master_group/' + id)
   }
 
@@ -63,7 +63,7 @@ class ListMasterGroup extends PureComponent {
 
   deleteMasterGroup = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.master_group;
     Modal.confirm({
       title: 'Confirm',

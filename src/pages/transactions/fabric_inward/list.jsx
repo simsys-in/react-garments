@@ -62,7 +62,7 @@ class ListFabricInward extends PureComponent {
   }
 
   editFabricInward = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/transactions/edit_fabric_inward/' + id)
   }
 
@@ -96,7 +96,7 @@ class ListFabricInward extends PureComponent {
 
   deleteFabricInward = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',

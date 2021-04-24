@@ -208,14 +208,14 @@ class AddEmployee extends PureComponent{
     }
 
     getEmployee = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/employee?id=" + this.id).then(data => {
                 data.data[0].dob = moment(data.data[0].dob)
                 data.data[0].joined = moment(data.data[0].joined)
                 data.data[0].resign_date = moment(data.data[0].resign_date)
-                console.log(data.data[0])
+                // console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
 
@@ -270,11 +270,11 @@ class AddEmployee extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_employee')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false

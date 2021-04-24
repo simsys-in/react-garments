@@ -258,7 +258,7 @@ class AddGarmentsInvoice extends PureComponent{
                 
                 item.amount = amount - item.disc_value;
                 total_amount_qty += Number(item.amount);
-                console.log(amount, item)
+                // console.log(amount, item)
 
                 if(index === garments_invoice_inventory.length - 1)
                 {
@@ -351,12 +351,12 @@ class AddGarmentsInvoice extends PureComponent{
     }
 
     getGarmentsInvoice = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/garmentsInvoice?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
                 this.getGarmentsDeliveryNoteInventoryDetails(data.data.ledger_id)
                 data.data.garments_invoice_inventory.map((item, index) => {
@@ -437,11 +437,11 @@ class AddGarmentsInvoice extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_garments_invoice')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -557,12 +557,12 @@ class AddGarmentsInvoice extends PureComponent{
         var checked = ev.target.checked;
         var formData = this.state.formData;
         var inventories = formData.garments_invoice_inventory;
-        console.log(checked);
+        // console.log(checked);
         inventories.map((item, index) => {
             item.selected = checked;
             if(index === inventories.length - 1)
             {
-                console.log(formData);
+                // console.log(formData);
                 this.setState({
                     ...this.state,
                     formData : formData
@@ -581,7 +581,7 @@ class AddGarmentsInvoice extends PureComponent{
         if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno) && issetNotEmpty(FORMDATA.marketing_user_id))
         {
             var selectedItems = _.filter(FORMDATA.garments_invoice_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return item.selected && item.refno && item.product_id && ( item.size1_qty ||item.size2_qty ||item.size3_qty ||item.size4_qty ||item.size5_qty ||item.size6_qty || item.size7_qty ||item.size8_qty ||item.size9_qty ) && ( item.size1_rate ||item.size2_rate ||item.size3_rate ||item.size4_rate ||item.size5_rate ||item.size6_rate || item.size7_rate ||item.size8_rate ||item.size9_rate ) && item.qty ;
             });
 

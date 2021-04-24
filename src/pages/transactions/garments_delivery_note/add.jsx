@@ -406,11 +406,11 @@ class AddGarmentsDeliveryNote extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_garments_delivery_note')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -507,7 +507,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
         if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.marketing_user_id)) 
         {
             var selectedItems = _.filter(FORMDATA.garments_delivery_note_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return  item.product_id && item.color_id &&  item.unit_id &&( item.size1_qty ||item.size2_qty ||item.size3_qty ||item.size4_qty ||item.size5_qty ||item.size6_qty || item.size7_qty ||item.size8_qty ||item.size9_qty )  && item.qty  ;
             });
 

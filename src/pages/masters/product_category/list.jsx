@@ -45,7 +45,7 @@ class ListProductCategory extends PureComponent {
   }
 
   editProduct_Category = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_product_category/' + id)
   }
 
@@ -59,7 +59,7 @@ class ListProductCategory extends PureComponent {
 
   deleteProduct_Category = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.product_category;
     Modal.confirm({
       title: 'Confirm',

@@ -33,7 +33,7 @@ class AddFabricInward extends PureComponent{
                 narration :"",
                 refno :"",
                 vehicle_no: '',
-                status : 'active',
+        
                 vou_date : moment(),
                 order_id : 0,
                 fabric_inward_inventory : [
@@ -212,12 +212,12 @@ class AddFabricInward extends PureComponent{
     }
 
     getFabricInward = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/fabricInward?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
                 this.getFabricOutwardInventoryDetails(data.data.ledger_id)
             })
@@ -313,11 +313,11 @@ class AddFabricInward extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_fabric_inward')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -374,12 +374,12 @@ class AddFabricInward extends PureComponent{
         var checked = ev.target.checked;
         var formData = this.state.formData;
         var inventories = formData.fabric_inward_inventory;
-        console.log(checked);
+        // console.log(checked);
         inventories.map((item, index) => {
             item.selected = checked;
             if(index === inventories.length - 1)
             {
-                console.log(formData);
+                // console.log(formData);
                 this.setState({
                     ...this.state,
                     formData : formData
@@ -398,7 +398,7 @@ class AddFabricInward extends PureComponent{
         if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.refno))
         {
             var selectedItems = _.filter(FORMDATA.fabric_inward_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return item.selected && item.fabric_id && item.color_id && item.gsm && item.dia && item.roll &&item.weight  ;
             });
 

@@ -336,12 +336,12 @@ class AddJobworkOutward extends PureComponent{
     }
 
     getJobworkOutward = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/jobworkOutward?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
                 this.onOrderIDChange(data.data.order_id)
                 this.getMobileForLedgerId(data.data.ledger_id)
@@ -418,11 +418,11 @@ class AddJobworkOutward extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_jobwork_outward')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -501,7 +501,7 @@ class AddJobworkOutward extends PureComponent{
     }
 
     getLedgerForOrderAndProcessID = (process_id) => {
-        console.log(issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(process_id), this.state.formData.order_id ,process_id)
+        // console.log(issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(process_id), this.state.formData.order_id ,process_id)
         if(issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(process_id))
         {
             getRequest('garments/getLedgerForOrderAndProcessID?order_id=' + this.state.formData.order_id + "&process_id=" + process_id).then(data => {
@@ -549,7 +549,7 @@ class AddJobworkOutward extends PureComponent{
 
     getNextJobworkOutwardVouNo = () => {
         getRequest('garments/getNextJobworkOutwardVouNo').then(data => {
-            console.log(data);
+            // console.log(data);
             if(data.status === "info")
             {
                 this.setState({
@@ -621,12 +621,12 @@ class AddJobworkOutward extends PureComponent{
         var checked = ev.target.checked;
         var formData = this.state.formData;
         var inventories = formData.jobwork_outward_inventory;
-        console.log(checked);
+        // console.log(checked);
         inventories.map((item, index) => {
             item.selected = checked;
             if(index === inventories.length - 1)
             {
-                console.log(formData);
+                // console.log(formData);
                 this.setState({
                     ...this.state,
                     formData : formData
@@ -698,7 +698,7 @@ class AddJobworkOutward extends PureComponent{
         if(issetNotEmpty(FORMDATA.order_id) && issetNotEmpty(FORMDATA.from_process_id) && issetNotEmpty(FORMDATA.to_process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.style_id)) 
         {
             var selectedItems = _.filter(FORMDATA.jobwork_outward_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return  item.selected && item.color_id  &&( item.size1 ||item.size2 ||item.size3 ||item.size4 ||item.size5 ||item.size6 || item.size7 ||item.size8 ||item.size9 )  && item.qty  ;
             });
             var selectedProduct = _.filter(FORMDATA.jobwork_outward_product, (item) => {

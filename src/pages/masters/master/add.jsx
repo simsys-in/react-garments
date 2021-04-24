@@ -66,12 +66,12 @@ class AddMaster extends PureComponent{
     }
 
     getMaster = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/master?id=" + this.id).then(data => {
                 // data.data[0].dob = moment(data.data[0].dob)
-                console.log(data.data[0])
+                // console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
 
@@ -119,11 +119,11 @@ class AddMaster extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_master')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false

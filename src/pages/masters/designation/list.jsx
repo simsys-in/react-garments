@@ -47,7 +47,7 @@ class ListDesignation extends PureComponent {
   }
 
   editDesignation = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_designation/' + id)
   }
 
@@ -61,7 +61,7 @@ class ListDesignation extends PureComponent {
 
   deleteDesignation = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.designation;
     Modal.confirm({
       title: 'Confirm',

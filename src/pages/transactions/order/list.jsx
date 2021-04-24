@@ -58,7 +58,7 @@ class ListOrderProgram extends PureComponent {
   }
 
   editOrderProgram = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/transactions/edit_order_program/' + id)
   }
 
@@ -72,7 +72,7 @@ class ListOrderProgram extends PureComponent {
 
   deleteOrderProgram = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.order_no;
     Modal.confirm({
       title: 'Confirm',

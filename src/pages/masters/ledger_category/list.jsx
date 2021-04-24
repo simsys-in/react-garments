@@ -50,7 +50,7 @@ class ListLedgerCategory extends PureComponent {
   }
 
   editLedger_Category = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_ledger_category/' + id)
   }
 
@@ -64,7 +64,7 @@ class ListLedgerCategory extends PureComponent {
 
   deleteLedger_Category = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.ledger_category;
     Modal.confirm({
       title: 'Confirm',

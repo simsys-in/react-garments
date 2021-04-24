@@ -97,12 +97,12 @@ class AddUnit extends PureComponent{
     }
 
     getUnit = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/unit?id=" + this.id).then(data => {
                 // data.data[0].dob = moment(data.data[0].dob)
-                console.log(data.data[0])
+                // console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
 
@@ -149,11 +149,11 @@ class AddUnit extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_unit')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false

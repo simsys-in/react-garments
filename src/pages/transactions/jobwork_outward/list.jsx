@@ -72,7 +72,7 @@ class ListJobworkOutward extends PureComponent {
   }
 
   editJobworkOutward = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/transactions/edit_jobwork_outward/' + id)
   }
 
@@ -108,7 +108,7 @@ class ListJobworkOutward extends PureComponent {
 
   deleteJobworkOutward = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',

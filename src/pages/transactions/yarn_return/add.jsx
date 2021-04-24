@@ -136,12 +136,12 @@ class AddYarn_Return  extends PureComponent{
     }
 
     getYarn_Return  = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/yarn_return?id=" + this.id).then(data => {
                 data.data.dob = moment(data.data.dob)
-                console.log(data.data)
+                // console.log(data.data)
                 data.data.vou_date = moment(data.data.vou_date)
                 this.formRef.current.setFieldsValue(data.data);
             })
@@ -156,7 +156,7 @@ class AddYarn_Return  extends PureComponent{
 
     getNextYarnReturnVouNo = () => {
         getRequest('garments/getNextYarnReturnVouNo').then(data => {
-            console.log(data);
+            // console.log(data);
             if(data.status === "info")
             {
                 this.setState({
@@ -227,11 +227,11 @@ class AddYarn_Return  extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_yarn_return')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -358,7 +358,7 @@ class AddYarn_Return  extends PureComponent{
         if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno) )
         {
             var selectedItems = _.filter(FORMDATA.yarn_return_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return  item.fabric_id && item.counts && item.qtybag_per && item.qty_bag && item.qty_kg   &&item.gsm   ;
             });
 

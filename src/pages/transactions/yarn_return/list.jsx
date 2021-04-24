@@ -81,7 +81,7 @@ class ListYarnreturn  extends PureComponent {
   }
 
   editYarn_Return  = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/transactions/edit_yarn_return/' + id)
   }
 
@@ -115,7 +115,7 @@ class ListYarnreturn  extends PureComponent {
 
   deleteYarn_Return  = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.vouno ;
     Modal.confirm({
       title: 'Confirm',

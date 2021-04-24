@@ -62,7 +62,7 @@ class ListDyeingProgram extends PureComponent {
   }
 
   editDyeingProgram = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/transactions/edit_dyeing_program/' + id)
   }
 
@@ -96,7 +96,7 @@ class ListDyeingProgram extends PureComponent {
 
   deleteDyeingProgram = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.vouno;
     Modal.confirm({
       title: 'Confirm',

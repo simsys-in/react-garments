@@ -126,13 +126,13 @@ class AddYarn_Outward extends PureComponent{
     }
 
     getYarn_Outward = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/yarn_outward?id=" + this.id).then(data => {
                 data.data.dob = moment(data.data.dob)
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
             })
 
@@ -146,7 +146,7 @@ class AddYarn_Outward extends PureComponent{
 
     getNextYarnOutwardVouNo = () => {
         getRequest('garments/getNextYarnOutwardVouNo').then(data => {
-            console.log(data);
+            // console.log(data);
             if(data.status === "info")
             {
                 this.setState({
@@ -215,11 +215,11 @@ class AddYarn_Outward extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_yarn_outward')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -319,7 +319,7 @@ class AddYarn_Outward extends PureComponent{
         if(issetNotEmpty(FORMDATA.from_process_id) && issetNotEmpty(FORMDATA.to_process_id)&& issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno) )
         {
             var selectedItems = _.filter(FORMDATA.yarn_outward_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return  item.fabric_id && item.counts && item.qtybag_per && item.qty_bag && item.qty_kg   &&item.gsm   ;
             });
 

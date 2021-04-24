@@ -55,12 +55,12 @@ class AddReport extends PureComponent{
     }
 
     getReport = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/report?id=" + this.id).then(data => {
                 // data.data[0].dob = moment(data.data[0].dob)
-                console.log(data.data[0])
+                // console.log(data.data[0])
                 this.formRef.current.setFieldsValue(data.data[0]);
             })
 
@@ -107,11 +107,11 @@ class AddReport extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_report')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false

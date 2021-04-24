@@ -46,7 +46,7 @@ class ListShift extends PureComponent {
   }
 
   editShift = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_shift/' + id)
   }
 
@@ -60,7 +60,7 @@ class ListShift extends PureComponent {
 
   deleteShift = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.shift;
     Modal.confirm({
       title: 'Confirm',

@@ -140,12 +140,12 @@ class AddYarn_Invoice extends PureComponent{
     }
 
     getYarn_Invoice = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/yarn_invoice?id=" + this.id).then(data => {
                 data.data.date = moment(data.data.date)
-                console.log(data.data)
+                // console.log(data.data)
                 data.data.vou_date = moment(data.data.vou_date)
                 this.formRef.current.setFieldsValue(data.data);
                 this.getYarnInwardInventoryDetails(data.data.ledger_id)
@@ -163,7 +163,7 @@ class AddYarn_Invoice extends PureComponent{
 
     getNextYarnInvoiceVouNo = () => {
         getRequest('garments/getNextYarnInvoiceVouNo').then(data => {
-            console.log(data);
+            // console.log(data);
             if(data.status === "info")
             {
                 this.setState({
@@ -273,11 +273,11 @@ class AddYarn_Invoice extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_yarn_invoice')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -506,12 +506,12 @@ class AddYarn_Invoice extends PureComponent{
         var checked = ev.target.checked;
         var formData = this.state.formData;
         var inventories = formData.yarn_invoice_inventory;
-        console.log(checked);
+        // console.log(checked);
         inventories.map((item, index) => {
             item.selected = checked;
             if(index === inventories.length - 1)
             {
-                console.log(formData);
+                // console.log(formData);
                 this.setState({
                     ...this.state,
                     formData : formData
@@ -529,7 +529,7 @@ class AddYarn_Invoice extends PureComponent{
         if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno) )
         {
             var selectedItems = _.filter(FORMDATA.yarn_invoice_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return item.selected && item.fabric_id && item.counts && item.qtybag_per && item.qty_bag && item.qty_kg &&item.rate  &&item.gsm &&item.amount   ;
             });
 

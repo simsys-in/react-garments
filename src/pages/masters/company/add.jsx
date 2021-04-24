@@ -69,12 +69,12 @@ class AddCompany extends PureComponent{
     }
 
     getCompany = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/company?id=" + this.id).then(data => {
                 data.data.acc_start_date = moment(data.data.acc_start_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
             })
 
@@ -121,11 +121,11 @@ class AddCompany extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_company')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false

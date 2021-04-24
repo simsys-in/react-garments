@@ -122,7 +122,7 @@ class ListSize extends PureComponent {
   }
 
   editSize = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_size/' + id)
   }
 
@@ -136,7 +136,7 @@ class ListSize extends PureComponent {
 
   deleteSize = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.size;
     Modal.confirm({
       title: 'Confirm',

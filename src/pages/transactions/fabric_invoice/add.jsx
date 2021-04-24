@@ -31,7 +31,7 @@ class AddFabricInvoice extends PureComponent{
             formData : {
                 narration :"",
                 refno :"",
-                status : 'active',
+                
                 vou_date : moment(),
                 narration : "",
                 order_id: 0,
@@ -209,12 +209,12 @@ class AddFabricInvoice extends PureComponent{
     }
 
     getFabricInvoice = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/fabricInvoice?id=" + this.id).then(data => {
                 data.data.vou_date = moment(data.data.vou_date)
-                console.log(data.data)
+                // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
                 this.getFabricInwardInventoryDetails(data.data.ledger_id)
 
@@ -330,11 +330,11 @@ class AddFabricInvoice extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/transactions/list_fabric_invoice')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
@@ -390,12 +390,12 @@ class AddFabricInvoice extends PureComponent{
         var checked = ev.target.checked;
         var formData = this.state.formData;
         var inventories = formData.fabric_invoice_inventory;
-        console.log(checked);
+        // console.log(checked);
         inventories.map((item, index) => {
             item.selected = checked;
             if(index === inventories.length - 1)
             {
-                console.log(formData);
+                // console.log(formData);
                 this.setState({
                     ...this.state,
                     formData : formData
@@ -414,7 +414,7 @@ class AddFabricInvoice extends PureComponent{
         if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.refno))
         {
             var selectedItems = _.filter(FORMDATA.fabric_invoice_inventory, (item) => {
-                console.log(item)
+                // console.log(item)
                 return item.selected && item.fabric_id && item.color_id && item.gsm && item.dia && item.roll &&item.weight &&item.rate &&item.amount ;
             });
 

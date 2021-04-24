@@ -46,7 +46,7 @@ class ListBank extends PureComponent {
   }
 
   editBank = (id) => {
-    console.log(id);
+    // console.log(id);
     this.props.history.push('/masters/edit_bank/' + id)
   }
 
@@ -60,7 +60,7 @@ class ListBank extends PureComponent {
 
   deleteBank = (user) => {
     const id = user.id
-    console.log(id);
+    // console.log(id);
     const name = user.bank;
     Modal.confirm({
       title: 'Confirm',

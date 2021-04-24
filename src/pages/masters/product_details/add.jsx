@@ -108,7 +108,7 @@ class AddProductDetails extends PureComponent{
     }
 
     getProductDetails = () => {
-        console.log(this.id)
+        // console.log(this.id)
         if(this.id)
         {
             getRequest("garments/productDetails?id=" + this.id).then(data => {
@@ -174,11 +174,11 @@ class AddProductDetails extends PureComponent{
                 if(data.status === "success")
                 {
                     this.props.history.push('/masters/list_product_details')
-                    console.log(data) 
+                    // console.log(data) 
                 }
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 this.setState({
                     ...this.state,
                     buttonLoading : false
