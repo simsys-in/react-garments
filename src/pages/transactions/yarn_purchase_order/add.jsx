@@ -121,7 +121,18 @@ class AddYarnPurchaseOrder extends PureComponent{
         })
     }
 
+    getOrderSB = () => {
 
+        getRequest('garments/getOrderSB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    order_no : data.data
+                })
+            }
+        })
+    }
     
 
     setTOTAL =() => {
@@ -224,6 +235,7 @@ class AddYarnPurchaseOrder extends PureComponent{
 
     
  componentDidMount() {
+        this.getOrderSB();
         this.getLedgerNameSB();
         this.getYarnSB();
         this.getUnitSB();
@@ -420,20 +432,21 @@ class AddYarnPurchaseOrder extends PureComponent{
                         
                    
                    <div className="row">
+                       <Selectbox modelName="order_id" label="Order No"  className="col-md-4" options={this.state.order_no}  value={this.state.formData.order_id}  ></Selectbox>
                        <Selectbox modelName="ledger_id" autoFocus label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
                        <Textbox modelName="mobile" disabled label="Mobile" className="col-md-4" required="false"></Textbox>
-                       <Textbox modelName="delivery_address"  label="Delivery Address" className="col-md-4" required="false"></Textbox>
 
                    </div>
                    <div className="row">
+                       <Textbox modelName="delivery_address"  label="Delivery Address" className="col-md-4" required="false"></Textbox>
                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
                        <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
-                       <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
 
                    </div>
                     
                    <div className="row">
                        <Selectbox modelName="payment_mode"  label="Payment Mode" className="col-md-4" options={paymentMode} value={this.state.formData.payment_mode} ></Selectbox>
+                       <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                         {/* <Form.Item name={'payment_terms_conditions'} label="Terms And Conditions" className="col-md-8">
                             <Input.TextArea addonBefore="Terms and Conditions"  />
                         </Form.Item> */}
