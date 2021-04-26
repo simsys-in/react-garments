@@ -30,6 +30,7 @@ class AddFabricInvoice extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 narration :"",
+                vehicle_no :"",
                 refno :"",
                 
                 vou_date : moment(),
@@ -471,6 +472,7 @@ class AddFabricInvoice extends PureComponent{
 
                    <div className="row">
                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
+                       <Textbox label="Vehicle No" modelName="vehicle_no" required="false" className="col-md-4"></Textbox>
                    </div>
                    
                    <div className="row">

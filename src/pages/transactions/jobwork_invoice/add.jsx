@@ -29,6 +29,7 @@ class AddJobworkInvoice extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 narration :"",
+                vehicle_no :"",
                 mobile :"",
                 refno :"",
                 status : 'active',
@@ -621,6 +622,7 @@ class AddJobworkInvoice extends PureComponent{
                    <div className="row">
                      <Textbox label="Ref No" modelName="refno" required="false" className="col-md-4"></Textbox>
                         <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
+                        <Textbox label="Vehicle No" modelName="vehicle_no" required="false" className="col-md-4"></Textbox>
                      {/* <Selectbox modelName="menu_id" required="false" label="Menu" className="col-md-6" options={this.state.menu_data} value={this.state.formData.menu_id} ></Selectbox> */}
  
                    </div>

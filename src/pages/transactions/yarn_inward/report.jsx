@@ -92,11 +92,11 @@ class Report extends PureComponent {
                                 </div>
                             {/* </div> */}
                             </div>
-                            <div className="col-md-6" style={{ padding : 0, border : '1px  black' }}>
+                            <div className="col-md-6" style={{ padding : 0, border : '1px solid grey' }}>
 
-                                <table width={"100%"} style={{border:"gray", margin : 0, padding : 0}}>
+                                <table width={"100%"} style={{border:"1px solid grey", margin : 0, padding : 0}}>
                                         <tr> 
-                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px lightgray' }}> <h5>YARN RECEIPT NOTE</h5> </td>
+                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid grey' }}> <h5>YARN RECEIPT NOTE</h5> </td>
                                         </tr>
                                         <tr>
                                             <th style={{paddingLeft : '5px'}}> DC No </th>
@@ -114,8 +114,10 @@ class Report extends PureComponent {
                                             <th style={{paddingLeft : '5px'}}> Order No </th>
                                             <td style={{fontWeight:"bold"}}> {report_details.order_no}</td>
                                         
-                                            <th> Vehicle</th>
-                                            <td style={{fontWeight:"bold"}}> {report_details.vehicle_no}</td>
+                                            {/* <th> Vehicle</th>
+                                            <td style={{fontWeight:"bold"}}> {report_details.vehicle_no}</td> */}
+                                            <th></th>
+                                            <td></td>
                                         </tr>
                                         
                                        

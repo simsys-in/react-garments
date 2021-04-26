@@ -19,7 +19,14 @@ class Report extends PureComponent {
         getRequest('garments/getYarnInvoiceReport?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
-                if(data.data.inventory.length < 14)
+                var total_kg = 0;
+                var total_amount = 0;
+                data.data.inventory.map(item=>{
+                    total_kg += item.qty_kg;
+                    total_amount += item.amount;
+                })
+                
+                if(data.data.inventory.length < 7)
                 {
                     var item = {
                         fabric_id : '',
@@ -29,15 +36,18 @@ class Report extends PureComponent {
                         rate : '',
                         qty_kg : '',
                     }
-                    for(var i=data.data.inventory.length; i < 14; i++ )
+                    for(var i=data.data.inventory.length; i < 7; i++ )
                     {
                         data.data.inventory.push(item);
-                        if(i === 13)
+                        if(i === 6)
                         {
                             this.setState({
                                 ...this.state,
                                 report_details : data.data,
                                 show_details : true,
+                                inventory_qty_kg_total : total_kg,
+                                inventory_amount_total : total_amount
+                            
                             })
 
                         }
@@ -48,6 +58,8 @@ class Report extends PureComponent {
                         ...this.state,
                         report_details : data.data,
                         show_details : true,
+                        inventory_qty_kg_total : total_kg,
+                        inventory_amount_total : total_amount
                     })
                 }
                
@@ -87,11 +99,11 @@ class Report extends PureComponent {
                                 </div>
                             {/* </div> */}
                             </div>
-                            <div className="col-md-6" style={{ padding : 0,border : '1px solid gray' }}>
+                            <div className="col-md-6" style={{ padding : 0,border : '1px solid grey' }}>
 
-                                <table width={"100%"} style={{border:"light gray", margin : 0, padding : 0}} >
+                                <table width={"100%"} style={{border:"1px solid grey", margin : 0, padding : 0}} >
                                         <tr> 
-                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px lightgray' }}> <h5>YARN INVOICE </h5> </td>
+                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid grey' }}> <h5>YARN INVOICE </h5> </td>
                                         </tr>
                                         <tr>
                                             <th style={{paddingLeft : '5px'}}> DC No </th>
@@ -108,6 +120,8 @@ class Report extends PureComponent {
                                         <tr>
                                             <th style={{paddingLeft : '5px'}}> Order No </th>
                                             <td style={{fontWeight:"bold"}}> {report_details.order_no}</td>
+                                            <th style={{paddingLeft : '5px'}}> Vehicle No </th>
+                                            <td style={{fontWeight:"bold"}}> {report_details.vehicle_no}</td>
                                         
                                             <th></th>
                                             <td></td>
@@ -157,11 +171,11 @@ class Report extends PureComponent {
                                         <tr>
                                             <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}} colSpan={3}>GRAND TOTAL</td>
                                            
-                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}>{report_details.inventorytotal[0].inventory_qty_kg_total !== "" && Number(report_details.inventorytotal[0].inventory_qty_kg_total).toFixed(3)}</td>
+                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}>{this.state.inventory_qty_kg_total !== "" && Number(this.state.inventory_qty_kg_total).toFixed(3)}</td>
 
                                             <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}></td>
                                             
-                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}>{report_details.inventorytotal[0].inventory_amount_total !== "" && Number(report_details.inventorytotal[0].inventory_amount_total).toFixed(2)}</td>
+                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}>{this.state.inventory_amount_total !== "" && Number(this.state.inventory_amount_total).toFixed(2)}</td>
                                             
                                         </tr>
                                          </tbody>

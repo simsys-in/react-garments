@@ -29,7 +29,7 @@ class Report extends PureComponent {
         getRequest('garments/getGarmentsInvoicePrint?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
-                if(data.data.inventories.length < 7)
+                if(data.data.inventories.length < 8)
                 {
                     var item = {
                         product : '',
@@ -59,10 +59,10 @@ class Report extends PureComponent {
                     //     item.size_data.push(size_obj);
                     // }
 
-                    for(var i=data.data.inventories.length; i < 7; i++ )
+                    for(var i=data.data.inventories.length; i <8; i++ )
                     {
                         data.data.inventories.push(item);
-                        if(i === 6)
+                        if(i === 7)
                         {
                             this.setState({
                                 ...this.state,
@@ -126,9 +126,9 @@ class Report extends PureComponent {
                                     <h4>{ report_details.company_details.company }</h4>
                                     <b>GSTIN : {report_details.company_details.gstno}</b>
                                 </div>
-                                <div className="col-md-4" style={{ border : '1px solid grey' }}></div>
-                                <div className="col-md-4" style={{ padding : 0 }}>
-                                    <table width="100%" border={1} style={{ padding : 0, margin : 0 }}>
+                                {/* <div className="col-md-4" style={{ border : '1px solid grey' }}></div> */}
+                                <div className="col-md-8" style={{ padding : 0 }} >
+                                    <table width="100%" border={1} style={{ padding : 0, margin : 0 }} >
                                         <thead>
                                             <tr>
                                                 <th colSpan={4} style={{ textAlign :'center' }} >
@@ -141,7 +141,7 @@ class Report extends PureComponent {
                                                 <td>
                                                     Invoice No
                                                 </td>
-                                                <td width={40}> {report_details.vouno} </td>
+                                                <td width={150}> {report_details.vouno} </td>
                                                 <td> Invoice Date </td>
                                                 <td> { getStandardDate(report_details.vou_date) } </td>
                                             </tr>
@@ -151,6 +151,14 @@ class Report extends PureComponent {
                                                 <td> Transport Name </td>
                                                 <td></td>
                                             </tr>
+                                            <tr>
+                                                <td > Vehicle No </td>
+                                                <td> {report_details.vehicle_no}</td>
+                                                <td>  </td>
+                                                <td></td>
+
+                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -306,40 +314,40 @@ class Report extends PureComponent {
                                                 <td style={{borderLeft:'1px solid grey'}}> {report_details.inventory_qty_total} </td>
                                                 <td style={{borderLeft:'1px solid grey', borderRight:'1px solid grey'}}></td>
                                                 <td style={{borderRight:'1px solid grey'}}></td>
-                                                <td style={{ textAlign : 'right', borderLeft:'1 px solid grey' }}> { Number(report_details.inventory_amount_total).toFixed(2) } </td>
+                                                <td style={{ textAlign : 'right',paddingRight:'5px', borderLeft:'1 px solid grey' }}> { Number(report_details.inventory_amount_total).toFixed(2) } </td>
                                             </tr>
-                                            <tr>
-                                                <td colSpan={12} style={{ textAlign : 'right' }}> <h6> CGST</h6></td>
+                                            <tr style={{borderRight:'1px solid grey'}}>
+                                                <td colSpan={12} style={{ textAlign : 'right',borderLeft:'1px solid grey' }}> <h6> CGST</h6></td>
+                                                <td  ></td>
+                                                <td ></td>
+                                                <td >2.5%</td>
+                                                <td style={{ textAlign : 'right', paddingRight:'5px' }}> { Number(cgst).toFixed(2) } </td>
+                                            </tr>
+                                            <tr style={{borderRight:'1px solid grey'}}>
+                                                <td colSpan={12} style={{ textAlign : 'right',borderLeft:'1px solid grey' }}> <h6> SGST</h6></td>
                                                 <td ></td>
                                                 <td ></td>
                                                 <td >2.5%</td>
-                                                <td style={{ textAlign : 'right' }}> { Number(cgst).toFixed(2) } </td>
+                                                <td style={{ textAlign : 'right',paddingRight:'5px' }}> { Number(sgst).toFixed(2) } </td>
                                             </tr>
-                                            <tr>
-                                                <td colSpan={12} style={{ textAlign : 'right' }}> <h6> SGST</h6></td>
-                                                <td ></td>
-                                                <td ></td>
-                                                <td >2.5%</td>
-                                                <td style={{ textAlign : 'right' }}> { Number(sgst).toFixed(2) } </td>
-                                            </tr>
-                                            <tr>
-                                                <td colSpan={12} style={{ textAlign : 'right' }}> <h6> Round Off </h6></td>
+                                            <tr style={{borderRight:'1px solid grey'}}>
+                                                <td colSpan={12} style={{ textAlign : 'right',borderLeft:'1px solid grey' }}> <h6> Round Off </h6></td>
                                                 <td ></td>
                                                 <td ></td>
                                                 <td ></td>
                                                 {/* <td >2.5%</td> */}
-                                                <td style={{ textAlign : 'right' }}> { Number(roundOff).toFixed(2) } </td>
+                                                <td style={{ textAlign : 'right', paddingRight:'5px' }}> { Number(roundOff).toFixed(2) } </td>
                                             </tr>
-                                            <tr>
-                                                <td colSpan={12} style={{ textAlign : 'right' }}> <h6> Grand Total </h6></td>
+                                            <tr style={{borderRight:'1px solid grey'}}>
+                                                <td colSpan={12} style={{ textAlign : 'right',borderLeft:'1px solid grey' }}> <h6> Grand Total </h6></td>
                                                 <td ></td>
                                                 <td ></td>
                                                 <td ></td>
                                                 {/* <td >2.5%</td> */}
-                                                <td style={{ textAlign : 'right' }}> { Number(finalValue).toFixed(2) } </td>
+                                                <td style={{ textAlign : 'right',paddingRight:'5px' }}> { Number(finalValue).toFixed(2) } </td>
                                             </tr>
-                                            <tr>
-                                                <td colSpan={16}> Amount in words :  { humanize(finalValue)} </td>
+                                            <tr style={{borderRight:'1px solid grey'}}>
+                                                <td colSpan={16} style={{borderLeft:'1px solid grey'}}> Amount in words :  { humanize(finalValue)} </td>
                                             </tr>
                                         </tfoot>
                                 </table>

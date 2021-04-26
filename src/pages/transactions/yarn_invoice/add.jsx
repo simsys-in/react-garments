@@ -30,6 +30,7 @@ class AddYarn_Invoice extends PureComponent{
             formData : {
                 refno : "",
                 narration : "",
+                vehicle_no :"",
                 status : 'active',
                 vou_date : moment(),
                 order_id : 0,
@@ -585,6 +586,7 @@ class AddYarn_Invoice extends PureComponent{
                     <div className="row">
                        
                         <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
+                        <Textbox label="Vehicle No " modelName="vehicle_no" required="false" className="col-md-4"></Textbox>
                       
 
 
