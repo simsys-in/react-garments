@@ -116,12 +116,12 @@ class Report extends PureComponent {
                                         <tr>
                                             <th> Order No </th>
                                             <td style={{fontWeight:"bold"}}> { report_details.order_no }</td>
-                                            <th> Vehicle No </th>
-                                            <td style={{fontWeight:"bold"}}> {report_details.vehicle_no} </td>
-                                        </tr>
-                                        <tr>
+                                            {/* <th> Vehicle No </th>
+                                            <td style={{fontWeight:"bold"}}> {report_details.vehicle_no} </td> */}
                                             <th> Product </th>
                                             <td style={{fontWeight:"bold"}}> { report_details.product }</td>
+                                        </tr>
+                                        <tr>
                                             <th>  </th>
                                             <td>  </td>
                                         </tr>

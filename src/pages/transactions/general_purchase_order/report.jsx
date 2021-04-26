@@ -19,6 +19,12 @@ class Report extends PureComponent {
         getRequest('garments/getGeneralPurchaseOrderReport?id=' + this.props.itemId).then(data => {
             if(data.status === "info")
             {
+                var total_qty = 0;
+                var total_amount = 0;
+                data.data.inventory.map(item=>{
+                    total_qty += item.qty;
+                    total_amount += Number(item.amount)
+                })
                 if(data.data.inventory.length < 7)
                 {
                     var item = {
@@ -40,6 +46,8 @@ class Report extends PureComponent {
                                 ...this.state,
                                 report_details : data.data,
                                 show_details : true,
+                                inventory_qty_total : total_qty,
+                                inventory_amount_total : total_amount
                             })
 
                         }
@@ -50,6 +58,8 @@ class Report extends PureComponent {
                         ...this.state,
                         report_details : data.data,
                         show_details : true,
+                        inventory_qty_total : total_qty,
+                        inventory_amount_total : total_amount
                     })
                 }
                
@@ -93,7 +103,7 @@ class Report extends PureComponent {
 
                                 <table width={"100%"} style={{border:"light gray", margin : 0, padding : 0}} >
                                         <tr> 
-                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px lightgray' }}> <h5>PURCHASE ORDER </h5> </td>
+                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid grey' }}> <h5>PURCHASE ORDER </h5> </td>
                                         </tr>
                                         <tr>
                                             <th style={{paddingLeft : '5px'}}>  P.O No </th>
@@ -169,12 +179,12 @@ class Report extends PureComponent {
                                         <tr>
                                             <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}} colSpan={2}>GRAND TOTAL</td>
                                            
-                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}>{report_details.inventory_qty_total !== "" && Number(report_details.inventory_qty_total).toFixed(3)}</td>
+                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}>{this.state.inventory_qty_total !== "" && Number(this.state.inventory_qty_total).toFixed(3)}</td>
 
                                             {/* <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}></td> */}
                                             <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}></td>
                                             
-                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}>{report_details.inventory_amount_total !== "" && Number(report_details.inventory_amount_total).toFixed(2)}</td>
+                                            <td style={{fontWeight:"bold" , border:'1px solid gray', textAlign:'right', paddingRight:'5px'}}>{this.state.inventory_amount_total !== "" && Number(this.state.inventory_amount_total).toFixed(2)}</td>
                                             
                                         </tr>
                                          </tbody>
