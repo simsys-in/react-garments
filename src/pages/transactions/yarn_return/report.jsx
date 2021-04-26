@@ -27,7 +27,7 @@ class Report extends PureComponent {
                     total_kg += item.qty_kg;
                     total_bag += item.qty_bag;
                 })
-                if(data.data.inventory.length < 7)
+                if(data.data.inventory.length < 10)
                 {
                     var item = {
                         product : '',
@@ -37,10 +37,10 @@ class Report extends PureComponent {
                         qty_bag : '',
                         qty_kg : '',
                     }
-                    for(var i=data.data.inventory.length; i < 7; i++ )
+                    for(var i=data.data.inventory.length; i < 10; i++ )
                     {
                         data.data.inventory.push(item);
-                        if(i === 6)
+                        if(i === 9)
                         {
                             this.setState({
                                 ...this.state,
@@ -122,13 +122,12 @@ class Report extends PureComponent {
                                             <th style={{paddingLeft : '5px'}} > Order No </th>
                                             <td style={{fontWeight:"bold"}}> {report_details.order_no}</td>
                                            
-                                        
+                                        <th></th>
+                                        <td></td>
                                             {/* <th> Vehicle</th>
                                             <td style={{fontWeight:"bold"}}> {report_details.vehicle_no}</td> */}
                                         </tr>
-                                        <tr>
-
-                                        </tr>
+                                      
                                         
                                        
                                         

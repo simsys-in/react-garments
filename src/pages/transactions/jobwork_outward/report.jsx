@@ -30,7 +30,7 @@ class Report extends PureComponent {
 
             {
 
-                if(data.data.color_details.length < 7)
+                if(data.data.color_details.length < 15)
                 {
                     var item = {
                         color : '',
@@ -46,10 +46,10 @@ class Report extends PureComponent {
                         // ["size" + Number(Number(index) + 1)] : 0,
                         inventory_qty_total : '',
                     }
-                    for(var i=data.data.color_details.length; i < 7; i++ )
+                    for(var i=data.data.color_details.length; i < 15; i++ )
                     {
                         data.data.color_details.push(item);
-                        if(i === 6)
+                        if(i === 14)
                         {
                             this.setState({
                                 ...this.state,
@@ -134,9 +134,9 @@ class Report extends PureComponent {
                                     <p><b> GSTIN :{ report_details.ledger_details.gstno} </b></p>
                                 </div>
                             </div>
-                            <div className="col-md-6" style={{ border : '1px solid gray', padding : 0}}>
+                            <div className="col-md-6" style={{ border : '1px solid grey', padding : 0}}>
                                 <b style={{fontWeight:"bold", marginLeft : 5}}>ACCESSORIES</b>
-                                <table border={1} width="100%" style={{border:"lightgray"}}>
+                                <table border={1} width="100%" style={{border:"solidgrey"}}>
                                     <thead>
                                         <tr style={{ backgroundColor : 'lightgray' }}>
                                             <th> <b> Accessories</b></th>

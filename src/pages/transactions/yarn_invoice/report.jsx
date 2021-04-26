@@ -26,7 +26,7 @@ class Report extends PureComponent {
                     total_amount += item.amount;
                 })
                 
-                if(data.data.inventory.length < 7)
+                if(data.data.inventory.length < 10)
                 {
                     var item = {
                         fabric_id : '',
@@ -36,10 +36,10 @@ class Report extends PureComponent {
                         rate : '',
                         qty_kg : '',
                     }
-                    for(var i=data.data.inventory.length; i < 7; i++ )
+                    for(var i=data.data.inventory.length; i < 10; i++ )
                     {
                         data.data.inventory.push(item);
-                        if(i === 6)
+                        if(i === 9)
                         {
                             this.setState({
                                 ...this.state,
