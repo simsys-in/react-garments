@@ -175,11 +175,11 @@ class AddCompany extends PureComponent{
                             </div>
                             <div className="row">
 
-                            <Textbox required="false" modelName="apikey" label="API Key" className="col-md-12" options={this.state.shift} value={this.state.formData.shift_id} ></Textbox> 
+                            <Textbox required="false" modelName="apikey" label="API Key" className="col-md-12" ></Textbox> 
 
                              </div>
                             <div className="row">
-                                <Textbox label="E Mail" required="false" modelName="email" className="col-md-12"></Textbox>
+                                <Textbox label="E Mail" required="false" modelName="email" type="email" className="col-md-12"></Textbox>
                             </div>
 
 
