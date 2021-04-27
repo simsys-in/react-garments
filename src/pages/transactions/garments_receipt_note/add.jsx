@@ -40,7 +40,7 @@ class AddGarmentsReceiptNote extends PureComponent{
                         color_id : null,
                         vou_id : null,
                         size_details : [],
-                        color : null,
+                        description : '',
                         size1 : '',
                         size2 : '',
                         size3 :'' ,
@@ -278,7 +278,7 @@ class AddGarmentsReceiptNote extends PureComponent{
                     formData : data.data
                 })
                 this.formRef.current.setFieldsValue(data.data);
-                this.getMobileForLedgerID(data.data.ledger_id)
+                this.onLedgerIdChange(data.data.ledger_id)
                 data.data.garments_receipt_note_inventory.map((item,index) => {
                     this.onProductIdChange(item.product_id, index)
                 })
@@ -292,6 +292,7 @@ class AddGarmentsReceiptNote extends PureComponent{
             this.formRef.current.validateFields();
         }
     }
+
 
     getNextGarmentsReceiptNoteVouNo = () => {
         getRequest('garments/getNextGarmentsReceiptNoteVouNo').then(data => {
@@ -335,7 +336,10 @@ class AddGarmentsReceiptNote extends PureComponent{
             }
         })
     }
-
+    onLedgerIdChange =(ledger_id,index) => {
+        this.getMobileForLedgerID(ledger_id, index);
+        this.getGarmentsInvoiceInventoryDetails(ledger_id, index);
+    }
 
     onProductIdChange = (product_id,index) => {
         this.getSizeForProductId(product_id,index);
@@ -361,7 +365,40 @@ class AddGarmentsReceiptNote extends PureComponent{
         })
     }
 
+    getGarmentsInvoiceInventoryDetails = (ledger_id) =>{
+        if(!this.id){
+
+            getRequest('garments/getGarmentsInvoiceInventoryDetails?ledger_id=' +ledger_id).then(data => {
+                if(data.status === "info")
+                {
+                    var newArr = data.data;
+                    newArr.map((obj, index) => {
+                        obj.size_details = [];
+                        
+                        this.getSizeForProductId(obj.product_id, index);
+                        if(index === newArr.length -1)
+                        {
+                            this.setState({
+                                ...this.state,
+                                formData : {
+                                    ...this.state.formData,
+                                    garments_receipt_note_inventory : newArr
+                                },
+                            },()=>{
+                                this.formRef.current.setFieldsValue({
+                                    garments_receipt_note_inventory : this.state.formData.garments_receipt_note_inventory
+                                })
+                                this.setTOTAL()
+                            })
+                        }
+                    })
     
+                }
+            })
+        }
+    }
+
+   
     
 
     componentDidMount() {
@@ -434,6 +471,7 @@ class AddGarmentsReceiptNote extends PureComponent{
                         vou_id : null,
                         color : null,
                         size_details : [],
+                        description:'',
                         size1 : '',
                         size2 : '',
                         size3 :'' ,
@@ -508,7 +546,7 @@ class AddGarmentsReceiptNote extends PureComponent{
         {
             var selectedItems = _.filter(FORMDATA.garments_receipt_note_inventory, (item) => {
                 // console.log(item)
-                return  item.product_id && item.color_id &&  item.unit_id &&( item.size1 ||item.size2 ||item.size3 ||item.size4 ||item.size5 ||item.size6 || item.size7 ||item.size8 ||item.size9 )  && item.qty  ;
+                return  item.product_id && item.color_id &&( item.size1 ||item.size2 ||item.size3 ||item.size4 ||item.size5 ||item.size6 || item.size7 ||item.size8 ||item.size9 )  && item.qty  ;
             });
 
             if(selectedItems.length > 0)
@@ -547,7 +585,7 @@ class AddGarmentsReceiptNote extends PureComponent{
                     >
                         
                     <div className="row">
-                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerID}></Selectbox>
+                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.onLedgerIdChange}></Selectbox>
                       <Textbox label="Mobile" disabled modelName="mobile" required="false"  className="col-md-4"></Textbox>
                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
 
@@ -641,6 +679,7 @@ class AddGarmentsReceiptNote extends PureComponent{
                                                                 
                                                                 <td>
                                                                 <Textbox key={this.state.formData.garments_receipt_note_inventory[index].size_details[0]} className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} disabled defaultValue={this.state.formData.garments_receipt_note_inventory[index].size_details[0]}  label="Size1 Name"></Textbox>
+
 
                                                                 <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'size1' ]}  disabled={this.state.formData.garments_receipt_note_inventory[index].size_details[0] === ""} modelName={[field.name, 'size1']} value={[field.name, 'size1']} label="Size1" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                
