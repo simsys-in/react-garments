@@ -376,7 +376,7 @@ class AddYarn_Invoice extends PureComponent{
        
         yarn_invoice_inventory.map((item, index) => {
             if(item.selected){
-                total_bags += item.qty_bag;
+                total_bags += Number(item.qty_bag);
                 total_bags_per += item.qtybag_per;
                 item.qty_kg = Number(item.qty_bag) * Number(item.qtybag_per);
                 total_kg += item.qty_kg;

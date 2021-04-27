@@ -121,6 +121,8 @@ class Report extends PureComponent {
                                         <tr>
                                             <th style={{paddingLeft : '5px'}}>Payment Mode</th>
                                             <td style={{fontWeight:"bold"}}> {report_details.payment_mode}</td>
+                                            <th style={{paddingLeft : '5px'}}>Order No</th>
+                                            <td style={{fontWeight:"bold"}}> {report_details.order_no}</td>
                                         </tr>
                                         {/* <tr>
                                             <th> Process </th>

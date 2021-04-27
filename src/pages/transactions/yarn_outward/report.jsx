@@ -70,10 +70,12 @@ class Report extends PureComponent {
                 { this.state.show_details &&
                 <div className="row print-area" id="printableArea" border={"light gray"} style={{border:"1px  gray"}} >
                     <br></br><br></br>
-                    <div className="col-md-12" style={{border:"1px solid gray"}}>
+                    <div className="col-md-12"
+                    //  style={{border:"1px solid gray"}}
+                     >
                         <div >
                         <div className="row flex-nowrap" >
-                            <div className="col-md-6" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-6" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5,borderBottom:'0' }}>
 
                                 <h6 style={{fontWeight:"bold"}}>   { report_details.company_details.company } </h6>
                                 <div style={{ marginLeft : 15 }}>
@@ -93,11 +95,11 @@ class Report extends PureComponent {
                                 </div>
                             {/* </div> */}
                             </div>
-                            <div className="col-md-6" style={{ padding : 0, border : '1px  black' }}>
+                            <div className="col-md-6" style={{ padding : 0,border:'1px solid grey', borderLeft:'0',borderBottom:'0',borderTop:'0' }}>
 
-                                <table width={"100%"} style={{border:"1px solid gray", margin : 0, padding : 0}} >
+                                <table width={"100%"} style={{border:"1px solid gray", margin : 0, padding : 0,borderLeft:'0',borderRight:'0'}} >
                                         <tr> 
-                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid grey' }}> <h5>YARN DELIVERY NOTE</h5> </td>
+                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid grey', borderLeft:'0' }}> <h5>YARN DELIVERY NOTE</h5> </td>
                                         </tr>
                                         <tr>
                                             <th style={{paddingLeft : '5px'}}> DC No </th>
@@ -126,7 +128,7 @@ class Report extends PureComponent {
                         </div>
                         
                         <div className="row">
-                            <div className="col-md-12" style={{ padding : 0 }}>
+                            <div className="col-md-12" style={{ padding : 0 , borderRight:'1px solid grey'}}>
                                 <table  width="100%"  >
                                     <thead>
                                         <tr  style={{ backgroundColor : 'lightgray' }}>
@@ -170,18 +172,18 @@ class Report extends PureComponent {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-6" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-6" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5,borderTop:'0' }}>
                                 <p style={{textDecorationLine: 'underline'}}>Terms</p>
                                 {/* <p style={{ whiteSpace : 'pre-line' }}> Payment should be made by DD/pay order/Cheque or  RTGS in favour of "<b style={{fontWeight:"bold"}}>{ report_details.company_details.company }</b>"</p> */}
-                                <p style={{ whiteSpace : 'pre-line' }}>  Any discrepancy found in this invoice should be notified imediately Subject to "Tirupur Jurisdiction only".</p>
+                                <p style={{ whiteSpace : 'pre-line',borderTop:'0' }}>  Any discrepancy found in this invoice should be notified imediately Subject to "Tirupur Jurisdiction only".</p>
                             </div>
-                            <div className="col-md-3" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5}}>
+                            <div className="col-md-3" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5,borderTop:'0',borderLeft:'0',borderRight:'0'}}>
                                 <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
                                     <br></br>
                                     Receiver's Seal Signature
                                 </div>
                             </div>
-                            <div className="col-md-3" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-3" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5, borderTop:'0' }}>
                                 <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
                                     {/* Receiver's Seal Signature */}
                                     For  <b style={{fontWeight:"bold"}}>{ report_details.company_details.company }</b>

@@ -66,7 +66,7 @@ class AddEmployee extends PureComponent{
             formData : {
                 employee : "",
                 employee_code : "",
-                dob : "",
+                // dob : "",
                 employee_category_id : "",
                 shift_id : "",
                 department_id : "",
@@ -79,7 +79,7 @@ class AddEmployee extends PureComponent{
                 email : "",
                 mobile : "",
                 phone : "",
-                joined : "",
+                // joined : "",
                 resign_date : "",
                 esino : "",
                 pfno : "",
@@ -318,7 +318,7 @@ class AddEmployee extends PureComponent{
                             </div>
                             <div className="row">
                                 <Textbox required="true" label="Employee Code"  modelName="employee_code" className="col-md-6"></Textbox>
-                                <Datebox label="Date Of Birth" required="false" value={this.state.formData.dob}  modelName="dob" className="col-md-6"></Datebox>
+                                <Datebox label="Date Of Birth" required="true" value={this.state.formData.dob}  modelName="dob" className="col-md-6"></Datebox>
                             </div>
                             <div className="row">
                             <Selectbox required="true"  modelName="employee_category_id" label="Employee Category" className="col-md-12" options={this.state.employee_category} value={this.state.formData.employee_category_id} ></Selectbox>
@@ -338,11 +338,11 @@ class AddEmployee extends PureComponent{
                                 <Selectbox label="Branch" required="true" modelName="branch_id" className="col-md-12" options={this.state.branch} value={this.state.formData.branch_id}></Selectbox>
                             </div>
                             <div className="row">
-                                <Textbox label="O.Bal" required="false" modelName="opn_bal" className="col-md-8"></Textbox>
-                                <Selectbox modelName="emp_status"  required="false"  label="Status" options={status} value={this.state.formData.status}  ></Selectbox>
+                                <Textbox label="O.Bal" required="false" modelName="opn_bal" className="col-md-6"></Textbox>
+                                <Selectbox modelName="emp_status"  required="false"  label="Status" className="col-md-6" options={status} value={this.state.formData.status}  ></Selectbox>
 
                                 
-                                <Textbox label="Admin Notes" modelName="alias" required="false" className="col-md-8"></Textbox>
+                                <Textbox label="Admin Notes" modelName="alias" required="false" className="col-md-6"></Textbox>
                             </div>
                             <Divider plain orientation="left" >Communication</Divider>
                             <div className="row">
@@ -354,7 +354,7 @@ class AddEmployee extends PureComponent{
                             <Divider plain orientation="left" >Others</Divider>
                             <div className="row">
                             {/* <Textbox required="false" label="User" modelName="" className="col-md-6"></Textbox> */}
-                            <Datebox label="Join Date" value={this.state.formData.joined}  required="false" modelName="joined" className="col-md-6"></Datebox>
+                            <Datebox label="Join Date" value={this.state.formData.joined}  required="true" modelName="joined" className="col-md-6"></Datebox>
                             <Datebox label="Resign Date" required="false" value={this.state.formData.resign_date}  modelName="resign_date" className="col-md-6"></Datebox>
 
                                 {/* <Selectbox modelName="state_id"  required="false"  label="State" options={formulae} value={this.state.formData.state_id}  ></Selectbox> */}

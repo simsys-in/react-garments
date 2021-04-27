@@ -28,6 +28,7 @@ class AddYarn_Return  extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 refno : "",
+                order_id : "",
                 narration : "",
                 status : 'active',
                 vou_date : moment(),
@@ -409,7 +410,7 @@ class AddYarn_Return  extends PureComponent{
                         {/* <Textbox label="Id" modelName="order_id"  className="col-md-4"></Textbox> */}
                         {/* <Textbox label="Vou No" modelName="vou" required="false" className="col-md-4"></Textbox> */}
 
-                       <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID} className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                       <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID} className="col-md-4" required= "false" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
                         <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
                        <Textbox label="Ref No" modelName="refno" required="false"  className="col-md-4"></Textbox>
 
