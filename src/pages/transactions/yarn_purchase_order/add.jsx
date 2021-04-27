@@ -44,6 +44,7 @@ class AddYarnPurchaseOrder extends PureComponent{
             passwordMisMatched : false,
             formData : {
                 status : 'active',
+                order_id : '',
                 vou_date : moment(),
                 payment_mode : '',
                 payment_terms_conditions : '',
