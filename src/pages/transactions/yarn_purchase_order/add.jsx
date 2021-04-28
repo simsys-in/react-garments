@@ -46,6 +46,7 @@ class AddYarnPurchaseOrder extends PureComponent{
                 status : 'active',
                 order_id : '',
                 vou_date : moment(),
+                narration: '',
                 payment_mode : '',
                 payment_terms_conditions : '',
                 yarn_purchase_order_inventory : [
@@ -433,9 +434,9 @@ class AddYarnPurchaseOrder extends PureComponent{
                         
                    
                    <div className="row">
-                       <Selectbox modelName="order_id" label="Order No"  className="col-md-4" options={this.state.order_no}  value={this.state.formData.order_id}  ></Selectbox>
-                       <Selectbox modelName="ledger_id" autoFocus label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
+                       <Selectbox modelName="ledger_id" autoFocus label="Ledger Name"  className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
                        <Textbox modelName="mobile" disabled label="Mobile" className="col-md-4" required="false"></Textbox>
+                       <Selectbox modelName="order_id" label="Order No" required='false' className="col-md-4" options={this.state.order_no}  value={this.state.formData.order_id}  ></Selectbox>
 
                    </div>
                    <div className="row">
