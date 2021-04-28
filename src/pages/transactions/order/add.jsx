@@ -98,6 +98,7 @@ class AddOrderProgram extends PureComponent{
 
         }
         else{
+            this.getNextOrderNo();
             this.formRef.current.setFieldsValue(this.state.formData);
             this.formRef.current.validateFields();
         }

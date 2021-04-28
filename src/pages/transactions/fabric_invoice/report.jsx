@@ -23,7 +23,7 @@ class Report extends PureComponent {
             if(data.status === "info")
             {
 
-                if(data.data.color_details.length < 7)
+                if(data.data.color_details.length < 10)
                 {
                     var item = {
                        color :'',
@@ -35,10 +35,10 @@ class Report extends PureComponent {
                         amount : '',
                         weight : '',
                     }
-                    for(var i=data.data.color_details.length; i < 7; i++ )
+                    for(var i=data.data.color_details.length; i < 10; i++ )
                     {
                         data.data.color_details.push(item);
-                        if(i === 6)
+                        if(i === 9)
                         {
                             this.setState({
                                 ...this.state,
