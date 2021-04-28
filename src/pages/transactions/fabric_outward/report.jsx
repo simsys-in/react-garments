@@ -104,7 +104,7 @@ class Report extends PureComponent {
                                         </tr>
                                         <tr>
                                             <th> DC No </th>
-                                            <td style={{fontWeight:"bold"}}> { report_details.dcno }</td>
+                                            <td style={{fontWeight:"bold"}}> { report_details. vouno}</td>
                                             <th> Dated </th>
                                             <td style={{fontWeight:"bold"}}> { getStandardDate(report_details.vou_date)} </td>
                                         </tr>
