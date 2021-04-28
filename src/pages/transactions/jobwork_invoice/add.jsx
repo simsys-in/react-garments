@@ -47,13 +47,7 @@ class AddJobworkInvoice extends PureComponent{
                     }
                
                 ],
-                jobwork_invoice_product : [
-                    {
-                        product_id : '',
-                        qty : '',
-                        unit_id : ''
-                    }
-                ]
+                
             },
         
             ledger_name : [],
@@ -314,7 +308,7 @@ class AddJobworkInvoice extends PureComponent{
                 var formData = this.formRef.current.getFieldsValue();
                 var jobwork_invoice_inventory = formData.jobwork_invoice_inventory;
                 var currentItem = jobwork_invoice_inventory[index];
-                currentItem.product_id = data.data[0].style_id;
+                // currentItem.product_id = data.data[0].style_id;
                 currentItem.size_id = data.data[0].size_id;
                 this.setState({
                     ...this.state,
@@ -566,7 +560,7 @@ class AddJobworkInvoice extends PureComponent{
     checkButtonDisabled = () => {
         const FORMDATA = this.state.formData;
 
-        if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.ledger2_id) && issetNotEmpty(FORMDATA.refno))
+        if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.ledger2_id) )
         {
             var selectedItems = _.filter(FORMDATA.jobwork_invoice_inventory, (item) => {
                 // console.log(item)
