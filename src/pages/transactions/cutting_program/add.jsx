@@ -32,7 +32,7 @@ class AddCuttingProgram extends PureComponent{
             formData : {
                 style_id :"",
                 narration : "",
-            
+                rate : 0,
                 voudate : moment(),
                 fabrics : [
                     {
@@ -418,6 +418,7 @@ class AddCuttingProgram extends PureComponent{
         this.getStyleForOrderID(order_id);
         this.getSizesForOrderID(order_id);
         this.getFabricsForOrderID(order_id);
+        this.getCuttingRateForOrderID(order_id);
     }
 
     getStyleForOrderID = (order_id) => {
@@ -432,6 +433,24 @@ class AddCuttingProgram extends PureComponent{
                     }
                 }, () => {
                     this.formRef.current.setFieldsValue(this.state.formData);
+                })
+            }
+        })
+    }
+    getCuttingRateForOrderID = (order_id ) => {
+        getRequest('garments/getCuttingRateForOrderID?order_id=' + order_id + '&process_id='+ this.state.formData.process_id).then(data => {
+            if(data.status === "info")
+            {
+                console.log(data.data);
+                this.setState({
+                    ...this.state,
+                    formData : {
+                        ...this.state.formData,
+                        rate : Number(data.data)
+                    }
+                }, () => {
+                    this.formRef.current.setFieldsValue(this.state.formData);
+                    this.calculateQty();
                 })
             }
         })
@@ -460,7 +479,7 @@ class AddCuttingProgram extends PureComponent{
         fabrics.map((fabric,ind) => {
             fabric.fabric_wastage = Number(fabric.fabric_qty) - Number(Number(fabric.fabric_return_qty) + Number(fabric.qty_bundle));
             fabric.qty = Number(fabric.size1) + Number(fabric.size2) + Number(fabric.size3) + Number(fabric.size4) + Number(fabric.size5) + Number(fabric.size6) + Number(fabric.size7) + Number(fabric.size8) + Number(fabric.size9);
-
+            fabric.rate = this.state.formData.rate;
             fabric.amount = Number(fabric.qty) * Number(fabric.rate);
             total_size1_qty += Number(fabric.size1);
             total_size2_qty += Number(fabric.size2);
@@ -521,7 +540,7 @@ class AddCuttingProgram extends PureComponent{
                 var f = 'f';
 
                 var valid_entries = _.filter(FORM_DATA.fabrics, (fabric) => {
-                    return issetNotEmpty(fabric.fabric_id) && issetNotEmpty(fabric.color_id) && issetNotEmpty(fabric.fabric_qty) && issetNotEmpty(fabric.qty_bundle) && issetNotEmpty(fabric.fabric_return_qty) && issetNotEmpty(fabric.fabric_wastage) && issetNotEmpty(fabric.employee_id) && issetNotEmpty(fabric.rate) && issetNotEmpty(fabric.amount) && issetNotEmpty(fabric.qty)
+                    return issetNotEmpty(fabric.fabric_id) && issetNotEmpty(fabric.color_id) && issetNotEmpty(fabric.fabric_qty) && issetNotEmpty(fabric.qty_bundle) && issetNotEmpty(fabric.fabric_return_qty) && issetNotEmpty(fabric.fabric_wastage) && issetNotEmpty(fabric.employee_id) && issetNotEmpty(this.state.formData.rate) && issetNotEmpty(fabric.amount) && issetNotEmpty(fabric.qty)
                 }).length;
                 // console.log(valid_entries);
 
@@ -674,7 +693,7 @@ class AddCuttingProgram extends PureComponent{
 
                                             <th width="50px"> <b> Qty</b></th>
                                             <th width="50px"> <b> Cutting Master</b></th>
-                                            <th width="50px"> <b> Rt </b></th>
+                                            <th width="100px"> <b> Rt </b></th>
                                             <th width="50px"> <b> Amount</b></th>
                                             <th width="30px">
                                                 <Button type="primary"  onClick={this.addFabric} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>

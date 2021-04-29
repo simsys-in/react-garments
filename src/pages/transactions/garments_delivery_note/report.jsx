@@ -30,8 +30,29 @@ class Report extends PureComponent {
             if(data.status === "info")
             {
                 var total_qty = 0;
+                var total_size1 = 0;
+                var total_size2 = 0;
+                var total_size3 = 0;
+                var total_size4 = 0;
+                var total_size5 = 0;
+                var total_size6 = 0;
+                var total_size7 = 0;
+                var total_size8 = 0;
+                var total_size9 = 0;
+               
+
                 data.data.inventories.map(item=>{
-                    total_qty += Number(item.qty)
+                total_qty += Number(item.qty);
+                total_size1 += Number(item.size1_qty);
+                total_size2 += Number(item.size2_qty);
+                total_size3 += Number(item.size3_qty);
+                total_size4 += Number(item.size4_qty);
+                total_size5 += Number(item.size5_qty);
+                total_size6 += Number(item.size6_qty);
+                total_size7 += Number(item.size7_qty);
+                total_size8 += Number(item.size8_qty);
+                total_size9 += Number(item.size9_qty);
+
                 })
                 if(data.data.inventories.length < 4)
                 {
@@ -74,7 +95,17 @@ class Report extends PureComponent {
                                 ...this.state,
                                 report_details : data.data,
                                 show_details : true,
-                                inventory_qty_total : total_qty
+                                inventory_qty_total : total_qty,
+                                size1_qty : total_size1,
+                                size2_qty : total_size2,
+                                size3_qty : total_size3,
+                                size4_qty : total_size4,
+                                size5_qty : total_size5,
+                                size6_qty : total_size6,
+                                size7_qty : total_size7,
+                                size8_qty : total_size8,
+                                size9_qty : total_size9,
+
 
                             })
 
@@ -86,7 +117,16 @@ class Report extends PureComponent {
                         ...this.state,
                         report_details : data.data,
                         show_details : true,
-                        inventory_qty_total : total_qty
+                        inventory_qty_total : total_qty,
+                        size1_qty : total_size1,
+                        size2_qty : total_size2,
+                        size3_qty : total_size3,
+                        size4_qty : total_size4,
+                        size5_qty : total_size5,
+                        size6_qty : total_size6,
+                        size7_qty : total_size7,
+                        size8_qty : total_size8,
+                        size9_qty : total_size9,
 
                     })
                 }
@@ -94,7 +134,16 @@ class Report extends PureComponent {
                     ...this.state,
                     report_details : data.data,
                     show_details : true,
-                    inventory_qty_total : total_qty
+                    inventory_qty_total : total_qty,
+                    size1_qty : total_size1,
+                    size2_qty : total_size2,
+                    size3_qty : total_size3,
+                    size4_qty : total_size4,
+                    size5_qty : total_size5,
+                    size6_qty : total_size6,
+                    size7_qty : total_size7,
+                    size8_qty : total_size8,
+                    size9_qty : total_size9,
 
                 })
             }
@@ -134,12 +183,12 @@ class Report extends PureComponent {
                     <div className="col-md-12">
                         <div >
                             <div className="row flex-nowrap">
-                                <div className="col-md-4" style={{ border : '1px solid grey' }}>
+                                <div className="col-md-6" style={{ border : '1px solid grey' }}>
                                     <h4>{ report_details.company_details.company }</h4>
                                     <b>GSTIN : {report_details.company_details.gstno}</b>
                                 </div>
-                                <div className="col-md-4" style={{ border : '1px solid grey' }}></div>
-                                <div className="col-md-4" style={{ padding : 0 }}>
+                                {/* <div className="col-md-4" style={{ border : '1px solid grey' }}></div> */}
+                                <div className="col-md-6" style={{ padding : 0 }}>
                                     <table width="100%" border={1} style={{ padding : 0, margin : 0 }}>
                                         <thead>
                                             <tr>
@@ -151,10 +200,10 @@ class Report extends PureComponent {
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    Invoice No
+                                                    Dc No
                                                 </td>
                                                 <td width={40}> {report_details.vouno} </td>
-                                                <td> Invoice Date </td>
+                                                <td> Dc Date </td>
                                                 <td> { getStandardDate(report_details.vou_date) } </td>
                                             </tr>
                                             <tr>
@@ -168,7 +217,7 @@ class Report extends PureComponent {
                                 </div>
                             </div>
                             <div className="row flex-nowrap">
-                                <div className="col-md-4" style={{ border : '1px solid grey' }}>
+                                <div className="col-md-6" style={{ border : '1px solid grey' }}>
                                     <p>Invoice to</p>
                                     <b>{ report_details.ledger_details.ledger }</b>
                                     <p> Address : { report_details.ledger_details.address }</p>
@@ -176,13 +225,13 @@ class Report extends PureComponent {
                                     <p> E-Mail : { report_details.ledger_details.email }</p>
                                     <b> GST No : { report_details.ledger_details.gstno }</b>
                                 </div>
-                                <div className="col-md-4" style={{ border : '1px solid grey' }}>
+                                <div className="col-md-6" style={{ border : '1px solid grey' }}>
                                     <p>Delivery to</p>
                                     <b>{ report_details.ledger_details.ledger }</b>
                                     <p> {report_details.address} </p>
 
                                 </div>
-                                <div className="col-md-4" style={{ border : '1px solid grey' }}>
+                                {/* <div className="col-md-4" style={{ border : '1px solid grey' }}>
                                     <div className="row flex-nowrap">
                                         <p className="col-md-4" align="right"> Account Name </p>
                                         <p className="col-md-1">: </p>
@@ -208,7 +257,7 @@ class Report extends PureComponent {
                                         <p className="col-md-1"> : </p>
                                         <p className="col-md-6" align="left" > {report_details.company_details.ifsc} </p>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         <div className="row flex-nowrap">
                             <div className="col-md-12" style={{ padding : 0 }}>
@@ -219,6 +268,7 @@ class Report extends PureComponent {
                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> #Style </b></th>
                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Color </b></th>
                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> #HSN </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> DESCRIPTION </b></th>
                                             <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> GST </b></th>
 
                                             <th row flex-nowrapSpan={2} colSpan={9} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Size </b></th>
@@ -238,6 +288,7 @@ class Report extends PureComponent {
                                                     <td  style={{ paddingTop: item.product === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}} >{item.color}</td>
 
                                                     <td  style={{ paddingTop: item.hsnasc === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}} >{item.hsnsac}</td>
+                                                    <td  style={{ paddingTop: item.hsnasc === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}} >{item.description}</td>
                                                     
                                                     <td style={{ paddingTop: item.gst === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >{item.gst}</td>
 
@@ -265,17 +316,21 @@ class Report extends PureComponent {
                                                 <td colSpan={3} style={{borderLeft:'1px solid grey'}}>
                                                     <b> Net Total</b>
                                                 </td>
-                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size1_qty_total} </td>
-                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size2_qty_total} </td>
-                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size3_qty_total} </td>
-                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size4_qty_total} </td>
-                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size5_qty_total} </td>
-                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size6_qty_total} </td>
-                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size7_qty_total} </td>
-                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size8_qty_total} </td>
-                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size9_qty_total} </td>
-                                                <td style={{borderLeft:'1px solid grey'}}> {report_details.size9_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {this.state.size1_qty} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {this.state.size2_qty} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {this.state.size3_qty} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {this.state.size4_qty} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {this.state.size5_qty} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {this.state.size6_qty} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {this.state.size7_qty} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {this.state.size8_qty} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> {this.state.size9_qty} </td>
                                                 <td style={{borderLeft:'1px solid grey',textAlign:'right',paddingRight:'5px'}}> {this.state.inventory_qty_total} </td>
+                                                <td style={{borderLeft:'1px solid grey'}}> </td>
+
+                                               
                                                 <td style={{borderLeft:'1px solid grey', borderRight:'1px solid grey'}}></td>
                                                 {/* <td style={{borderRight:'1px solid grey'}}></td> */}
                                                
