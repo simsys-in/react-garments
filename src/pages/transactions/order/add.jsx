@@ -32,6 +32,7 @@ class AddOrderProgram extends PureComponent{
             buttonDisabled : true,
             passwordMisMatched : false,
             formData : {
+                ledger_id :" ",
                 status : 'active',
                 orderDate : moment(),
                 status_id : 1,
