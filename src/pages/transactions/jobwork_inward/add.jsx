@@ -79,6 +79,7 @@ class AddJobwork_Inward  extends PureComponent{
                     ...this.state,
                     ledger_name : data.data
                 })
+
             }
         })
     }
@@ -105,6 +106,7 @@ class AddJobwork_Inward  extends PureComponent{
                     ...this.state,
                     process : data.data
                 })
+
             }
         })
     }
@@ -132,7 +134,7 @@ class AddJobwork_Inward  extends PureComponent{
             {
                 this.setState({
                     ...this.state,
-                    order_no : data.data
+                    order_no : data.data,
                 })
             }
         })
@@ -140,7 +142,7 @@ class AddJobwork_Inward  extends PureComponent{
     getJobworkOutwardColorDetails = (order_id) => {
         if(!this.id){
 
-            getRequest('garments/getJobworkOutwardColorDetails?order_id=' +order_id).then(data => {
+            getRequest('garments/getJobworkOutwardColorDetails?order_id=' +order_id  + '&to_process_id='+ this.state.formData.to_process_id +'&ledger_id=' + this.state.formData.ledger_id).then(data => {
                 if(data.status === "info")
                 {
                     var newArr = data.data;
@@ -623,9 +625,13 @@ class AddJobwork_Inward  extends PureComponent{
                     <div className="row">
                        
                        
-                       <Selectbox modelName="order_id" label="Order No" onChange={this.onOrderIDChange} className="col-md-4" options={this.state.order_no}  value={this.state.formData.order_id}  ></Selectbox>
-                        <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id} onChange={this.getLedgerForOrderAndProcessID} ></Selectbox>
-                        <Selectbox modelName="ledger_id" label="Ledger Name" onChange={this.getMobileForLedgerID} className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
+                       <Selectbox modelName="order_id" label="Order No" onChange={(order_id) => {this.onOrderIDChange(order_id); this.getJobworkOutwardColorDetails()}} className="col-md-4" options={this.state.order_no}  value={this.state.formData.order_id}  ></Selectbox>
+
+
+                        <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id} onChange={(process_id) => {this.getLedgerForOrderAndProcessID(process_id); this.getJobworkOutwardColorDetails()}} ></Selectbox>
+
+
+                        <Selectbox modelName="ledger_id" label="Ledger Name" onChange={(ledger_id) => {this.getMobileForLedgerID(ledger_id); this.getJobworkOutwardColorDetails()}} className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
 
                     </div>
                     <div className="row">
