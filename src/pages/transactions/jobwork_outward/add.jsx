@@ -131,9 +131,10 @@ class AddJobworkOutward extends PureComponent{
     }
 
     getCuttingProgramColorDetails = (order_id) => {
+        console.log(this.state.formData.order_id)
         if(!this.id)
         {
-                getRequest('garments/getCuttingProgramColorDetails?order_id=' +order_id).then(data => {
+                getRequest('garments/getCuttingProgramColorDetails?order_id=' + this.state.formData.order_id + "&from_process_id=" + this.state.formData.from_process_id).then(data => {
                     if(data.status === "info")
                     {
                         var newArr = data.data;
@@ -701,11 +702,11 @@ class AddJobworkOutward extends PureComponent{
                 // console.log(item)
                 return  item.selected && item.color_id  &&( item.size1 ||item.size2 ||item.size3 ||item.size4 ||item.size5 ||item.size6 || item.size7 ||item.size8 ||item.size9 )  && item.qty  ;
             });
-            var selectedProduct = _.filter(FORMDATA.jobwork_outward_product, (item) => {
-                return  item.product_id;
-            });
+            // var selectedProduct = _.filter(FORMDATA.jobwork_outward_product, (item) => {
+            //     return  item.product_id;
+            // });
 
-            if(selectedItems.length > 0 && selectedProduct.length > 0)
+            if(selectedItems.length > 0)
             {
                 return false;
             }
@@ -743,12 +744,12 @@ class AddJobworkOutward extends PureComponent{
 
                     <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
                     <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
-                   <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange} className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
+                    <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange} className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
                    </div>
 
 
                    <div className="row">
-                       <Selectbox modelName="from_process_id" label="From Process" className="col-md-4" options={this.state.process} value={this.state.formData.from_process_id}  ></Selectbox>
+                       <Selectbox modelName="from_process_id" label="From Process" className="col-md-4" options={this.state.process} value={this.state.formData.from_process_id} onChange={(from_process_id) => this.getCuttingProgramColorDetails(this.state.formData.ore)} ></Selectbox>
 
                        <Selectbox modelName="to_process_id" label="To Process" className="col-md-4" options={this.state.process} value={this.state.formData.to_process_id} onChange={this.getLedgerForOrderAndProcessID} ></Selectbox>
                        
@@ -826,7 +827,7 @@ class AddJobworkOutward extends PureComponent{
                                                                 {
                                                                     this.state.size_data_for_order.map((item, ind) => 
                                                                     item !== "" && <td key={ind}>
-                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(ind) + 1)]} value={[field.name, 'size' + Number(Number(ind) + 1)]} noPlaceholder max={[field.name, 'size' + Number(Number(index) + 1) ]} withoutMargin onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0} max={this.state.formData.jobwork_outward_inventory[index]['max_size' + Number(Number(ind) + 1) ]} field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(ind) + 1)]} value={[field.name, 'size' + Number(Number(ind) + 1)]} noPlaceholder  withoutMargin onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                     </td>
                                                                     )
                                                                 }

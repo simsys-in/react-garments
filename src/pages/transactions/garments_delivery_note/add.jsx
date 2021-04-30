@@ -556,7 +556,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
                    <div className="row">
                    <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
                      <Selectbox modelName="order_id" label="Order No"  className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
-                   <Selectbox modelName="marketing_user_id"  label="Marketed By" className="col-md-4" options={this.state.user_data} value={this.state.formData.marketing_user_id} ></Selectbox>
+                   <Selectbox modelName="marketing_user_id" required="false" label="Marketed By" className="col-md-4" options={this.state.user_data} value={this.state.formData.marketing_user_id} ></Selectbox>
 
                    </div>
                    <div className="row">
@@ -580,7 +580,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
                                             {/* <th width="30px"> <Checkbox onChange={this.checkAllItems} /></th> */}
                                         
                                             <th width="80px"> <b> Product</b></th>
-                                            <th width="80px"> <b>Color</b></th>
+                                            {/* <th width="80px"> <b>Color</b></th> */}
                                             <th width="80px"> <b>Unit</b></th>
                                             <th width="80px"> <b> Description</b></th>
                                             <th width="40px"> <b> Size1</b></th>
@@ -627,9 +627,9 @@ class AddGarmentsDeliveryNote extends PureComponent{
                                                                 <Selectbox  className="col-md-12" noPlaceholder required="false" withoutMargin showLabel={false} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} modelName={[field.name, 'product_id']}  label="Product" value={[field.name, 'product_id']} options={this.state.product_data}  onChange={(product_id) => this.onProductIdChange(product_id,index)}  ></Selectbox>
                                                                 </td>
 
-                                                                <td>
-                                                                <Selectbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]}  modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox>
-                                                                </td>
+                                                                {/* <td> */}
+                                                                {/* <Selectbox noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'color_id' ]}  modelName={[field.name, 'color_id']} value={[field.name, 'color_id']} options={this.state.color_data} label="Color"></Selectbox> */}
+                                                                {/* </td> */}
 
                                                                 <td>
                                                                 <Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'unit_id' ]} disabled modelName={[field.name, 'unit_id']}  label="Unit" value={[field.name, 'unit_id']} options={this.state.unit_data} noPlaceholder withoutMargin ></Selectbox>

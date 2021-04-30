@@ -518,11 +518,17 @@ class AddYarn_Inward extends PureComponent{
                                                                         {/* <Checkbox field={field} fieldKey={[ field.fieldKey, 'selected' ]} modelName={[field.name, 'selected']} checked={[field.name, 'selected']} value={[field.name, 'selected']} /> */}
                                                                     </td>
                                         <td><Selectbox noPlaceholder withoutMargin className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'fabric_id' ]}   required="false" modelName={[field.name, 'fabric_id']} value={field.name,'fabric_id'} showLabel={false} options={this.state.fabric} label="Fabric"></Selectbox></td>
+
                                         <td> <Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'gsm' ]} modelName={[field.name, 'gsm']} value={field.gsm} required="false" label="GSM"></Numberbox></td>
+
                                         <td> <Numberbox withoutMargin noPlaceholder showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'counts' ]} required="false" modelName={[field.name, 'counts']} value={field.counts} label="Counts"></Numberbox></td>
-                                        <td> <Numberbox noPlaceholder withoutMargin className="col-md-12"    required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qtybag_per' ]} onChange={ (ev) => this.setTotalKgs(ev, field.fieldKey) } modelName={[field.name, 'qtybag_per']} value={field.qtybag_per} label="Qty per"></Numberbox></td>
-                                        <td><Numberbox noPlaceholder withoutMargin className="col-md-12" required="false" field={field} showLabel={false} fieldKey={[ field.fieldKey, 'qty_bag' ]} onChange={ (ev) => this.setTotalKgs(ev, field.fieldKey) } modelName={[field.name, 'qty_bag']} value={field.qty_bag} label="Qty Bags"></Numberbox></td>
+
+                                        <td> <Numberbox noPlaceholder withoutMargin className="col-md-12"    required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'qtybag_per' ]} onChange={ (ev) => this.setTotalKgs(ev, field.fieldKey) } max={this.state.formData.yarn_inward_inventory[index]['max_qtybag_per']} modelName={[field.name, 'qtybag_per']} value={field.qtybag_per} label="Qty per"></Numberbox></td>
+
+                                        <td><Numberbox noPlaceholder withoutMargin className="col-md-12" required="false" field={field} showLabel={false} fieldKey={[ field.fieldKey, 'qty_bag' ]} onChange={ (ev) => this.setTotalKgs(ev, field.fieldKey) } modelName={[field.name, 'qty_bag']} max={this.state.formData.yarn_inward_inventory[index]['max_qty_bag']} value={field.qty_bag} label="Qty Bags"></Numberbox></td>
+
                                         <td><Numberbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'qty_kg' ]} onChange={ (ev) => this.setTotalKgs(ev, field.fieldKey) } disabled required="false" modelName={[field.name, 'qty_kg']} value={field.qty_kg} label="Qty Kg"></Numberbox></td>
+
                                         <td>  { index > 0 && <Button danger  style={{ marginLeft : 10 }} onClick={ () => this.removeYarn_inward_inventory(index)}> <FontAwesomeIcon  icon={faTimes} />   </Button>}</td>
                                         </tr>
                                         )
@@ -534,7 +540,7 @@ class AddYarn_Inward extends PureComponent{
                                    <td colSpan={5} style={{textAlign:'right'}}> <h6> Total</h6></td>
                                    <td><Numberbox noPlaceholder modelName="inventory_qty_bag_total" withoutMargin showLabel={false} className="col-md-12" disabled value={this.state.formData.inventory_qty_kg_total} label="Total BAG " required="false"></Numberbox></td>
                                
-                                <td><Numberbox noPlaceholder modelName="inventory_qty_kg_total" withoutMargin showLabel={false} className="col-md-12" disabled value={this.state.formData.inventory_qty_kg_total} label="Total Qty KGs" required="false"></Numberbox></td>
+                                   <td><Numberbox noPlaceholder modelName="inventory_qty_kg_total" withoutMargin showLabel={false} className="col-md-12" disabled value={this.state.formData.inventory_qty_kg_total} label="Total Qty KGs" required="false"></Numberbox></td>
                                 
                                    </tr>
                                 </tbody>

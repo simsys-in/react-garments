@@ -609,7 +609,7 @@ class AddCuttingProgram extends PureComponent{
         {
             var selectedItems = _.filter(FORMDATA.fabrics, (item) => {
                 // console.log(item)
-                return  item.fabric_id && item.color_id && ( item.size1 ||item.size2 ||item.size3 ||item.size4 ||item.size5 ||item.size6 || item.size7 ||item.size8 ||item.size9 )  &&item.fabric_qty && item.fabric_return_qty && item.qty_bundle && item.fabric_wastage && item.qty && item.employee_id && item.rate && item.amount ;
+                return  item.fabric_id && item.color_id && ( item.size1 ||item.size2 ||item.size3 ||item.size4 ||item.size5 ||item.size6 || item.size7 ||item.size8 ||item.size9 )  &&item.fabric_qty && item.fabric_return_qty && item.qty_bundle  && item.qty && item.employee_id && item.rate && item.amount ;
             });
 
             if(selectedItems.length > 0)
