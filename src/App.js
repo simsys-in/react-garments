@@ -198,6 +198,9 @@ import AddShift from './pages/masters/shift/add'
 import ListShift from './pages/masters/shift/list'
 
 
+//Shortage Program
+import ShortageProgram from './pages/reports/ShortageProgram'
+
 
 
 ///// Boopathi Workspace //////
@@ -399,6 +402,9 @@ class App extends React.PureComponent
                               <Route exact path="/masters/add_addless" component={AddAddLess} />
                               <Route exact path="/masters/edit_addless/:id" component={AddAddLess} />
                               <Route exact path="/masters/list_addless" component={ListAddLess} />
+
+
+                              <Route exact path="/reports/shortage_program" component={ShortageProgram} />
 
 
                               {/* product category */}
