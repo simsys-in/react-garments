@@ -189,29 +189,29 @@ class Report extends PureComponent {
                                 </div>
                                 {/* <div className="col-md-4" style={{ border : '1px solid grey' }}></div> */}
                                 <div className="col-md-6" style={{ padding : 0 }}>
-                                    <table width="100%" border={1} style={{ padding : 0, margin : 0 }}>
+                                    <table width="100%" style={{ padding : 0, margin : 0 }}>
                                         <thead>
                                             <tr>
-                                                <th colSpan={4} style={{ textAlign :'center' }} >
+                                                <th colSpan={4} style={{ textAlign :'center',border:"1px solid grey" }} >
                                                     <b >GARMENTS DELIVERY NOTE</b>
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr style={{borderRight:"1px solid grey"}}>
                                                 <td>
                                                     Dc No
                                                 </td>
-                                                <td width={40}> {report_details.vouno} </td>
+                                                <td width={40} style={{fontWeight:"bold"}}> {report_details.vouno} </td>
                                                 <td> Dc Date </td>
-                                                <td> { getStandardDate(report_details.vou_date) } </td>
+                                                <td style={{fontWeight:"bold"}}> <b>{ getStandardDate(report_details.vou_date) } </b></td>
                                             </tr>
-                                            <tr>
+                                            {/* <tr>
                                                 <td> Credit Days </td>
                                                 <td></td>
                                                 <td> Transport Name </td>
                                                 <td></td>
-                                            </tr>
+                                            </tr> */}
                                         </tbody>
                                     </table>
                                 </div>
