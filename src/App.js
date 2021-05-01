@@ -265,6 +265,8 @@ import ListYarnPurchaseOrder from './pages/transactions/yarn_purchase_order/list
 import AddGeneralPurchaseOrder  from './pages/transactions/general_purchase_order/add'
 import ListGeneralPurchaseOrder from './pages/transactions/general_purchase_order/list' 
 
+
+
 ///// Kowsalya Workspace //////
 ///// Kowsalya Workspace //////
 ///// Kowsalya Workspace //////
@@ -684,8 +686,7 @@ class App extends React.PureComponent
                               <Route exact path="/transactions/edit_purchase_order/:id" component={AddGeneralPurchaseOrder} />
                               <Route exact path="/transactions/list_purchase_order" component={ListGeneralPurchaseOrder} />
 
-                             
-
+                           
                             {/* Kowsalya Workspace */}
                             {/* Kowsalya Workspace */}
                             {/* Kowsalya Workspace */}
