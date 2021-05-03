@@ -182,7 +182,7 @@ class Report extends PureComponent {
                                                     size !== "" && <td style={{paddingTop: item["size" + Number(Number(index) + 1)]  === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.color !== "" && item["size" + Number(Number(index) + 1)] !==""  && Number(item["size" + Number(Number(index) + 1)]) }</td>
                                                 ) }
 
-                                                <td style={{paddingTop: item.qty === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px', borderRight:'1px solid gray'}}>{ item.color !== "" && item.qty !=="" && Number(item.qty).toFixed(2)  }</td>
+                                                <td style={{paddingTop: item.qty === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px', borderRight:'1px solid gray'}}>{ item.color !== "" && item.qty !=="" && Number(item.qty).toFixed(report_details.decimal_digit) + " " + report_details.unit  }</td>
                                             </tr>
                                         )}
                                         <tr>
@@ -197,7 +197,8 @@ class Report extends PureComponent {
                                                 ) }
 
 
-                                            <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:'right', paddingRight:'5px'}}>{report_details.inventory_qty_total !=="" && Number(report_details.inventory_qty_total).toFixed(2)}</td>
+                                            <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:'right', paddingRight:'5px'}}>{report_details.inventory_qty_total !=="" && Number(report_details.inventory_qty_total).
+                                            toFixed(report_details.decimal_digit) + " " + report_details.unit}</td>
 
                                         </tr>
                                     </tbody>

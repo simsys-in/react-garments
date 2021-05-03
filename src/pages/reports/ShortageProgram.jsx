@@ -273,9 +273,9 @@ class ShortageProgram extends PureComponent {
                                         <tbody  style={{borderBottom:'1px solid grey'}}>
                                         { shortage_details.processdetails.map((item, index) => 
                                                 <tr key={index}>
-                                                    <td style={{ paddingTop: item.from_process === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', }}>{ item.from_process }</td>
+                                                    <td style={{ paddingTop: item.fromprocess === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', }}>{ item.fromprocess }</td>
 
-                                                    <td style={{ paddingTop: item.process === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.process }</td>
+                                                    <td style={{ paddingTop: item.toprocess === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.toprocess }</td>
 
                                                     <td style={{ paddingTop: item.ledger === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.ledger }</td>
 
