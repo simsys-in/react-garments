@@ -21,7 +21,7 @@ class OrderStatus extends PureComponent {
             order_no : [],
 
             orderstatus_details : {
-                orderdetails : []
+                processDetails : []
             },
         };
 
@@ -39,7 +39,15 @@ class OrderStatus extends PureComponent {
         })
     }
 
-   
+    onOrderIDChange = (order_id) => {
+        this.setState({
+            ...this.state,
+            formData : {
+                ...this.state.formData,
+                order_id : order_id
+            }
+        })
+    }
 
     componentDidMount = () => {
         this.getOrderSB();
@@ -62,7 +70,7 @@ class OrderStatus extends PureComponent {
             {
                 this.setState({
                     ...this.state,
-                    shortage_details : data.data,
+                    orderstatus_details : data.data,
                     show_report : true,
 
                 })
@@ -77,7 +85,7 @@ class OrderStatus extends PureComponent {
         return(
             <Fragment>
                 <div className="row">
-                    <Selectbox modelName="order_id" label="Order No"  className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
+                    <Selectbox modelName="order_id" label="Order No" onChange={this.onOrderIDChange} className="col-md-6" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
                 </div>
                 <div className="row">
                     <div className="col-md-12" align="right">
@@ -88,7 +96,7 @@ class OrderStatus extends PureComponent {
                 <br></br>
                 
                 
-                { this.state.show_details &&
+                { this.state.show_report &&
                 <div className="row print-area" id="printableArea">
                     <div className="col-md-12">
                         <div >
@@ -124,6 +132,55 @@ class OrderStatus extends PureComponent {
                         </div>
                        
                         <div className="row">
+                        <div className="col-md-12" style={{ padding : 0 , borderRight:'1px solid grey'}}>
+                                    <table  width="100%"  >
+                                        <thead>
+                                            <tr  style={{ backgroundColor : 'lightgray' }}>
+                                            
+                                                <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} > PROCESS</th>
+                                                {/* <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >TO PROCESS</th> */}
+                                                <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >LEDGER</th>
+                                                {/* <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} > DELIVERY QTY</th> */}
+                                                <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >RECEIVED QTY</th>
+                                                {/* <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >SHORTAGE </th> */}
+                                            
+                                            
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                        { orderstatus_details.cuttingprogram.map((item, index) => 
+                                                <tr key={index}>
+                                                    <td style={{ paddingTop: item.process === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.process }</td>
+
+                                                    {/* <td style={{ paddingTop: item.to_process === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.to_process }</td> */}
+
+                                                    <td style={{ paddingTop: item.ledger === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.ledger }</td>
+
+                                                    <td style={{ paddingTop: item.inventory_qty_total === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.inventory_qty_total }</td>
+
+                                                    {/* <td style={{ paddingTop: item.inventory_qty_total === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.inward_qty_total }</td>
+
+                                                    <td style={{ paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{   item.outward_qty_total - item.inward_qty_total }</td> */}
+
+
+                                                    {/* <td style={{ paddingTop: item.qty_kg === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px' }}>{ item.qty_kg !== "" && Number(item.qty_kg).toFixed(2) }</td> */}
+                                                    
+                                                </tr>
+                                            )}
+
+                                            {/* <tr> */}
+                                                {/* <td style={{fontWeight:"bold", border:'1px solid gray', textAlign:'right', paddingRight:'5px'}} colSpan={2}>GRAND TOTAL</td> */}
+                                            
+                                                {/* <td style={{fontWeight:"bold", textAlign : 'right', border:'1px solid gray', paddingRight:'5px'}}>{this.state.inventory_qty_kg_total !== "" && Number(this.state.inventory_qty_kg_total).toFixed(2) }</td> */}
+                                                {/* <td></td>
+                                                <td></td>
+                                                <td></td> */}
+                                            
+                                                
+                                            {/* </tr> */}
+                                            </tbody>
+                                    </table>
+                                </div>
                             <div className="col-md-12" style={{ padding : 0 }}>
                                 <table  width="100%" >
                                     <thead>
@@ -139,11 +196,11 @@ class OrderStatus extends PureComponent {
                                     </thead>
                                     <tbody>
                                         
-                                        { orderstatus_details.order_details.map(item => 
+                                        { orderstatus_details.processDetails.map(item => 
                                             <tr>
 
-                                                <td style={{paddingTop: item.from_process_id === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.from_process_id }</td>
-                                                <td style={{paddingTop: item.to_process_id === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.to_process_id }</td>
+                                                <td style={{paddingTop: item.fromprocess === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.fromprocess }</td>
+                                                <td style={{paddingTop: item.toprocess === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.toprocess }</td>
                                                 <td style={{paddingTop: item.ledger === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.ledger }</td>
                                                 
                                                 <td style={{paddingTop: item.delivery_qty === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.delivery_qty }</td>
