@@ -130,11 +130,11 @@ class AddJobworkOutward extends PureComponent{
         })
     }
 
-    getCuttingProgramColorDetails = (order_id) => {
+    getCuttingProgramColorDetails = (order_id,from_process_id) => {
         console.log(this.state.formData.order_id)
-        if(!this.id)
+        if(!this.id && issetNotEmpty(order_id) && issetNotEmpty(from_process_id))
         {
-                getRequest('garments/getCuttingProgramColorDetails?order_id=' + this.state.formData.order_id + "&from_process_id=" + this.state.formData.from_process_id).then(data => {
+                getRequest('garments/getCuttingProgramColorDetails?order_id=' + order_id + "&from_process_id=" + from_process_id).then(data => {
                     if(data.status === "info")
                     {
                         var newArr = data.data;
@@ -750,7 +750,7 @@ class AddJobworkOutward extends PureComponent{
 
 
                    <div className="row">
-                       <Selectbox modelName="from_process_id" label="From Process" className="col-md-4" options={this.state.process} value={this.state.formData.from_process_id} onChange={(from_process_id) => this.getCuttingProgramColorDetails(this.state.formData.ore)} ></Selectbox>
+                       <Selectbox modelName="from_process_id" label="From Process" className="col-md-4" options={this.state.process} value={this.state.formData.from_process_id} onChange={(from_process_id) => this.getCuttingProgramColorDetails(this.state.formData.order_id, from_process_id)} ></Selectbox>
 
                        <Selectbox modelName="to_process_id" label="To Process" className="col-md-4" options={this.state.process} value={this.state.formData.to_process_id} onChange={this.getLedgerForOrderAndProcessID} ></Selectbox>
                        
@@ -828,7 +828,8 @@ class AddJobworkOutward extends PureComponent{
                                                                 {
                                                                     this.state.size_data_for_order.map((item, ind) => 
                                                                     item !== "" && <td key={ind}>
-                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0} max={this.state.formData.jobwork_outward_inventory[index]['max_size' + Number(Number(ind) + 1) ]} field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(ind) + 1)]} value={[field.name, 'size' + Number(Number(ind) + 1)]} noPlaceholder  withoutMargin onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                        {/* max={this.state.formData.jobwork_outward_inventory[index]['max_size' + Number(Number(ind) + 1) ]} */}
+                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(ind) + 1)]} value={[field.name, 'size' + Number(Number(ind) + 1)]} max={[field.name, 'size' + Number(Number(ind) + 1)]} noPlaceholder  withoutMargin onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                     </td>
                                                                     )
                                                                 }

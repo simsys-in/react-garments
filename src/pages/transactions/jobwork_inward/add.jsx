@@ -139,10 +139,10 @@ class AddJobwork_Inward  extends PureComponent{
             }
         })
     }
-    getJobworkOutwardColorDetails = (order_id) => {
-        if(!this.id){
+    getJobworkOutwardColorDetails = () => {
+        if(!this.id && issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(this.state.formData.process_id) && issetNotEmpty(this.state.formData.ledger_id) ){
 
-            getRequest('garments/getJobworkOutwardColorDetails?order_id=' +order_id  + '&to_process_id='+ this.state.formData.to_process_id +'&ledger_id=' + this.state.formData.ledger_id).then(data => {
+            getRequest('garments/getJobworkOutwardColorDetails?order_id=' +this.state.formData.order_id  + '&to_process_id='+ this.state.formData.to_process_id +'&ledger_id=' + this.state.formData.ledger_id).then(data => {
                 if(data.status === "info")
                 {
                     var newArr = data.data;
@@ -291,12 +291,10 @@ class AddJobwork_Inward  extends PureComponent{
         {
             var values = this.formRef.current.getFieldValue();
             var errors = this.formRef.current.getFieldsError().filter(({ errors }) => errors.length).length;
-            var passwordMisMatched = values.password === values.confirm_password
             this.setState({
                 ...this.state,
                 formData : values,
-                buttonDisabled : Boolean(errors),
-                passwordMisMatched : passwordMisMatched
+                buttonDisabled : Boolean(errors)
             })
         }
     }
@@ -406,7 +404,7 @@ class AddJobwork_Inward  extends PureComponent{
         // console.log(issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(process_id), this.state.formData.order_id ,process_id)
         if(issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(process_id))
         {
-            getRequest('garments/getLedgerForOrderAndProcessID?order_id=' + this.state.formData.order_id + "&process_id=" + process_id).then(data => {
+            getRequest('garments/getOutwardLedgerForOrderAndProcessID?order_id=' + this.state.formData.order_id + "&process_id=" + process_id).then(data => {
                 if(data.status === "info")
                 {
                     this.setState({
@@ -417,9 +415,10 @@ class AddJobwork_Inward  extends PureComponent{
                                             },
                     },() => {
                         this.getMobileForLedgerID(this.state.formData.ledger_id)
+                        this.getJobworkOutwardColorDetails();
                         this.formRef.current.setFieldsValue({
                             ledger_id : this.state.formData.ledger_id
-                        })
+                        });
                     })
                 }
             })
@@ -625,7 +624,7 @@ class AddJobwork_Inward  extends PureComponent{
                     <div className="row">
                        
                        
-                       <Selectbox modelName="order_id" label="Order No" onChange={(order_id) => {this.onOrderIDChange(order_id); this.getJobworkOutwardColorDetails()}} className="col-md-4" options={this.state.order_no}  value={this.state.formData.order_id}  ></Selectbox>
+                       <Selectbox modelName="order_id" autoFocus label="Order No" onChange={(order_id) => {this.onOrderIDChange(order_id); this.getJobworkOutwardColorDetails(order_id)}} className="col-md-4" options={this.state.order_no}  value={this.state.formData.order_id}  ></Selectbox>
 
 
                         <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id} onChange={(process_id) => {this.getLedgerForOrderAndProcessID(process_id); this.getJobworkOutwardColorDetails()}} ></Selectbox>
@@ -635,23 +634,18 @@ class AddJobwork_Inward  extends PureComponent{
 
                     </div>
                     <div className="row">
-                        {/* <Textbox label="Id" modelName="order_id"  className="col-md-4"></Textbox> */}
                         <Textbox label="Mobile" disabled modelName="mobile" required="false"  className="col-md-4"></Textbox>
 
                         <Datebox label="Vou Date" value={this.state.formData.vou_date}  modelName="vou_date" className="col-md-4"></Datebox>
                    
-                    <Textbox label="Vou No" modelName="vouno"  className="col-md-4"></Textbox>
+                        <Textbox label="Vou No" modelName="vouno"  className="col-md-4"></Textbox>
 
 
                     </div>
                    
                     <div className="row">
-                   
-                    <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
+                        <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
                         <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
-                        {/* <Textbox label="Vehicle No" required="false" modelName="vehicle_no"  className="col-md-4"></Textbox> */}
-
-
                     </div>
 
                     <div className="row">
@@ -714,7 +708,8 @@ class AddJobwork_Inward  extends PureComponent{
                                                 {
                                                                     this.state.size_data_for_order.map((item, ind) => 
                                                                     item !== "" && <td key={ind}>
-                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(ind) + 1)]} value={[field.name, 'size' + Number(Number(ind) + 1)]} noPlaceholder max={this.state.formData.jobwork_inward_inventory[index]['max_size' + Number(Number(ind) + 1) ]} withoutMargin onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                        {/* <code><pre> { JSON.stringify(this.state.formData.jobwork_inward_inventory[index]['color_id'])}</pre></code> */}
+                                                                        <Numberbox className="col-md-12" required="false" showLabel={false} label={item} min={0}  field={field} fieldKey={[ field.fieldKey, 'size' + Number(Number(index) + 1) ]} modelName={[field.name, 'size' + Number(Number(ind) + 1)]} max={[field.name, 'max_size' + Number(Number(ind) + 1)]} value={[field.name, 'size' + Number(Number(ind) + 1)]} noPlaceholder  withoutMargin onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
                                                                     </td>
                                                                     )
                                                                 }
