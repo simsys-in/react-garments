@@ -86,7 +86,7 @@ class Report extends PureComponent {
                       <div className="col-md-12">
                         <div >
                         <div className="row flex-nowrap" >
-                            <div className="col-md-6" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-6" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5, borderRight:'0', borderBottom:'0' }}>
 
                                 <h6 style={{fontWeight:"bold"}}>   { report_details.company_details.company } </h6>
                                 <div style={{ marginLeft : 15 }}>
@@ -106,9 +106,9 @@ class Report extends PureComponent {
                                 </div>
                             {/* </div> */}
                             </div>
-                            <div className="col-md-6" style={{ padding : 0,border : '1px solid grey' ,textAlign:"center"}}>
+                            <div className="col-md-6" style={{ padding : 0,border : '1px solid grey' ,textAlign:"center", borderBottom:'0' }}>
 
-                                <table width={"100%"} style={{border:"1px solid grey",textAlign:"center", margin : 0, padding : 0}} border="1">
+                                <table width={"100%"} style={{border:"1px solid grey",textAlign:"center", margin : 0, padding : 0,  borderLeft:'0'}} border="1">
                                         <tr> 
                                             <td colSpan={4} style={{ backgroundColor : 'lightgray',textAlign:"center", textAlign: 'center', border : '1px lightgray' }}> <h5> Jobwork Invoice </h5> </td>
                                         </tr>
@@ -183,17 +183,17 @@ class Report extends PureComponent {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-6" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-6" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5 , borderRight:'0', borderTop:'0' }}>
                                 <p style={{textDecorationLine: 'underline'}}>Terms</p>
                                 <p style={{ whiteSpace : 'pre-line' }}> Payment should be made by DD/pay order/Cheque or  RTGS in favour of "<b style={{fontWeight:"bold"}}>{ report_details.company_details.company }</b>"</p>
                                 <p style={{ whiteSpace : 'pre-line' }}>  Any discrepancy found in this invoice should be notified imediately Subject to "Tirupur Jurisdiction only".</p>
                             </div>
-                            <div className="col-md-3" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5}}>
+                            <div className="col-md-3" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5, borderRight:'0', borderTop:'0'}}>
                                 <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
                                     Receiver's Seal Signature
                                 </div>
                             </div>
-                            <div className="col-md-3" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-3" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5,  borderTop:'0' }}>
                                 <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
                                     {/* Receiver's Seal Signature */}
                                     For  <b style={{fontWeight:"bold"}}>{ report_details.company_details.company }</b>

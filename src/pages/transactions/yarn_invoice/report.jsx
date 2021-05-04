@@ -79,8 +79,7 @@ class Report extends PureComponent {
                     <div className="col-md-12">
                         <div >
                         <div className="row flex-nowrap" >
-                            <div className="col-md-6" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5 }}>
-
+                            <div className="col-md-6" style={{ border : '1px solid gray', padding : 0, paddingLeft : 5,borderRight:'0', borderBottom:'0' }}>
                                 <h6 style={{fontWeight:"bold"}}>   { report_details.company_details.company } </h6>
                                 <div style={{ marginLeft : 15 }}>
                                 <p style={{ whiteSpace : 'pre-wrap' }}> Address :  { report_details.company_details.address } </p>
@@ -99,11 +98,11 @@ class Report extends PureComponent {
                                 </div>
                             {/* </div> */}
                             </div>
-                            <div className="col-md-6" style={{ padding : 0,border : '1px solid grey' }}>
+                            <div className="col-md-6" style={{ padding : 0,border : '1px solid grey',borderBottom:'0' }}>
 
-                                <table width={"100%"} style={{border:"1px solid grey", margin : 0, padding : 0}} >
+                                <table width={"100%"} style={{borderBottom:"1px solid grey", margin : 0, padding : 0}} >
                                         <tr> 
-                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid grey' }}> <h5>YARN INVOICE </h5> </td>
+                                            <td colSpan={4} style={{ backgroundColor : 'lightgray', textAlign: 'center', borderBottom : '1px solid grey', borderLeft:'1px solid grey' }}> <h5>YARN INVOICE </h5> </td>
                                         </tr>
                                         <tr>
                                             <th style={{paddingLeft : '5px'}}> DC No </th>
@@ -183,17 +182,17 @@ class Report extends PureComponent {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-6" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-6" style={{ border: '1px  solid grey',borderRight:'0', borderTop:'0', padding : 0, paddingLeft : 5, }}>
                                 <p style={{textDecorationLine: 'underline'}}>Terms</p>
                                 {/* <p style={{ whiteSpace : 'pre-line' }}> Payment should be made by DD/pay order/Cheque or  RTGS in favour of "<b style={{fontWeight:"bold"}}>{ report_details.company_details.company }</b>"</p> */}
                                 <p style={{ whiteSpace : 'pre-line' }}>  Any discrepancy found in this invoice should be notified imediately Subject to "Tirupur Jurisdiction only".</p>
                             </div>
-                            <div className="col-md-3" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5}}>
+                            <div className="col-md-3" style={{ border : '1px   solid grey', padding : 0, paddingLeft : 5, borderRight:'0', borderTop:'0'}}>
                                 <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
                                     Receiver's Seal Signature
                                 </div>
                             </div>
-                            <div className="col-md-3" style={{ border : '1px  solid gray', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-3" style={{ border : '1px   solid grey', padding : 0, paddingLeft : 5, borderTop:'0' }}>
                                 <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
                                     {/* Receiver's Seal Signature */}
                                     For  <b style={{fontWeight:"bold"}}>{ report_details.company_details.company }</b>

@@ -122,12 +122,12 @@ class Report extends PureComponent {
                     <div className="col-md-12">
                         <div >
                             <div className="row flex-nowrap">
-                                <div className="col-md-4" style={{ border : '1px solid grey' }}>
+                                <div className="col-md-4" style={{ border : '1px solid grey', borderRight:'0', borderBottom:'0' }}>
                                     <h4>{ report_details.company_details.company }</h4>
                                     <b>GSTIN : {report_details.company_details.gstno}</b>
                                 </div>
                                 {/* <div className="col-md-4" style={{ border : '1px solid grey' }}></div> */}
-                                <div className="col-md-8" style={{ padding : 0 }} >
+                                <div className="col-md-8" style={{ padding : 0 , borderBottom:'0'}} >
                                     <table width="100%" border={1} style={{ padding : 0, margin : 0 }} >
                                         <thead>
                                             <tr>
@@ -164,7 +164,7 @@ class Report extends PureComponent {
                                 </div>
                             </div>
                             <div className="row flex-nowrap">
-                                <div className="col-md-4" style={{ border : '1px solid grey' }}>
+                                <div className="col-md-4" style={{ border : '1px solid grey', borderRight:'0', borderBottom:'0'  }}>
                                     <p>Invoice to</p>
                                     <b>{ report_details.ledger_details.ledger }</b>
                                     <p> Address : { report_details.ledger_details.address }</p>
@@ -172,13 +172,13 @@ class Report extends PureComponent {
                                     <p> E-Mail : { report_details.ledger_details.email }</p>
                                     <b> GST No : { report_details.ledger_details.gstno }</b>
                                 </div>
-                                <div className="col-md-4" style={{ border : '1px solid grey' }}>
+                                <div className="col-md-4" style={{ border : '1px solid grey', borderRight:'0', borderBottom:'0', borderTop:'0' }}>
                                     <p>Delivery to</p>
                                     <b>{ report_details.ledger_details.ledger }</b>
                                     <p> {report_details.address} </p>
 
                                 </div>
-                                <div className="col-md-4" style={{ border : '1px solid grey' }}>
+                                <div className="col-md-4" style={{ border : '1px solid grey', borderBottom:'0',  borderTop:'0' }}>
                                     <div className="row flex-nowrap">
                                         <p className="col-md-4" align="right"> Account Name </p>
                                         <p className="col-md-1">: </p>
@@ -358,7 +358,7 @@ class Report extends PureComponent {
                             </div>
                         </div>
                         <div className="row flex-nowrap">
-                            <div className="col-md-6" style={{ border : '1px solid black', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-6" style={{ border : '1px solid grey', padding : 0, paddingLeft : 5, borderRight:'0' }}>
                                 <p style={{textDecorationLine: 'underline'}}>Terms</p>
                                 <ul>
                                     <li>
@@ -373,12 +373,12 @@ class Report extends PureComponent {
                                 </ul>
                                 {/* <p style={{ whiteSpace : 'pre-line' }}>  Any discrepancy found in this invoice should be notified imediately Subject to "Tirupur Jurisdiction only.</p> */}
                             </div>
-                            <div className="col-md-3" style={{ border : '1px solid black', padding : 0, paddingLeft : 5}}>
+                            <div className="col-md-3" style={{ border : '1px solid grey', padding : 0, paddingLeft : 5, borderRight:'0'}}>
                                 <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
                                     Receiver's Seal Signature
                                 </div>
                             </div>
-                            <div className="col-md-3" style={{ border : '1px solid black', padding : 0, paddingLeft : 5 }}>
+                            <div className="col-md-3" style={{ border : '1px solid grey', padding : 0, paddingLeft : 5 }}>
                                 <div  style={{ position : 'absolute', bottom : 0, left : 40 }}>
                                     For  <b style={{fontWeight:"bold"}}>{ report_details.company_details.company }</b>
                                 </div>
