@@ -117,7 +117,7 @@ class OrderStatus extends PureComponent {
                                         <tr>
                                             <th> Due Date </th>
                                             <td style={{fontWeight:"bold"}}> { getStandardDate(orderstatus_details.due_date)} </td>
-                                            <th> Remaining </th>
+                                            <th> Remaining Days</th>
                                             <td style={{fontWeight:"bold"}}> { getDifferentBetweenTwoDate( orderstatus_details.due_date,  new Date(), 'days')} </td>
                                         </tr>
                                         <tr>
@@ -212,8 +212,8 @@ class OrderStatus extends PureComponent {
                                         )}
                                         <tr>
                                            
-                                            <td colSpan={5} style={{border : '1px solid gray', paddingLeft : '5px',textAlign:'right', paddingRight:'5px'}}> Grand Total</td>
-                                            <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:'right', paddingRight:'5px'}}>{this.state.shortage !=="" && Number(this.state.shortage).toFixed(3)}</td>
+                                            <td colSpan={5} style={{border : '1px solid gray', paddingLeft : '5px',textAlign:'right', paddingRight:'5px'}}> </td>
+                                            <td style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:'right', paddingRight:'5px'}}></td>
 
                                             {/* <td style={{border : '1px solid gray', paddingLeft : '5px', fontWeight:"bold"}}> Grand Total</td> */}
 
