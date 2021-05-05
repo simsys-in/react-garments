@@ -66,7 +66,8 @@ class AddJobworkOutward extends PureComponent{
             },
             size_data_for_order : [],
             unit_data : [],
-            ledger_name : [],
+            ledger_category : [],
+            ledger : [],
             product_data: [],
             process : [],
             order_no : [],
@@ -87,7 +88,7 @@ class AddJobworkOutward extends PureComponent{
             {
                 this.setState({
                     ...this.state,
-                    ledger_name : data.data
+                    ledger : data.data
                 })
             }
         })
@@ -178,6 +179,18 @@ class AddJobworkOutward extends PureComponent{
                 this.setState({
                     ...this.state,
                     color_data : data.data
+                })
+            }
+        })
+    }
+
+    getLedgerCategorySB = () => {
+        getRequest('garments/getLedgerCategorySB').then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    ledger_category : data.data
                 })
             }
         })
@@ -344,6 +357,7 @@ class AddJobworkOutward extends PureComponent{
                 data.data.vou_date = moment(data.data.vou_date)
                 // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
+                this.getLedgerSBForLedgerCategoryID(data.data.ledger_category_id)
                 this.onOrderIDChange(data.data.order_id)
                 this.getMobileForLedgerId(data.data.ledger_id)
                 data.data.jobwork_outward_product.map((item,index) => {
@@ -372,10 +386,23 @@ class AddJobworkOutward extends PureComponent{
         })
     }
 
+    getLedgerSBForLedgerCategoryID = (ledger_category_id) => {
+        getRequest('garments/getLedgerSBForLedgerCategoryID?ledger_category_id=' + ledger_category_id).then(data => {
+            if(data.status === "info")
+            {
+                this.setState({
+                    ...this.state,
+                    ledger : data.data
+                })
+            }
+        })
+    }
+
     
 
     componentDidMount() {
         this.getOrderSB();
+        this.getLedgerCategorySB();
         this.getAllLedgerSB();
         this.getProcessSB();
         this.getFabricsSB();
@@ -759,13 +786,16 @@ class AddJobworkOutward extends PureComponent{
                         
 
                    <div className="row">
-                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
+                   <Selectbox modelName="ledger_category_id" label="Ledger Category" onChange={this.getLedgerSBForLedgerCategoryID} className="col-md-4" options={this.state.ledger_category} value={this.state.formData.ledger_category_id}  ></Selectbox>
+
+                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
+                       
                     <Textbox modelName="mobile" disabled label="Mobile" className="col-md-4" required="false"></Textbox>
 
-                     <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
 
                    </div>
                    <div className="row">
+                     <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                      
                    <Textbox label="Vehicle No" required="false" modelName="vehicle_no"  className="col-md-4"></Textbox>
                        
