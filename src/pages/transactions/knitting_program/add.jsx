@@ -531,7 +531,7 @@ class AddKnittingProgram extends PureComponent{
                                             <th> <b> ll</b></th>
                                             <th> <b> Program Weight</b></th>
                                             <th width="10px">
-                                                <Button type="primary"  onClick={this.addKnittingprogramInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
+                                                <Button type="primary"  onClick={this.addKnittingProgramInventory} style={{ marginLeft : 10 }}> <FontAwesomeIcon  icon={faPlus} />  </Button>
                                             </th>
                                         </tr>
                                     </thead>

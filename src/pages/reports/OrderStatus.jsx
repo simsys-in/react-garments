@@ -65,7 +65,7 @@ class OrderStatus extends PureComponent {
 
     
     getReport = () => {
-        getRequest('garments/getOrderProgramReport?order_id=' + this.state.formData.order_id  ).then(data => {
+        getRequest('garments/getOrderStatusReport?order_id=' + this.state.formData.order_id  ).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -140,6 +140,7 @@ class OrderStatus extends PureComponent {
                                                 <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} > PROCESS</th>
                                                 {/* <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >TO PROCESS</th> */}
                                                 <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >LEDGER</th>
+                                                <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >COLOR</th>
                                                 {/* <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} > DELIVERY QTY</th> */}
                                                 <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >RECEIVED QTY</th>
                                                 {/* <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >SHORTAGE </th> */}
@@ -156,7 +157,9 @@ class OrderStatus extends PureComponent {
 
                                                     <td style={{ paddingTop: item.employee === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.employee }</td>
 
-                                                    <td style={{ paddingTop: item.inventory_qty_total === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.inventory_qty_total }</td>
+                                                    <td style={{ paddingTop: item.employee === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.color }</td>
+
+                                                    <td style={{ paddingTop: item.inventory_qty_total === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.qty }</td>
 
                                                     {/* <td style={{ paddingTop: item.inventory_qty_total === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.inward_qty_total }</td>
 
