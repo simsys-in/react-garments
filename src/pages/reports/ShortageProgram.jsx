@@ -230,7 +230,7 @@ class ShortageProgram extends PureComponent {
 
                                                     <td style={{ paddingTop: item.employee === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.employee }</td>
 
-                                                    <td style={{ paddingTop: item.qty === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.qty }</td>
+                                                    <td style={{ paddingTop: item.qty === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.qty + " " + "Pcs"}</td>
 
                                                     {/* <td style={{ paddingTop: item.inventory_qty_total === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.inward_qty_total }</td>
 
@@ -279,11 +279,11 @@ class ShortageProgram extends PureComponent {
 
                                                     <td style={{ paddingTop: item.ledger === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.ledger }</td>
 
-                                                    <td style={{ paddingTop: item.inventory_qty_total === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.outward_qty_total }</td>
+                                                    <td style={{ paddingTop: item.inventory_qty_total === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.outward_qty_total + " " + shortage_details.unit } </td>
 
-                                                    <td style={{ paddingTop: item.inventory_qty_total === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.inward_qty_total }</td>
+                                                    <td style={{ paddingTop: item.inventory_qty_total === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{ item.inward_qty_total + " " + shortage_details.unit}</td>
 
-                                                    <td style={{ paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{   item.outward_qty_total - item.inward_qty_total }</td>
+                                                    <td style={{ paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}}>{   item.outward_qty_total - item.inward_qty_total + " " + shortage_details.unit }</td>
 
 
                                                     {/* <td style={{ paddingTop: item.qty_kg === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px' }}>{ item.qty_kg !== "" && Number(item.qty_kg).toFixed(2) }</td> */}
