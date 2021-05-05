@@ -140,9 +140,10 @@ class AddJobwork_Inward  extends PureComponent{
         })
     }
     getJobworkOutwardColorDetails = () => {
+        console.log(this.state.formData)
         if(!this.id && issetNotEmpty(this.state.formData.order_id) && issetNotEmpty(this.state.formData.process_id) && issetNotEmpty(this.state.formData.ledger_id) ){
 
-            getRequest('garments/getJobworkOutwardColorDetails?order_id=' +this.state.formData.order_id  + '&to_process_id='+ this.state.formData.to_process_id +'&ledger_id=' + this.state.formData.ledger_id).then(data => {
+            getRequest('garments/getJobworkOutwardColorDetails?order_id=' +this.state.formData.order_id  + '&process_id='+ this.state.formData.process_id +'&ledger_id=' + this.state.formData.ledger_id).then(data => {
                 if(data.status === "info")
                 {
                     var newArr = data.data;
@@ -359,8 +360,6 @@ class AddJobwork_Inward  extends PureComponent{
         this.getJobworkOutwardColorDetails(order_id);
         this.getLedgerForOrderAndProcessID(this.state.formData.process_id)
         this.getStyleForOrderID(order_id);
-
-        
     }
 
     getStyleForOrderID = (order_id) => {
@@ -411,14 +410,13 @@ class AddJobwork_Inward  extends PureComponent{
                         ...this.state,
                         formData : {
                             ...this.state.formData,
-                            ledger_id : data.data && data.data.length ? data.data[0].ledger_id : null
-                                            },
+                            ledger_id : data.data && data.data.length ? data.data[0].ledger_id : null,
+                            process_id : process_id
+                                },
                     },() => {
                         this.getMobileForLedgerID(this.state.formData.ledger_id)
                         this.getJobworkOutwardColorDetails();
-                        this.formRef.current.setFieldsValue({
-                            ledger_id : this.state.formData.ledger_id
-                        });
+                        this.formRef.current.setFieldsValue(this.state.formData);
                     })
                 }
             })
