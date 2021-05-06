@@ -36,11 +36,14 @@ class AddGarmentsDeliveryNote extends PureComponent{
                 status : 'active',
                 vou_date : moment(),
                 size_details : [],
+                
+
                 garments_delivery_note_inventory : [
                     {  
                         color_id : null,
                         vou_id : null,
                         color : null,
+                        description: '',
                         size_details : [],
                         description : '',
                         size1_qty : '',
