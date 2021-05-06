@@ -293,10 +293,16 @@ class AddVoucher extends PureComponent{
                                     <div className="row">
                                         <Textbox label="SMS Template"  required="false" modelName="smstemplate" required="false" className="col-md-4"></Textbox>
                                         <Selectbox modelName="smsstatus" required="false" label="SMS" className="col-md-4" options={OnOffStatus} value={this.state.formData.smsstatus}  ></Selectbox>
-                                        <Selectbox modelName="status" required="false" label="Status" className="col-md-4" options={OnOffStatus} value={this.state.formData.status}  ></Selectbox>
+                                        <Textbox modelName="icon" required="false" label="Icon" className="col-md-4"   ></Textbox>
 
 
                                     </div>
+
+                                    <div className="row">
+                                        <Selectbox modelName="status" required="false" label="Status" className="col-md-4" options={OnOffStatus} value={this.state.formData.status}  ></Selectbox>
+                                    </div>
+
+
                                     
                         </div>
                         </div>
