@@ -542,7 +542,7 @@ class AddGarmentsReceiptNote extends PureComponent{
     checkButtonDisabled = () => {
         const FORMDATA = this.state.formData;
 
-        if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.marketing_user_id)) 
+        if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno) ) 
         {
             var selectedItems = _.filter(FORMDATA.garments_receipt_note_inventory, (item) => {
                 // console.log(item)
@@ -594,7 +594,7 @@ class AddGarmentsReceiptNote extends PureComponent{
                    <div className="row">
                    <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
                      <Selectbox modelName="order_id" label="Order No"  className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
-                   <Selectbox modelName="marketing_user_id"  label="Marketed By" className="col-md-4" options={this.state.user_data} value={this.state.formData.marketing_user_id} ></Selectbox>
+                   <Selectbox modelName="marketing_user_id"  label="Marketed By" required="false" className="col-md-4" options={this.state.user_data} value={this.state.formData.marketing_user_id} ></Selectbox>
 
                    </div>
                     <div className="row">

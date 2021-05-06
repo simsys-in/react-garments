@@ -36,11 +36,14 @@ class AddGarmentsDeliveryNote extends PureComponent{
                 status : 'active',
                 vou_date : moment(),
                 size_details : [],
+                
+
                 garments_delivery_note_inventory : [
                     {  
                         color_id : null,
                         vou_id : null,
                         color : null,
+                        description: '',
                         size_details : [],
                         size1_qty : '',
                         size2_qty : '',
@@ -432,6 +435,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
             color_id : null,
                         vou_id : null,
                         color : null,
+                        description: '',   
                         size1_qty : '',
                         size2_qty : '',
                         size_details : [],
@@ -504,11 +508,11 @@ class AddGarmentsDeliveryNote extends PureComponent{
     checkButtonDisabled = () => {
         const FORMDATA = this.state.formData;
 
-        if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.marketing_user_id)) 
+        if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  ) 
         {
             var selectedItems = _.filter(FORMDATA.garments_delivery_note_inventory, (item) => {
                 // console.log(item)
-                return  item.product_id && item.color_id &&  item.unit_id &&( item.size1_qty ||item.size2_qty ||item.size3_qty ||item.size4_qty ||item.size5_qty ||item.size6_qty || item.size7_qty ||item.size8_qty ||item.size9_qty )  && item.qty  ;
+                return  item.product_id &&  item.unit_id &&( item.size1_qty ||item.size2_qty ||item.size3_qty ||item.size4_qty ||item.size5_qty ||item.size6_qty || item.size7_qty ||item.size8_qty ||item.size9_qty )  && item.qty  ;
             });
 
             if(selectedItems.length > 0)
