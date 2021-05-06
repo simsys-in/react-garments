@@ -26,7 +26,7 @@ class Report extends PureComponent {
                         total_qty += item.qty;
                         total_amount += item.amount;
                     })
-                if(data.data.inventory.length < 30)
+                if(data.data.inventory.length < 10)
                 {
                     
                     var item = {
@@ -37,10 +37,10 @@ class Report extends PureComponent {
                         rate : '',
                         amount : '',
                     }
-                    for(var i=data.data.inventory.length; i < 30; i++ )
+                    for(var i=data.data.inventory.length; i < 10; i++ )
                     {
                         data.data.inventory.push(item);
-                        if(i === 29)
+                        if(i === 9)
                         {
                             this.setState({
                                 ...this.state,

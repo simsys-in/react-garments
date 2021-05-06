@@ -395,7 +395,7 @@ class AddFabricInward extends PureComponent{
     checkButtonDisabled = () => {
         const FORMDATA = this.state.formData;
 
-        if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.refno))
+        if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.process_id))
         {
             var selectedItems = _.filter(FORMDATA.fabric_inward_inventory, (item) => {
                 // console.log(item)
@@ -439,7 +439,7 @@ class AddFabricInward extends PureComponent{
                         
                     <div className="row">
                        
-                        <Selectbox modelName="ledger_id" label="Ledger Name" className="col-md-4" required="true" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getFabricOutwardInventoryDetails} ></Selectbox>
+                        <Selectbox autoFocus modelName="ledger_id" label="Ledger Name" className="col-md-4" required="true" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getFabricOutwardInventoryDetails} ></Selectbox>
                         <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
 
                        <Textbox label="Vou No" modelName="vouno"  className="col-md-4"></Textbox>

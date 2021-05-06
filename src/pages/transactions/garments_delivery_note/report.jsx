@@ -260,22 +260,22 @@ class Report extends PureComponent {
                                 </div> */}
                             </div>
                         <div className="row flex-nowrap">
-                            <div className="col-md-12" style={{ padding : 0 }}>
+                            <div className="col-md-12" style={{ padding : 0, margin : 0 }}>
                                     {/* <div style={{ display : 'block', minHeight : '800px', border : '1px solid grey' }}> */}
-                                <table  width="100%"  >
+                                <table  width="100%" style={{ padding : 0, margin : 0 }} >
                                     <thead>
                                         <tr >
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> #Style </b></th>
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Color </b></th>
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> #HSN </b></th>
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> DESCRIPTION </b></th>
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> GST </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center" , border: '1px solid gray'}}> <b> #Style </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center" , border: '1px solid gray'}}> <b> Color </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center" , border: '1px solid gray'}}> <b> #HSN </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center" , border: '1px solid gray'}}> <b> DESCRIPTION </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center" , border: '1px solid gray'}}> <b> GST </b></th>
 
-                                            <th row flex-nowrapSpan={2} colSpan={9} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Size </b></th>
+                                            <th row flex-nowrapSpan={2} colSpan={9} style={{fontWeight:"bold",textAlign:"center" , border: '1px solid gray'}}> <b> Size </b></th>
 
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Qty </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center" , border: '1px solid gray'}}> <b> Qty </b></th>
                                             
-                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '5px' , border: '1px solid gray'}}> <b> Unit </b></th>
+                                            <th row flex-nowrapSpan={2} style={{fontWeight:"bold",textAlign:"center", paddingLeft : '0' , border: '1px solid gray'}}> <b> Unit </b></th>
                                            
                                         </tr>
                                     </thead>
@@ -283,18 +283,18 @@ class Report extends PureComponent {
                                         <tbody >
                                             { report_details.inventories.map((item, ind) => 
                                                 <tr key={ind}>
-                                                    <td  style={{ paddingTop: item.product === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}} >{item.product}</td>
+                                                    <td  style={{ paddingTop: item.product === "" ? '27px' : 'auto' , borderLeft  : '1px solid grey'}} >{item.product}</td>
 
-                                                    <td  style={{ paddingTop: item.product === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}} >{item.color}</td>
+                                                    <td  style={{ paddingTop: item.product === "" ? '27px' : 'auto' , borderLeft  : '1px solid grey'}} >{item.color}</td>
 
-                                                    <td  style={{ paddingTop: item.hsnasc === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}} >{item.hsnsac}</td>
-                                                    <td  style={{ paddingTop: item.hsnasc === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}} >{item.description}</td>
+                                                    <td  style={{ paddingTop: item.hsnasc === "" ? '27px' : 'auto' , borderLeft  : '1px solid grey'}} >{item.hsnsac}</td>
+                                                    <td  style={{ paddingTop: item.hsnasc === "" ? '27px' : 'auto' , borderLeft  : '1px solid grey'}} >{item.description}</td>
                                                     
-                                                    <td style={{ paddingTop: item.gst === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >{item.gst}</td>
+                                                    <td style={{ paddingTop: item.gst === "" ? '27px' : 'auto' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >{item.gst}</td>
 
 
                                                     { item.size_data.map((size, index) => 
-                                                        <td key={index} style={{borderRight:'1px solid grey', borderLeft:'1px solid grey', paddingTop: item['size' + Number(Number(index) + 1)] === "" ? '27px' : 'auto', paddingLeft : '5px' , textAlign : 'right', paddingRight:'5px', minWidth : '50px'}} >
+                                                        <td key={index} style={{borderRight:'1px solid grey', borderLeft:'1px solid grey', paddingTop: item['size' + Number(Number(index) + 1)] === "" ? '27px' : 'auto' , textAlign : 'right', paddingRight:'5px', minWidth : '50px'}} >
                                                             <strong style={{ textAlign :'center', fontWeight : 600 }} >{size !== "''" ? size : Number(item['size' + Number(Number(index) + 1) + "_qty"]) > 0 ? 'Size ' + Number(Number(index) + 1) : ""}</strong>  <br/>
                                                             <p style={{ textAlign : 'left' }}> { Number(item['size' + Number(Number(index) + 1) + "_qty"]) !== 0 ? item['size' + Number(Number(index) + 1) + "_qty"] : "" } </p> <br/>
                                                             {/* <p style={{ textAlign : 'right' }}> { Number(item['size' + Number(Number(index) + 1) + "_rate"]) !== 0 ? item['size' + Number(Number(index) + 1) + "_rate"] : ''  } </p> <br/> */}
@@ -302,10 +302,10 @@ class Report extends PureComponent {
                                                     )}
 
 
-                                                    <td style={{ paddingTop: item.qty === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >{item.qty}</td>
+                                                    <td style={{ paddingTop: item.qty === "" ? '27px' : 'auto' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px'}} >{item.qty}</td>
 
                                                    
-                                                    <td style={{ paddingTop: item.unit === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px',borderRight : '1px solid grey'}} >{item.unit}</td>
+                                                    <td style={{ paddingTop: item.unit === "" ? '27px' : 'auto' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px',borderRight : '1px solid grey'}} >{item.unit}</td>
 
                                                    
                                                 </tr>
