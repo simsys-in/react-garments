@@ -357,7 +357,7 @@ class AddJobworkOutward extends PureComponent{
                 data.data.vou_date = moment(data.data.vou_date)
                 // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
-                this.getLedgerSBForLedgerCategoryID(data.data.ledger_category_id)
+                this.getLedgerSBForProcessId(data.data.process_id)
                 this.onOrderIDChange(data.data.order_id)
                 this.getMobileForLedgerId(data.data.ledger_id)
                 data.data.jobwork_outward_product.map((item,index) => {
@@ -374,8 +374,8 @@ class AddJobworkOutward extends PureComponent{
         }
     }
 
-    getProcessSBForOrderID = (order_id) => {
-        getRequest('garments/getProcessSBForOrderID?order_id=' + order_id).then(data => {
+    getProcessSBForOrderIDAndProcessType = (order_id) => {
+        getRequest('garments/getProcessSBForOrderIDAndProcessType?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -386,8 +386,8 @@ class AddJobworkOutward extends PureComponent{
         })
     }
 
-    getLedgerSBForLedgerCategoryID = (ledger_category_id) => {
-        getRequest('garments/getLedgerSBForLedgerCategoryID?ledger_category_id=' + ledger_category_id).then(data => {
+    getLedgerSBForProcessId = (process_id) => {
+        getRequest('garments/getLedgerSBForProcessId?process_id=' + process_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -402,7 +402,7 @@ class AddJobworkOutward extends PureComponent{
 
     componentDidMount() {
         this.getOrderSB();
-        this.getLedgerCategorySB();
+    
         this.getAllLedgerSB();
         this.getProcessSB();
         this.getFabricsSB();
@@ -483,7 +483,7 @@ class AddJobworkOutward extends PureComponent{
     
 
     onOrderIDChange = (order_id) => {
-        this.getProcessSBForOrderID(order_id);
+        this.getProcessSBForOrderIDAndProcessType(order_id);
         this.getSizesForOrderID(order_id);
         this.getCuttingProgramColorDetails(order_id);
         this.getStyleForOrderID(order_id);
@@ -777,29 +777,27 @@ class AddJobworkOutward extends PureComponent{
 
 
                    <div className="row">
-                       <Selectbox modelName="from_process_id" label="From Process" className="col-md-4" options={this.state.process} value={this.state.formData.from_process_id} onChange={(from_process_id) => this.getCuttingProgramColorDetails(this.state.formData.order_id, from_process_id)} ></Selectbox>
+                       {/* <Selectbox modelName="from_process_id" label="From Process" className="col-md-4" options={this.state.process} value={this.state.formData.from_process_id} onChange={(from_process_id) => this.getCuttingProgramColorDetails(this.state.formData.order_id, from_process_id)} ></Selectbox> */}
 
-                       <Selectbox modelName="to_process_id" label="To Process" className="col-md-4" options={this.state.process} value={this.state.formData.to_process_id} onChange={this.getLedgerForOrderAndProcessID} ></Selectbox>
+                       <Selectbox modelName="to_process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.to_process_id} onChange={this.getLedgerSBForProcessId} ></Selectbox>
                        
+                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
                     <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
                    </div>
                         
 
                    <div className="row">
-                   <Selectbox modelName="ledger_category_id" label="Ledger Category" onChange={this.getLedgerSBForLedgerCategoryID} className="col-md-4" options={this.state.ledger_category} value={this.state.formData.ledger_category_id}  ></Selectbox>
+                   {/* <Selectbox modelName="ledger_category_id" label="Ledger Category" onChange={this.getLedgerSBForLedgerCategoryID} className="col-md-4" options={this.state.ledger_category} value={this.state.formData.ledger_category_id}  ></Selectbox> */}
 
-                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
                        
                     <Textbox modelName="mobile" disabled label="Mobile" className="col-md-4" required="false"></Textbox>
 
-
-                   </div>
-                   <div className="row">
                      <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                      
                    <Textbox label="Vehicle No" required="false" modelName="vehicle_no"  className="col-md-4"></Textbox>
-                       
                    </div>
+
+                   
                     <br/>
                     <div className="row">
 

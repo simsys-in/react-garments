@@ -6,10 +6,23 @@ import { getRequest, postRequest, putRequest } from '../../../helpers/apihelper'
 import { withRouter } from 'react-router';
 import moment from 'moment';
 import Textbox from '../../../components/Inputs/Textbox';
+import Selectbox from '../../../components/Inputs/Selectbox';
+
 
 
 
 let interval;
+const processType = [
+    {
+        name : "Inhome Process",
+        value : 'inhome_process'
+    },
+    {
+        name : "Outsource Process",
+        value : 'outsource_process'
+    },
+]
+
 
 
 class AddProcess extends PureComponent{
@@ -138,7 +151,8 @@ class AddProcess extends PureComponent{
                     >
                         
                     <div className="row">
-                        <Textbox label="Process" autoFocus modelName="process" className="col-md-4"></Textbox>
+                        <Textbox label="Process" autoFocus modelName="process" className="col-md-6"></Textbox>
+                        <Selectbox label="Type"  modelName="type" options={processType} value={this.state.formData.type} className="col-md-6"></Selectbox>
                     </div>
                     <br></br>
 

@@ -34,6 +34,7 @@ class AddPayment extends PureComponent{
                 vou_date : moment(),
                 ledger_id : "",
                 ledger2_id : '',
+                slno: '',
                 accounts : [
                     {  
                         vou_id: null,
@@ -354,7 +355,7 @@ class AddPayment extends PureComponent{
                   
                    <div className="row">
                      <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
-                     {/* <Textbox label="Track No" modelName="narration" required="false" className="col-md-4"></Textbox> */}
+                     <Textbox label="Track No" modelName="slno" required="false" className="col-md-4"></Textbox>
                    </div>
                   
 
