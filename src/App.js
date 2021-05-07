@@ -270,6 +270,11 @@ import ListGeneralPurchaseOrder from './pages/transactions/general_purchase_orde
 
 import OrderStatus from './pages/reports/OrderStatus'
 
+//payment
+import AddPayment  from './pages/transactions/payment/add'
+import ListPayment from './pages/transactions/payment/list' 
+
+
 
 ///// Kowsalya Workspace //////
 ///// Kowsalya Workspace //////
@@ -694,6 +699,13 @@ class App extends React.PureComponent
                               <Route exact path="/transactions/list_purchase_order" component={ListGeneralPurchaseOrder} />
 
                               <Route exact path="/reports/order_status" component={OrderStatus} />
+
+                               {/* shift */}
+                               <Route exact path="/transactions/add_payment" component={AddPayment} />
+                              <Route exact path="/transactions/edit_payment/:id" component={AddPayment} />
+                              <Route exact path="/transactions/list_payment" component={ListPayment} />
+
+
 
                             {/* Kowsalya Workspace */}
                             {/* Kowsalya Workspace */}

@@ -724,7 +724,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
                                                         )}
                                                     </Form.List>
                                                     <tr style={{ backgroundColor : 'lightgray', textAlign : 'right' }}>
-                                            <td colSpan={4}> <h6> Total</h6></td>
+                                            <td colSpan={3}> <h6> Total</h6></td>
                                             <td > <h6> { this.state.formData.size1_total }</h6></td>
                                             <td > <h6> { this.state.formData.size2_total }</h6></td>
                                             <td > <h6> { this.state.formData.size3_total }</h6></td>
