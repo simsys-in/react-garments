@@ -560,7 +560,7 @@ class AddJobworkInvoice extends PureComponent{
     checkButtonDisabled = () => {
         const FORMDATA = this.state.formData;
 
-        if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.ledger2_id) )
+        if(issetNotEmpty(FORMDATA.process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno))
         {
             var selectedItems = _.filter(FORMDATA.jobwork_invoice_inventory, (item) => {
                 // console.log(item)
@@ -601,8 +601,8 @@ class AddJobworkInvoice extends PureComponent{
                         
                    
                    <div className="row">
-                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.onLedgerAndProcessChange}></Selectbox>
-                       <Selectbox modelName="process_id" autoFocus className="col-md-4" label="Process" options={this.state.process} value={this.state.formData.process_id} onChange={this.onLedgerAndProcessChange} ></Selectbox>
+                       <Selectbox modelName="ledger_id" autoFocus label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.onLedgerAndProcessChange}></Selectbox>
+                       <Selectbox modelName="process_id" className="col-md-4" label="Process" options={this.state.process} value={this.state.formData.process_id} onChange={this.onLedgerAndProcessChange} ></Selectbox>
                        <Textbox modelName="mobile" disabled label="Mobile" className="col-md-4" required="false"></Textbox>
                    </div>
                    <div className="row">

@@ -45,6 +45,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
                         color : null,
                         description: '',
                         size_details : [],
+                        description : '',
                         size1_qty : '',
                         size2_qty : '',
                         size3_qty :'' ,
@@ -435,10 +436,10 @@ class AddGarmentsDeliveryNote extends PureComponent{
             color_id : null,
                         vou_id : null,
                         color : null,
-                        description: '',   
+                        description :'' ,
+                        size_details : [],
                         size1_qty : '',
                         size2_qty : '',
-                        size_details : [],
                         size3_qty :'' ,
                         size4_qty : '',
                         size5_qty : '',
@@ -508,7 +509,7 @@ class AddGarmentsDeliveryNote extends PureComponent{
     checkButtonDisabled = () => {
         const FORMDATA = this.state.formData;
 
-        if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  ) 
+        if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)) 
         {
             var selectedItems = _.filter(FORMDATA.garments_delivery_note_inventory, (item) => {
                 // console.log(item)

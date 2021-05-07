@@ -502,6 +502,7 @@ class AddGarmentsInvoice extends PureComponent{
             size_details : [],
             size1_qty : '',
             size2_qty : '',
+            description : '',
             size3_qty :'' ,
             size4_qty : '',
             size5_qty : '',
@@ -583,7 +584,7 @@ class AddGarmentsInvoice extends PureComponent{
     checkButtonDisabled = () => {
         const FORMDATA = this.state.formData;
 
-        if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno) )
+        if(issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno))
         {
             var selectedItems = _.filter(FORMDATA.garments_invoice_inventory, (item) => {
                 // console.log(item)
@@ -625,7 +626,7 @@ class AddGarmentsInvoice extends PureComponent{
                     >
                         
                     <div className="row">
-                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getGarmentsDeliveryNoteInventoryDetails} ></Selectbox>
+                       <Selectbox modelName="ledger_id" autoFocus label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getGarmentsDeliveryNoteInventoryDetails} required="true"></Selectbox>
                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
                    <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
                    </div>
