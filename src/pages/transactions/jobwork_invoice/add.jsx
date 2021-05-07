@@ -107,6 +107,7 @@ class AddJobworkInvoice extends PureComponent{
     }
 
    
+
     getSizeSB = (order_id = null) => {
         
         getRequest('garments/getAllSizeSB').then(data => {
@@ -259,12 +260,12 @@ class AddJobworkInvoice extends PureComponent{
                 data.data.vou_date = moment(data.data.vou_date)
                 // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
+                this.getProductAndSizeSBForOrderID(data.data.order_id);
                 this.getMobileForLedgerId(data.data.ledger_id)
                 this.getJobworkInwardColorDetails(data.data.order_id);
 
                 // this.getOrdersForLedgerAndProcess(data.data.ledger_id, data.data.process_id)
             
-                    this.getProductAndSizeSBForOrderID(data.data.order_id);
                 
             })
 
@@ -325,14 +326,16 @@ class AddJobworkInvoice extends PureComponent{
 
     getProductAndSizeSBForOrderID = (order_id) => {
         getRequest('garments/getProductAndSizeSBForOrderID?order_id=' + order_id).then(data => {
+            console.log(data)
             if(data.status === "info")
             {
                 this.setState({
                     ...this.state,
                     formData : {
                         ...this.state.formData,
-                        style_id : Number(data.data),
-                        size_id : Number(data.data)
+                
+                        product_id :data.data[0].style_id,
+                        size_id : data.data[0].size_id
                         
                     }
                 }, () => {
@@ -581,7 +584,7 @@ class AddJobworkInvoice extends PureComponent{
         {
             var selectedItems = _.filter(FORMDATA.jobwork_invoice_inventory, (item) => {
                 // console.log(item)
-                return item.selected && item.order_id && item.product_id && item.size_id && item.qty && item.rate &&item.amount  ;
+                return item.selected  && item.qty && item.rate &&item.amount  ;
             });
 
             if(selectedItems.length > 0)
@@ -620,12 +623,12 @@ class AddJobworkInvoice extends PureComponent{
                    <div className="row">
                        <Selectbox modelName="ledger_id" autoFocus label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.onLedgerAndProcessChange}></Selectbox>
                        <Selectbox modelName="process_id" className="col-md-4" label="Process" options={this.state.process} value={this.state.formData.process_id} onChange={this.onLedgerAndProcessChange} ></Selectbox>
-                       <Selectbox modelName="order_id" onChange={(order_id) => this.getProductAndSizeSBForOrderID(order_id)} label="Order No" className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id} ></Selectbox>
+                       <Selectbox modelName="order_id" onChange={this.getProductAndSizeSBForOrderID} label="Order No" className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id} ></Selectbox>
                    </div>
 
                    <div className="row">
                    <Selectbox modelName="product_id"  label="Product" className="col-md-4" options={this.state.product} value={this.state.formData.product} ></Selectbox>
-                   <Selectbox modelName="size_id"  label="Size" className="col-md-4" options={this.state.size_id} value={this.state.formData.size_data} ></Selectbox>
+                   <Selectbox modelName="size_id"  label="Size" className="col-md-4" options={this.state.size_data} value={this.state.formData.size_id} ></Selectbox>
                     <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
                    </div>
 
@@ -701,7 +704,7 @@ class AddJobworkInvoice extends PureComponent{
                                                                 <Selectbox label="Product"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.product} field={field} fieldKey={[ field.fieldKey, 'product_id' ]} disabled modelName={[field.name, 'product_id']} value={[field.name, 'product_id']}  ></Selectbox>  
                                                                 </td> */}
                                                                 <td>
-                                                                <Selectbox label="DC No"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.size_data} field={field} fieldKey={[ field.fieldKey, 'vouno' ]} disabled modelName={[field.name, 'vouno']} value={[field.name, 'vouno']}  ></Selectbox>  
+                                                                <Selectbox label="DC No"  noPlaceholder required="false" withoutMargin className="col-md-12" showLabel={false} options={this.state.size_id} field={field} fieldKey={[ field.fieldKey, 'vouno' ]} disabled modelName={[field.name, 'vouno']} value={[field.name, 'vouno']}  ></Selectbox>  
                                                                 </td>
                                                                 
                                                                 
