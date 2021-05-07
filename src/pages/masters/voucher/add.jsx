@@ -66,8 +66,7 @@ class AddVoucher extends PureComponent{
                 ]
             },
             companiesList : [],
-            ledger_group : [],
-            ledger : []
+            account_ledger : []
         }
         this.id = this.props.match.params.id;
     }
@@ -76,26 +75,15 @@ class AddVoucher extends PureComponent{
         console.log('Failed:', errorInfo);
       };
 
-      getLedgerGroupSB = () => {
-        
-        getRequest('garments/getLedgerGroupSB').then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    ledger_group : data.data
-                })
-            }
-        })
-    }
+      
 
-    getLedgerForLedgerGroup = (ledger_group_id) => {
-        getRequest('garments/getLedgerForLedgerGroup?ledger_group_id=' + ledger_group_id).then(data => {
+    getAccountLedgerSB = () => {
+        getRequest('garments/getAccountLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
                     ...this.state,
-                    ledger : data.data
+                    account_ledger : data.data
                 })
             }
         })
@@ -150,7 +138,6 @@ class AddVoucher extends PureComponent{
                 data.data.vou_date = moment(data.data.vou_date)
                 // console.log(data.data)
                 this.formRef.current.setFieldsValue(data.data);
-                this.getLedgerForLedgerGroup(data.data.ledger2_id)
                 this.setTOTAL();
             })
 
@@ -165,7 +152,7 @@ class AddVoucher extends PureComponent{
 
    
     componentDidMount() {
-        this.getLedgerGroupSB();
+        this.getAccountLedgerSB();
         this.setTOTAL();
         this.getVoucher();
         interval = setInterval(() => {
@@ -322,7 +309,7 @@ class AddVoucher extends PureComponent{
                         <div className="col-md-12">
                             <Divider plain orientation="left" >DETAILS</Divider>
                                    <div className="row">
-                                        <Selectbox modelName="ledger2_id" label="Accounts Ledger" className="col-md-6" options={this.state.ledger_group} value={this.state.formData.ledger2_id} required="false" onChange={this.getLedgerForLedgerGroup} ></Selectbox>
+                                        <Selectbox modelName="ledger2_id" label="Accounts Ledger" className="col-md-6" options={this.state.account_ledger} value={this.state.formData.ledger2_id} required="false"  ></Selectbox>
                                         <Textbox label="Print Title" modelName="print_title" required="false" className="col-md-6"></Textbox>
                                         {/* <Textbox label="Terms Of Conditions" modelName="terms_condition" required="false" className="col-md-4"></Textbox> */}
                                         <Form.Item name={'terms_condition'} label="Terms And Conditions" className="col-md-8">
@@ -356,7 +343,7 @@ class AddVoucher extends PureComponent{
                                    { (fields, { add, remove } )=> (
                                        fields.map((field, index) => (
                                            <tr>
-                                               <td>  <Selectbox withoutMargin required="false" noPlaceholder className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'ledger_id' ]} modelName={[field.name, 'ledger_id']} value={[field.name, 'ledger']} options={this.state.ledger} label="Accounts Ledger"></Selectbox></td>
+                                               <td>  <Selectbox withoutMargin required="false" noPlaceholder className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'ledger_id' ]} modelName={[field.name, 'ledger_id']} value={[field.name, 'ledger_id']} options={this.state.account_ledger} label="Accounts Ledger"></Selectbox></td>
 
                                                <td> <Textbox withoutMargin required="false" noPlaceholder className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'description' ]} modelName={[field.name, 'description']} value={[field.name, 'description']} label="Description"></Textbox></td>
 
