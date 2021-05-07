@@ -5,12 +5,14 @@ import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
 import DataTable from '../../../components/Datatable';
-// import Report from './report';
+import Report from './report';
 
 class ListPayment extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      showPrint : false,
+      selectedItem : {},
       
       columns: [
       
@@ -27,6 +29,11 @@ class ListPayment extends PureComponent {
           width: "30vw",
         },
         {
+          label: 'Ref No',
+          field: 'refno',
+          width: "30vw",
+        },
+        {
           label: 'Vou Date',
           field: 'vou_date',
           width: "30vw",
@@ -36,6 +43,16 @@ class ListPayment extends PureComponent {
         {
           label: 'Ledger Name',
           field: 'ledger',
+          width: "10vw",
+        },
+        {
+          label: ' Account Ledger',
+          field: 'account_ledger',
+          width: "10vw",
+        },
+        {
+          label: 'Narration',
+          field: 'narration',
           width: "10vw",
         },
 
@@ -73,7 +90,26 @@ class ListPayment extends PureComponent {
     })
   }
 
-  
+  hideMoal = () => {
+    this.setState({
+      ...this.state,
+      showPrint : false,
+      selectedItem : {}
+    }, () => {
+      window.location.reload();
+    })
+  }
+
+  showPrint = (record) => {
+
+    this.setState({
+      ...this.state,
+      showPrint : true,
+      selectedItem : record
+    })
+  }
+
+
  
 
   deletePayment = (user) => {
@@ -103,7 +139,7 @@ class ListPayment extends PureComponent {
           item.action =  <Space size="middle">
           <Button type="primary" onClick={() => this.editPayment(item.id)} icon={<EditOutlined />} size="middle" />
           <Button type="default" color="error" danger onClick={() => this.deletePayment(item)} icon={<DeleteOutlined />} size="middle" />
-          {/* <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" /> */}
+          <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" />
         </Space>
 
         newData.push(item)
@@ -120,17 +156,17 @@ class ListPayment extends PureComponent {
   }
 
   
-//   printDiv = () => {
-//     var printContents = document.getElementById('printableArea').innerHTML;
-//      var originalContents = document.body.innerHTML;
+  printDiv = () => {
+    var printContents = document.getElementById('printableArea').innerHTML;
+     var originalContents = document.body.innerHTML;
 
-//      document.body.innerHTML = printContents;
+     document.body.innerHTML = printContents;
 
-//      window.print();
+     window.print();
 
-//      document.body.innerHTML = originalContents;
-//      window.location.reload();
-//   }
+     document.body.innerHTML = originalContents;
+     window.location.reload();
+  }
 
 
   render() {
@@ -146,7 +182,7 @@ class ListPayment extends PureComponent {
         </div>
         <DataTable data={this.state} ></DataTable>
 
-        {/* <Modal
+        <Modal
           title="Knitting Program"
           centered
           width={1000}
@@ -156,7 +192,7 @@ class ListPayment extends PureComponent {
           onCancel={() => this.hideMoal(false)}
         >
           <Report itemId={this.state.selectedItem.id} id="printableArea" />
-        </Modal> */}
+        </Modal>
 
       </Fragment>
     )

@@ -29,6 +29,10 @@ class AddReceipt extends PureComponent{
             formData : {
                 refno : "",
                 narration : "",
+                ledger_id : "",
+                ledger2_id : "",
+                amount : "",
+                slno :"",
 
                 status : 'active',
                 vou_date : moment(),
@@ -45,7 +49,7 @@ class AddReceipt extends PureComponent{
                 ]
             },
             companiesList : [],
-            ledger_group : [],
+            account_ledger : [],
             ledger_name : [],
         }
         this.id = this.props.match.params.id;
@@ -66,18 +70,17 @@ class AddReceipt extends PureComponent{
             }
         })
     }
-    getLedgerGroupSB = () => {
-        
-        getRequest('garments/getLedgerGroupSB').then(data => {
+    getAccountLedgerSB = () => {
+        getRequest('garments/getAccountLedgerSB').then(data => {
             if(data.status === "info")
             {
                 this.setState({
                     ...this.state,
-                    ledger_group : data.data
+                    account_ledger : data.data
                 })
             }
         })
-    }
+    } 
 
 
 
@@ -139,7 +142,7 @@ class AddReceipt extends PureComponent{
     componentDidMount() {
         this.getLedgerNameSB();
         this.setTotalAmount();
-        this.getLedgerGroupSB();
+        this.getAccountLedgerSB();
         this.getReceipt();
         interval = setInterval(() => {
             this.validate()
@@ -276,23 +279,23 @@ class AddReceipt extends PureComponent{
                     <div className="row">
                        
                     <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
-                    <Textbox label="Vou No" required="false" modelName="vouno"  className="col-md-4"></Textbox>
+                    {/* <Textbox label="Vou No" required="false" modelName="vouno"  className="col-md-4"></Textbox> */}
                     <Textbox label="Ref No" required="false" modelName="refno"  className="col-md-4"></Textbox>
+                        <Selectbox modelName="ledger_id" label="Ledger Name" autoFocus className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
 
                     </div>
                   
                   
                     <div className="row">
-                        <Selectbox modelName="ledger_id" label="Ledger Name" autoFocus className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
-                    <Selectbox modelName="ledger2_id" label="Accounts Ledger" className="col-md-4" options={this.state.ledger_group} value={this.state.formData.ledger2_id} required="false" onChange={this.getLedgerForLedgerGroup} ></Selectbox>
+                    <Selectbox modelName="ledger2_id" label="Accounts Ledger" className="col-md-4" options={this.state.account_ledger} value={this.state.formData.ledger2_id} required="false" ></Selectbox>
 
                     <Textbox label="Amount" required="false" modelName="amount"  className="col-md-4"></Textbox>
                     {/* <Selectbox modelName="order_id" label="Order No" className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox> */}
+                    <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
 
                     </div>
                     <div className="row">
 
-                    <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                     <Textbox label="Track No" required="false" modelName="slno"  className="col-md-4"></Textbox>
                     </div>
                    
@@ -315,7 +318,7 @@ class AddReceipt extends PureComponent{
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
                                             <tr>
-                                                <td><Selectbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'ledger_id' ]} modelName={[field.name, 'ledger_id']} value={field.name,'ledger_id'} required="false" options={this.state.ledger_group} label="Accounts Ledger"></Selectbox></td>
+                                                <td><Selectbox noPlaceholder withoutMargin showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'ledger_id' ]} modelName={[field.name, 'ledger_id']} value={field.name,'ledger_id'} required="false" options={this.state.account_ledger} label="Accounts Ledger"></Selectbox></td>
 
                                                 <td><Textbox noPlaceholder withoutMargin required="false" showLabel={false} className="col-md-12" field={field} fieldKey={[ field.fieldKey, 'narration' ]} modelName={[field.name, 'narration']} value={field.narration} label="Narration"></Textbox></td>
 

@@ -434,13 +434,13 @@ class AddGeneralPurchaseOrder extends PureComponent{
                    </div>
                    <div className="row">
                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
-                       <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
+                       {/* <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox> */}
                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
+                       <Selectbox modelName="payment_mode"  label="Payment Mode" className="col-md-4" options={paymentMode} value={this.state.formData.payment_mode} ></Selectbox>
 
                    </div>
                     
                   <div className="row">
-                       <Selectbox modelName="payment_mode"  label="Payment Mode" className="col-md-4" options={paymentMode} value={this.state.formData.payment_mode} ></Selectbox>
                       <Form.Item name={'payment_terms_conditions'} label="Terms And Conditions" className="col-md-8">
                                             <Input.TextArea addonBefore="Terms and Conditions"  />
                     </Form.Item>

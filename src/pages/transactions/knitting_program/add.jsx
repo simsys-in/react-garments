@@ -485,8 +485,9 @@ class AddKnittingProgram extends PureComponent{
                     <div className="row">
 
                     <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
-                    <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
+                    {/* <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox> */}
                    <Selectbox modelName="order_id" autoFocus label="Order No" onChange={(order_id) => this.getLedgerForOrderAndProcessID(order_id)} className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
+                      <Selectbox modelName="process_id" label="Process" disabled className="col-md-4" options={this.state.process} value={this.state.formData.process_id} onChange={this.getLedgerForOrderAndProcessID} ></Selectbox>
                    </div>
 
 
@@ -494,7 +495,6 @@ class AddKnittingProgram extends PureComponent{
                         
 
                    <div className="row">
-                      <Selectbox modelName="process_id" label="Process" disabled className="col-md-4" options={this.state.process} value={this.state.formData.process_id} onChange={this.getLedgerForOrderAndProcessID} ></Selectbox>
                       
                        <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} ></Selectbox>
 

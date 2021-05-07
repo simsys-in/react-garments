@@ -5,7 +5,7 @@ import { getRequest, deleteRequest } from '../../../helpers/apihelper';
 import { seo } from '../../../helpers/default';
 import { withRouter } from 'react-router';
 import DataTable from '../../../components/Datatable';
-// import Report from './report';
+import Report from './report';
 
 
 class ListReceipt extends PureComponent {
@@ -44,7 +44,7 @@ class ListReceipt extends PureComponent {
         },
         {
           label: ' Accounts Ledger ',
-          field: 'ledger_group',
+          field: 'account_ledger',
           width: "10vw",
         },
         {
@@ -97,24 +97,24 @@ class ListReceipt extends PureComponent {
     })
   }
 
-  // hideMoal = () => {
-  //   this.setState({
-  //     ...this.state,
-  //     showPrint : false,
-  //     selectedItem : {}
-  //   }, () => {
-  //     window.location.reload();
-  //   })
-  // }
+  hideMoal = () => {
+    this.setState({
+      ...this.state,
+      showPrint : false,
+      selectedItem : {}
+    }, () => {
+      window.location.reload();
+    })
+  }
 
-  // showPrint = (record) => {
+  showPrint = (record) => {
 
-  //   this.setState({
-  //     ...this.state,
-  //     showPrint : true,
-  //     selectedItem : record
-  //   })
-  // }
+    this.setState({
+      ...this.state,
+      showPrint : true,
+      selectedItem : record
+    })
+  }
 
 
   deleteReceipt = (user) => {
@@ -144,7 +144,7 @@ class ListReceipt extends PureComponent {
           item.action =  <Space size="middle">
           <Button type="primary" onClick={() => this.editReceipt(item.id)} icon={<EditOutlined />} size="middle" />
           <Button type="default" color="error" danger onClick={() => this.deleteReceipt(item)} icon={<DeleteOutlined />} size="middle" />
-          {/* <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" /> */}
+          <Button type="default" onClick={() => this.showPrint(item)} icon={<PrinterOutlined />} size="middle" />
 
         </Space>
 
@@ -161,17 +161,17 @@ class ListReceipt extends PureComponent {
     // }
   }
 
-  // printDiv = () => {
-  //   var printContents = document.getElementById('printableArea').innerHTML;
-  //    var originalContents = document.body.innerHTML;
+  printDiv = () => {
+    var printContents = document.getElementById('printableArea').innerHTML;
+     var originalContents = document.body.innerHTML;
 
-  //    document.body.innerHTML = printContents;
+     document.body.innerHTML = printContents;
 
-  //    window.print();
+     window.print();
 
-  //    document.body.innerHTML = originalContents;
-  //    window.location.reload();
-  // }
+     document.body.innerHTML = originalContents;
+     window.location.reload();
+  }
 
   render() {
     return (
@@ -186,7 +186,7 @@ class ListReceipt extends PureComponent {
         </div>
         {/* <Table className="table-scroll" columns={this.state.columns}  dataSource={this.state.data} /> */}
         <DataTable data={this.state} ></DataTable>
-        {/* <Modal
+        <Modal
           title="Receipt"
           centered
           width={1000}
@@ -196,7 +196,7 @@ class ListReceipt extends PureComponent {
           onCancel={() => this.hideMoal(false)}
         >
           <Report itemId={this.state.selectedItem.id} id="printableArea" />
-        </Modal> */}
+        </Modal>
       </Fragment>
     )
   }

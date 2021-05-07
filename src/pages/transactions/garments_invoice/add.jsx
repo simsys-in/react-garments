@@ -628,17 +628,17 @@ class AddGarmentsInvoice extends PureComponent{
                     <div className="row">
                        <Selectbox modelName="ledger_id" autoFocus label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getGarmentsDeliveryNoteInventoryDetails} required="true"></Selectbox>
                        <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
-                   <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
+                   <Selectbox modelName="marketing_user_id"  label="Marketed By" className="col-md-4" options={this.state.user_data} value={this.state.formData.marketing_user_id} ></Selectbox>
+                   {/* <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox> */}
                    </div>
                     <div className="row">
-                   <Selectbox modelName="marketing_user_id"  label="Marketed By" className="col-md-4" options={this.state.user_data} value={this.state.formData.marketing_user_id} ></Selectbox>
                    <Textbox label="Delivery Address" modelName="delivery_address" required="false" className="col-md-4"></Textbox>
                      <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
+                     <Textbox label="Vehicle No" modelName="vehicle_no" required="false" className="col-md-4"></Textbox>
                        
                    </div>
-                   <div className="row">
-                     <Textbox label="Vehicle No" modelName="vehicle_no" required="false" className="col-md-4"></Textbox>
-                    </div>
+                   {/* <div className="row">
+                    </div> */}
 
                    
 
