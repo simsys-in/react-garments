@@ -56,7 +56,7 @@ class ListPayment extends PureComponent {
           width: "10vw",
         },
 
-         
+        
        
         {
           label: 'Action',

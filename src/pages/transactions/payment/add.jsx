@@ -34,6 +34,7 @@ class AddPayment extends PureComponent{
                 vou_date : moment(),
                 ledger_id : "",
                 ledger2_id : '',
+                slno: '',
                 accounts : [
                     {  
                         vou_id: null,

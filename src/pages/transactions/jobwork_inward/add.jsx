@@ -342,8 +342,8 @@ class AddJobwork_Inward  extends PureComponent{
         })
     }
 
-    getProcessSBForOrderID = (order_id) => {
-        getRequest('garments/getProcessSBForOrderID?order_id=' + order_id).then(data => {
+    getProcessSBForOrderIDAndProcessType = (order_id) => {
+        getRequest('garments/getProcessSBForOrderIDAndProcessType?order_id=' + order_id).then(data => {
             if(data.status === "info")
             {
                 this.setState({
@@ -355,7 +355,7 @@ class AddJobwork_Inward  extends PureComponent{
     }
 
     onOrderIDChange = (order_id) => {
-        this.getProcessSBForOrderID(order_id);
+        this.getProcessSBForOrderIDAndProcessType(order_id);
         this.getSizesForOrderID(order_id);
         this.getJobworkOutwardColorDetails(order_id);
         this.getLedgerForOrderAndProcessID(this.state.formData.process_id)
