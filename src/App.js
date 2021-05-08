@@ -200,6 +200,9 @@ import ListShift from './pages/masters/shift/list'
 
 //Shortage Program
 import ShortageProgram from './pages/reports/ShortageProgram'
+
+import Accounts from './pages/reports/Accounts'
+
 //Receipt 
 import AddReceipt from './pages/transactions/receipt/add'
 import ListReceipt from './pages/transactions/receipt/list'
@@ -625,6 +628,9 @@ class App extends React.PureComponent
                               <Route exact path="/transactions/add_receipt" component={AddReceipt} />
                               <Route exact path="/transactions/edit_receipt/:id" component={AddReceipt} />
                               <Route exact path="/transactions/list_receipt" component={ListReceipt} />
+
+                              <Route exact path="/reports/accounts" component={Accounts} />
+                              
 
 
 

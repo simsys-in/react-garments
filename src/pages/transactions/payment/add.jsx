@@ -442,6 +442,7 @@ class AddPayment extends PureComponent{
                            </Form.Item>
                        </div>
                    </div>
+                   </div>
 
 
                    
