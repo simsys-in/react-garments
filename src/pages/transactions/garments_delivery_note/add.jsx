@@ -559,13 +559,13 @@ class AddGarmentsDeliveryNote extends PureComponent{
                    </div>
 
                    <div className="row">
-                   <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
+                   {/* <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox> */}
                      <Selectbox modelName="order_id" label="Order No"  className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
                    <Selectbox modelName="marketing_user_id" required="false" label="Marketed By" className="col-md-4" options={this.state.user_data} value={this.state.formData.marketing_user_id} ></Selectbox>
+                   <Textbox label="Vehicle No" modelName="vehicle_no" required="false"  className="col-md-4"></Textbox>
 
                    </div>
                    <div className="row">
-                   <Textbox label="Vehicle No" modelName="vehicle_no" required="false"  className="col-md-4"></Textbox>
                      <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                        
                    </div>

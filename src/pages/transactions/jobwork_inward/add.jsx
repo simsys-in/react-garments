@@ -636,13 +636,13 @@ class AddJobwork_Inward  extends PureComponent{
 
                         <Datebox label="Vou Date" value={this.state.formData.vou_date}  modelName="vou_date" className="col-md-4"></Datebox>
                    
-                        <Textbox label="Vou No" modelName="vouno"  className="col-md-4"></Textbox>
+                        {/* <Textbox label="Vou No" modelName="vouno"  className="col-md-4"></Textbox> */}
+                        <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
 
 
                     </div>
                    
                     <div className="row">
-                        <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
                         <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                     </div>
 

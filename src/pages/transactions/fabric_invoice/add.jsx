@@ -457,21 +457,21 @@ class AddFabricInvoice extends PureComponent{
                        
                             <Selectbox autoFocus modelName="ledger_id" label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id} onChange={this.getFabricInwardInventoryDetails} ></Selectbox>
                             <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
-                        <Textbox label="Vou No" modelName="vouno"  className="col-md-4"></Textbox>
+                        {/* <Textbox label="Vou No" modelName="vouno"  className="col-md-4"></Textbox> */}
+                       <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID} className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
                        </div>
                    
                    
                   
                    <div className="row">
-                       <Selectbox modelName="order_id" label="Order No" onChange={this.getProcessSBForOrderID} className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>
                        <Selectbox modelName="process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id}  ></Selectbox>
                        <Textbox label="Ref No" required="false" modelName="refno"  className="col-md-4"></Textbox>
+                       <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                    </div>
 
                   
 
                    <div className="row">
-                       <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                        <Textbox label="Vehicle No" modelName="vehicle_no" required="false" className="col-md-4"></Textbox>
                    </div>
                    
@@ -521,9 +521,17 @@ class AddFabricInvoice extends PureComponent{
 
                                                <td> <Numberbox withoutMargin required="false" noPlaceholder className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'dia' ]} required = 'false' modelName={[field.name, 'dia']} disabled value={[field.name, 'dia']} label="Dia"></Numberbox> </td>
 
-                                               <td> <Numberbox withoutMargin required="false" noPlaceholder className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" max={this.state.formData.fabric_invoice_inventory[index]['max_roll']} onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox></td>
+                                               <td> <Numberbox withoutMargin required="false" noPlaceholder className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'roll' ]}  modelName={[field.name, 'roll']} value={[field.name, 'roll']} label="Roll" 
+                                               
+                                            //    max={this.state.formData.fabric_invoice_inventory[index]['max_roll']} 
+                                               
+                                               onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox></td>
 
-                                               <td><Numberbox withoutMargin required="false" noPlaceholder className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']} max={this.state.formData.fabric_invoice_inventory[index]['max_weight']} label="Weight" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox></td>
+                                               <td><Numberbox withoutMargin required="false" noPlaceholder className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'weight' ]}  modelName={[field.name, 'weight']} value={[field.name, 'weight']}
+                                               
+                                            //    max={this.state.formData.fabric_invoice_inventory[index]['max_weight']} 
+                                               
+                                               label="Weight" onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox></td>
 
                                                <td><Numberbox withoutMargin required="false" noPlaceholder className="col-md-12" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'rate' ]}  modelName={[field.name, 'rate']} value={[field.name, 'rate']} onChange={(ev) => this.setTOTAL(ev,field.fieldKey)} label="Rate"></Numberbox></td>
                                                <td>  <Numberbox withoutMargin required="false" noPlaceholder className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} label="Amount" disabled onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox></td>

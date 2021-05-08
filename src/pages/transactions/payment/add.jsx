@@ -348,7 +348,7 @@ class AddPayment extends PureComponent{
                         {/* <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox> */}
                         <Textbox label="Track No" modelName="slno" required="false" className="col-md-4"></Textbox>
                      {/* <Textbox label="Track No" modelName="narration" required="false" className="col-md-4"></Textbox> */}
-                   </div>
+                   {/* </div> */}
                   
 
                     <br/>
