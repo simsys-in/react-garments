@@ -71,8 +71,8 @@ class ShortageProgram extends PureComponent {
 
         
       seo({
-          title: 'ShortageProgram',
-          metaDescription: 'ShortageProgram'
+          title: 'Shortage Program',
+          metaDescription: 'Shortage Program'
         });
     // })
     }

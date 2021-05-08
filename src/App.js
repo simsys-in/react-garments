@@ -341,7 +341,7 @@ import AddJobworkInvoice  from './pages/transactions/jobwork_invoice/add'
 import ListJobworkInvoice from './pages/transactions/jobwork_invoice/list'
 
 
-let interval;
+// let interval;
 const { Content } = Layout;
 class App extends React.PureComponent
 {
@@ -353,18 +353,18 @@ class App extends React.PureComponent
   }
 
   componentDidMount = () => {
-    interval = setInterval(() => {
-      if(this.props.store.login.login)
-      {
+    // interval = setInterval(() => {
+    //   if(this.props.store.login.login)
+    //   {
 
-        postRequest('core/verifyLogin').then(function(data){
-          if(data.type === "unauthorized")
-          {
-            message.error(data.message);
-          }
-        })
-      }
-    }, 10000);
+    //     postRequest('core/verifyLogin').then(function(data){
+    //       if(data.type === "unauthorized")
+    //       {
+    //         message.error(data.message);
+    //       }
+    //     })
+    //   }
+    // }, 10000);
     localStorage.setItem("api", api);
     
     postRequest('core/verifyLogin').then(function(data){
@@ -379,9 +379,9 @@ class App extends React.PureComponent
     }
   }
   
-  componentWillUnmount() {
-    clearInterval(interval);
-  }
+  // componentWillUnmount() {
+  //   clearInterval(interval);
+  // }
 
   render (){
 
@@ -401,6 +401,7 @@ class App extends React.PureComponent
                     <div className="main-content">
                       {/* <Animated animationIn="fadeInUp" animationOut="fadeInDown" animationInDuration={400} animationOutDuration={400} isVisible={true}> */}
                     <div className="main-container">
+                            <label style={{textDecoration : 'underline'  }} > { localStorage.getItem("title") } </label>
                             <Switch >
 
                               <Route exact path="/" component={Dashboard} />

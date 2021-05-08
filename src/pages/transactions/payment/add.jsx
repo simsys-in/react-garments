@@ -88,12 +88,9 @@ class AddPayment extends PureComponent{
     setTOTAL =() => {
         var values =  this.formRef.current.getFieldValue();
         var accounts = values.accounts;
-        var total_amount = 0;
+        var total_amount = Number(values.amount);
         
         accounts.map((item, index) => {
-            // console.log(item);
-        
-                
                 total_amount += Number(item.amount);
                                
                 if(index === accounts.length - 1)
@@ -245,15 +242,11 @@ class AddPayment extends PureComponent{
 
     addAccounts = () => {
         var newAccounts = {
-                        vou_id: null,
-                        ledger_id: null,
-                        narration:'',
-                        percentage: "",
-                        amount: "",
- 
-            
-            
-            
+            vou_id: null,
+            ledger_id: null,
+            narration:'',
+            percentage: "",
+            amount: "",
         }
 
         var oldAccountsArray = this.state.formData.accounts;
@@ -333,10 +326,9 @@ class AddPayment extends PureComponent{
                     >
                         
                     <div className="row">
-
-                    <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
-                    <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox>
-                    <Textbox label="Ref No" modelName="refno" required="false" className="col-md-4"></Textbox>
+                        <Datebox label="Vou Date" autoFocus value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
+                        <Textbox label="Ref No" modelName="refno" required="false" className="col-md-4"></Textbox>
+                        <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id}  ></Selectbox>
                    </div>
 
 
@@ -344,16 +336,17 @@ class AddPayment extends PureComponent{
                         
 
                    <div className="row">
-                    <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger_name} value={this.state.formData.ledger_id}  ></Selectbox>
-                   <Selectbox modelName="ledger2_id" label="Accounts Ledger" className="col-md-4" options={this.state.account_ledger} value={this.state.formData.ledger2_id} required="false"  ></Selectbox>
-                    <Textbox modelName="amount"  label="Amount" className="col-md-4" ></Textbox>
+                        <Selectbox modelName="ledger2_id" label="Accounts Ledger" className="col-md-4" options={this.state.account_ledger} value={this.state.formData.ledger2_id} required="false"  ></Selectbox>
+                        <Numberbox modelName="amount"  label="Amount" className="col-md-4" onChange={this.setTOTAL} ></Numberbox>
+                        <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
                    </div>
                       
 
 
                   
                    <div className="row">
-                     <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
+                        {/* <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox> */}
+                        <Textbox label="Track No" modelName="slno" required="false" className="col-md-4"></Textbox>
                      {/* <Textbox label="Track No" modelName="narration" required="false" className="col-md-4"></Textbox> */}
                    </div>
                   
@@ -406,7 +399,7 @@ class AddPayment extends PureComponent{
                                                                 </td>
                                                                
                                                                 <td>
-                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} label="Amount"  onChange={(ev) => this.setTOTAL(ev,field.fieldKey)}></Numberbox>
+                                                                <Numberbox noPlaceholder required="false" withoutMargin className="col-md-12"  showLabel={false} field={field} fieldKey={[ field.fieldKey, 'amount' ]}  modelName={[field.name, 'amount']} value={[field.name, 'amount']} label="Amount"  onChange={(ev) => this.setTOTAL()}></Numberbox>
  
                                                                 </td>
                                                                 

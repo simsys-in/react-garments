@@ -54,8 +54,8 @@ class OrderStatus extends PureComponent {
        
         
       seo({
-          title: 'OrderStatus',
-          metaDescription: 'OrderStatus'
+          title: 'Order Status',
+          metaDescription: 'Order Status'
         });
     // })
     }
