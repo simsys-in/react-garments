@@ -33,9 +33,10 @@ class AddJobworkOutward extends PureComponent{
                 mobile :"",
                 vehicle_no : "",
                 style_id : "",
-                
+                order_id: null,
                 status : 'active',
                 vou_date : moment(),
+    
                 jobwork_outward_inventory : [
                     {  
                         color_id : null,
@@ -48,7 +49,7 @@ class AddJobworkOutward extends PureComponent{
                         size7 : 0,
                         size8 : 0,
                         size9 : 0,
-                        order_id : null,
+                        
                         qty : 0,
                         
                         
@@ -60,13 +61,13 @@ class AddJobworkOutward extends PureComponent{
                     {
                         product_id : '',
                         qty : '',
-                        unit_id : ''
+                        unit_id : '',
+                        weight: ''
                     }
                 ]
             },
             size_data_for_order : [],
             unit_data : [],
-            ledger_category : [],
             ledger : [],
             product_data: [],
             process : [],
@@ -131,11 +132,11 @@ class AddJobworkOutward extends PureComponent{
         })
     }
 
-    getCuttingProgramColorDetails = (order_id,from_process_id) => {
+    getCuttingProgramColorDetails = (order_id,process_id) => {
         console.log(this.state.formData.order_id)
-        if(!this.id && issetNotEmpty(order_id) && issetNotEmpty(from_process_id))
+        if(!this.id && issetNotEmpty(order_id) && issetNotEmpty(process_id))
         {
-                getRequest('garments/getCuttingProgramColorDetails?order_id=' + order_id + "&from_process_id=" + from_process_id).then(data => {
+                getRequest('garments/getCuttingProgramColorDetails?order_id=' + order_id + "&process_id=" + process_id).then(data => {
                     if(data.status === "info")
                     {
                         var newArr = data.data;
@@ -184,18 +185,7 @@ class AddJobworkOutward extends PureComponent{
         })
     }
 
-    getLedgerCategorySB = () => {
-        getRequest('garments/getLedgerCategorySB').then(data => {
-            if(data.status === "info")
-            {
-                this.setState({
-                    ...this.state,
-                    ledger_category : data.data
-                })
-            }
-        })
-    }
-
+    
 
     getFabricsSB = () => {
         
@@ -219,7 +209,7 @@ class AddJobworkOutward extends PureComponent{
                     ...this.state,
                     order_no : data.data
                 })
-            }
+            }   
         })
     }
 
@@ -402,7 +392,6 @@ class AddJobworkOutward extends PureComponent{
 
     componentDidMount() {
         this.getOrderSB();
-    
         this.getAllLedgerSB();
         this.getProcessSB();
         this.getFabricsSB();
@@ -608,7 +597,7 @@ class AddJobworkOutward extends PureComponent{
             size7 : 0,
             size8 : 0,
             size9 : 0,
-            order_id : null,
+
             qty : 0,
             
             
@@ -686,6 +675,7 @@ class AddJobworkOutward extends PureComponent{
     addJobworkOutwardProduct = () => {
         var newJobworkOutwardProduct = {
            product_id : '',
+           weight: '',
            qty : '',
            unit_id : ''
             
@@ -723,7 +713,7 @@ class AddJobworkOutward extends PureComponent{
     checkButtonDisabled = () => {
         const FORMDATA = this.state.formData;
 
-        if(issetNotEmpty(FORMDATA.order_id) && issetNotEmpty(FORMDATA.from_process_id) && issetNotEmpty(FORMDATA.to_process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.style_id)) 
+        if(issetNotEmpty(FORMDATA.order_id) && issetNotEmpty(FORMDATA.to_process_id) && issetNotEmpty(FORMDATA.ledger_id) && issetNotEmpty(FORMDATA.vou_date) && issetNotEmpty(FORMDATA.vouno)  && issetNotEmpty(FORMDATA.style_id)) 
         {
             var selectedItems = _.filter(FORMDATA.jobwork_outward_inventory, (item) => {
                 // console.log(item)
@@ -770,38 +760,31 @@ class AddJobworkOutward extends PureComponent{
                     <div className="row">
 
                    <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange} className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>  
-                    <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
+                   <Selectbox modelName="to_process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.process_id} onChange={(process_id) => {this.getLedgerForOrderAndProcessID(process_id); this.getCuttingProgramColorDetails(this.state.formData.order_id, process_id)}} ></Selectbox>
+                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
                     {/* <Textbox label="Vou No" modelName="vouno" required="false" className="col-md-4"></Textbox> */}
                     {/* <Selectbox modelName="order_id" autoFocus label="Order No" onChange={this.onOrderIDChange} className="col-md-4" options={this.state.order_no} value={this.state.formData.order_id}  ></Selectbox>   */}
-                       <Selectbox modelName="from_process_id" label="From Process" className="col-md-4" options={this.state.process} value={this.state.formData.from_process_id} onChange={(from_process_id) => this.getCuttingProgramColorDetails(this.state.formData.order_id, from_process_id)} ></Selectbox>
+                       {/* <Selectbox modelName="from_process_id" label="From Process" className="col-md-4" options={this.state.process} value={this.state.formData.from_process_id} onChange={(from_process_id) => this.getCuttingProgramColorDetails(this.state.formData.order_id, from_process_id)} ></Selectbox> */}
                    </div>
 
 
                    <div className="row">
 
-                       <Selectbox modelName="to_process_id" label="Process" className="col-md-4" options={this.state.process} value={this.state.formData.to_process_id} onChange={this.getLedgerSBForProcessId} ></Selectbox>
+                    <Datebox label="Vou Date" value={this.state.formData.vou_date} modelName="vou_date" className="col-md-4"></Datebox>
                        
-                       <Selectbox modelName="ledger_id"  label="Ledger Name" className="col-md-4" options={this.state.ledger} value={this.state.formData.ledger_id} onChange={this.getMobileForLedgerId}></Selectbox>
                     <Selectbox disabled modelName="style_id" label="Style" required="false" className="col-md-4" options={this.state.style_data} value={this.state.formData.style_id}  ></Selectbox>
-                   <Selectbox modelName="ledger_category_id" label="Ledger Category" onChange={this.getLedgerSBForLedgerCategoryID} className="col-md-4" options={this.state.ledger_category} value={this.state.formData.ledger_category_id}  ></Selectbox>
+                    <Textbox modelName="mobile" disabled label="Mobile" className="col-md-4" required="false"></Textbox>
+                   {/* <Selectbox modelName="ledger_category_id" label="Ledger Category" onChange={this.getLedgerSBForLedgerCategoryID} className="col-md-4" options={this.state.ledger_category} value={this.state.formData.ledger_category_id}  ></Selectbox> */}
                    </div>
                         
 
-                   <div className="row">
-                   {/* <Selectbox modelName="ledger_category_id" label="Ledger Category" onChange={this.getLedgerSBForLedgerCategoryID} className="col-md-4" options={this.state.ledger_category} value={this.state.formData.ledger_category_id}  ></Selectbox> */}
-
-                       
-                    <Textbox modelName="mobile" disabled label="Mobile" className="col-md-4" required="false"></Textbox>
+                   <div className="row">         
                      <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
-
-
-                   </div>
-                   <div className="row">
-                     <Textbox label="Narration" modelName="narration" required="false" className="col-md-4"></Textbox>
-                     
                    <Textbox label="Vehicle No" required="false" modelName="vehicle_no"  className="col-md-4"></Textbox>
                    </div>
 
+
+                 
                    
                     <br/>
                     <div className="row">

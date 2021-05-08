@@ -42,6 +42,7 @@ class AddOrderProgram extends PureComponent{
                     {
                         process_id : '',
                         ledger_id : '',
+                        sno : 1 ,
                         rate : '',
                         waste : ''
                     }
@@ -249,6 +250,7 @@ class AddOrderProgram extends PureComponent{
     addOrderProcess = () => {
         var newOrderProcess = {
             process_id : '',
+            sno: this.state.formData.order_process.length + 1,
             ledger_id : '',
             rate : '',
             waste : '',
@@ -431,7 +433,7 @@ class AddOrderProgram extends PureComponent{
                                 <table id="dynamic-table" className="table table-bordered" width="100%">
                                 <thead >
                                     <tr>
-                                        <th>S.No</th>
+                                        <th width='60px'>S.No</th>
                                         <th>Process</th>
                                         <th>Ledger</th>
                                         <th>Rate</th>
@@ -445,7 +447,10 @@ class AddOrderProgram extends PureComponent{
                                     { (fields, { add, remove } )=> (
                                         fields.map((field, index) => (
                                             <tr>
-                                                <td style={{border:'1px solid blue', paddingLeft:'5'}}>{field.sno = index +1} </td>
+                                                {/* <td style={{border:'1px solid blue', paddingLeft:'5'}}>{field.sno = index +1}</td> */}
+                                                <td ><Numberbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'sno']} modelName={[field.name, 'sno']}  label="S.NO" defaultValue={Number(Number(index) + 1)}  disabled noPlaceholder withoutMargin ></Numberbox></td>
+                                                
+
                                                 <td>    <Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'process_id' ]} modelName={[field.name, 'process_id']}  label="Process" value={field.name, 'process_id'} options={this.state.process} noPlaceholder withoutMargin ></Selectbox></td>
 
                                                 <td> <Selectbox className="col-md-12" required="false" showLabel={false} field={field} fieldKey={[ field.fieldKey, 'ledger_id' ]} modelName={[field.name, 'ledger_id']}  label="Ledger" value={field.name, 'ledger'} options={this.state.ledger_name} noPlaceholder withoutMargin ></Selectbox></td>

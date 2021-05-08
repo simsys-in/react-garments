@@ -14,8 +14,8 @@ import Selectbox from '../../../components/Inputs/Selectbox';
 let interval;
 const processType = [
     {
-        name : "Inhome Process",
-        value : 'inhome_process'
+        name : "Inhouse Process",
+        value : 'inhouse_process'
     },
     {
         name : "Outsource Process",

@@ -5,7 +5,7 @@ import { getRequest } from '../../helpers/apihelper';
 import _ from 'lodash'
 import { getStandardDate, getDifferentBetweenTwoDate} from '../../helpers/timer';
 
-import {Button} from 'antd';
+import {Button, Divider} from 'antd';
 import Selectbox from '../../components/Inputs/Selectbox';
 // import Selectbox from '../../../Inputs/Selectbox';
 // import Numberbox from '../../../Inputs/Numberbox';
@@ -21,7 +21,10 @@ class OrderStatus extends PureComponent {
             order_no : [],
 
             orderstatus_details : {
-                processDetails : []
+                yarnprogram: [],
+                cuttingprogram:[],
+                processDetails : [],
+                fabricprogram : []
             },
         };
 
@@ -151,13 +154,96 @@ class OrderStatus extends PureComponent {
                                                 </table>
                                             </div>
                                     </div>
-                                
+
                                     <div className="row">
                                     <div className="col-md-12" style={{ padding : 0 , borderRight:'1px solid grey'}}>
                                                 <table  width="100%"  >
                                                     <thead>
+                                                    <td colSpan={6} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid gray' }}> <h5> YARN DETAILS </h5> </td>
                                                         <tr  style={{ backgroundColor : 'lightgray' }}>
                                                         
+                                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} > FROM PROCESS</th>
+                                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} > TO PROCESS</th>
+
+                                                            {/* <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >TO PROCESS</th> */}
+                                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >LEDGER</th>
+                                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >DELIVERY QTY</th>
+                                                            {/* <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} > DELIVERY QTY</th> */}
+                                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >RECEIVED QTY</th>
+                                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>SHORTAGE</th>
+
+                                                            {/* <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >SHORTAGE </th> */}
+                                                        
+                                                        
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody >
+                                                    { orderstatus_details.yarnprogram.map((item, index) => 
+                                                            <tr key={index}>
+                                                               <td style={{paddingTop: item.fromprocess === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.fromprocess }</td>
+                                                            <td style={{paddingTop: item.toprocess === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.toprocess }</td>
+                                                            <td style={{paddingTop: item.ledger === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.ledger }</td>
+                                                            
+                                                            <td style={{paddingTop: item.delivery_qty === "" ? '27px' : 'auto', paddingLeft : '5px' ,textAlign : 'right', borderLeft  : '1px solid grey'}}>{ item.delivery_qty }</td>
+                                                        
+                                                            <td style={{paddingTop: item.received_qty === "" ? '27px' : 'auto', paddingLeft : '5px' ,textAlign : 'right', borderLeft  : '1px solid grey'}}>{ item.received_qty }</td>
+                                                        
+                                                            <td style={{paddingTop: item.shortage === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px', borderRight:'1px solid gray'}}>{  item.delivery_qty - item.received_qty }</td>                                                             
+                                                            </tr>
+                                                        )}
+
+                                                       
+                                                        </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div className="col-md-12" style={{ padding : 0 , borderRight:'1px solid grey'}}>
+                                                <table  width="100%"  >
+                                                    <thead>
+                                                    <td colSpan={6} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid gray' }}> <h5> FABRIC DETAILS </h5> </td>
+                                                        <tr  style={{ backgroundColor : 'lightgray' }}>
+                                                        
+                                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} > FROM PROCESS</th>
+                                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} > TO PROCESS</th>
+
+                                                            {/* <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >TO PROCESS</th> */}
+                                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >LEDGER</th>
+                                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >DELIVERY QTY</th>
+                                                            {/* <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} > DELIVERY QTY</th> */}
+                                                            <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >RECEIVED QTY</th>
+                                                            <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>SHORTAGE</th>
+
+                                                            {/* <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >SHORTAGE </th> */}
+                                                        
+                                                        
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody >
+                                                    { orderstatus_details.fabricprogram.map((item, index) => 
+                                                            <tr key={index}>
+                                                               <td style={{paddingTop: item.fromprocess === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.fromprocess }</td>
+                                                            <td style={{paddingTop: item.toprocess === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.toprocess }</td>
+                                                            <td style={{paddingTop: item.ledger === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey'}}>{ item.ledger }</td>
+                                                            
+                                                            <td style={{paddingTop: item.delivery_qty === "" ? '27px' : 'auto', paddingLeft : '5px' ,textAlign : 'right', borderLeft  : '1px solid grey'}}>{ item.delivery_qty }</td>
+                                                        
+                                                            <td style={{paddingTop: item.received_qty === "" ? '27px' : 'auto', paddingLeft : '5px' ,textAlign : 'right', borderLeft  : '1px solid grey'}}>{ item.received_qty }</td>
+                                                        
+                                                            <td style={{paddingTop: item.shortage === "" ? '27px' : 'auto', paddingLeft : '5px' , borderLeft  : '1px solid grey', textAlign : 'right', paddingRight:'5px', borderRight:'1px solid gray'}}>{  item.delivery_qty - item.received_qty }</td>                                                             
+                                                            </tr>
+                                                        )}
+
+                                                       
+                                                        </tbody>
+                                                </table>
+                                            </div>
+                                    <div className="col-md-12" style={{ padding : 0 , borderRight:'1px solid grey'}}>
+                                                <table  width="100%"  >
+                                                    <thead>
+                                                    <td colSpan={6} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid gray' }}> <h5> CUTTING PROGRAM </h5> </td>
+
+                                                        <tr  style={{ backgroundColor : 'lightgray' }}>
+
                                                             <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} > PROCESS</th>
                                                             {/* <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >TO PROCESS</th> */}
                                                             <th style={{fontWeight:"bold", paddingLeft : '5px' , border: '1px solid gray', textAlign:"center"}} >LEDGER</th>
@@ -208,14 +294,16 @@ class OrderStatus extends PureComponent {
                                         <div className="col-md-12" style={{ padding : 0 }}>
                                             <table  width="100%" >
                                                 <thead>
-                                                    <tr  style={{ backgroundColor : 'lightgray' }}>
-                                                        <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>From Process</th>
-                                                        <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>To Process</th>
+                                                <td colSpan={6} style={{ backgroundColor : 'lightgray', textAlign: 'center', border : '1px solid gray' }}> <h5> JOBWORK DETAILS </h5> </td>
 
-                                                        <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>ledger</th>
-                                                        <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>Delivery Qty</th>
-                                                        <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>Recevied Qty</th>   
-                                                        <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>Shortage</th>
+                                                    <tr  style={{ backgroundColor : 'lightgray' }}>
+                                                        <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>FROM PROCESS</th>
+                                                        <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>TO PROCESS</th>
+
+                                                        <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>LEDGER</th>
+                                                        <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>DELIVERY QTY</th>
+                                                        <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>RECEIVED QTY</th>   
+                                                        <th style={{fontWeight:"bold", border : '1px solid gray', paddingLeft : '5px', textAlign:"center"}}>SHORTAGE</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
