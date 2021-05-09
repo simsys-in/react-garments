@@ -443,21 +443,14 @@ class AddPayment extends PureComponent{
                            </Form.Item>
                        </div>
                    </div>
+                  
 
 
                    
                </Form>
                
                 
-                {/* <div className="row"> 
-                    <div className="col-md-6">
-                        <pre> { JSON.stringify(this.formRef, null, 2)  } </pre>
-                    </div>
-                    <div className="col-md-6">
-                        <pre> { JSON.stringify(this.state.formData, null, 2)  } </pre>
-                    </div>
-
-                </div> */}
+               
                
             </Fragment>
         )
